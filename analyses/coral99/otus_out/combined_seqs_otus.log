@@ -1,0 +1,19 @@
+UclustOtuPicker parameters:
+Application:uclust
+Similarity:0.97
+enable_rev_strand_matching:False
+exact:False
+max_accepts:1
+max_rejects:8
+new_cluster_identifier:denovo
+optimal:False
+output_dir:/Users/Danielle/Documents/Data_Analysis/KI_Platy/analyses/coral99/otus_out
+prefilter_identical_sequences:True
+presort_by_abundance:True
+save_uc_files:True
+stable_sort:True
+stepwords:8
+suppress_sort:True
+word_length:8
+Num OTUs:234
+Result path: /Users/Danielle/Documents/Data_Analysis/KI_Platy/analyses/coral99/otus_out/combined_seqs_otus.txt

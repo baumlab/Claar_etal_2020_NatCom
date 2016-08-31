@@ -1,0 +1,3 @@
+# Constructed from biom file
+#OTU ID	KI14FSYM099	KI15aFSYM103	KI15bFSYM023	KI15cFSYM018	KI16aFSYM049
+Symbiodiniaceae;Symbiodinium	1.0	1.0	1.0	1.0	1.0

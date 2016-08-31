@@ -1,0 +1,20 @@
+Num samples: 5
+Num observations: 20
+Total count: 42076
+Table density (fraction of non-zero values): 0.560
+
+Counts/sample summary:
+ Min: 732.0
+ Max: 24298.0
+ Median: 5071.000
+ Mean: 8415.200
+ Std. dev.: 8503.180
+ Sample Metadata Categories: None provided
+ Observation Metadata Categories: taxonomy
+
+Counts/sample detail:
+ KI16aFSYM049: 732.0
+ KI15cFSYM018: 2296.0
+ KI15aFSYM103: 5071.0
+ KI15bFSYM023: 9679.0
+ KI14FSYM099: 24298.0

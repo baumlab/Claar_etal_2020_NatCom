@@ -1,0 +1,18 @@
+# Errors and warnings are written as a tab separated columns, with the first column showing the error or warning, and the second column contains the location of the error or warning, written as row,column, where 0,0 is the top left header item (SampleID).  Problems not specific to a particular data cell will be listed as having 'no location'.
+Errors -----------------------------
+Missing expected DNA sequence	1,2
+Missing expected DNA sequence	2,2
+Missing expected DNA sequence	3,2
+Missing expected DNA sequence	4,2
+Missing expected DNA sequence	5,2
+Missing expected DNA sequence	1,1
+Missing expected DNA sequence	2,1
+Missing expected DNA sequence	3,1
+Missing expected DNA sequence	4,1
+Missing expected DNA sequence	5,1
+Duplicate barcode  found.	1,1
+Duplicate barcode  found.	2,1
+Duplicate barcode  found.	3,1
+Duplicate barcode  found.	4,1
+Duplicate barcode  found.	5,1
+Warnings ---------------------------
