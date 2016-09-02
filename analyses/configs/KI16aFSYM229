@@ -1,0 +1,9 @@
+[general]
+project_name = KI_Platy
+researcher_email = dclaar@uvic.ca
+input_directory = /Volumes/Seagate_Blue/JuliaBaum_DanielleClaar-32138116_all/
+output_directory = /Volumes/Seagate_Blue/JuliaBaum_DanielleClaar-32138116_all/merged_reads/KI16aFSYM229/
+
+[files]
+pair_1= BL229_S198_L001_R1_001.fastq 
+pair_2= BL229_S198_L001_R2_001.fastq
