@@ -1,11 +1,16 @@
-## Extract, unzip, and prep raw data for processing
+#!/bin/bash
 
-# Look inside of data folder, and move all '*.fastq.gz' files to one folder for processing
-find /Volumes/Seagate_Blue/JuliaBaum_DanielleClaar-32138116/ -name '*.fastq.gz' -exec mv {} /Volumes/Seagate_Blue/JuliaBaum_DanielleClaar-32138116_all/ \;
+find . -type f -exec gunzip {} + # Unzip these files
+# They are going to get really big! And this may take quite some time!
 
-# Unzip these files - they are going to get really big! And this may take quite some time!
-find . -type f -exec gunzip {} +
+python make_configs.py # Make the Illumina-utils config files for the Bokulich QC method
 
-# Create a text file listing all forward (R1) and reverse (R2) reads, separated by commas
-ls -dm *_R1_* > R1.txt
-ls -dm *_R2_* > R2.txt
+python boku_qc.py # Run Bokulich QC method on all applicable files
+
+python make_merge_configs.py # Make the Illumina-utils config files for merging pairs
+
+python iu_merge_pairs.py # Merge pairs using Illumina-utils
+
+python iu_filter_merged_reads.py # Filter merged reads (MAX-MISMATCH=3) using Illumina-utils
+
+python rename.py # Rename merged files for downstream processing
