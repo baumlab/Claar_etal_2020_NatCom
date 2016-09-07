@@ -1,9 +1,0 @@
-[general]
-project_name = KI_Platy
-researcher_email = dclaar@uvic.ca
-input_directory = /Volumes/Seagate_Blue/JuliaBaum_DanielleClaar-32138116_all/
-output_directory = /Volumes/Seagate_Blue/JuliaBaum_DanielleClaar-32138116_all/merged_reads/
-
-[files]
-pair_1= KI14FSYM352_KI_Platy-QUALITY_PASSED_R1.fastq
-pair_2= KI14FSYM352_KI_Platy-QUALITY_PASSED_R2.fastq
