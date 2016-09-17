@@ -1,7 +1,7 @@
 ---
 title: "KI Platygyra Manuscript"
-author: "Danielle Claar, Kristina Tietjen, Julia Baum"
-date: "19 July 2016"
+author: "Danielle C Claar, Kristina L Tietjen, Ruth D Gates, Julia K Baum"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   pdf_document:
     fig_caption: yes
@@ -13,10 +13,11 @@ output:
     highlight: pygments
     number_sections: yes
     theme: cerulean
-csl: mee.csl
+csl: nature.csl
 bibliography: references.bib
 ---
 
+<!-- ## Install and source necessary packages -->
 ```{r, echo=FALSE}
   # devtools::install_github("cboettig/knitcitations@v1")
   library(knitcitations); cleanbib()
@@ -24,74 +25,53 @@ bibliography: references.bib
   library(bibtex)
 ```
 
-# Abstract
+# Summary
+*Summary goes here. Why are the Platys not bleached anymore*
+*150 words - Up to 150 words, no references,numbers, abbreviations, acronyms or measurements unless essential. It contains 2–3 sentences of basic-level introduction to the field; a brief account of the background and rationale of the work; a statement of the main conclusions (introduced by the phrase ‘Here we show’ or its equivalent); and 2–3 sentences putting the main findings into general context so it is clear how the results described have moved the field forwards*
+Basic level introduction 1 (corals and climate change) Basic level introduction 2 (what about the future of general resilience to climate change) Basic level introduction 3 (How might corals be resilient - Symbiodinium) Background 1 (coral bleaching debate) Background 2 (corals switching symbionts is good or bad?) Background 3 (corals can regain symbionts ONLY AFTER stress subsides) Here we show (different dominant symbionts drive symbiont diversity capacity) and (those pesky <2% symbionts are indeed important) and (corals can regain symbionts during an extended stress event - hopeful!) Now fit it into a general context
 
-*Abstract goes here. Why are the Platys not bleached anymore*
-
-
-
-# Introduction
-
+# Background *Need to rename using header requirements: The text may contain subheadings (less than six in total) of less than 40 characters (including spaces) each.*
+```{r, echo=FALSE, include=FALSE}
+citep("Article")
+```
 Intro goes here. Kiritimati, El Nino, coral bleaching, Platygyra, recovery, resilience
+*Articles are typically 3,000 words of text (not including Methods, summary or other sections), beginning with up to 500 words of referenced text expanding on the background to the work, before proceeding to a concise, focused account of the findings, ending with one or two short paragraphs of discussion.*
+(corals and climate change) (what about the future of general resilience to climate change) (El Ninos are terrible, this one was the worst so far, and they are getting worse)
+(How might corals be resilient - Symbiodinium) (coral bleaching debate) (corals switching symbionts is good or bad?) (corals can regain symbionts ONLY AFTER stress subsides which limits coral recovery when stress increases)
+Here, we tagged and sampled the same corals before, during, and immediately after the el nino event, on Kiritimati (something about Kiritimati). We used Illumina sequencing to evaluate changes in symbiodinium community structure coincident with the 2015-2016 major el nino event. The goal was to understand...why the hell these corals survived 10 months of extreme heat stress, and actually got better in the middle of it.
 
+# Findings
+*a concise, focused account of the findings, probably <2,000 words*
+Results Paragraph 1 (different dominant symbionts drive symbiont diversity capacity, also they didn't switch at commencement of bleaching event)
+*Figure about diversity*
+Results Paragraph 2 (<2% symbionts are indeed important) - can I calculate some sort of change score for the different types?
+*Figure of example sequence abundances, superimposed on coral 99 images*
+Results Paragraph 3 (Corals can regain symbionts during an extended stress event)
+
+# Discussion
+*one or two short paragraphs of discussion. Probably around 500 wds*
+Discussion Paragraph 1 (Methods like NGS are really important for understanding these changes in symbiont diversity, as well as for seeing those low aboundance symbionts)
+Discussion Paragraph 2 (What does their recovery tell us about the future of coral reefs?)... Why are Platys so excellent and what does that tell us about when coral resilience is threatened by extreme climatic events?
 
 # Methods
+*The Methods section should be written as concisely as possible but should contain all elements necessary to allow interpretation and replication of the results. As a guideline, Methods sections typically do not exceed 3,000 words.*
 
-Kiritimati basics
-Tagging corals and collecting samples
-DNA Extraction
-PCR and Cleanup
-Library Prep
-Illumina Sequencing (barcodes, region, etc)
-Sequence QC
-Sequence clustering
-Statistical Analysis
-
-## Tables
-
-```{r kable, echo=FALSE}
-library(knitr)
-
-x <- rnorm(100)
-y <- 2*x + rnorm(100)
-out <- lm(y ~ x)
-kable(summary(out)$coef, digits=2, caption="This is a GLM summary table.")
-```
-
-```{r xtable, results="asis", echo=FALSE, eval=FALSE, message=FALSE}
-library(xtable)
-tab <- xtable(summary(out)$coef, digits=c(0, 2, 2, 1, 2), 
-              caption="This is a GLM summary table.")
-print(tab, type="latex")
-```
-
-## Plots
-
-```{r carDataPlot, echo=FALSE, fig.cap="Relationship between x and y. The solid line is least-squares linear regression.", fig.width=4, fig.height=4}
-  plot(x, y)
-  abline(out)
-```
-
-
-
-## Citations
-
-The relationship was first described by
-`r citet("10.1111/j.1461-0248.2005.00827.x")`. However, there are also opinions
-that the relationship is spurious `r citep("10.1111/j.2041-210x.2012.00264.x")`.
-We used R for our calculations `r citep(citation())`, and we used package `knitcitations` `r citep(citation("knitcitations"))` to make the bibliography.
-
-
-# Results and discussion
-
-Why are Platys so excellent and what does that tell us about when coral resilience is threatened by extreme climatic events?
+## Field Information
+Kiritimati basics - located in the Central Equatorial Pacific, smack dab in the middle of the Nino 3.4 region (used to quantify el nino presence and strength), human disturbance gradient, bleaching event there (cite bleaching paper here)
+Tagging corals and collecting samples - transects, tagging corals, photoing corals, sampling corals, processing samples, storage in Guanidinium
+Taxa sampled - platy, favites, favia, etc.
+## Pre-processing and sequencing
+DNA Extraction - extraction protocol
+ITS2 region - it's annoying, but it's the best we've got right now
+PCR and Cleanup - Amy's method of PCR and cleanup
+Library Prep - Amy's method of library prep, include Illumina Sequencing information (barcodes, etc)
+## Post Processing
+Sequence QC - boku, then merge with illumina utils, max mismatch=3
+Sequence clustering - denovo clustering using UCLUST in QIIME, then compare to reference database to assign taxonomy
+Statistical Analysis - alpha diversity of sequence reads, co-occurence?, beta diversity?
 
 # References
-
+<!-- Insert references  -->
 ```{r, warning=FALSE, message=FALSE, echo=FALSE} 
-  write.bibtex(file="references.bib")
+  write.bibtex(entry=NULL, file="knitcitations.bib", append=FALSE)
 ```
-
-
-
-
