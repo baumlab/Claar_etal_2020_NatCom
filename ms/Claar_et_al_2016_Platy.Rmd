@@ -19,16 +19,31 @@ bibliography: references.bib
 
 <!-- ## Install and source necessary packages -->
 ```{r, echo=FALSE}
+
+  # install.packages('knitcitations')
+  # install.packages('bibtex')
+  # install.packages('qdap')
+
   # devtools::install_github("cboettig/knitcitations@v1")
   library(knitcitations); cleanbib()
   cite_options(citation_format = "pandoc", check.entries=FALSE)
   library(bibtex)
+  
+  # source('http://bioconductor.org/biocLite.R')
+  # biocLite('phyloseq')
+  # packageVersion('phyloseq')
+  library(phyloseq)
+  library("qdap") # to be able to use word count
 ```
 
+```{r, echo=FALSE, warning=FALSE, message=FALSE, incl=FALSE}
+  wc("") # to count words
+```
+  
+
+
 # Summary
-*Summary goes here. Why are the Platys not bleached anymore*
-*150 words - Up to 150 words, no references,numbers, abbreviations, acronyms or measurements unless essential. It contains 2–3 sentences of basic-level introduction to the field; a brief account of the background and rationale of the work; a statement of the main conclusions (introduced by the phrase ‘Here we show’ or its equivalent); and 2–3 sentences putting the main findings into general context so it is clear how the results described have moved the field forwards*
-Basic level introduction 1 (corals and climate change) Basic level introduction 2 (what about the future of general resilience to climate change) Basic level introduction 3 (How might corals be resilient - Symbiodinium) Background 1 (coral bleaching debate) Background 2 (corals switching symbionts is good or bad?) Background 3 (corals can regain symbionts ONLY AFTER stress subsides) Here we show (different dominant symbionts drive symbiont diversity capacity) and (those pesky <2% symbionts are indeed important) and (corals can regain symbionts during an extended stress event - hopeful!) Now fit it into a general context
+Ocean ecosystems worldwide are threatened by climate change-induced increases in seawater temperatures. Pulse warming events such as El Nino amplify these threats, causing massive losses of coral cover (e.g. 17% of coral reefs during the 1997/98 El Nino). The 2015/16 El Nino is currently the worst on record in terms of severity and longevity, yet despite massive coral mortality, some corals show resilience to this extreme event. Coral resilience is related to many factors, including the structure and flexibility of their internal symbiotic communities. Here we show that the ability of a coral to house a diverse suite of symbionts (*Symbiodinium*) is driven by the identity of the dominant *Symbiodinium* type. Additionally we show that, contrary to current opinion, symbionts present in miniscule abundances (<2%) are indeed important for coral recovery, and furthermore, that corals have the ability to regain symbionts during an extended stress event, providing hope for the future of coral resilience.
 
 # Background *Need to rename using header requirements: The text may contain subheadings (less than six in total) of less than 40 characters (including spaces) each.*
 ```{r, echo=FALSE, include=FALSE}
@@ -39,6 +54,10 @@ Intro goes here. Kiritimati, El Nino, coral bleaching, Platygyra, recovery, resi
 (corals and climate change) (what about the future of general resilience to climate change) (El Ninos are terrible, this one was the worst so far, and they are getting worse)
 (How might corals be resilient - Symbiodinium) (coral bleaching debate) (corals switching symbionts is good or bad?) (corals can regain symbionts ONLY AFTER stress subsides which limits coral recovery when stress increases)
 Here, we tagged and sampled the same corals before, during, and immediately after the el nino event, on Kiritimati (something about Kiritimati). We used Illumina sequencing to evaluate changes in symbiodinium community structure coincident with the 2015-2016 major el nino event. The goal was to understand...why the hell these corals survived 10 months of extreme heat stress, and actually got better in the middle of it.
+Coral reefs provide vital services, including food security and coastline protection, to coastal communities worldwide. These diverse, vibrant ecosystems are increasingly threatened by human impacts – both at a local scale from water pollution and overfishing, and at a global scale from ocean acidification and climate change. 
+
+Previously, corals have been shown to recover from bleaching only after the external stress (e.g. warming) has subsided.
+creating a particularly acute threat to coral reefs, which already live on the edge of their thermal tolerance.
 
 # Findings
 *a concise, focused account of the findings, probably <2,000 words*
@@ -55,6 +74,29 @@ Discussion Paragraph 2 (What does their recovery tell us about the future of cor
 
 # Methods
 *The Methods section should be written as concisely as possible but should contain all elements necessary to allow interpretation and replication of the results. As a guideline, Methods sections typically do not exceed 3,000 words.*
+
+``````{r, echo=FALSE, warning=FALSE, message=FALSE}
+path <- "/Volumes/Seagate_Blue/JuliaBaum_DanielleClaar-32138116_all/"
+biom_dir <- "otu_tables/"
+biom_file <- paste(path, biom_dir, "KI14FSYM004_otu_table.biom", sep = "")
+map_dir <- 
+map_file <- paste(path, map_dir, "", sep = "")
+ref_dir <- 
+ref_file <- 
+
+biom_otu_tax <- import_biom(biom_file, "greengenes")
+
+
+# Add sample data to the dataset using merge
+bmsd <- import_qiime_sample_data(map_file)
+class(bmsd)
+Bushman <- merge_phyloseq(biom_otu_tax, bmsd)
+
+import_biom(biom, treefilename, refseqfilename, parseFunction=parse_taxonomy_greengenes)
+import_biom(rich_dense_biom, treefilename, refseqfilename, parseFunction=parse_taxonomy_greengenes)
+
+```
+
 
 ## Field Information
 Kiritimati basics - located in the Central Equatorial Pacific, smack dab in the middle of the Nino 3.4 region (used to quantify el nino presence and strength), human disturbance gradient, bleaching event there (cite bleaching paper here)
