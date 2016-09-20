@@ -14,11 +14,11 @@ output:
     number_sections: yes
     theme: cerulean
 csl: nature.csl
-bibliography: references.bib
+bibliography: PapersLibrary_Bibtex.bib
 ---
 
 <!-- ## Install and source necessary packages -->
-```{r, echo=FALSE}
+```{r, echo=FALSE, incl=FALSE}
 
   # install.packages('knitcitations')
   # install.packages('bibtex')
@@ -48,11 +48,13 @@ Ocean ecosystems worldwide are threatened by climate change-induced increases in
 citep("Article")
 ```
 
-*El Nino is terrible, creating a particularly acute threat to coral reefs, which already live on the edge of their thermal tolerance.* El Niño is the positive phase of the ENSO (El Niño Southern Oscillation). El Niño is a natural climatic event that occurs when surface waters heat up in the equatorial Pacific, causing catastrophic effects on reef ecosystems by disrupting coral symbioses (i.e. coral bleaching). The 2015-2016 El Niño is the first major global event since 1997-1998, and has been declared the third global coral bleaching event by NOAA (cite Reef article). El Ninos are getting worse, threatening coral reefs and endangering the persistence of vital ecosystem services, threatening the food security and coastline protection of coastal communities worldwide. *This el nino is the worst yet* Kiritimati is at the epicenter of the El Niño event, and this region experienced severe thermal anomalies, *what were the anomalies - BAD, cite bleaching paper here*. *Kiritimati, with reefs ranging from shit to pristine, is at the epicenter of the El Nino impact area* *as stressors increase worldwide, all reefs (from shit to pristine) will be increasingly threatened as resilience and recovery are limited by overwhelming environmental stress*
+El Nino warming is terrible, creating a particularly acute threat to coral reefs, which already live on the edge of their thermal tolerance. El Niño, the positive phase of the ENSO (El Niño Southern Oscillation), is a natural climatic event that occurs when surface waters heat up in the equatorial Pacific, causing catastrophic effects on reef ecosystems by disrupting coral symbioses (i.e. coral bleaching). The 2015-2016 El Niño is the first major global event since 1997-1998, and has been declared the third global coral bleaching event by NOAA (cite Reef article). El Ninos are getting worse, threatening coral reefs and endangering the persistence of vital ecosystem services, threatening the food security and coastline protection of coastal communities worldwide. Kiritimati Atoll (Christmas Island), located in the Central Equatorial Pacific, is at the epicenter of this extreme El Niño event. Thermal anomalies were severe on Kiritimati, reaching an unprecedented (cite o h-g) XX number of DHW over a XX month long bleaching event, demolishing most of the reef (@Baum_inprep). *as stressors increase worldwide, all reefs (from shit to pristine) will be increasingly threatened as resilience and recovery are limited by overwhelming environmental stress* Kiritimati reefs range from heavily impacted to nearly pristine, and thus provides an ideal microcosm to investigate how reefs worldwide will respond to increasing environmental stress, and *XX* potential capacity for resilience and recovery.
 
-El nino warming threatens coral reefs by disrupting the dynamic symbiosis between coral and their internal symbiotic algae (Symbiodinium). This symbiosis is the foundation of reef ecosystems, and a critical element of reef resilience (van oppen and gates 2006). Corals host a diverse community of Symbiodinium, ranging along a continuum from 'selfish opportunistic symbionts' (e.g. some clade D Symbiodinium) which are better suited to sustained environmental stress than others, to 'intimately evolved symbionts' which provide exceptional amounts of nutrition to their coral host. Thus, although these relationships have developed over evolutionary time, the resilience of the coral symbiome is constantly shaped by dynamic coral-symbiont interactions (stat 2006). *We used to think that bleaching might be good - ABH* *And we do know that some symbio are "better" than others* *And then we said that bleaching is definitely bad* *But at least we do know that it allows changes to occur in the Symbiodinium community structure*
+El nino warming threatens coral reefs by disrupting the dynamic symbiosis between coral and their internal symbiotic algae (Symbiodinium). This symbiosis is the foundation of reef ecosystems, and a critical element of reef resilience (van oppen and gates 2006). Corals host a diverse community of Symbiodinium, ranging along a continuum from 'selfish opportunistic symbionts' (e.g. some clade D Symbiodinium) which are better suited to sustained environmental stress than others, to 'intimately evolved symbionts' which provide exceptional amounts of nutrition to their coral host (@Lesser:2013tu). Thus, although these relationships have developed over evolutionary time, the resilience of the coral symbiome is constantly shaped by dynamic coral-symbiont interactions (@Stat:2006ww). *We used to think that bleaching might be good - ABH says that corals bleach in order to expel suboptimal Symbiodinium types in exchange for optimal symbionts during the new conditions (@Buddemeier:1993bb, Baker:2001bf, @Buddemeier:2004vj)* *We do know that corals house background symbionts in low abundances (@Correa:2009jy, all the recent ngs studies...), but these relationships have been described as unstable (@Coffroth:2010ju, more cites?). *Switching and shuffling (@Baker:2003uo)* *And we do know that some symbio are "better" than others* *And then we said that bleaching is definitely bad* *But at least we do know that it allows changes to occur in the Symbiodinium community structure*
 
-*Regardless it is likely that symbiodinium community composition is important for resilience (Hollie's paper)* *Taxa-specific bleaching is a thing* *When we've seen resilience/recovery before, corals have only been demonstrated to recover if the stress goes away first* Previously, corals have been shown to recover from bleaching only after the external stress (e.g. warming) has subsided. *implying that longer and more frequent stressors spell disaster for reefs worldwide*
+Example of when this high-risk ecological opportunity (@Baker:2001bf) actually pays off...
+
+*Regardless it is likely that symbiodinium community composition is important for resilience, corals that host flexible symbioses may be more sensitive to environmental changes (@Putnam:2012bn)* *Taxa-specific bleaching is a thing* *When we've seen resilience/recovery before, corals have only been demonstrated to recover if the stress goes away first* Previously, corals have been shown to recover from bleaching only after the external stress (e.g. warming) has subsided. *implying that longer and more frequent stressors spell disaster for reefs worldwide*
 
 Here, we tagged and sampled the same corals before, during, and immediately after the el nino event, on Kiritimati (something about Kiritimati). We used Illumina sequencing to evaluate changes in symbiodinium community structure coincident with the 2015-2016 major el nino event. The goal was to understand...why the hell these corals survived 10 months of extreme heat stress, and actually got better in the middle of it.
 
@@ -75,7 +77,7 @@ Elucidating the mechanisms underlying changes in coral-symbiont interactions is 
 # Methods
 *The Methods section should be written as concisely as possible but should contain all elements necessary to allow interpretation and replication of the results. As a guideline, Methods sections typically do not exceed 3,000 words.*
 
-``````{r, echo=FALSE, warning=FALSE, message=FALSE}
+``````{r, echo=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 path <- "/Volumes/Seagate_Blue/JuliaBaum_DanielleClaar-32138116_all/"
 biom_dir <- "otu_tables/"
 biom_file <- paste(path, biom_dir, "KI14FSYM004_otu_table.biom", sep = "")
