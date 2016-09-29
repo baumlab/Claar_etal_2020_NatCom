@@ -109,18 +109,27 @@ import_biom(rich_dense_biom, treefilename, refseqfilename, parseFunction=parse_t
 
 
 ## Field Information
-Kiritimati basics - located in the Central Equatorial Pacific, smack dab in the middle of the Nino 3.4 region (used to quantify el nino presence and strength), human disturbance gradient, bleaching event there (cite bleaching paper here)
-Tagging corals and collecting samples - transects, tagging corals, photoing corals, sampling corals, processing samples, storage in Guanidinium
-Taxa sampled - platy, favites, favia, etc.
+*Kiritimati basics - located in the Central Equatorial Pacific, smack dab in the middle of the Nino 3.4 region (used to quantify el nino presence and strength), human disturbance gradient, bleaching event there (cite bleaching paper here)*
+*Tagging corals and collecting samples - transects, tagging corals, photoing corals, sampling corals, processing samples, storage in Guanidinium*
+*Taxa sampled - platy, favites, favia, etc.*
+
+Kiritimati Atoll, Kiribati is located in the Central Equatorial Pacific and has a strong human disturbance gradient around the island. The atoll was in the middle of the El Niño 3.4 region (used to quantify El Niño presence and strength) during the 2015/2016 El Niño and experienced 10 months of elevated temperature causing a mass bleaching and mortality event (cite bleaching paper). Seabird 56 temperature loggers were deployed around the island at 10-12m depths starting in summer 2013 to measure the temperature *in situ*.
+
+##Coral Tagging and sampling  
+In August/September 2014 seven taxa of coral were tagged along a 60m transect at 10-12m depth at 10 different sites around the atoll.  At each site, 12 colonies of each focal species (*Porites lobata*, *Montipora aequituberculata*, and *Pocillopora eyedouxi*) were tagged and a total of 18 colonies of a varying assortment of *Platygyra*, *Favities*, *Favia*, and *Hydnophora microconos* were tagged. A photo of each coral with a ruler beside it was taken for colony measurments and characterists (i.e. bleaching) to be analyzed in the lab. A tissue sample was collected and put into a Whirl-pak for transport.  The tissue samples were stored in a cooler on the boat and at night they were rinsed with fresh water and alliquoted into centrifuge tubes with Guanidinium, then stored at 4 (I havent looked to see how to put in a degree symbol yet).  The tagged corals were resampled once more before the El Niño (January/February 2015), twice during (May/April 2015 and July 2015), and once near the end (March 2016).  Due to weather conditions not every site was visited on each trip. Two sites were added in January/February 2015 and one in May/April 2015.  Due to either storm waves breaking and moving coral or the tags dissapearing some of the corals were unable to be located and new corals were tagged to replenish numbers **I(KT) dont like this sentence - still working on how to word it*.
+
+
 ## Pre-processing and sequencing
 DNA Extraction - extraction protocol
 ITS2 region - it's annoying, but it's the best we've got right now
 PCR and Cleanup - Amy's method of PCR and cleanup
 Library Prep - Amy's method of library prep, include Illumina Sequencing information (barcodes, etc)
-## Post Processing
+
+## Post Processing - Maybe call it Bioinformatics
 Sequence QC - boku, then merge with illumina utils, max mismatch=3
 Sequence clustering - denovo clustering using UCLUST in QIIME, then compare to reference database to assign taxonomy
 Statistical Analysis - alpha diversity of sequence reads, co-occurence?, beta diversity?
+Code will be avaible on git hub
 
 # References
 <!-- Insert references  -->
