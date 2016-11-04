@@ -1,24 +1,25 @@
 ---
 title: "KI Platygyra Manuscript"
 author: "Danielle C Claar, Kristina L Tietjen, Ruth D Gates, Julia K Baum"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+date: '`r format(Sys.time(), ''%d %B, %Y'')`'
 output:
-  pdf_document:
-    fig_caption: yes
-    keep_tex: yes
-    number_sections: yes
   html_document:
     fig_caption: yes
     force_captions: yes
     highlight: pygments
     number_sections: yes
     theme: cerulean
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+    number_sections: yes
 csl: nature.csl
 bibliography: PapersLibrary_Bibtex.bib
 ---
 
-<!-- ## Install and source necessary packages -->
+<!-- ## Install and source necessary packages-->
 ```{r, echo=FALSE, incl=FALSE}
+
 
   # install.packages('knitcitations')
   # install.packages('bibtex')
@@ -34,6 +35,8 @@ bibliography: PapersLibrary_Bibtex.bib
   # packageVersion('phyloseq')
   library(phyloseq)
   library("qdap") # to be able to use word count
+  require("dplyr")
+  require("mosaic")
 ```
 
 <!-- Word Count -->
@@ -120,9 +123,9 @@ In August/September 2014 seven taxa of coral were tagged along a 60m transect at
 
 
 ## Pre-processing and sequencing
-Extraction of the nucleic acids from the tissue samples were performed as in Stat et al. (2009) (*need to add to references and format correctly*) with a few modifications. The DNA pellet was washed with 70% ethanol three times.  After the wash was removed, the remaining ethanol was allowed to evaporate off before the DNA pellet was resuspended in the Tris buffer.
+Extraction of the nucleic acids from the tissue samples were performed as in Stat et al. (2009) (*need to add to references and format correctly*) with a few modifications. After the addition of isopropanol the mixture was incubated at -20 *degrees*(need to figure out how to put degrees symbol in - see below) C for at least three hours. The DNA pellet was washed with 70% ethanol three times and after the final wash was removed, the remaining ethanol was allowed to evaporate off before the DNA pellet was resuspended in Tris buffer (0.1M pH8).  The DNA was then placed in a fridge for an hour and gently vortexed every 15 minutes before being stored in a -20 $^\circ$ (maybe a degrees symbol but document wont knit for me so I can't check) C.
 
-DNA Extraction - extraction protocol
+
 ITS2 region - it's annoying, but it's the best we've got right now
 PCR and Cleanup - Amy's method of PCR and cleanup
 Library Prep - Amy's method of library prep, include Illumina Sequencing information (barcodes, etc)
