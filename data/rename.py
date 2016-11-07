@@ -7,4 +7,4 @@ for root, dirs, files in os.walk("."): # Use os.walk to walk through all files a
 		if name.endswith(".fastq"): # If the file ends with .fastq ...
 			t=s.split('/') # Split t on '/' to index individual chunks of the array
 			v=t[1].split('-') # Split v on '-' to index individual chunks of the array
-			os.rename('./fastq/'+v[0]+'.fastq') # rename file from local path + name to the name of the parent directory + .fasta
+			os.rename(root+'/'+name,v[0]+'.fasta') # rename file from local path + name to the name of the parent directory + .fasta
