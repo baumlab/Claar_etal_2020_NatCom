@@ -39,4 +39,13 @@ merge-illumina-pairs -o KI15aFSYM139,KI15aFSYM052,KI14FSYM161,KI14FSYM164,KI14FS
 ls | wc -l
 
 source activate Python3 # Access P
+# Your python distribution/environment must be controlled by Anaconda for this to work
+
+
+conda create --name Python3 python=3 # Create an environment that uses Python 3 (will not remove Python 2.7, etc from your system)
+source activate Python3 # Activate this environment
+
+#Convert biom table to txt file
+biom convert -i test/otu_table.biom -o test/otu_table.txt -b
+
 
