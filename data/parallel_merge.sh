@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Unzip sequence data archive
-bunzip2 data/rawdata/platy.tar.bz2 -d data/rawdata/fastq/
+# bunzip2 data/rawdata/platy.tar.bz2 -d data/rawdata/fastq/
 
 # Generate config files for merging reads with illumina-utils
 mkdir -p data/merge
