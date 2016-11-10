@@ -37,3 +37,17 @@ vignettes/*.pdf
 
 # IPython Notebook
 .ipynb_checkpoints
+
+# Ignore intermediate clustering files
+data/otus_97_bysample/KI*
+data/fasta/*
+data/merge/*
+data/rawdata/*
+data/otus_97_bysample/97_otus_bysample.biom
+data/otus_97_bysample/all_97_otus.txt
+data/otus_97_bysample/all_rep_set.fasta
+data/otus_97_bysample/all_rep_set_clusters.uc
+data/otus_97_bysample/all_rep_set_otus.log
+data/otus_97_bysample/all_rep_set_otus.txt
+data/otus_97_bysample/merged_otu_map.txt
+data/otus_97_bysample/nosingles_otus.txt
