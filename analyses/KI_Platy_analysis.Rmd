@@ -91,7 +91,15 @@ plot(log10(phy97coral_ts),phy97coral_sim)
 # Create a dataframe from which to extract outliers
 phy97coral_outliers <- data.frame(phy97coral_ts,phy97coral_sim)
 # Extract outliers to inspect using NCBI Blast
-phy97coral_outliers <- subset(phy97coral_outliers, phy97coral_sim<85 & phy97coral_sim>83)
+phy97coral_outliers <- subset(phy97coral_outliers, phy97coral_sim<85 & phy97coral_sim>65)
+
+phy97coral_outliers.f <- subset_taxa(phy97coral, as.numeric(as.character(data.frame(tax_table(phy97coral))$sim))<85)
+phy97coral_outliers.f_ts <- taxa_sums(phy97coral_outliers.f)
+# Calculate similarities for plotting
+phy97coral_outliers.f_sim <- as.numeric(as.character(data.frame(tax_table(phy97coral_outliers.f))$sim))
+
+# Plot taxa sums and similarity, to be able to see the distribution of similarity across taxonomic abundance.
+plot(log10(phy97coral_outliers.f_ts),phy97coral_outliers.f_sim)
 
 # Filter out taxa which have only 1 representative sequence, and remove them from the phyloseq object
 phy97coral.f <- filter_taxa(phy97coral,function(x) sum(x>0) > 1, prune=TRUE)
@@ -125,6 +133,39 @@ notsymbio97bs <- poormatch97bs[which(poormatch97bs$symbio==F), 1]
 
 # Remove OTUs that are not Symbiodinium
 phy97coral.f2 <- prune_taxa(!taxa_names(phy97coral.f) %in% notsymbio97bs, phy97coral.f)
+
+VeryHigh <- c(33,40,32,31,27,30,26)
+High <- c(25,3,38,24)
+HighMed <- c(9,34,35,8,14,6)
+LowMed <- c(2,22,1,23)
+Low <- c(7,13,12,4,36,5,37)
+VeryLow <- c(10,21,11,20,16,15,39,19,18,17)
+
+sample_data(phy97coral.f2)$Site <- factor(sample_data(phy97coral.f2)$Site)
+sample_data(phy97coral.f2)$Dist <- sample_data(phy97coral.f2)$Site
+sample_data(phy97coral.f2)$Dist<- gsub ("34",as.character("HighMed"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("35",as.character("HighMed"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("14",as.character("HighMed"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("15",as.character("VeryLow"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("19",as.character("VeryLow"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("12",as.character("Low"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("37",as.character("Low"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("27",as.character("VeryHigh"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("30",as.character("VeryHigh"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("32",as.character("VeryHigh"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("26",as.character("VeryHigh"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("31",as.character("VeryHigh"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("40",as.character("VeryHigh"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("33",as.character("VeryHigh"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("38",as.character("VeryHigh"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("High"))
+sample_data(phy97coral.f2)$Dist<- gsub ("25",as.character("VeryHigh"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("High"))
+sample_data(phy97coral.f2)$Dist<- gsub ("24",as.character("VeryHigh"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("High"))
+sample_data(phy97coral.f2)$Dist<- gsub ("3",as.character("VeryHigh"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("High"))
+sample_data(phy97coral.f2)$Dist<- gsub ("5",as.character("Low"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("6",as.character("HighMed"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("9",as.character("HighMed"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+sample_data(phy97coral.f2)$Dist<- gsub ("8",as.character("HighMed"), as.character(data.frame(sample_data(phy97coral.f2))$Dist), as.character("HighMed"))
+
 ```
 
 <!-- Use merge_taxa to collapse OTUs with equivalent names ("hits") -->
@@ -132,68 +173,125 @@ phy97coral.f2 <- prune_taxa(!taxa_names(phy97coral.f) %in% notsymbio97bs, phy97c
 # Find all entries in the taxa_table that contain DI in "hit"
 D1s <- grep("D1", data.frame(tax_table(phy97coral.f2))$hit)
 # Merge taxa, collapsing all hits with "D1" into 1 row in the taxa table. Eqtaxa says which taxa to collapse together. Archetype is included or it doesn't work, and refers to which name the new collapsed row will take - however I haven't found out how to modify this without it failing yet.
-phy97coral.f2test <- merge_taxa(phy97coral.f2, eqtaxa=D1s, archetype=1)
+phy97coral.f2.eqtaxa <- merge_taxa(phy97coral.f2, eqtaxa=D1s, archetype=1)
 # Create tt from the taxa table (to use in renaming below)
-tt <- data.frame(tax_table(phy97coral.f2test), stringsAsFactors = F)
+tt <- data.frame(tax_table(phy97coral.f2.eqtaxa), stringsAsFactors = F)
 # Create "isna" which includes the rownames of all taxa where "hit"=NA
 isna <- rownames(tt)[is.na(tt$hit)]
 # Create info by extracting the row's "hit" string from the original taxa table
 info <- data.frame(tax_table(phy97coral.f2), stringsAsFactors = F)[isna, "hit"]
 # Rename the NA using the extracted "hit" name from above
 tt[isna,"hit"] <- info
-# Replace the taxa table in phy97coral.f2test with updated taxa table (tt). Must be converted to matrix first to work.
-tax_table(phy97coral.f2test) <- as.matrix(tt)
+# Replace the taxa table in phy97coral.f2.eqtaxa with updated taxa table (tt). Must be converted to matrix first to work.
+tax_table(phy97coral.f2.eqtaxa) <- as.matrix(tt)
 
 # See D1 for description/explanation
-C3s <- grep("C3_", data.frame(tax_table(phy97coral.f2test))$hit)
-phy97coral.f2test <- merge_taxa(phy97coral.f2test, eqtaxa=C3s, archetype=1)
-tt <- data.frame(tax_table(phy97coral.f2test), stringsAsFactors = F)
+C3s <- grep("C3_", data.frame(tax_table(phy97coral.f2.eqtaxa))$hit)
+phy97coral.f2.eqtaxa <- merge_taxa(phy97coral.f2.eqtaxa, eqtaxa=C3s, archetype=1)
+tt <- data.frame(tax_table(phy97coral.f2.eqtaxa), stringsAsFactors = F)
 isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97coral.f2), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
-tax_table(phy97coral.f2test) <- as.matrix(tt)
+tax_table(phy97coral.f2.eqtaxa) <- as.matrix(tt)
 
 # See D1 for description/explanation
-C15s <- grep("C15_", data.frame(tax_table(phy97coral.f2test))$hit)
-phy97coral.f2test <- merge_taxa(phy97coral.f2test, eqtaxa=C15s, archetype=1)
-tt <- data.frame(tax_table(phy97coral.f2test), stringsAsFactors = F)
+C15s <- grep("C15_", data.frame(tax_table(phy97coral.f2.eqtaxa))$hit)
+phy97coral.f2.eqtaxa <- merge_taxa(phy97coral.f2.eqtaxa, eqtaxa=C15s, archetype=1)
+tt <- data.frame(tax_table(phy97coral.f2.eqtaxa), stringsAsFactors = F)
 isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97coral.f2), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
-tax_table(phy97coral.f2test) <- as.matrix(tt)
+tax_table(phy97coral.f2.eqtaxa) <- as.matrix(tt)
 
 # See D1 for description/explanation
-C31s <- grep("C31_", data.frame(tax_table(phy97coral.f2test))$hit)
-phy97coral.f2test <- merge_taxa(phy97coral.f2test, eqtaxa=C31s, archetype=1)
-tt <- data.frame(tax_table(phy97coral.f2test), stringsAsFactors = F)
+C31s <- grep("C31_", data.frame(tax_table(phy97coral.f2.eqtaxa))$hit)
+phy97coral.f2.eqtaxa <- merge_taxa(phy97coral.f2.eqtaxa, eqtaxa=C31s, archetype=1)
+tt <- data.frame(tax_table(phy97coral.f2.eqtaxa), stringsAsFactors = F)
 isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97coral.f2), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
-tax_table(phy97coral.f2test) <- as.matrix(tt)
+tax_table(phy97coral.f2.eqtaxa) <- as.matrix(tt)
 
 # See D1 for description/explanation
-A121 <- grep("A121_", data.frame(tax_table(phy97coral.f2test))$hit)
-phy97coral.f2test <- merge_taxa(phy97coral.f2test, eqtaxa=A121, archetype=1)
-tt <- data.frame(tax_table(phy97coral.f2test), stringsAsFactors = F)
+A121 <- grep("A121_", data.frame(tax_table(phy97coral.f2.eqtaxa))$hit)
+phy97coral.f2.eqtaxa <- merge_taxa(phy97coral.f2.eqtaxa, eqtaxa=A121, archetype=1)
+tt <- data.frame(tax_table(phy97coral.f2.eqtaxa), stringsAsFactors = F)
 isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97coral.f2), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
-tax_table(phy97coral.f2test) <- as.matrix(tt)
+tax_table(phy97coral.f2.eqtaxa) <- as.matrix(tt)
 
 # See D1 for description/explanation
-A1 <- grep("A1_", data.frame(tax_table(phy97coral.f2test))$hit)
-phy97coral.f2test <- merge_taxa(phy97coral.f2test, eqtaxa=A1, archetype=1)
-tt <- data.frame(tax_table(phy97coral.f2test), stringsAsFactors = F)
+A1 <- grep("A1_", data.frame(tax_table(phy97coral.f2.eqtaxa))$hit)
+phy97coral.f2.eqtaxa <- merge_taxa(phy97coral.f2.eqtaxa, eqtaxa=A1, archetype=1)
+tt <- data.frame(tax_table(phy97coral.f2.eqtaxa), stringsAsFactors = F)
 isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97coral.f2), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
-tax_table(phy97coral.f2test) <- as.matrix(tt)
+tax_table(phy97coral.f2.eqtaxa) <- as.matrix(tt)
+
+# See D1 for description/explanation
+C3k <- grep("C3k_", data.frame(tax_table(phy97coral.f2.eqtaxa))$hit)
+phy97coral.f2.eqtaxa <- merge_taxa(phy97coral.f2.eqtaxa, eqtaxa=C3k, archetype=1)
+tt <- data.frame(tax_table(phy97coral.f2.eqtaxa), stringsAsFactors = F)
+isna <- rownames(tt)[is.na(tt$hit)]
+info <- data.frame(tax_table(phy97coral.f2), stringsAsFactors = F)[isna, "hit"]
+tt[isna,"hit"] <- info
+tax_table(phy97coral.f2.eqtaxa) <- as.matrix(tt)
+
+
+phy97coral.f2.eqtaxa.p <- transform_sample_counts(phy97coral.f2.eqtaxa, function(x) x/sum(x))
+```
+
+<!-- Use merge_taxa to collapse OTUs with equivalent names ("hits") -->
+```{r, echo=FALSE}
+# Find all entries in the taxa_table that contain DI in "hit"
+Ds <- grep("^D", data.frame(tax_table(phy97coral.f2))$hit)
+# Merge taxa, collapsing all hits with "D1" into 1 row in the taxa table. Eqtaxa says which taxa to collapse together. Archetype is included or it doesn't work, and refers to which name the new collapsed row will take - however I haven't found out how to modify this without it failing yet.
+phy97coral.f2.clade <- merge_taxa(phy97coral.f2, eqtaxa=Ds, archetype=1)
+# Create tt from the taxa table (to use in renaming below)
+tt <- data.frame(tax_table(phy97coral.f2.clade), stringsAsFactors = F)
+# Create "isna" which includes the rownames of all taxa where "hit"=NA
+isna <- rownames(tt)[is.na(tt$hit)]
+# Create info by extracting the row's "hit" string from the original taxa table
+info <- "D"
+# Rename the NA using the extracted "hit" name from above
+tt[isna,"hit"] <- info
+# Replace the taxa table in phy97coral.f2.eqtaxa with updated taxa table (tt). Must be converted to matrix first to work.
+tax_table(phy97coral.f2.clade) <- as.matrix(tt)
+
+Cs <- grep("^C", data.frame(tax_table(phy97coral.f2.clade))$hit)
+phy97coral.f2.clade <- merge_taxa(phy97coral.f2.clade, eqtaxa=Cs, archetype=1)
+tt <- data.frame(tax_table(phy97coral.f2.clade), stringsAsFactors = F)
+isna <- rownames(tt)[is.na(tt$hit)]
+info <- "C"
+tt[isna,"hit"] <- info
+tax_table(phy97coral.f2.clade) <- as.matrix(tt)
+
+Gs <- grep("^G", data.frame(tax_table(phy97coral.f2.clade))$hit)
+phy97coral.f2.clade <- merge_taxa(phy97coral.f2.clade, eqtaxa=Gs, archetype=1)
+tt <- data.frame(tax_table(phy97coral.f2.clade), stringsAsFactors = F)
+isna <- rownames(tt)[is.na(tt$hit)]
+info <- "G"
+tt[isna,"hit"] <- info
+tax_table(phy97coral.f2.clade) <- as.matrix(tt)
+
+As <- grep("^A", data.frame(tax_table(phy97coral.f2.clade))$hit)
+phy97coral.f2.clade <- merge_taxa(phy97coral.f2.clade, eqtaxa=As, archetype=1)
+tt <- data.frame(tax_table(phy97coral.f2.clade), stringsAsFactors = F)
+isna <- rownames(tt)[is.na(tt$hit)]
+info <- "A"
+tt[isna,"hit"] <- info
+tax_table(phy97coral.f2.clade) <- as.matrix(tt)
+
+
+phy97coral.f2.clade.p <- transform_sample_counts(phy97coral.f2.clade, function(x) x/sum(x))
 ```
 
 <!-- Lots of plot exploration -->
 ```{r, echo=FALSE}
 # Subset samples to only look at coral 99
-phycoral99 <- subset_samples(phy97coral.f2test,CoralTag=="99")
+phycoral99 <- subset_samples(phy97coral.f2.clade.p,CoralTag=="99")
 # Transform sample counts to proportional counts
 phycoral99.p <- transform_sample_counts(phycoral99, function(x) x/sum(x))
 # Make a bar plot
@@ -239,7 +337,7 @@ phycoral439 <- subset_samples(phy97coral.f2test,CoralTag=="439")
 # Transform sample counts to proportional counts
 phycoral439.p <- transform_sample_counts(phycoral439, function(x) x/sum(x))
 # Make a bar plot
-plot_bar(phycoral439.p,fill="hit")
+plot_bar(phycoral439.p,fill="hit") # This is a good one
 
 # Subset samples to only look at coral 810
 phycoral810 <- subset_samples(phy97coral.f2test,CoralTag=="810")
@@ -269,6 +367,264 @@ phycoral161.p <- transform_sample_counts(phycoral161, function(x) x/sum(x))
 # Make a bar plot
 plot_bar(phycoral161.p,fill="hit")
 
+# Subset samples to only look at coral 719
+phycoral719 <- subset_samples(phy97coral.f2test,CoralTag=="719")
+# Transform sample counts to proportional counts
+phycoral719.p <- transform_sample_counts(phycoral719, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral719.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral253 <- subset_samples(phy97coral.f2test,CoralTag=="253")
+# Transform sample counts to proportional counts
+phycoral253.p <- transform_sample_counts(phycoral253, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral253.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral248 <- subset_samples(phy97coral.f2test,CoralTag=="248")
+phycoral696 <- subset_samples(phy97coral.f2test,CoralTag=="696")
+phycoral248_696 <- merge_phyloseq(phycoral248,phycoral696)
+# Transform sample counts to proportional counts
+phycoral248_696.p <- transform_sample_counts(phycoral248_696, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral248_696.p,fill="hit") # This is a good one too
+
+# Subset samples to only look at coral 719
+phycoral231 <- subset_samples(phy97coral.f2test,CoralTag=="231")
+# Transform sample counts to proportional counts
+phycoral231.p <- transform_sample_counts(phycoral231, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral231.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral800 <- subset_samples(phy97coral.f2test,CoralTag=="800")
+# Transform sample counts to proportional counts
+phycoral800.p <- transform_sample_counts(phycoral800, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral800.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral810 <- subset_samples(phy97coral.f2test,CoralTag=="810")
+# Transform sample counts to proportional counts
+phycoral810.p <- transform_sample_counts(phycoral810, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral810.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral234 <- subset_samples(phy97coral.f2test,CoralTag=="234")
+# Transform sample counts to proportional counts
+phycoral234.p <- transform_sample_counts(phycoral234, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral234.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral223 <- subset_samples(phy97coral.f2test,CoralTag=="223")
+# Transform sample counts to proportional counts
+phycoral223.p <- transform_sample_counts(phycoral223, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral223.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral161 <- subset_samples(phy97coral.f2test,CoralTag=="161")
+# Transform sample counts to proportional counts
+phycoral161.p <- transform_sample_counts(phycoral161, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral161.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral157 <- subset_samples(phy97coral.f2test,CoralTag=="157")
+# Transform sample counts to proportional counts
+phycoral157.p <- transform_sample_counts(phycoral157, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral157.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral164 <- subset_samples(phy97coral.f2test,CoralTag=="164")
+# Transform sample counts to proportional counts
+phycoral164.p <- transform_sample_counts(phycoral164, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral164.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral242 <- subset_samples(phy97coral.f2test,CoralTag=="242")
+# Transform sample counts to proportional counts
+phycoral242.p <- transform_sample_counts(phycoral242, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral242.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral273 <- subset_samples(phy97coral.f2test,CoralTag=="273")
+# Transform sample counts to proportional counts
+phycoral273.p <- transform_sample_counts(phycoral273, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral273.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral298 <- subset_samples(phy97coral.f2test,CoralTag=="298")
+# Transform sample counts to proportional counts
+phycoral298.p <- transform_sample_counts(phycoral298, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral298.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral278 <- subset_samples(phy97coral.f2test,CoralTag=="278")
+# Transform sample counts to proportional counts
+phycoral278.p <- transform_sample_counts(phycoral278, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral278.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral631 <- subset_samples(phy97coral.f2test,CoralTag=="631")
+# Transform sample counts to proportional counts
+phycoral631.p <- transform_sample_counts(phycoral631, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral631.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral583 <- subset_samples(phy97coral.f2test,CoralTag=="583")
+# Transform sample counts to proportional counts
+phycoral583.p <- transform_sample_counts(phycoral583, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral583.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral605 <- subset_samples(phy97coral.f2test,CoralTag=="605")
+# Transform sample counts to proportional counts
+phycoral605.p <- transform_sample_counts(phycoral605, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral605.p,fill="hit") # wtf is happening here
+
+# Subset samples to only look at coral 719
+phycoral271 <- subset_samples(phy97coral.f2test,CoralTag=="271")
+# Transform sample counts to proportional counts
+phycoral271.p <- transform_sample_counts(phycoral271, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral271.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral685 <- subset_samples(phy97coral.f2test,CoralTag=="685")
+# Transform sample counts to proportional counts
+phycoral685.p <- transform_sample_counts(phycoral685, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral685.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral722 <- subset_samples(phy97coral.f2test,CoralTag=="722")
+# Transform sample counts to proportional counts
+phycoral722.p <- transform_sample_counts(phycoral722, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral722.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral466 <- subset_samples(phy97coral.f2test,CoralTag=="466")
+# Transform sample counts to proportional counts
+phycoral466.p <- transform_sample_counts(phycoral466, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral466.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral492 <- subset_samples(phy97coral.f2test,CoralTag=="492")
+# Transform sample counts to proportional counts
+phycoral492.p <- transform_sample_counts(phycoral492, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral492.p,fill="hit") # This is a good one
+
+# Subset samples to only look at coral 719
+phycoral772 <- subset_samples(phy97coral.f2test,CoralTag=="772")
+# Transform sample counts to proportional counts
+phycoral772.p <- transform_sample_counts(phycoral772, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral772.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral742 <- subset_samples(phy97coral.f2test,CoralTag=="742")
+# Transform sample counts to proportional counts
+phycoral742.p <- transform_sample_counts(phycoral742, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral742.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral762 <- subset_samples(phy97coral.f2test,CoralTag=="762")
+# Transform sample counts to proportional counts
+phycoral762.p <- transform_sample_counts(phycoral762, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral762.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral766 <- subset_samples(phy97coral.f2test,CoralTag=="766")
+# Transform sample counts to proportional counts
+phycoral766.p <- transform_sample_counts(phycoral766, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral766.p,fill="hit")
+
+
+# Subset samples to only look at coral 719
+phycoral768 <- subset_samples(phy97coral.f2test,CoralTag=="768")
+# Transform sample counts to proportional counts
+phycoral768.p <- transform_sample_counts(phycoral768, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral768.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral856 <- subset_samples(phy97coral.f2test,CoralTag=="856")
+# Transform sample counts to proportional counts
+phycoral856.p <- transform_sample_counts(phycoral856, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral856.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral192 <- subset_samples(phy97coral.f2test,CoralTag=="192")
+# Transform sample counts to proportional counts
+phycoral192.p <- transform_sample_counts(phycoral192, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral192.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral205 <- subset_samples(phy97coral.f2test,CoralTag=="205")
+# Transform sample counts to proportional counts
+phycoral205.p <- transform_sample_counts(phycoral205, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral205.p,fill="hit") # this is a good one
+
+# Subset samples to only look at coral 719
+phycoral786 <- subset_samples(phy97coral.f2test,CoralTag=="786")
+# Transform sample counts to proportional counts
+phycoral786.p <- transform_sample_counts(phycoral786, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral786.p,fill="hit") # this is a good one
+
+# Subset samples to only look at coral 719
+phycoral844 <- subset_samples(phy97coral.f2test,CoralTag=="844")
+# Transform sample counts to proportional counts
+phycoral844.p <- transform_sample_counts(phycoral844, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral844.p,fill="hit") # this is a particularly good one
+
+# Subset samples to only look at coral 719
+phycoral754 <- subset_samples(phy97coral.f2test,CoralTag=="754")
+phycoral899 <- subset_samples(phy97coral.f2test,CoralTag=="754_899")
+phycoral754_899 <- merge_phyloseq(phycoral754,phycoral899)
+# Transform sample counts to proportional counts
+phycoral754_899.p <- transform_sample_counts(phycoral754_899, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral754_899.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral770 <- subset_samples(phy97coral.f2test,CoralTag=="770")
+# Transform sample counts to proportional counts
+phycoral770.p <- transform_sample_counts(phycoral770, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral770.p,fill="hit")
+
+# Subset samples to only look at coral 719
+phycoral936 <- subset_samples(phy97coral.f2test,CoralTag=="936")
+# Transform sample counts to proportional counts
+phycoral936.p <- transform_sample_counts(phycoral936, function(x) x/sum(x))
+# Make a bar plot
+plot_bar(phycoral936.p,fill="hit")
+
+
 # Plot an overall heat map with all samples. This does not tell you much other than that there is variable abundance among taxa
 plot_heatmap(phy97coral.f2test,taxa.label="hit")
 
@@ -291,6 +647,9 @@ phy97coral.f2.platy <- subset_samples(phy97coral.f2test,Coral_Species=="Platygyr
 phy97coral.f2.fpenta <- subset_samples(phy97coral.f2test,Coral_Species=="Favites_pentagona")
 phy97coral.f2.faviasp <- subset_samples(phy97coral.f2test,Coral_Species=="Favia_sp")
 phy97coral.f2.faviam <- subset_samples(phy97coral.f2test,Coral_Species=="Favia_matthai")
+phy97coral.f2.faviaall <- merge_phyloseq(phy97coral.f2.faviam,phy97coral.f2.faviasp)
+
+phy97coral.f2.fpenta.ad <- subset_samples(phy97coral.f2.fpenta,Status=="alive"|Status=="dead")
 
 # Subset coral data set into individual site data sets
 phy97coral.f2.site34 <- subset_samples(phy97coral.f2test,Site=="34")
@@ -300,8 +659,112 @@ plot_net(phy97coral.f2.platy,color = "Year")
 plot_net(phy97coral.f2.fpenta,color = "Year")
 plot_net(phy97coral.f2.faviasp,color = "Year")
 plot_net(phy97coral.f2.faviam,color = "Year")
+plot_net(phy97coral.f2.fpenta.ad,color = "Status")
+
 
 # Make richness plots by species or plots
 plot_richness(phy97coral.f2.platy,x="Year",color="as.factor(Site)")
 plot_richness(phy97coral.f2.site34,x="Year",color="Coral_Species")
+
+
+# Make nMDS plots
+coralsam <- phy97coral.f2.fpenta
+coralsam.ord <- ordinate(phy97coral.f2.fpenta, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2.fpenta, coralsam.ord, type="samples", color="Dist", title="samples",shape="Status")
+print(p1)
+
+coralsam <- phy97coral.f2.fpenta.ad
+coralsam.ord <- ordinate(phy97coral.f2.fpenta.ad, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2.fpenta.ad, coralsam.ord, type="samples", color="Status", title="samples",shape="Year")
+print(p1)
+
+
+coralsam <- phy97coral.f2
+coralsam.ord <- ordinate(phy97coral.f2, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2, coralsam.ord, type="samples", color="Year", title="samples",shape="Dist")
+print(p1)
+
+phy97coral.f2.ad <- subset_samples(phy97coral.f2test,Status=="alive"|Status=="dead")
+coralsam <- phy97coral.f2.ad
+coralsam.ord <- ordinate(phy97coral.f2.ad, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2.ad, coralsam.ord, type="samples", color="Status", title="samples",shape="Year")
+print(p1)
+
+phy97coral.f2.ad.Jul <- subset_samples(phy97coral.f2.ad,Year=="2015July")
+coralsam <- phy97coral.f2.ad.Jul
+coralsam.ord <- ordinate(phy97coral.f2.ad.Jul, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2.ad.Jul, coralsam.ord, type="samples", color="Status", title="samples",shape="Coral_Species")
+print(p1)
+
+phy97coral.f2.ad.May <- subset_samples(phy97coral.f2.ad,Year=="2015May")
+coralsam <- phy97coral.f2.ad.May
+coralsam.ord <- ordinate(phy97coral.f2.ad.May, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2.ad.May, coralsam.ord, type="samples", color="Status", title="samples",shape="Coral_Species")
+print(p1)
+
+phy97coral.f2.ad.before <- subset_samples(phy97coral.f2.ad,Year=!"2016March")
+coralsam <- phy97coral.f2.ad.before
+coralsam.ord <- ordinate(phy97coral.f2.ad.before, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2.ad.before, coralsam.ord, type="samples", color="Status", title="samples",shape="Coral_Species")
+print(p1)
+
+
+coralsam <- phy97coral.f2.platy
+coralsam.ord <- ordinate(phy97coral.f2.platy, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2.platy, coralsam.ord, type="samples", color="Year", title="samples")
+print(p1)
+
+phy97coral.f2.ad.Jul.platy <- subset_samples(phy97coral.f2.ad.Jul,Coral_Species=="Platygyra_sp")
+coralsam <- phy97coral.f2.ad.Jul.platy
+coralsam.ord <- ordinate(phy97coral.f2.ad.Jul.platy, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2.ad.Jul.platy, coralsam.ord, type="samples", color="Status", title="samples",shape="Coral_Species")
+print(p1)
+
+phy97coral.f2.ad.May.platy <- subset_samples(phy97coral.f2.ad.May,Coral_Species=="Platygyra_sp")
+coralsam <- phy97coral.f2.ad.May.platy
+coralsam.ord <- ordinate(phy97coral.f2.ad.May.platy, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2.ad.May.platy, coralsam.ord, type="samples", color="Status", title="samples",shape="Coral_Species")
+print(p1)
+
+phy97coral.f2.ad.May.July.platy <- subset_samples(phy97coral.f2.ad,Year=="2015May"|Year=="2015July")
+phy97coral.f2.ad.May.July.platy<- subset_samples(phy97coral.f2.ad.May.July.platy,Coral_Species=="Platygyra_sp")
+coralsam <- phy97coral.f2.ad.May.July.platy
+coralsam.ord <- ordinate(phy97coral.f2.ad.May.July.platy, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2.ad.May.July.platy, coralsam.ord, type="samples", color="Status", title="samples",shape="Year")
+print(p1)
+
+#used this one
+phy97coral.f2.ad.before.platy <- subset_samples(phy97coral.f2.ad,Year!="2016March")
+phy97coral.f2.ad.before.platy<- subset_samples(phy97coral.f2.ad.before.platy,Coral_Species=="Platygyra_sp")
+coralsam <- phy97coral.f2.ad.before.platy
+coralsam.ord <- ordinate(phy97coral.f2.ad.before.platy, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2.ad.before.platy, coralsam.ord, type="samples", color="Status", title="samples",shape="Year")
+print(p1)
+library(ggplot2)
+p1 + scale_colour_brewer(type = "div", palette = "Set1", direction = -1)
+
+phy97coral.f2.ad.before.platy.VeryHigh <- subset_samples(phy97coral.f2.ad.before.platy,Dist=="VeryHigh")
+phy97coral.f2.ad.before.platy.VeryHigh<- subset_samples(phy97coral.f2.ad.before.platy.VeryHigh,Coral_Species=="Platygyra_sp")
+coralsam <- phy97coral.f2.ad.before.platy.VeryHigh
+coralsam.ord <- ordinate(phy97coral.f2.ad.before.platy.VeryHigh, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2.ad.before.platy.VeryHigh, coralsam.ord, type="samples", color="Status", title="samples",shape="Dist")
+print(p1)
+
+
+
+coralsam <- phy97coral.f2.faviaall
+coralsam.ord <- ordinate(phy97coral.f2.faviaall, "PCoA", "bray")
+p1 = plot_ordination(phy97coral.f2.faviaall, coralsam.ord, type="samples", color="Year", title="samples")
+print(p1)
+
+
+#This is not working right now
+jsd <- distance(phy97coral.f2.platy, "jaccard")
+df_time <- as(sample_data(phy97coral.f2.platy), "data.frame")
+time.dist <- dist(df_time$Site, method = "euclidean")
+dist.matrix <- as.matrix(time.dist)
+library(vegan)
+mantel(jsd, time.dist, method = "pearson")
+
+water_taxa <- sample_data(coral_or_water=TRUE)
 ```

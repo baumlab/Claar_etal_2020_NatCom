@@ -1,1 +1,0 @@
-#SampleID	BarcodeSequence	LinkerPrimerSequence	FieldSampleID	Species	InputFileName	DescriptionKI14FSYM099			99	platygyra	coral99_2014	coral99_2014KI15aFSYM103			99	platygyra	coral99_2015a	coral99_2015aKI15bFSYM023			99	platygyra	coral99_2015b	coral99_2015bKI15cFSYM018			99	platygyra	coral99_2015c	coral99_2015cKI16aFSYM049			99	platygyra	coral99_2016a	coral99_2016a

@@ -1,0 +1,87 @@
+Number of pairs analyzed                	36301
+Prefix failed in read 1                 	0
+Prefix failed in read 2                 	0
+Prefix failed in both                   	0
+Passed prefix total                     	36301
+Failed prefix total                     	0
+Merged total                            	6321
+Complete overlap forced total           	15184
+Merge failed total                      	29910
+Merge discarded due to P                	27955
+Merge discarded due to Ns               	1913
+Merge discarded due to Q30              	42
+Pairs discarded due to min expected overlap	70
+Num mismatches found in merged reads    	48543
+Mismatches recovered from read 1        	44200
+Mismatches recovered from read 2        	4343
+Mismatches replaced with N              	0
+
+
+Mismatches breakdown:
+
+0	390
+1	770
+2	739
+3	609
+4	498
+5	361
+6	347
+7	284
+8	233
+9	201
+10	194
+11	142
+12	190
+13	159
+14	132
+15	135
+16	103
+17	102
+18	91
+19	86
+20	67
+21	61
+22	61
+23	59
+24	31
+25	39
+26	41
+27	25
+28	24
+29	26
+30	14
+31	16
+32	18
+33	18
+34	6
+35	6
+36	7
+37	6
+38	1
+39	6
+40	1
+41	1
+42	2
+43	2
+44	2
+45	2
+46	1
+47	1
+48	1
+49	4
+52	1
+53	1
+54	2
+58	1
+63	1
+
+
+Command line                            	/Users/danielle/Documents/Data_Analysis/Resources/illumina-utils/scripts/merge-illumina-pairs -o KI_Platy_KI15cFSYM018 --enforce-Q30-check config_KI_Platy_KI15cFSYM018 --marker-gene-stringent --retain-only-overlap --min-overlap-size 100 --compute-qual-dicts
+Work directory                          	/Users/Danielle/Documents/Data_Analysis/KI_Platy/analyses/coral99
+"p" value                               	0.300000
+Min overlap size                        	100
+Min Q-score for mismatches              	15
+Ns ignored?                             	False
+Q30 enforced?                           	True
+Run with stringent flag on?             	True
+Requested only the overlapping part to be retained?	True

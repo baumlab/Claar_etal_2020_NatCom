@@ -1,0 +1,3 @@
+
+8117  : /Users/Danielle/Documents/Data_Analysis/KI_Platy/data/test2/KI14FSYM004.fasta (Sequence lengths (mean +/- std): 346.2728 +/- 33.2247)
+8117  : Total

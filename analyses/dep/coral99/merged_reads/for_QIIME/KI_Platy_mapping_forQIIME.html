@@ -1,0 +1,39 @@
+<html>
+<head>
+
+<script type="text/javascript" src="./overlib.js"></script>
+</head>
+<body bgcolor="white"> <h1>Mapping file error and warning details.</h1>
+Notes for interpreting this report:
+<ul>
+    <li>Errors will be listed in red, warnings in yellow.
+    <li>Mouse over an error or warning in a cell for more details.
+    <li>Errors in the header row may mask other errors, so these should be corrected first.
+    <li>Modifications to your mapping file to fix certain issues may result in different errors. You should run <tt>validate_mapping_file.py</tt> until no errors (nor warnings, ideally) are found.
+</ul>
+<p>
+Some general rules about formatting mapping files (see <a href="http://qiime.org/documentation/file_formats.html#metadata-mapping-files">here</a> for additional details):
+<ul>
+    <li>Header characters should only contain alphanumeric and <tt>_</tt> characters only.
+    <li>Valid characters for SampleID fields are alphanumeric and <tt>.</tt> only.<br>
+    <li>Other fields allow alphanumeric and <tt>+-%./ :,;_</tt> characters.
+</ul>
+General issues with your mapping file (i.e., those that do not pertain to a particular cell) will be listed here, if any:<table border="1" cellspacing="0" cellpadding="7"><tr></tr></table><br>
+<table border="2" cellspacing="0" cellpadding="5">
+
+<tr></tr>
+<tr>
+<th>SampleID</th><th>BarcodeSequence</th><th>LinkerPrimerSequence</th><th>FieldSampleID</th><th>Species</th><th>InputFileName</th><th>Description</th>
+</tr>
+
+<tr>
+<tr><th><tt>KI14FSYM099</tt></th><th bgcolor=red><a href="javascript:void(0);" onmouseover="return overlib('Missing expected DNA sequence<br>Duplicate barcode  found.<br>Location (SampleID,Header Field)<br>KI14FSYM099,BarcodeSequence');" onmouseout="return nd();"><font color=white><tt>missing data</tt></a></th><th bgcolor=red><a href="javascript:void(0);" onmouseover="return overlib('Missing expected DNA sequence<br>Location (SampleID,Header Field)<br>KI14FSYM099,LinkerPrimerSequence');" onmouseout="return nd();"><font color=white><tt>missing data</tt></a></th><th><tt>99</tt></th><th><tt>platygyra</tt></th><th><tt>coral99_2014</tt></th><th><tt>coral99_2014
+</tt></th></tr><tr><th><tt>KI15aFSYM103</tt></th><th bgcolor=red><a href="javascript:void(0);" onmouseover="return overlib('Missing expected DNA sequence<br>Duplicate barcode  found.<br>Location (SampleID,Header Field)<br>KI15aFSYM103,BarcodeSequence');" onmouseout="return nd();"><font color=white><tt>missing data</tt></a></th><th bgcolor=red><a href="javascript:void(0);" onmouseover="return overlib('Missing expected DNA sequence<br>Location (SampleID,Header Field)<br>KI15aFSYM103,LinkerPrimerSequence');" onmouseout="return nd();"><font color=white><tt>missing data</tt></a></th><th><tt>99</tt></th><th><tt>platygyra</tt></th><th><tt>coral99_2015a</tt></th><th><tt>coral99_2015a
+</tt></th></tr><tr><th><tt>KI15bFSYM023</tt></th><th bgcolor=red><a href="javascript:void(0);" onmouseover="return overlib('Missing expected DNA sequence<br>Duplicate barcode  found.<br>Location (SampleID,Header Field)<br>KI15bFSYM023,BarcodeSequence');" onmouseout="return nd();"><font color=white><tt>missing data</tt></a></th><th bgcolor=red><a href="javascript:void(0);" onmouseover="return overlib('Missing expected DNA sequence<br>Location (SampleID,Header Field)<br>KI15bFSYM023,LinkerPrimerSequence');" onmouseout="return nd();"><font color=white><tt>missing data</tt></a></th><th><tt>99</tt></th><th><tt>platygyra</tt></th><th><tt>coral99_2015b</tt></th><th><tt>coral99_2015b
+</tt></th></tr><tr><th><tt>KI15cFSYM018</tt></th><th bgcolor=red><a href="javascript:void(0);" onmouseover="return overlib('Missing expected DNA sequence<br>Duplicate barcode  found.<br>Location (SampleID,Header Field)<br>KI15cFSYM018,BarcodeSequence');" onmouseout="return nd();"><font color=white><tt>missing data</tt></a></th><th bgcolor=red><a href="javascript:void(0);" onmouseover="return overlib('Missing expected DNA sequence<br>Location (SampleID,Header Field)<br>KI15cFSYM018,LinkerPrimerSequence');" onmouseout="return nd();"><font color=white><tt>missing data</tt></a></th><th><tt>99</tt></th><th><tt>platygyra</tt></th><th><tt>coral99_2015c</tt></th><th><tt>coral99_2015c
+</tt></th></tr><tr><th><tt>KI16aFSYM049</tt></th><th bgcolor=red><a href="javascript:void(0);" onmouseover="return overlib('Missing expected DNA sequence<br>Duplicate barcode  found.<br>Location (SampleID,Header Field)<br>KI16aFSYM049,BarcodeSequence');" onmouseout="return nd();"><font color=white><tt>missing data</tt></a></th><th bgcolor=red><a href="javascript:void(0);" onmouseover="return overlib('Missing expected DNA sequence<br>Location (SampleID,Header Field)<br>KI16aFSYM049,LinkerPrimerSequence');" onmouseout="return nd();"><font color=white><tt>missing data</tt></a></th><th><tt>99</tt></th><th><tt>platygyra</tt></th><th><tt>coral99_2016a</tt></th><th><tt>coral99_2016a</tt></th></tr>
+</tr>
+</table>
+
+</body>
+</html>

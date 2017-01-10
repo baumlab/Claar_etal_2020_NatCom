@@ -1,0 +1,94 @@
+Number of pairs analyzed                	86483
+Prefix failed in read 1                 	0
+Prefix failed in read 2                 	0
+Prefix failed in both                   	0
+Passed prefix total                     	86483
+Failed prefix total                     	0
+Merged total                            	63788
+Complete overlap forced total           	6805
+Merge failed total                      	22681
+Merge discarded due to P                	12649
+Merge discarded due to Ns               	9829
+Merge discarded due to Q30              	203
+Pairs discarded due to min expected overlap	14
+Num mismatches found in merged reads    	531185
+Mismatches recovered from read 1        	484946
+Mismatches recovered from read 2        	46239
+Mismatches replaced with N              	0
+
+
+Mismatches breakdown:
+
+0	4235
+1	7541
+2	6895
+3	5741
+4	4446
+5	3551
+6	2807
+7	2450
+8	2189
+9	2020
+10	1898
+11	1819
+12	1829
+13	1615
+14	1568
+15	1448
+16	1405
+17	1237
+18	1177
+19	1051
+20	902
+21	851
+22	730
+23	638
+24	553
+25	496
+26	364
+27	341
+28	291
+29	281
+30	230
+31	180
+32	159
+33	141
+34	108
+35	99
+36	93
+37	68
+38	58
+39	43
+40	34
+41	34
+42	29
+43	28
+44	16
+45	16
+46	16
+47	14
+48	10
+49	8
+50	10
+51	4
+52	3
+53	3
+54	2
+55	4
+56	3
+57	1
+58	1
+59	1
+63	1
+67	2
+
+
+Command line                            	/Users/danielle/Documents/Data_Analysis/Resources/illumina-utils/scripts/merge-illumina-pairs -o KI_Platy_KI14FSYM099 --enforce-Q30-check config_KI_Platy_KI14FSYM099 --marker-gene-stringent --retain-only-overlap --min-overlap-size 100 --compute-qual-dicts
+Work directory                          	/Users/Danielle/Documents/Data_Analysis/KI_Platy/analyses/coral99
+"p" value                               	0.300000
+Min overlap size                        	100
+Min Q-score for mismatches              	15
+Ns ignored?                             	False
+Q30 enforced?                           	True
+Run with stringent flag on?             	True
+Requested only the overlapping part to be retained?	True
