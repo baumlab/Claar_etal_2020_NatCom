@@ -54,3 +54,5 @@ data/otus_97_bysample/nosingles_otus.txt
 
 # Ignore raw data files
 data/fastq/*
+
+*.swp
