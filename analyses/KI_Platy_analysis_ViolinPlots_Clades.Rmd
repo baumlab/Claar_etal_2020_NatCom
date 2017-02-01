@@ -89,7 +89,6 @@ PA.platy
 
 PA.fpenta = plot_abundance3(phy97.f.clade.p.fpenta,"")
 PA.fpenta
-
 ```
 
 ```{r, include=TRUE}
@@ -109,3 +108,13 @@ plot_abundance4 = function(physeq,title = "",
 PA.AD = plot_abundance4(phy97.f.clade.p.C.AD,"")
 PA.AD
 ```
+
+```{r, include=TRUE}
+# What's going on with Clade G?
+PA.G3 = plot_abundance3(phy97.f.clade.p.C.AD.G,"")
+PA.G3
+PA.G2 = plot_abundance2(phy97.f.clade.p.C.AD.G,"")
+PA.G2
+```
+
+
