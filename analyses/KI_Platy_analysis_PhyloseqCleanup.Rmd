@@ -194,6 +194,6 @@ phy97.f.clade.p <- transform_sample_counts(phy97.f.clade, function(x) x/sum(x))
 
 ```{r, echo=FALSE}
 # Save grouped data as RData file
-save(list=c("phy97.f.clade","phy97.f.clade.p","phy97.f.eqtaxa","phy97.f.eqtaxa.p"),file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
+save(list=c("phy97.f.clade","phy97.f.clade.p","phy97.f.eqtaxa","phy97.f.eqtaxa.p","phy97.f"),file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
 ```
 
