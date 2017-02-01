@@ -1,6 +1,8 @@
 ---
 title: "Platy analysis - Phyloseq Cleanup"
-output: pdf_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}

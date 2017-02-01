@@ -6,6 +6,10 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
+# Load necesary libraries
+library(phyloseq)
+library(ggplot2)
+
 # Load grouped data
 load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
 
@@ -27,7 +31,7 @@ phy97.f.clade.p.C.AD.G <- subset_taxa(phy97.f.clade.p.C.AD,hit=="G")
 
 ```
 
-```{r, include=FALSE}
+```{r, include=TRUE}
 # Make abundance plotting function
 plot_abundance = function(physeq,title = "",
 			     Facet = "hit", Color = "hit"){
@@ -47,7 +51,7 @@ PA.all = plot_abundance(phy97.f.clade.p,"")
 PA.all
 ```
 
-```{r, include=FALSE}
+```{r, include=TRUE}
 plot_abundance2 = function(physeq,title = "",
 			     Facet = "hit", Color = "hit"){
   mphyseq = psmelt(physeq)
@@ -88,7 +92,7 @@ PA.fpenta
 
 ```
 
-```{r, include=FALSE}
+```{r, include=TRUE}
 plot_abundance4 = function(physeq,title = "",
 			     Facet = "hit", Color = "hit"){
   mphyseq = psmelt(physeq)
@@ -104,8 +108,4 @@ plot_abundance4 = function(physeq,title = "",
 
 PA.AD = plot_abundance4(phy97.f.clade.p.C.AD,"")
 PA.AD
-
-PA.AD.cG = plot_abundance4(phy97.f.clade.p.C.AD.G,"")
-PA.AD.cG
-
 ```
