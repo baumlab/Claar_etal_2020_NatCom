@@ -1,0 +1,111 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load grouped data
+load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
+
+# Specify order of levels in Year
+levels(sample_data(phy97.f.clade.p)$Year) = c("2014", "2015Jan", "2015May","2015July", "2016March")
+
+# MAKE SUBSETS
+# Subset samples to only include coral (and exclude water, sediment)
+phy97.f.clade.p.C <- subset_samples(phy97.f.clade.p,SampleType == "coral")
+# Subset samples to only include Platygyra
+phy97.f.clade.p.platy <- subset_samples(phy97.f.clade.p.C,Coral_Species=="Platygyra_sp")
+# levels(sample_data(phy97.f.clade.p.platy)$Coral_Species) # Check if it worked
+# Subset samples to only include Favites pentagona
+phy97.f.clade.p.fpenta <- subset_samples(phy97.f.clade.p.C,Coral_Species=="Favites_pentagona")
+# Subset samples that were confirmed "alive" or "dead"
+phy97.f.clade.p.C.AD <- subset_samples(phy97.f.clade.p.C,Status=="alive"|Status=="dead")
+# Then subset those to only select corals which had Clade G
+phy97.f.clade.p.C.AD.G <- subset_taxa(phy97.f.clade.p.C.AD,hit=="G")
+
+```
+
+```{r, include=FALSE}
+# Make abundance plotting function
+plot_abundance = function(physeq,title = "",
+			     Facet = "hit", Color = "hit"){
+  mphyseq = psmelt(physeq)
+  mphyseq <- subset(mphyseq, Abundance > 0)
+  ggplot(data = mphyseq, mapping = aes_string(x = "SampleType",y = "Abundance",
+                                 color = Color, fill = Color)) +
+    geom_violin(fill = NA) +
+     geom_point(size = 1, alpha = 0.3,
+                position = position_jitter(width = 0.3)) +
+    facet_wrap(facets = Facet) + scale_y_log10()+
+    theme(legend.position="none")
+}
+
+# Make abundance plot for all samples
+PA.all = plot_abundance(phy97.f.clade.p,"")
+PA.all
+```
+
+```{r, include=FALSE}
+plot_abundance2 = function(physeq,title = "",
+			     Facet = "hit", Color = "hit"){
+  mphyseq = psmelt(physeq)
+  mphyseq <- subset(mphyseq, Abundance > 0)
+  ggplot(data = mphyseq, mapping = aes_string(x = "Coral_Species",y = "Abundance",
+                                 color = Color, fill = Color)) +
+    geom_violin(fill = NA) +
+     geom_point(size = 1, alpha = 0.3,
+                position = position_jitter(width = 0.3)) +
+    facet_wrap(facets = Facet) + scale_y_log10()+
+    theme(legend.position="none")
+}
+
+# Make abundance plot for all samples
+PA.coral = plot_abundance2(phy97.f.clade.p.C,"")
+PA.coral
+```
+
+```{r, include=FALSE}
+plot_abundance3 = function(physeq,title = "",
+			     Facet = "hit", Color = "hit"){
+  mphyseq = psmelt(physeq)
+  mphyseq <- subset(mphyseq, Abundance > 0)
+  ggplot(data = mphyseq, mapping = aes_string(x = "Year",y = "Abundance",
+                                 color = Color, fill = Color)) +
+    geom_violin(fill = NA) +
+     geom_point(size = 1, alpha = 0.3,
+                position = position_jitter(width = 0.3)) +
+    facet_wrap(facets = Facet) + scale_y_log10()+
+    theme(legend.position="none")
+}
+
+PA.platy = plot_abundance3(phy97.f.clade.p.platy,"")
+PA.platy
+
+PA.fpenta = plot_abundance3(phy97.f.clade.p.fpenta,"")
+PA.fpenta
+
+```
+
+```{r, include=FALSE}
+plot_abundance4 = function(physeq,title = "",
+			     Facet = "hit", Color = "hit"){
+  mphyseq = psmelt(physeq)
+  mphyseq <- subset(mphyseq, Abundance > 0)
+  ggplot(data = mphyseq, mapping = aes_string(x = "Status",y = "Abundance",
+                                 color = Color, fill = Color)) +
+    geom_violin(fill = NA) +
+     geom_point(size = 1, alpha = 0.3,
+                position = position_jitter(width = 0.3)) +
+    facet_wrap(facets = Facet) + scale_y_log10()+
+    theme(legend.position="none")
+}
+
+PA.AD = plot_abundance4(phy97.f.clade.p.C.AD,"")
+PA.AD
+
+PA.AD.cG = plot_abundance4(phy97.f.clade.p.C.AD.G,"")
+PA.AD.cG
+
+```
