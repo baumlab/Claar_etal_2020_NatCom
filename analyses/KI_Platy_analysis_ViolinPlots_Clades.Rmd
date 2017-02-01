@@ -28,6 +28,8 @@ phy97.f.clade.p.fpenta <- subset_samples(phy97.f.clade.p.C,Coral_Species=="Favit
 phy97.f.clade.p.C.AD <- subset_samples(phy97.f.clade.p.C,Status=="alive"|Status=="dead")
 # Then subset those to only select corals which had Clade G
 phy97.f.clade.p.C.AD.G <- subset_taxa(phy97.f.clade.p.C.AD,hit=="G")
+# Then subset those to only select corals which had Clade C
+phy97.f.clade.p.C.AD.C <- subset_taxa(phy97.f.clade.p.C.AD,hit=="C")
 
 ```
 
@@ -117,4 +119,11 @@ PA.G2 = plot_abundance2(phy97.f.clade.p.C.AD.G,"")
 PA.G2
 ```
 
+```{r, include=TRUE}
+# What's going on with Clade C?
+PA.C3 = plot_abundance3(phy97.f.clade.p.C.AD.C,"")
+PA.C3
+PA.C2 = plot_abundance2(phy97.f.clade.p.C.AD.C,"")
+PA.C2
+```
 

@@ -1,0 +1,84 @@
+---
+title: "KI Platy Analysis - Diversity Models"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(phyloseq)
+library(ggplot2)
+library(nlme)
+library(dplyr)
+library(vegan)
+library(reshape2)
+
+# Load grouped data
+load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
+
+# Subset samples to only include corals from SITE 35
+phy97.f.site35 <- subset_samples(phy97.f,Site == "35" & SampleType == "coral")
+# Specify order of levels in Year
+levels(sample_data(phy97.f.site35)$Year) = c("2014", "2015Jan", "2015May","2015July", "2016March")
+```
+
+```{r, include=TRUE}
+ps_alpha_div <- estimate_richness(phy97.f.site35, split = TRUE, measure = "Shannon")
+ps_alpha_div$SampleID <- rownames(ps_alpha_div) %>%
+  as.factor()
+ps_alpha_div$CoralTag <- sample_data(phy97.f.site35)$CoralTag %>%
+  as.factor()
+ps_alpha_div$Year <- sample_data(phy97.f.site35)$Year %>%
+  as.factor()
+
+sample_data(phy97.f.site35)$SampleID <- rownames(sample_data(phy97.f.site35)) %>%
+  as.factor()
+sample_data(phy97.f.site35)$CoralTag <- sample_data(phy97.f.site35)$CoralTag %>%
+  as.factor()
+sample_data(phy97.f.site35)$Year <- sample_data(phy97.f.site35)$Year %>%
+  as.factor()
+
+ps_samp <- sample_data(phy97.f.site35) %>%
+  unclass() %>%
+  data.frame() %>%
+  left_join(ps_alpha_div, by = "Year") %>%
+  melt(measure.vars = "Shannon",
+        variable.name = "diversity_measure",
+        value.name = "alpha_diversity")
+
+# reorder's facet from lowest to highest diversity
+diversity_means <- ps_samp %>%
+  group_by(Year) %>%
+  summarise(mean_div = mean(alpha_diversity)) %>%
+  arrange(mean_div)
+ps_samp$SampleID <- factor(ps_samp$Year,
+				  diversity_means$Year)
+
+alpha_div_model <- lme(fixed = alpha_diversity ~ Year, data = ps_samp,
+			  random = ~ 1 | Coral_Species)
+
+new_data <- expand.grid(
+			   Coral_Species = levels(ps_samp$Coral_Species), Year=levels(ps_samp$Year))
+new_data$pred <- predict(alpha_div_model, newdata = new_data)
+X <- model.matrix(eval(eval(alpha_div_model$call$fixed)[-2]),
+		  new_data[-ncol(new_data)])
+pred_var_fixed <- diag(X %*% alpha_div_model$varFix %*% t(X))
+new_data$pred_var <- pred_var_fixed + alpha_div_model$sigma ^ 2
+# fitted values, with error bars
+ggplot(ps_samp %>% left_join(new_data)) +
+  geom_errorbar(aes(x = Year, ymin = pred - 2 * sqrt(pred_var),
+		      ymax = pred + 2 * sqrt(pred_var)),
+		  col = "#858585", size = .1) +
+  geom_point(aes(x = Year, y = alpha_diversity,
+		   col = Site), size = 0.8) +
+  facet_wrap(~Coral_Species) +
+  #scale_y_continuous(limits = c(2.4, 4.6), breaks = seq(0, 5, .5)) +
+  scale_color_brewer(palette = "Set2") +
+  labs(x = "Year", y = "Shannon Diversity", color = "Status") +
+  guides(col = guide_legend(override.aes = list(size = 4))) +
+  theme(panel.border = element_rect(color = "#787878", fill = alpha("white", 0)),
+	 axis.text.x = element_text(angle = -90, size = 6),
+	 axis.text.y = element_text(size = 6))
+```
