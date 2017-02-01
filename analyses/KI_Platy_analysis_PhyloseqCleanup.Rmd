@@ -1,5 +1,5 @@
 ---
-title: "Platy analysis"
+title: "Platy analysis - Phyloseq Cleanup"
 output: pdf_document
 ---
 
@@ -14,7 +14,7 @@ library(reshape2)
 library(phyloseq)
 ```
 
-<!-- Load filtered RData object from filter_notsym.R script -->
+<!-- Load filtered RData object from output of filter_notsym.R script -->
 ```{r, echo=FALSE}
 load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f.RData")
 phy97.f <- phy.f # Rename phyloseq object for clarity
@@ -58,7 +58,7 @@ sample_data(phy97.f)$Dist<- gsub ("8",as.character("HighMed"), as.character(data
 
 <!-- Use merge_taxa to collapse OTUs with equivalent names ("hits") -->
 ```{r, echo=FALSE}
-# Find all entries in the taxa_table that contain DI in "hit"
+# Find all entries in the taxa_table that contain D1 in "hit"
 D1s <- grep("D1", data.frame(tax_table(phy97.f))$hit)
 # Merge taxa, collapsing all hits with "D1" into 1 row in the taxa table. Eqtaxa says which taxa to collapse together. Archetype is included or it doesn't work, and refers to which name the new collapsed row will take - however I haven't found out how to modify this without it failing yet.
 phy97.f.eqtaxa <- merge_taxa(phy97.f, eqtaxa=D1s, archetype=1)
@@ -127,7 +127,7 @@ info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.eqtaxa) <- as.matrix(tt)
 
-
+# Transform sample counts to proportional abundance for downstream analyses
 phy97.f.eqtaxa.p <- transform_sample_counts(phy97.f.eqtaxa, function(x) x/sum(x))
 ```
 
@@ -188,9 +188,12 @@ info <- "I"
 tt[isna,"hit"] <- info
 tax_table(phy97.f.clade) <- as.matrix(tt)
 
-
+# Transform sample counts to proportional abundance for downstream analyses
 phy97.f.clade.p <- transform_sample_counts(phy97.f.clade, function(x) x/sum(x))
+```
 
+```{r, echo=FALSE}
+# Save grouped data as RData file
 save(list=c("phy97.f.clade","phy97.f.clade.p","phy97.f.eqtaxa","phy97.f.eqtaxa.p"),file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
 ```
 
