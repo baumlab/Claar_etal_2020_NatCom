@@ -24,7 +24,7 @@ phy97.f.site35 <- subset_samples(phy97.f,Site == "35" & SampleType == "coral")
 levels(sample_data(phy97.f.site35)$Year) = c("2014", "2015Jan", "2015May","2015July", "2016March")
 ```
 
-```{r, include=TRUE}
+```{r, include=FALSE}
 ps_alpha_div <- estimate_richness(phy97.f.site35, split = TRUE, measure = "Shannon")
 ps_alpha_div$SampleID <- rownames(ps_alpha_div) %>%
   as.factor()
@@ -55,10 +55,18 @@ diversity_means <- ps_samp %>%
   arrange(mean_div)
 ps_samp$SampleID <- factor(ps_samp$Year,
 				  diversity_means$Year)
+```
 
+```{r, include=TRUE}
+# Set up diversity model
 alpha_div_model <- lme(fixed = alpha_diversity ~ Year, data = ps_samp,
 			  random = ~ 1 | Coral_Species)
 
+alpha_div_model
+```
+
+```{r, include=TRUE, echo=FALSE}
+# Make diversity figure
 new_data <- expand.grid(
 			   Coral_Species = levels(ps_samp$Coral_Species), Year=levels(ps_samp$Year))
 new_data$pred <- predict(alpha_div_model, newdata = new_data)
