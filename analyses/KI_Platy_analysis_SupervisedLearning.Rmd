@@ -11,31 +11,50 @@ library(ggplot2)
 library(caret)
 library(plyr)
 library(dplyr)
+
+# Load grouped data
+load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
+
 ```
 
 ```{r, include=TRUE}
-pslog <- transform_sample_counts(phy97.f, function(x) log(1 + x))
-# Subset samples that were confirmed "alive" or "dead"
-pslog.AD <- subset_samples(pslog,Status=="alive"|Status=="dead")
+# Subset samples to only include corals
+phy97.f.C <- subset_samples(phy97.f,SampleType == "coral")
+pslog <- transform_sample_counts(phy97.f.C, function(x) log(1 + x))
+sample_data(pslog)$SampleID <- rownames(sample_data(pslog)) %>%
+  as.factor()
 
+sample_data(pslog)$Year <- as.numeric(sample_data(pslog)$Year)
+sample_data(pslog)$Year2 <- cut(sample_data(pslog)$Year, c(0,1,2,3,4,5))
+dataMatrix <- data.frame(Year = sample_data(pslog)$Year2, sample_data(pslog))
+dataMatrix <- dataMatrix
+dataMatrix <- dataMatrix[c(3,7:9,12)]
 
-out.wuf.log <- ordinate(pslog.AD, method = "MDS")
-evals <- out.wuf.log$values$Eigenvalues
-plot_ordination(pslog, out.wuf.log, color = "Status") +
-  labs(col = "Status") +
-  coord_fixed(sqrt(evals[2] / evals[1]))
-
-SDF = data.frame(samples=sample_names(x), row.names=sample_names(x))
-dataMatrix <- data.frame(age = sample_data(pslog)$age2, otu_table(pslog)) # I am very confused about this. How did they get it to work in the first place? Because merging all the sample data columns with the otu_table doesn't match up
-dataMatrix <- psmelt(pslog)
-dataMatrix <- dataMatrix[c("Year", "hit","Sample")]
-  
 trainingCorals <- sample(unique(sample_data(pslog)$SampleID), size = 200)
 inTrain <- which(sample_data(pslog)$SampleID %in% trainingCorals)
 training <- dataMatrix[inTrain,]
 testing <- dataMatrix[-inTrain,]
-plsFit <- train(Year ~ ., data = training,
+plsFit <- train(Year2 ~ ., data = training,
 		  method = "pls", preProc = "center")
 plsClasses <- predict(plsFit, newdata = testing)
-table(plsClasses, testing$age)
+table(plsClasses, testing$Year2)
+
+sample_data(pslog)$Year <- as.numeric(sample_data(pslog)$Year)
+sample_data(pslog)$Year2 <- cut(sample_data(pslog)$Year, c(0,2,3,5))
+dataMatrix <- data.frame(Year = sample_data(pslog)$Year2, sample_data(pslog))
+dataMatrix <- dataMatrix[c(3,7:9,12)]
+
+trainingCorals <- sample(unique(sample_data(pslog)$SampleID), size = 200)
+inTrain <- which(sample_data(pslog)$SampleID %in% trainingCorals)
+training <- dataMatrix[inTrain,]
+testing <- dataMatrix[-inTrain,]
+plsFit <- train(Year2 ~ ., data = training,
+		  method = "pls", preProc = "center")
+plsClasses <- predict(plsFit, newdata = testing)
+table(plsClasses, testing$Year2)
+
+rfFit <- train(Year2 ~ Coral_Species, data = training, method = "rf",
+ 		 preProc = "center", proximity = TRUE)
+rfClasses <- predict(rfFit, newdata = testing)
+table(rfClasses, testing$Year2)
 ```
