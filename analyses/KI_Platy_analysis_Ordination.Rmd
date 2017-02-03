@@ -1,0 +1,22 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r, include=FALSE}
+ord.phy97.f.clade.p.C <- ordinate(phy97.f.clade.p.C, method = "MDS", distance = "bray")
+evals <- ord.phy97.f.clade.p.C$values$Eigenvalues
+plot_ordination(phy97.f.clade.p.C, ord.phy97.f.clade.p.C, color = "Coral_Species") +
+  labs(col = "Binned Age") +
+  coord_fixed(sqrt(evals[2] / evals[1]))
+
+ord.phy97.f.clade.p.C.AD <- ordinate(phy97.f.clade.p.C.AD, method = "MDS", distance = "bray")
+evals <- ord.phy97.f.clade.p.C.AD$values$Eigenvalues
+plot_ordination(phy97.f.clade.p.C.AD, ord.phy97.f.clade.p.C.AD, color = "Status") +
+  labs(col = "Binned Age") +
+  coord_fixed(sqrt(evals[2] / evals[1]))
+
+```
