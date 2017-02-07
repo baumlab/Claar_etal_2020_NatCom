@@ -1,30 +1,18 @@
----
-title: "Platy analysis - Phyloseq Cleanup"
-output:
-  html_document: default
-  pdf_document: default
----
+# Platy analysis - Phyloseq Cleanup
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-<!-- Import libraries -->
-```{r, echo=FALSE}
+# Import Libraries
 library(stringr)
 library(reshape2)
 library(phyloseq)
-```
 
-<!-- Load filtered RData object from output of filter_notsym.R script -->
-```{r, echo=FALSE}
+# Clear workspace
+rm(list=ls())
+
+# Load filtered RData object from output of filter_notsym.R script
 load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f.RData")
 phy97.f <- phy.f # Rename phyloseq object for clarity
-```
 
-
-<!-- Characterize sites by disturbance level -->
-```{r, echo=FALSE}
+# Characterize sites by disturbance level
 VeryHigh <- c(33,40,32,31,27,30,26)
 High <- c(25,3,38,24)
 HighMed <- c(9,34,35,8,14,6)
@@ -56,10 +44,26 @@ sample_data(phy97.f)$Dist<- gsub ("5",as.character("Low"), as.character(data.fra
 sample_data(phy97.f)$Dist<- gsub ("6",as.character("HighMed"), as.character(data.frame(sample_data(phy97.f))$Dist), as.character("HighMed"))
 sample_data(phy97.f)$Dist<- gsub ("9",as.character("HighMed"), as.character(data.frame(sample_data(phy97.f))$Dist), as.character("HighMed"))
 sample_data(phy97.f)$Dist<- gsub ("8",as.character("HighMed"), as.character(data.frame(sample_data(phy97.f))$Dist), as.character("HighMed"))
-```
+rm(VeryHigh,High,HighMed,LowMed,Low,VeryLow)
 
-<!-- Use merge_taxa to collapse OTUs with equivalent names ("hits") -->
-```{r, echo=FALSE}
+# Make a tax_table column for "clade"
+# Rename rank_names (aka column names in phy97.f)
+colnames(tax_table(phy97.f)) <- c(otu = "otu", sim = "sim", del = "del", ins = "ins", mis = "mis", len = "len", score = "score", hit = "hit", i = "clade")
+# Copy "hit" into last column
+tax_table(phy97.f)[,9] <- tax_table(phy97.f)[,8]
+
+# Use gsub to replace full "hit" name with only clade letter
+tax_table(phy97.f)[,9] <- gsub("^A.*", "A", tax_table(phy97.f)[,9])
+tax_table(phy97.f)[,9] <- gsub("^B.*", "B", tax_table(phy97.f)[,9])
+tax_table(phy97.f)[,9] <- gsub("^C.*", "C", tax_table(phy97.f)[,9])
+tax_table(phy97.f)[,9] <- gsub("^D.*", "D", tax_table(phy97.f)[,9])
+tax_table(phy97.f)[,9] <- gsub("^F.*", "F", tax_table(phy97.f)[,9])
+tax_table(phy97.f)[,9] <- gsub("^G.*", "G", tax_table(phy97.f)[,9])
+tax_table(phy97.f)[,9] <- gsub("^I.*", "I", tax_table(phy97.f)[,9])
+
+# Use merge_taxa to collapse OTUs with equivalent names ("hits")
+
+# I tried this and it didn't work
 #phy97.f.test <- tax_glom(phy97.f, taxrank=rank_names(phy97.f)[9])
 #tax_glom(physeq=myData, taxrank=rank_names(myData)[2])
 #identical(tax_table(phy97.f),tax_table(phy97.f.test))
@@ -72,6 +76,7 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(C3k_AY589737)
 
 D1_multiple <- grep("D1_multiple", data.frame(tax_table(phy97.f.c))$hit)
 phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=D1_multiple, archetype=1)
@@ -80,6 +85,7 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(D1_multiple)
 
 C42_AY258487 <- grep("C42_AY258487", data.frame(tax_table(phy97.f.c))$hit)
 phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=C42_AY258487, archetype=1)
@@ -88,6 +94,7 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(C42_AY258487)
 
 C15_AY239369 <- grep("C15_AY239369", data.frame(tax_table(phy97.f.c))$hit)
 phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=C15_AY239369, archetype=1)
@@ -96,6 +103,7 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(C15_AY239369)
 
 C3_multiple <- grep("C3_multiple", data.frame(tax_table(phy97.f.c))$hit)
 phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=C3_multiple, archetype=1)
@@ -104,6 +112,7 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(C3_multiple)
 
 I4_FN561562 <- grep("I4_FN561562", data.frame(tax_table(phy97.f.c))$hit)
 phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=I4_FN561562, archetype=1)
@@ -112,6 +121,7 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(I4_FN561562)
 
 G100_AB253788 <- grep("G100_AB253788", data.frame(tax_table(phy97.f.c))$hit)
 phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=G100_AB253788, archetype=1)
@@ -120,6 +130,7 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(G100_AB253788)
 
 F5.2c_AM748596 <- grep("F5.2c_AM748596", data.frame(tax_table(phy97.f.c))$hit)
 phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=F5.2c_AM748596, archetype=1)
@@ -128,6 +139,7 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(F5.2c_AM748596)
 
 F5.1a_AM748591 <- grep("F5.1a_AM748591", data.frame(tax_table(phy97.f.c))$hit)
 phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=F5.1a_AM748591, archetype=1)
@@ -136,6 +148,7 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(F5.1a_AM748591)
 
 F3.2a_AM748568 <- grep("F3.2a_AM748568", data.frame(tax_table(phy97.f.c))$hit)
 phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=F3.2a_AM748568, archetype=1)
@@ -144,6 +157,7 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(F3.2a_AM748568)
 
 C3b_AF499791 <- grep("C3b_AF499791", data.frame(tax_table(phy97.f.c))$hit)
 phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=C3b_AF499791, archetype=1)
@@ -152,6 +166,7 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(C3b_AF499791)
 
 C1051_AF195153 <- grep("C1051_AF195153", data.frame(tax_table(phy97.f.c))$hit)
 phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=C1051_AF195153, archetype=1)
@@ -160,6 +175,7 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(C1051_AF195153)
 
 C1232_EU118163 <- grep("C1232_EU118163", data.frame(tax_table(phy97.f.c))$hit)
 phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=C1232_EU118163, archetype=1)
@@ -168,6 +184,7 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(C1232_EU118163)
 
 A133_DQ174725 <- grep("A133_DQ174725", data.frame(tax_table(phy97.f.c))$hit)
 phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=A133_DQ174725, archetype=1)
@@ -176,6 +193,9 @@ isna <- rownames(tt)[is.na(tt$hit)]
 info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
 tt[isna,"hit"] <- info
 tax_table(phy97.f.c) <- as.matrix(tt)
+rm(A133_DQ174725)
+
+rm(info,isna,tt)
 
 # Manually checking whether all equivalent taxa are collapsed
 # t <- sort(data.frame(tax_table(phy97.f.c))$hit)
@@ -188,72 +208,8 @@ tax_table(phy97.f.c) <- as.matrix(tt)
 
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.p <- transform_sample_counts(phy97.f.c, function(x) x/sum(x))
-```
 
-<!-- Use merge_taxa to collapse OTUs by clade -->
-```{r, echo=FALSE}
-# Find all entries in the taxa_table that contain DI in "hit"
-Ds <- grep("^D", data.frame(tax_table(phy97.f))$hit)
-# Merge taxa, collapsing all hits with "D1" into 1 row in the taxa table. Eqtaxa says which taxa to collapse together. Archetype is included or it doesn't work, and refers to which name the new collapsed row will take - however I haven't found out how to modify this without it failing yet.
-phy97.f.clade <- merge_taxa(phy97.f, eqtaxa=Ds, archetype=1)
-# Create tt from the taxa table (to use in renaming below)
-tt <- data.frame(tax_table(phy97.f.clade), stringsAsFactors = F)
-# Create "isna" which includes the rownames of all taxa where "hit"=NA
-isna <- rownames(tt)[is.na(tt$hit)]
-# Create info by extracting the row's "hit" string from the original taxa table
-info <- "D"
-# Rename the NA using the extracted "hit" name from above
-tt[isna,"hit"] <- info
-# Replace the taxa table in phy97.f.eqtaxa with updated taxa table (tt). Must be converted to matrix first to work.
-tax_table(phy97.f.clade) <- as.matrix(tt)
-
-Cs <- grep("^C", data.frame(tax_table(phy97.f.clade))$hit)
-phy97.f.clade <- merge_taxa(phy97.f.clade, eqtaxa=Cs, archetype=1)
-tt <- data.frame(tax_table(phy97.f.clade), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- "C"
-tt[isna,"hit"] <- info
-tax_table(phy97.f.clade) <- as.matrix(tt)
-
-Gs <- grep("^G", data.frame(tax_table(phy97.f.clade))$hit)
-phy97.f.clade <- merge_taxa(phy97.f.clade, eqtaxa=Gs, archetype=1)
-tt <- data.frame(tax_table(phy97.f.clade), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- "G"
-tt[isna,"hit"] <- info
-tax_table(phy97.f.clade) <- as.matrix(tt)
-
-As <- grep("^A", data.frame(tax_table(phy97.f.clade))$hit)
-phy97.f.clade <- merge_taxa(phy97.f.clade, eqtaxa=As, archetype=1)
-tt <- data.frame(tax_table(phy97.f.clade), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- "A"
-tt[isna,"hit"] <- info
-tax_table(phy97.f.clade) <- as.matrix(tt)
-
-Fs <- grep("^F", data.frame(tax_table(phy97.f.clade))$hit)
-phy97.f.clade <- merge_taxa(phy97.f.clade, eqtaxa=Fs, archetype=1)
-tt <- data.frame(tax_table(phy97.f.clade), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- "F"
-tt[isna,"hit"] <- info
-tax_table(phy97.f.clade) <- as.matrix(tt)
-
-Is <- grep("^I", data.frame(tax_table(phy97.f.clade))$hit)
-phy97.f.clade <- merge_taxa(phy97.f.clade, eqtaxa=Is, archetype=1)
-tt <- data.frame(tax_table(phy97.f.clade), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- "I"
-tt[isna,"hit"] <- info
-tax_table(phy97.f.clade) <- as.matrix(tt)
-
-# Transform sample counts to proportional abundance for downstream analyses
-phy97.f.clade.p <- transform_sample_counts(phy97.f.clade, function(x) x/sum(x))
-```
-
-<!-- Subset into coral species -->
-```{r, echo=FALSE}
-# Subset coral data set into individual genus data sets
+# Subset coral data set into individual genus data sets (and water and sediment)
 phy97.f.c.platy <- subset_samples(phy97.f.c,Coral_Species=="Platygyra_sp")
 phy97.f.c.platy <- subset_taxa(phy97.f.c.platy, taxa_sums(phy97.f.c.platy) > 0, prune=TRUE)
 
@@ -286,21 +242,5 @@ phy97.f.c.water.p <- transform_sample_counts(phy97.f.c.water, function(x) x/sum(
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.sediment.p <- transform_sample_counts(phy97.f.c.sediment, function(x) x/sum(x))
 
-```
-
-
-```{r, echo=FALSE}
 # Save grouped data as RData file
-save(list=c("phy97.f.clade","phy97.f.clade.p",
-            "phy97.f.c","phy97.f.c.p",
-            "phy97.f",
-            "phy97.f.c.platy.p", "phy97.f.c.platy", 
-            "phy97.f.c.fpenta.p", "phy97.f.c.fpenta", 
-            "phy97.f.c.faviasp.p", "phy97.f.c.faviasp", 
-            "phy97.f.c.faviam.p", "phy97.f.c.faviam", 
-            "phy97.f.c.faviaall.p", "phy97.f.c.faviaall", 
-            "phy97.f.c.water.p", "phy97.f.c.water", 
-            "phy97.f.c.sediment.p", "phy97.f.c.sediment"),
-     file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
-```
-
+save.image(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
