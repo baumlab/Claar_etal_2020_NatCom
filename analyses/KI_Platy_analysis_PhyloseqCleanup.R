@@ -46,21 +46,6 @@ sample_data(phy97.f)$Dist<- gsub ("9",as.character("HighMed"), as.character(data
 sample_data(phy97.f)$Dist<- gsub ("8",as.character("HighMed"), as.character(data.frame(sample_data(phy97.f))$Dist), as.character("HighMed"))
 rm(VeryHigh,High,HighMed,LowMed,Low,VeryLow)
 
-# Make a tax_table column for "clade"
-# Rename rank_names (aka column names in phy97.f)
-colnames(tax_table(phy97.f)) <- c(otu = "otu", sim = "sim", del = "del", ins = "ins", mis = "mis", len = "len", score = "score", hit = "hit", i = "clade")
-# Copy "hit" into last column
-tax_table(phy97.f)[,9] <- tax_table(phy97.f)[,8]
-
-# Use gsub to replace full "hit" name with only clade letter
-tax_table(phy97.f)[,9] <- gsub("^A.*", "A", tax_table(phy97.f)[,9])
-tax_table(phy97.f)[,9] <- gsub("^B.*", "B", tax_table(phy97.f)[,9])
-tax_table(phy97.f)[,9] <- gsub("^C.*", "C", tax_table(phy97.f)[,9])
-tax_table(phy97.f)[,9] <- gsub("^D.*", "D", tax_table(phy97.f)[,9])
-tax_table(phy97.f)[,9] <- gsub("^F.*", "F", tax_table(phy97.f)[,9])
-tax_table(phy97.f)[,9] <- gsub("^G.*", "G", tax_table(phy97.f)[,9])
-tax_table(phy97.f)[,9] <- gsub("^I.*", "I", tax_table(phy97.f)[,9])
-
 # Use merge_taxa to collapse OTUs with equivalent names ("hits")
 
 # I tried this and it didn't work
@@ -205,6 +190,21 @@ rm(info,isna,tt)
 # x <- length(unique(data.frame(tax_table(phy97.f.c))$hit))
 # y <- length(data.frame(tax_table(phy97.f.c))$hit)
 # identical(x,y)
+
+# Make a tax_table column for "clade"
+# Rename rank_names (aka column names in phy97.f.c)
+colnames(tax_table(phy97.f.c)) <- c(otu = "otu", sim = "sim", del = "del", ins = "ins", mis = "mis", len = "len", score = "score", hit = "hit", i = "clade")
+# Copy "hit" into last column
+tax_table(phy97.f.c)[,9] <- tax_table(phy97.f.c)[,8]
+
+# Use gsub to replace full "hit" name with only clade letter
+tax_table(phy97.f.c)[,9] <- gsub("^A.*", "A", tax_table(phy97.f.c)[,9])
+tax_table(phy97.f.c)[,9] <- gsub("^B.*", "B", tax_table(phy97.f.c)[,9])
+tax_table(phy97.f.c)[,9] <- gsub("^C.*", "C", tax_table(phy97.f.c)[,9])
+tax_table(phy97.f.c)[,9] <- gsub("^D.*", "D", tax_table(phy97.f.c)[,9])
+tax_table(phy97.f.c)[,9] <- gsub("^F.*", "F", tax_table(phy97.f.c)[,9])
+tax_table(phy97.f.c)[,9] <- gsub("^G.*", "G", tax_table(phy97.f.c)[,9])
+tax_table(phy97.f.c)[,9] <- gsub("^I.*", "I", tax_table(phy97.f.c)[,9])
 
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.p <- transform_sample_counts(phy97.f.c, function(x) x/sum(x))
