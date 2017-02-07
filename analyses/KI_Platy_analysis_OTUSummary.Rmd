@@ -1,0 +1,32 @@
+---
+title: "KI_Platy_analysis_OTUSummary"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(phyloseq)
+
+load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
+
+# Look at tax_table
+# tax_table(phy97.f.c)
+
+```
+
+PLATYGYRA
+Number of OTUs found in Platygyra:
+```{r, include=TRUE, echo=FALSE}
+ntaxa(phy97.f.c.platy)
+```
+
+Number of OTUs found in Favites pentagona:
+```{r, include=TRUE, echo=FALSE}
+ntaxa(phy97.f.c.fpenta)
+```
+
+Number of OTUs found in Favia:
+```{r, include=TRUE, echo=FALSE}
+ntaxa(phy97.f.c.faviaall)
+```
