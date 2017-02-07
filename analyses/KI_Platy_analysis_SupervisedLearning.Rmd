@@ -27,7 +27,6 @@ sample_data(pslog)$SampleID <- rownames(sample_data(pslog)) %>%
 sample_data(pslog)$Year <- as.numeric(sample_data(pslog)$Year)
 sample_data(pslog)$Year2 <- cut(sample_data(pslog)$Year, c(0,1,2,3,4,5))
 dataMatrix <- data.frame(Year = sample_data(pslog)$Year2, sample_data(pslog))
-dataMatrix <- dataMatrix
 dataMatrix <- dataMatrix[c(3,7:9,12)]
 
 trainingCorals <- sample(unique(sample_data(pslog)$SampleID), size = 200)
@@ -57,4 +56,5 @@ rfFit <- train(Year2 ~ Coral_Species, data = training, method = "rf",
  		 preProc = "center", proximity = TRUE)
 rfClasses <- predict(rfFit, newdata = testing)
 table(rfClasses, testing$Year2)
+
 ```
