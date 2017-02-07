@@ -50,6 +50,7 @@ sediment.nclades <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.
 sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment))[9])$clade))
 
 ```
+
 ```{r, include=TRUE, echo=FALSE}
 df <- data.frame(Platygyra=platy.ntaxa,Favia=favia.ntaxa,Favites=favites.ntaxa,Water=water.ntaxa, Sediment=sediment.ntaxa)
 df[2,] <- c(platy.nclades,favia.nclades,favites.nclades,water.nclades,sediment.nclades)
@@ -61,3 +62,120 @@ df
 barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan", "darkturquoise", "dodgerblue3"),ylim = c(0,25))
 
 ```
+
+
+```{r, include=TRUE, echo=FALSE}
+# SITE 3   
+# Number of OTUs:
+site3.ntaxa <- ntaxa(phy97.f.c.site3)
+# Number of Clades:
+site3.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site3))[9])$clade))))))
+site3.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site3))[9])$clade))
+# SITE 5  
+# Number of OTUs:
+site5.ntaxa <- ntaxa(phy97.f.c.site5)
+# Number of Clades:
+site5.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site5))[9])$clade))))))
+site5.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site5))[9])$clade))
+# SITE 8   
+# Number of OTUs:
+site8.ntaxa <- ntaxa(phy97.f.c.site8)
+# Number of Clades:
+site8.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site8))[9])$clade))))))
+site8.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site8))[9])$clade))
+# SITE 14   
+# Number of OTUs:
+site14.ntaxa <- ntaxa(phy97.f.c.site14)
+# Number of Clades:
+site14.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site14))[9])$clade))))))
+site14.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site14))[9])$clade))
+# SITE 15   
+# Number of OTUs:
+site15.ntaxa <- ntaxa(phy97.f.c.site15)
+# Number of Clades:
+site15.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site15))[9])$clade))))))
+site15.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site15))[9])$clade))
+# SITE 19   
+# Number of OTUs:
+site19.ntaxa <- ntaxa(phy97.f.c.site19)
+# Number of Clades:
+site19.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site19))[9])$clade))))))
+site19.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site19))[9])$clade))
+# SITE 25   
+# Number of OTUs:
+site25.ntaxa <- ntaxa(phy97.f.c.site25)
+# Number of Clades:
+site25.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site25))[9])$clade))))))
+site25.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site25))[9])$clade))
+# SITE 27   
+# Number of OTUs:
+site27.ntaxa <- ntaxa(phy97.f.c.site27)
+# Number of Clades:
+site27.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site27))[9])$clade))))))
+site27.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site27))[9])$clade))
+# SITE 30   
+# Number of OTUs:
+site30.ntaxa <- ntaxa(phy97.f.c.site30)
+# Number of Clades:
+site30.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site30))[9])$clade))))))
+site30.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site30))[9])$clade))
+# SITE 32   
+# Number of OTUs:
+site32.ntaxa <- ntaxa(phy97.f.c.site32)
+# Number of Clades:
+site32.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site32))[9])$clade))))))
+site32.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site32))[9])$clade))
+# SITE 34   
+# Number of OTUs:
+site34.ntaxa <- ntaxa(phy97.f.c.site34)
+# Number of Clades:
+site34.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site34))[9])$clade))))))
+site34.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site34))[9])$clade))
+# SITE 35   
+# Number of OTUs:
+site35.ntaxa <- ntaxa(phy97.f.c.site35)
+# Number of Clades:
+site35.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site35))[9])$clade))))))
+site35.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site35))[9])$clade))
+# SITE 37   
+# Number of OTUs:
+site37.ntaxa <- ntaxa(phy97.f.c.site37)
+# Number of Clades:
+site37.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site37))[9])$clade))))))
+site37.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site37))[9])$clade))
+# SITE 38  
+# Number of OTUs:
+site38.ntaxa <- ntaxa(phy97.f.c.site38)
+# Number of Clades:
+site38.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site38))[9])$clade))))))
+site38.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site38))[9])$clade))
+# SITE 40
+# Number of OTUs:
+site40.ntaxa <- ntaxa(phy97.f.c.site40)
+# Number of Clades:
+site40.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site40))[9])$clade))))))
+site40.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site40))[9])$clade))
+
+```
+
+```{r, include=TRUE, echo=FALSE}
+df2 <- data.frame(site3=site3.ntaxa,site5=site5.ntaxa,site8=site8.ntaxa,site14=site14.ntaxa,site15=site15.ntaxa,site19=site19.ntaxa,site25=site25.ntaxa,site27=site27.ntaxa,site30=site30.ntaxa,site32=site32.ntaxa,site34=site34.ntaxa,site35=site35.ntaxa,site37=site37.ntaxa,site38=site38.ntaxa,site40=site40.ntaxa)
+df2[2,] <- c(site3.nclades,site5.nclades,site8.nclades,site14.nclades,site15.nclades,site19.nclades,site25.nclades,site27.nclades,site30.nclades,site32.nclades,site34.nclades,site35.nclades,site37.nclades,site38.nclades,site40.nclades)
+rownames(df2) <- c("Number of OTUs","Number of Clades")
+df2 <- t(df2)
+
+df2
+
+colors <- data.frame(sample_data(phy97.f.c))$Dist
+  
+VeryHigh <- c(33,40,32,31,27,30,26)
+High <- c(25,3,38,24)
+HighMed <- c(9,34,35,8,14,6)
+LowMed <- c(2,22,1,23)
+Low <- c(7,13,12,4,36,5,37)
+VeryLow <- c(10,21,11,20,16,15,39,19,18,17)
+
+barplot(df2, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legend=rownames(df), col=colors,ylim = c(0,25))
+
+```
+
