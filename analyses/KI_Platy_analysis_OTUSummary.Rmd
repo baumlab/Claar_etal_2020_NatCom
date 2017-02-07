@@ -187,3 +187,66 @@ legend("topright", inset=c(0.05,-0.05), legend=rownames(df2), fill=df2[,3],cex=0
 dev.off()
 ```
 
+<!-- Calculate OTU and clade diversity by field season -->
+```{r, include=TRUE, echo=FALSE}
+# 2014  
+# Number of OTUs:
+s2014.ntaxa <- ntaxa(phy97.f.c.2014)
+# Number of Clades:
+s2014.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.2014))[9])$clade))))))
+s2014.clades <- levels(unique((data.frame(tax_table(phy97.f.c.2014))[9])$clade))
+
+# 2015 Jan
+# Number of OTUs:
+s2015Jan.ntaxa <- ntaxa(phy97.f.c.2015Jan)
+# Number of Clades:
+s2015Jan.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.2015Jan))[9])$clade))))))
+s2015Jan.clades <- levels(unique((data.frame(tax_table(phy97.f.c.2015Jan))[9])$clade))
+
+# 2015 May
+# Number of OTUs:
+s2015May.ntaxa <- ntaxa(phy97.f.c.2015May)
+# Number of Clades:
+s2015May.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.2015May))[9])$clade))))))
+s2015May.clades <- levels(unique((data.frame(tax_table(phy97.f.c.2015May))[9])$clade))
+
+# 2015 July
+# Number of OTUs:
+s2015July.ntaxa <- ntaxa(phy97.f.c.2015July)
+# Number of Clades:
+s2015July.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.2015July))[9])$clade))))))
+s2015July.clades <- levels(unique((data.frame(tax_table(phy97.f.c.2015July))[9])$clade))
+
+# 2016 March
+# Number of OTUs:
+s2016March.ntaxa <- ntaxa(phy97.f.c.2016March)
+# Number of Clades:
+s2016March.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.2016March))[9])$clade))))))
+s2016March.clades <- levels(unique((data.frame(tax_table(phy97.f.c.2016March))[9])$clade))
+```
+
+
+<!-- Plot OTU and clade diversity by site -->
+```{r, include=TRUE, echo=FALSE}
+df3 <- data.frame(s2014=s2014.ntaxa,s2015Jan=s2015Jan.ntaxa,s2015May=s2015May.ntaxa,s2015July=s2015July.ntaxa,s2016March=s2016March.ntaxa)
+df3[2,] <- c(s2014=s2014.nclades,s2015Jan=s2015Jan.nclades,s2015May=s2015May.nclades,s2015July=s2015July.nclades,s2016March=s2016March.nclades)
+rownames(df3) <- c("Number of OTUs","Number of Clades")
+df3 <- t(df3)
+df3
+
+mycols <- c("#2b83ba", "#abdda4", "#ffffbf", "#fdae61", "#d7191c")
+  
+palette(mycols)
+
+par(xpd=TRUE)
+barplot(df3, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=mycols,ylim = c(0,25))
+legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
+
+
+pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_by_FieldSeason.pdf", width=10, height=7)
+par(xpd=TRUE)
+barplot(df3, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=mycols,ylim = c(0,25))
+legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
+dev.off()
+```
+
