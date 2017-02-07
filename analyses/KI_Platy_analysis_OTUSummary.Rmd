@@ -7,26 +7,57 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(phyloseq)
+library(data.table)
 
 load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
 
 # Look at tax_table
-# tax_table(phy97.f.c)
+tax_table(phy97.f.c)
 
 ```
 
-PLATYGYRA
-Number of OTUs found in Platygyra:
-```{r, include=TRUE, echo=FALSE}
-ntaxa(phy97.f.c.platy)
-```
 
-Number of OTUs found in Favites pentagona:
 ```{r, include=TRUE, echo=FALSE}
-ntaxa(phy97.f.c.fpenta)
-```
+# PLATYGYRA  
+# Number of OTUs:
+platy.ntaxa <- ntaxa(phy97.f.c.platy)
+# Number of Clades:
+platy.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.platy))[9])$clade))))))
+platy.clades <- levels(unique((data.frame(tax_table(phy97.f.c.platy))[9])$clade))
+# FAVITES PENTAGONA  
+# Number of OTUs:
+favites.ntaxa <- ntaxa(phy97.f.c.fpenta)
+# Number of Clades:
+favites.nclades <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.fpenta))[9])$clade))))))
+favites.clades <- levels(unique((data.frame(tax_table(phy97.f.c.fpenta))[9])$clade))
+# FAVIA  
+# Number of OTUs:
+favia.ntaxa <- ntaxa(phy97.f.c.faviaall)
+# Number of Clades:
+favia.nclades <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.faviaall))[9])$clade))))))
+favia.clades <- levels(unique((data.frame(tax_table(phy97.f.c.faviaall))[9])$clade))
+# WATER 
+# Number of OTUs:
+water.ntaxa <- ntaxa(phy97.f.c.water)
+# Number of Clades:
+water.nclades <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water))[9])$clade))))))
+water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water))[9])$clade))
+# SEDIMENT 
+# Number of OTUs:
+sediment.ntaxa <- ntaxa(phy97.f.c.sediment)
+# Number of Clades:
+sediment.nclades <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment))[9])$clade))))))
+sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment))[9])$clade))
 
-Number of OTUs found in Favia:
+```
 ```{r, include=TRUE, echo=FALSE}
-ntaxa(phy97.f.c.faviaall)
+df <- data.frame(Platygyra=platy.ntaxa,Favia=favia.ntaxa,Favites=favites.ntaxa,Water=water.ntaxa, Sediment=sediment.ntaxa)
+df[2,] <- c(platy.nclades,favia.nclades,favites.nclades,water.nclades,sediment.nclades)
+rownames(df) <- c("Number of OTUs","Number of Clades")
+df <- t(df)
+
+df
+
+barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan", "darkturquoise", "dodgerblue3"),ylim = c(0,25))
+
 ```
