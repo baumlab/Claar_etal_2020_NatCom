@@ -274,5 +274,42 @@ phy97.f.c.site38 <- subset_taxa(phy97.f.c, taxa_sums(phy97.f.c.site38) > 0, prun
 phy97.f.c.site40 <- subset_samples(phy97.f.c,Site=="40")
 phy97.f.c.site40 <- subset_taxa(phy97.f.c, taxa_sums(phy97.f.c.site40) > 0, prune=TRUE)
 
+# Transform sample counts to proportional abundance for downstream analyses
+phy97.f.c.site3.p <- transform_sample_counts(phy97.f.c.site3, function(x) x/sum(x))
+phy97.f.c.site5.p <- transform_sample_counts(phy97.f.c.site5, function(x) x/sum(x))
+phy97.f.c.site8.p <- transform_sample_counts(phy97.f.c.site8, function(x) x/sum(x))
+phy97.f.c.site14.p <- transform_sample_counts(phy97.f.c.site14, function(x) x/sum(x))
+phy97.f.c.site15.p <- transform_sample_counts(phy97.f.c.site15, function(x) x/sum(x))
+phy97.f.c.site19.p <- transform_sample_counts(phy97.f.c.site19, function(x) x/sum(x))
+phy97.f.c.site25.p <- transform_sample_counts(phy97.f.c.site25, function(x) x/sum(x))
+phy97.f.c.site27.p <- transform_sample_counts(phy97.f.c.site27, function(x) x/sum(x))
+phy97.f.c.site30.p <- transform_sample_counts(phy97.f.c.site30, function(x) x/sum(x))
+phy97.f.c.site32.p <- transform_sample_counts(phy97.f.c.site32, function(x) x/sum(x))
+phy97.f.c.site34.p <- transform_sample_counts(phy97.f.c.site34, function(x) x/sum(x))
+phy97.f.c.site35.p <- transform_sample_counts(phy97.f.c.site35, function(x) x/sum(x))
+phy97.f.c.site37.p <- transform_sample_counts(phy97.f.c.site37, function(x) x/sum(x))
+phy97.f.c.site38.p <- transform_sample_counts(phy97.f.c.site38, function(x) x/sum(x))
+phy97.f.c.site40.p <- transform_sample_counts(phy97.f.c.site40, function(x) x/sum(x))
+
+# Subset by Field Season
+phy97.f.c.2014 <- subset_samples(phy97.f.c,Year=="2014",prune=TRUE)
+phy97.f.c.2014 <- subset_taxa(phy97.f.c.2014, taxa_sums(phy97.f.c) > 0, prune=TRUE)
+phy97.f.c.2015Jan <- subset_samples(phy97.f.c,Year=="2015Jan",prune=TRUE)
+phy97.f.c.2015Jan <- subset_taxa(phy97.f.c.2015Jan, taxa_sums(phy97.f.c) > 0, prune=TRUE)
+phy97.f.c.2015May <- subset_samples(phy97.f.c,Year=="2015May",prune=TRUE)
+phy97.f.c.2015May <- subset_taxa(phy97.f.c.2015May, taxa_sums(phy97.f.c) > 0, prune=TRUE)
+phy97.f.c.2015July <- subset_samples(phy97.f.c,Year=="2015July",prune=TRUE)
+phy97.f.c.2015July <- subset_taxa(phy97.f.c.2015July, taxa_sums(phy97.f.c) > 0, prune=TRUE)
+phy97.f.c.2016March <- subset_samples(phy97.f.c,Year=="2016March",prune=TRUE)
+phy97.f.c.2016March <- subset_taxa(phy97.f.c.2016March, taxa_sums(phy97.f.c) > 0, prune=TRUE)
+
+# Transform sample counts to proportional abundance for downstream analyses
+phy97.f.c.site3.p <- transform_sample_counts(phy97.f.c.site3, function(x) x/sum(x))
+phy97.f.c.2014.p <- transform_sample_counts(phy97.f.c.2014, function(x) x/sum(x))
+phy97.f.c.2015Jan.p <- transform_sample_counts(phy97.f.c.2015Jan, function(x) x/sum(x))
+phy97.f.c.2015May.p <- transform_sample_counts(phy97.f.c.2015May, function(x) x/sum(x))
+phy97.f.c.2015July.p <- transform_sample_counts(phy97.f.c.2015July, function(x) x/sum(x))
+phy97.f.c.2016March.p <- transform_sample_counts(phy97.f.c.2016March, function(x) x/sum(x))
+
 # Save grouped data as RData file
 save.image(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
