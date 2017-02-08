@@ -433,3 +433,119 @@ venn.diagram(x=list("Water Background"=background.water.types,"Coral Background"
 ![Water Principal and Coral/Sediment Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/WaterPrincipal_CSBackground_Venn.jpg)
 ![Sediment Principal and Water/Coral Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/SedimentPrincipal_WCBackground_Venn.jpg)
 
+```{r, include=TRUE, echo=FALSE}
+names.coral.core <- names(coral.core)
+names.coral.common <- names(coral.common)
+names.coral.rare <- names(coral.rare)
+
+names.water.core <- names(water.core)
+names.water.common <- names(water.common)
+names.water.rare <- names(water.rare)
+
+names.sediment.core <- names(sediment.core)
+names.sediment.common <- names(sediment.common)
+names.sediment.rare <- names(sediment.rare)
+
+venn.diagram(x=list("Coral Core"=names.coral.core,"Water Core"=names.water.core,"Sediment Core"=names.sediment.core),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoreTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+
+venn.diagram(x=list("Coral Common"=names.coral.common,"Water Common"=names.water.common,"Sediment Common"=names.sediment.common),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CommonTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+
+venn.diagram(x=list("Coral Rare"=names.coral.rare,"Water Rare"=names.water.rare,"Sediment Rare"=names.sediment.rare),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/RareTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+
+venn.diagram(x=list("Coral Core"=names.coral.core,"Water Rare"=names.water.rare,"Sediment Rare"=names.sediment.rare),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralCore_WSRare_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+
+venn.diagram(x=list("Coral Core"=names.coral.core,"Water Common"=names.water.common,"Sediment Common"=names.sediment.common),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralCore_WSCommon_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+
+venn.diagram(x=list("Coral Common"=names.coral.common,"Water Rare"=names.water.rare,"Sediment Rare"=names.sediment.rare),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralCommon_WSRare_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+
+venn.diagram(x=list("Coral Common"=names.coral.common,"Water Core"=names.water.core,"Sediment Core"=names.sediment.core),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralCommon_WSCore_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+
+venn.diagram(x=list("Coral Rare"=names.coral.rare,"Water Common"=names.water.common,"Sediment Common"=names.sediment.common),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralRare_WSCommon_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+
+venn.diagram(x=list("Coral Rare"=names.coral.rare,"Water Core"=names.water.core,"Sediment Core"=names.sediment.core),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralRare_WSCore_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+
+
+```
+
+![Core Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoreTypes_Venn.jpg)  
+![Common Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CommonTypes_Venn.jpg)  
+![Rare Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/RareTypes_Venn.jpg)  
+
+More Venn Diagrams of Core/Common/Rare combinations are located in the figures folder.
+
+```{r, include=TRUE, echo=FALSE}
+coral.core.hits <- data.frame()
+for (i in names.coral.core){
+  coral.core.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.coral)))[i,]$hit)
+}
+colnames(coral.core.hits) <- "hits"
+print("coral.core.hits")
+coral.core.hits
+
+coral.common.hits <- data.frame()
+for (i in names.coral.common){
+  coral.common.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.coral)))[i,]$hit)
+}
+colnames(coral.common.hits) <- "hits"
+print("coral.common.hits")
+coral.common.hits
+
+coral.rare.hits <- data.frame()
+for (i in names.coral.rare){
+  coral.rare.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.coral)))[i,]$hit)
+}
+colnames(coral.rare.hits) <- "hits"
+print("coral.rare.hits")
+coral.rare.hits
+
+
+sediment.core.hits <- data.frame()
+for (i in names.sediment.core){
+  sediment.core.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.sediment)))[i,]$hit)
+}
+colnames(sediment.core.hits) <- "hits"
+print("sediment.core.hits")
+sediment.core.hits
+
+sediment.common.hits <- data.frame()
+for (i in names.sediment.common){
+  sediment.common.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.sediment)))[i,]$hit)
+}
+colnames(sediment.common.hits) <- "hits"
+print("sediment.common.hits")
+sediment.common.hits
+
+sediment.rare.hits <- data.frame()
+for (i in names.sediment.rare){
+  sediment.rare.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.sediment)))[i,]$hit)
+}
+colnames(sediment.rare.hits) <- "hits"
+print("sediment.rare.hits")
+sediment.rare.hits
+
+water.core.hits <- data.frame()
+for (i in names.water.core){
+  water.core.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.water)))[i,]$hit)
+}
+colnames(water.core.hits) <- "hits"
+print("water.core.hits")
+water.core.hits
+
+water.common.hits <- data.frame()
+for (i in names.water.common){
+  water.common.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.water)))[i,]$hit)
+}
+colnames(water.common.hits) <- "hits"
+print("water.common.hits")
+water.common.hits
+
+water.rare.hits <- data.frame()
+for (i in names.water.rare){
+  water.rare.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.water)))[i,]$hit)
+}
+colnames(water.rare.hits) <- "hits"
+print("water.rare.hits")
+water.rare.hits
+
+
+```

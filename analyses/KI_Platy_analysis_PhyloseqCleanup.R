@@ -363,5 +363,41 @@ principal.water <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.p) > 0
 background.water <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.p) < 0.01, prune=TRUE)
 
 
+phy97.f.c.otu.logical <- sign(data.frame(otu_table(phy97.f.c)))
+phy97.f.c.otu.samples <- rowSums(phy97.f.c.otu.logical)
+phy97.f.c.num.samples <- ncol(phy97.f.c.otu.logical)
+phy97.f.c.otu.samples.p <- as.matrix(phy97.f.c.otu.samples)/phy97.f.c.num.samples*100
+
+all.core <- phy97.f.c.otu.samples.p[which(phy97.f.c.otu.samples.p>75),]
+all.common <- phy97.f.c.otu.samples.p[which(phy97.f.c.otu.samples.p>25 & phy97.f.c.otu.samples.p<75),]
+all.rare <- phy97.f.c.otu.samples.p[which(phy97.f.c.otu.samples.p<25),]
+
+phy97.f.c.coral.otu.logical <- sign(data.frame(otu_table(phy97.f.c.coral)))
+phy97.f.c.coral.otu.samples <- rowSums(phy97.f.c.coral.otu.logical)
+phy97.f.c.coral.num.samples <- ncol(phy97.f.c.coral.otu.logical)
+phy97.f.c.coral.otu.samples.p <- as.matrix(phy97.f.c.coral.otu.samples)/phy97.f.c.coral.num.samples*100
+
+coral.core <- phy97.f.c.coral.otu.samples.p[which(phy97.f.c.coral.otu.samples.p>75),]
+coral.common <- phy97.f.c.coral.otu.samples.p[which(phy97.f.c.coral.otu.samples.p>25 & phy97.f.c.coral.otu.samples.p<75),]
+coral.rare <- phy97.f.c.coral.otu.samples.p[which(phy97.f.c.coral.otu.samples.p<25),]
+
+phy97.f.c.sediment.otu.logical <- sign(data.frame(otu_table(phy97.f.c.sediment)))
+phy97.f.c.sediment.otu.samples <- rowSums(phy97.f.c.sediment.otu.logical)
+phy97.f.c.sediment.num.samples <- ncol(phy97.f.c.sediment.otu.logical)
+phy97.f.c.sediment.otu.samples.p <- as.matrix(phy97.f.c.sediment.otu.samples)/phy97.f.c.sediment.num.samples*100
+
+sediment.core <- phy97.f.c.sediment.otu.samples.p[which(phy97.f.c.sediment.otu.samples.p>75),]
+sediment.common <- phy97.f.c.sediment.otu.samples.p[which(phy97.f.c.sediment.otu.samples.p>25 & phy97.f.c.sediment.otu.samples.p<75),]
+sediment.rare <- phy97.f.c.sediment.otu.samples.p[which(phy97.f.c.sediment.otu.samples.p<25),]
+
+phy97.f.c.water.otu.logical <- sign(data.frame(otu_table(phy97.f.c.water)))
+phy97.f.c.water.otu.samples <- rowSums(phy97.f.c.water.otu.logical)
+phy97.f.c.water.num.samples <- ncol(phy97.f.c.water.otu.logical)
+phy97.f.c.water.otu.samples.p <- as.matrix(phy97.f.c.water.otu.samples)/phy97.f.c.water.num.samples*100
+
+water.core <- phy97.f.c.water.otu.samples.p[which(phy97.f.c.water.otu.samples.p>75),]
+water.common <- phy97.f.c.water.otu.samples.p[which(phy97.f.c.water.otu.samples.p>25 & phy97.f.c.water.otu.samples.p<75),]
+water.rare <- phy97.f.c.water.otu.samples.p[which(phy97.f.c.water.otu.samples.p<25),]
+
 # Save grouped data as RData file
 save.image(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
