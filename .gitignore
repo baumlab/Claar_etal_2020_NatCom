@@ -56,3 +56,6 @@ data/otus_97_bysample/nosingles_otus.txt
 data/fastq/*
 
 *.swp
+
+#Ignore .log files
+*.log
