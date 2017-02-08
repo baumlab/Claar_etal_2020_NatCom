@@ -8,6 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(phyloseq)
 library(data.table)
+library(VennDiagram)
 
 load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
 
@@ -250,6 +251,7 @@ legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
 dev.off()
 ```
 
+<!-- Principal and Background Types -->
 ```{r, include=TRUE, echo=FALSE}
 principal.A <- sum(data.frame(tax_table(principal))$clade=="A")
 principal.C <- sum(data.frame(tax_table(principal))$clade=="C")
@@ -287,7 +289,147 @@ barplot(t.principal.background.clades,col=rainbow(6),legend=rownames(t.principal
 
 pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background_Pricipal_Clades.pdf", width=10, height=7)
 par(xpd=TRUE)
-barplot(t.principal.background.clades,col=rainbow(6),legend=rownames(t.principal.background.clades),beside=TRUE,ylim=c(0,10))
+barplot(t.principal.background.clades,col=rainbow(6),legend=rownames(t.principal.background.clades),beside=TRUE,ylim=c(0,10), main="All Samples")
+dev.off()
+
+principal.coral.A <- sum(data.frame(tax_table(principal.coral))$clade=="A")
+principal.coral.C <- sum(data.frame(tax_table(principal.coral))$clade=="C")
+principal.coral.D <- sum(data.frame(tax_table(principal.coral))$clade=="D")
+principal.coral.F <- sum(data.frame(tax_table(principal.coral))$clade=="F")
+principal.coral.G <- sum(data.frame(tax_table(principal.coral))$clade=="G")
+principal.coral.I <- sum(data.frame(tax_table(principal.coral))$clade=="I")
+
+print("PRINCIPAL.coral TYPES")
+
+principal.coral.clades <- c(A=principal.coral.A,C=principal.coral.C,D=principal.coral.D,F=principal.coral.F,G=principal.coral.G,I=principal.coral.I)
+
+principal.coral.types <- data.frame(tax_table(principal.coral))$hit
+principal.coral.types
+
+background.coral.A <- sum(data.frame(tax_table(background.coral))$clade=="A")
+background.coral.C <- sum(data.frame(tax_table(background.coral))$clade=="C")
+background.coral.D <- sum(data.frame(tax_table(background.coral))$clade=="D")
+background.coral.F <- sum(data.frame(tax_table(background.coral))$clade=="F")
+background.coral.G <- sum(data.frame(tax_table(background.coral))$clade=="G")
+background.coral.I <- sum(data.frame(tax_table(background.coral))$clade=="I")
+
+print("BACKGROUND.coral TYPES")
+
+background.coral.clades <- c(A=background.coral.A,C=background.coral.C,D=background.coral.D,F=background.coral.F,G=background.coral.G,I=background.coral.I)
+
+background.coral.types <- data.frame(tax_table(background.coral))$hit
+background.coral.types
+
+principal.coral.background.coral.clades <- rbind(principal.coral.clades,background.coral.clades)
+t.principal.coral.background.coral.clades <- t(principal.coral.background.coral.clades)
+colnames(t.principal.coral.background.coral.clades) <- c("Principal.coral Types", "Background.coral Types")
+
+barplot(t.principal.coral.background.coral.clades,col=rainbow(6),legend=rownames(t.principal.coral.background.coral.clades),beside=TRUE,ylim=c(0,10))
+
+pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background.coral_Pricipal_Clades.pdf", width=10, height=7)
+par(xpd=TRUE)
+barplot(t.principal.coral.background.coral.clades,col=rainbow(6),legend=rownames(t.principal.coral.background.coral.clades),beside=TRUE,ylim=c(0,10), main="Coral only")
+dev.off()
+
+principal.sediment.A <- sum(data.frame(tax_table(principal.sediment))$clade=="A")
+principal.sediment.C <- sum(data.frame(tax_table(principal.sediment))$clade=="C")
+principal.sediment.D <- sum(data.frame(tax_table(principal.sediment))$clade=="D")
+principal.sediment.F <- sum(data.frame(tax_table(principal.sediment))$clade=="F")
+principal.sediment.G <- sum(data.frame(tax_table(principal.sediment))$clade=="G")
+principal.sediment.I <- sum(data.frame(tax_table(principal.sediment))$clade=="I")
+
+print("PRINCIPAL.sediment TYPES")
+
+principal.sediment.clades <- c(A=principal.sediment.A,C=principal.sediment.C,D=principal.sediment.D,F=principal.sediment.F,G=principal.sediment.G,I=principal.sediment.I)
+
+principal.sediment.types <- data.frame(tax_table(principal.sediment))$hit
+principal.sediment.types
+
+background.sediment.A <- sum(data.frame(tax_table(background.sediment))$clade=="A")
+background.sediment.C <- sum(data.frame(tax_table(background.sediment))$clade=="C")
+background.sediment.D <- sum(data.frame(tax_table(background.sediment))$clade=="D")
+background.sediment.F <- sum(data.frame(tax_table(background.sediment))$clade=="F")
+background.sediment.G <- sum(data.frame(tax_table(background.sediment))$clade=="G")
+background.sediment.I <- sum(data.frame(tax_table(background.sediment))$clade=="I")
+
+print("BACKGROUND.sediment TYPES")
+
+background.sediment.clades <- c(A=background.sediment.A,C=background.sediment.C,D=background.sediment.D,F=background.sediment.F,G=background.sediment.G,I=background.sediment.I)
+
+background.sediment.types <- data.frame(tax_table(background.sediment))$hit
+background.sediment.types
+
+principal.sediment.background.sediment.clades <- rbind(principal.sediment.clades,background.sediment.clades)
+t.principal.sediment.background.sediment.clades <- t(principal.sediment.background.sediment.clades)
+colnames(t.principal.sediment.background.sediment.clades) <- c("Principal.sediment Types", "Background.sediment Types")
+
+barplot(t.principal.sediment.background.sediment.clades,col=rainbow(6),legend=rownames(t.principal.sediment.background.sediment.clades),beside=TRUE,ylim=c(0,10))
+
+pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background.sediment_Pricipal_Clades.pdf", width=10, height=7)
+par(xpd=TRUE)
+barplot(t.principal.sediment.background.sediment.clades,col=rainbow(6),legend=rownames(t.principal.sediment.background.sediment.clades),beside=TRUE,ylim=c(0,10), main="sediment only")
+dev.off()
+
+principal.water.A <- sum(data.frame(tax_table(principal.water))$clade=="A")
+principal.water.C <- sum(data.frame(tax_table(principal.water))$clade=="C")
+principal.water.D <- sum(data.frame(tax_table(principal.water))$clade=="D")
+principal.water.F <- sum(data.frame(tax_table(principal.water))$clade=="F")
+principal.water.G <- sum(data.frame(tax_table(principal.water))$clade=="G")
+principal.water.I <- sum(data.frame(tax_table(principal.water))$clade=="I")
+
+print("PRINCIPAL.water TYPES")
+
+principal.water.clades <- c(A=principal.water.A,C=principal.water.C,D=principal.water.D,F=principal.water.F,G=principal.water.G,I=principal.water.I)
+
+principal.water.types <- data.frame(tax_table(principal.water))$hit
+principal.water.types
+
+background.water.A <- sum(data.frame(tax_table(background.water))$clade=="A")
+background.water.C <- sum(data.frame(tax_table(background.water))$clade=="C")
+background.water.D <- sum(data.frame(tax_table(background.water))$clade=="D")
+background.water.F <- sum(data.frame(tax_table(background.water))$clade=="F")
+background.water.G <- sum(data.frame(tax_table(background.water))$clade=="G")
+background.water.I <- sum(data.frame(tax_table(background.water))$clade=="I")
+
+print("BACKGROUND.water TYPES")
+
+background.water.clades <- c(A=background.water.A,C=background.water.C,D=background.water.D,F=background.water.F,G=background.water.G,I=background.water.I)
+
+background.water.types <- data.frame(tax_table(background.water))$hit
+background.water.types
+
+principal.water.background.water.clades <- rbind(principal.water.clades,background.water.clades)
+t.principal.water.background.water.clades <- t(principal.water.background.water.clades)
+colnames(t.principal.water.background.water.clades) <- c("Principal.water Types", "Background.water Types")
+
+barplot(t.principal.water.background.water.clades,col=rainbow(6),legend=rownames(t.principal.water.background.water.clades),beside=TRUE,ylim=c(0,10))
+
+pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background.water_Pricipal_Clades.pdf", width=10, height=7)
+par(xpd=TRUE)
+barplot(t.principal.water.background.water.clades,col=rainbow(6),legend=rownames(t.principal.water.background.water.clades),beside=TRUE,ylim=c(0,10), main="water only")
 dev.off()
 
 ```
+
+```{r, include=TRUE, echo=FALSE}
+venn.diagram(x=list("Water Background"=background.water.types,"Coral Background"=background.coral.types,"Sediment Background"=background.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/BackgroundTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+
+background.overlap <- calculate.overlap(x=list("Water Background"=background.water.types,"Coral Background"=background.coral.types,"Sediment Background"=background.sediment.types))
+
+venn.diagram(x=list("Water Principal"=principal.water.types,"Coral Principal"=principal.coral.types,"Sediment Principal"=principal.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/PrincipalTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+
+principal.overlap <- calculate.overlap(x=list("Water principal"=principal.water.types,"Coral principal"=principal.coral.types,"Sediment principal"=principal.sediment.types))
+
+venn.diagram(x=list("Water Background"=background.water.types,"Coral Principal"=principal.coral.types,"Sediment Background"=background.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralPrincipal_WSBackground_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+
+venn.diagram(x=list("Water Principal"=principal.water.types,"Coral Background"=background.coral.types,"Sediment Background"=background.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/WaterPrincipal_CSBackground_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+
+venn.diagram(x=list("Water Background"=background.water.types,"Coral Background"=background.coral.types,"Sediment Principal"=principal.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/SedimentPrincipal_WCBackground_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+```
+
+![Principal Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/PrincipalTypes_Venn.jpg)  
+![Background Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/BackgroundTypes_Venn.jpg)
+![Coral Principal and Water/Sediment Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralPrincipal_WSBackground_Venn.jpg)
+![Water Principal and Coral/Sediment Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/WaterPrincipal_CSBackground_Venn.jpg)
+![Sediment Principal and Water/Coral Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/SedimentPrincipal_WCBackground_Venn.jpg)
+

@@ -353,5 +353,15 @@ phy97.f.c.coral.2016March <- subset_taxa(phy97.f.c.coral.2016March, taxa_sums(ph
 principal <- subset_taxa(phy97.f.c, taxa_sums(phy97.f.c.p) > 0.01, prune=TRUE)
 background <- subset_taxa(phy97.f.c, taxa_sums(phy97.f.c.p) < 0.01, prune=TRUE)
 
+principal.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.p) > 0.01, prune=TRUE)
+background.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.p) < 0.01, prune=TRUE)
+
+principal.sediment <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.p) > 0.01, prune=TRUE)
+background.sediment <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.p) < 0.01, prune=TRUE)
+
+principal.water <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.p) > 0.01, prune=TRUE)
+background.water <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.p) < 0.01, prune=TRUE)
+
+
 # Save grouped data as RData file
 save.image(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
