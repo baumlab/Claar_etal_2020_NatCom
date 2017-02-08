@@ -221,10 +221,13 @@ phy97.f.c.faviam <- subset_samples(phy97.f.c,Coral_Species=="Favia_matthai")
 phy97.f.c.faviaall <- merge_phyloseq(phy97.f.c.faviasp,phy97.f.c.faviam)
 phy97.f.c.faviaall <- subset_taxa(phy97.f.c.faviaall, taxa_sums(phy97.f.c.faviaall) > 0, prune=TRUE)
 
-phy97.f.c.water <- subset_samples(phy97.f.c,Coral_Species=="water")
+phy97.f.c.coral <- subset_samples(phy97.f.c,SampleType=="coral")
+phy97.f.c.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c) > 0, prune=TRUE)
+
+phy97.f.c.water <- subset_samples(phy97.f.c,SampleType=="water")
 phy97.f.c.water <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water) > 0, prune=TRUE)
 
-phy97.f.c.sediment <- subset_samples(phy97.f.c,Coral_Species=="sediment")
+phy97.f.c.sediment <- subset_samples(phy97.f.c,SampleType=="sediment")
 phy97.f.c.sediment <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment) > 0, prune=TRUE)
 
 # Transform sample counts to proportional abundance for downstream analyses
@@ -241,6 +244,8 @@ phy97.f.c.faviaall.p <- transform_sample_counts(phy97.f.c.faviaall, function(x) 
 phy97.f.c.water.p <- transform_sample_counts(phy97.f.c.water, function(x) x/sum(x))
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.sediment.p <- transform_sample_counts(phy97.f.c.sediment, function(x) x/sum(x))
+# Transform sample counts to proportional abundance for downstream analyses
+phy97.f.c.coral.p <- transform_sample_counts(phy97.f.c.coral, function(x) x/sum(x))
 
 # Subset by site
 phy97.f.c.site3 <- subset_samples(phy97.f.c,Site=="3")
@@ -309,6 +314,44 @@ phy97.f.c.2015Jan.p <- transform_sample_counts(phy97.f.c.2015Jan, function(x) x/
 phy97.f.c.2015May.p <- transform_sample_counts(phy97.f.c.2015May, function(x) x/sum(x))
 phy97.f.c.2015July.p <- transform_sample_counts(phy97.f.c.2015July, function(x) x/sum(x))
 phy97.f.c.2016March.p <- transform_sample_counts(phy97.f.c.2016March, function(x) x/sum(x))
+
+# Subset by SampleType within Field Season
+phy97.f.c.coral.2014 <- subset_samples(phy97.f.c.coral,Year=="2014")
+phy97.f.c.coral.2014 <- subset_taxa(phy97.f.c.coral.2014, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
+phy97.f.c.coral.2015Jan <- subset_samples(phy97.f.c.coral,Year=="2015Jan")
+phy97.f.c.coral.2015Jan <- subset_taxa(phy97.f.c.coral.2015Jan, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
+phy97.f.c.coral.2015May <- subset_samples(phy97.f.c.coral,Year=="2015May")
+phy97.f.c.coral.2015May <- subset_taxa(phy97.f.c.coral.2015May, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
+phy97.f.c.coral.2015July <- subset_samples(phy97.f.c.coral,Year=="2015July")
+phy97.f.c.coral.2015July <- subset_taxa(phy97.f.c.coral.2015July, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
+phy97.f.c.coral.2016March <- subset_samples(phy97.f.c.coral,Year=="2016March")
+phy97.f.c.coral.2016March <- subset_taxa(phy97.f.c.coral.2016March, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
+
+# No need to do this, as water and sediment were only in this sequencing run from July 2015
+# Will need to incorporate first sequencing run in order to look at changes in water and sediment
+
+# phy97.f.c.sediment.2015Jan <- subset_samples(phy97.f.c.sediment,Year=="2015Jan")
+# phy97.f.c.sediment.2015Jan <- subset_taxa(phy97.f.c.sediment.2015Jan, taxa_sums(phy97.f.c.sediment) > 0, prune=TRUE)
+# phy97.f.c.sediment.2015May <- subset_samples(phy97.f.c.sediment,Year=="2015May")
+# phy97.f.c.sediment.2015May <- subset_taxa(phy97.f.c.sediment.2015May, taxa_sums(phy97.f.c.sediment) > 0, prune=TRUE)
+# phy97.f.c.sediment.2015July <- subset_samples(phy97.f.c.sediment,Year=="2015July")
+# phy97.f.c.sediment.2015July <- subset_taxa(phy97.f.c.sediment.2015July, taxa_sums(phy97.f.c.sediment) > 0, prune=TRUE)
+# phy97.f.c.sediment.2016March <- subset_samples(phy97.f.c.sediment,Year=="2016March")
+# phy97.f.c.sediment.2016March <- subset_taxa(phy97.f.c.sediment.2016March, taxa_sums(phy97.f.c.sediment) > 0, prune=TRUE)
+# 
+# phy97.f.c.water.2014 <- subset_samples(phy97.f.c.water,Year=="2014")
+# phy97.f.c.water.2014 <- subset_taxa(phy97.f.c.water.2014, taxa_sums(phy97.f.c.water) > 0, prune=TRUE)
+# phy97.f.c.water.2015Jan <- subset_samples(phy97.f.c.water,Year=="2015Jan")
+# phy97.f.c.water.2015Jan <- subset_taxa(phy97.f.c.water.2015Jan, taxa_sums(phy97.f.c.water) > 0, prune=TRUE)
+# phy97.f.c.water.2015May <- subset_samples(phy97.f.c.water,Year=="2015May")
+# phy97.f.c.water.2015May <- subset_taxa(phy97.f.c.water.2015May, taxa_sums(phy97.f.c.water) > 0, prune=TRUE)
+# phy97.f.c.water.2015July <- subset_samples(phy97.f.c.water,Year=="2015July")
+# phy97.f.c.water.2015July <- subset_taxa(phy97.f.c.water.2015July, taxa_sums(phy97.f.c.water) > 0, prune=TRUE)
+# phy97.f.c.water.2016March <- subset_samples(phy97.f.c.water,Year=="2016March")
+# phy97.f.c.water.2016March <- subset_taxa(phy97.f.c.water.2016March, taxa_sums(phy97.f.c.water) > 0, prune=TRUE)
+
+principal <- subset_taxa(phy97.f.c, taxa_sums(phy97.f.c.p) > 0.01, prune=TRUE)
+background <- subset_taxa(phy97.f.c, taxa_sums(phy97.f.c.p) < 0.01, prune=TRUE)
 
 # Save grouped data as RData file
 save.image(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")

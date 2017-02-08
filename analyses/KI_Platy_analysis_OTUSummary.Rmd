@@ -250,3 +250,44 @@ legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
 dev.off()
 ```
 
+```{r, include=TRUE, echo=FALSE}
+principal.A <- sum(data.frame(tax_table(principal))$clade=="A")
+principal.C <- sum(data.frame(tax_table(principal))$clade=="C")
+principal.D <- sum(data.frame(tax_table(principal))$clade=="D")
+principal.F <- sum(data.frame(tax_table(principal))$clade=="F")
+principal.G <- sum(data.frame(tax_table(principal))$clade=="G")
+principal.I <- sum(data.frame(tax_table(principal))$clade=="I")
+
+print("PRINCIPAL TYPES")
+
+principal.clades <- c(A=principal.A,C=principal.C,D=principal.D,F=principal.F,G=principal.G,I=principal.I)
+
+principal.types <- data.frame(tax_table(principal))$hit
+principal.types
+
+background.A <- sum(data.frame(tax_table(background))$clade=="A")
+background.C <- sum(data.frame(tax_table(background))$clade=="C")
+background.D <- sum(data.frame(tax_table(background))$clade=="D")
+background.F <- sum(data.frame(tax_table(background))$clade=="F")
+background.G <- sum(data.frame(tax_table(background))$clade=="G")
+background.I <- sum(data.frame(tax_table(background))$clade=="I")
+
+print("BACKGROUND TYPES")
+
+background.clades <- c(A=background.A,C=background.C,D=background.D,F=background.F,G=background.G,I=background.I)
+
+background.types <- data.frame(tax_table(background))$hit
+background.types
+
+principal.background.clades <- rbind(principal.clades,background.clades)
+t.principal.background.clades <- t(principal.background.clades)
+colnames(t.principal.background.clades) <- c("Principal Types", "Background Types")
+
+barplot(t.principal.background.clades,col=rainbow(6),legend=rownames(t.principal.background.clades),beside=TRUE,ylim=c(0,10))
+
+pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background_Pricipal_Clades.pdf", width=10, height=7)
+par(xpd=TRUE)
+barplot(t.principal.background.clades,col=rainbow(6),legend=rownames(t.principal.background.clades),beside=TRUE,ylim=c(0,10))
+dev.off()
+
+```
