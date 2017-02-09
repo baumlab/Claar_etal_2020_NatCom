@@ -3,6 +3,7 @@ title: "KI_Platy_analysis_OTUSummary"
 output: html_document
 ---
 
+<!-- Setup, import libraries, and load RData -->
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -17,8 +18,10 @@ tax_table(phy97.f.c)
 
 ```
 
+First, we look at how many *Symbiodinium* types (OTUs) and clades are present in each coral species:
+
 <!-- Calculate OTU and clade diversity by species -->
-```{r, include=TRUE, echo=FALSE}
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # PLATYGYRA  
 # Number of OTUs:
 platy.ntaxa <- ntaxa(phy97.f.c.platy)
@@ -52,120 +55,381 @@ sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment))[9])$
 ```
 
 <!-- Plot OTU and clade diversity by species -->
-```{r, include=TRUE, echo=FALSE}
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# Make a data frame including the number of OTUs
 df <- data.frame(Platygyra=platy.ntaxa,Favia=favia.ntaxa,Favites=favites.ntaxa,Water=water.ntaxa, Sediment=sediment.ntaxa)
+# Add the number of clades to the data frame
 df[2,] <- c(platy.nclades,favia.nclades,favites.nclades,water.nclades,sediment.nclades)
+# Set the row names
 rownames(df) <- c("Number of OTUs","Number of Clades")
+# Transpose the data frame
 df <- t(df)
-
+# Print the data frame
 df
 
+# Create and print a barplot of these data
 barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan", "darkturquoise", "dodgerblue3"),ylim = c(0,25))
 
+# Create a pdf of this plot and save in the 'figures' folder
+# Open a new pdf file
 pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_by_Species.pdf")
+# Make the plot
 barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan", "darkturquoise", "dodgerblue3"),ylim = c(0,25))
+# Close the pdf file
 dev.off()
 ```
+  
+The number of OTUs per coral genus/water/sediment are relatively similar, ranging from 15 OTUs (in *Favia*), to 21 OTUs (in *Platygyra*).   
+  
+The number of clades per coral genus/water/sediment are also relatively similar, although water and sediment have 6 clades present, while corals have 4-5 clades present (on a species-by-species basis).  
+  
+  
+Next, we look at the number of *Symbiodinium* types (OTUs) and clades in coral, water, and sediment at each Kiritimati site:  
+*Note that these are split up, because there are not water/sediment samples for all sites, which could skew interpretations of diversity*
 
 <!-- Calculate OTU and clade diversity by site -->
-```{r, include=TRUE, echo=FALSE}
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # SITE 3   
 # Number of OTUs:
-site3.ntaxa <- ntaxa(phy97.f.c.site3)
+site3.coral.ntaxa <- ntaxa(phy97.f.c.coral.site3)
 # Number of Clades:
-site3.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site3))[9])$clade))))))
-site3.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site3))[9])$clade))
+site3.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site3))[9])$clade))))))
+site3.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site3))[9])$clade))
 # SITE 5  
 # Number of OTUs:
-site5.ntaxa <- ntaxa(phy97.f.c.site5)
+site5.coral.ntaxa <- ntaxa(phy97.f.c.coral.site5)
 # Number of Clades:
-site5.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site5))[9])$clade))))))
-site5.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site5))[9])$clade))
+site5.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site5))[9])$clade))))))
+site5.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site5))[9])$clade))
 # SITE 8   
 # Number of OTUs:
-site8.ntaxa <- ntaxa(phy97.f.c.site8)
+site8.coral.ntaxa <- ntaxa(phy97.f.c.coral.site8)
 # Number of Clades:
-site8.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site8))[9])$clade))))))
-site8.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site8))[9])$clade))
+site8.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site8))[9])$clade))))))
+site8.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site8))[9])$clade))
 # SITE 14   
 # Number of OTUs:
-site14.ntaxa <- ntaxa(phy97.f.c.site14)
+site14.coral.ntaxa <- ntaxa(phy97.f.c.coral.site14)
 # Number of Clades:
-site14.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site14))[9])$clade))))))
-site14.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site14))[9])$clade))
+site14.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site14))[9])$clade))))))
+site14.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site14))[9])$clade))
 # SITE 15   
 # Number of OTUs:
-site15.ntaxa <- ntaxa(phy97.f.c.site15)
+site15.coral.ntaxa <- ntaxa(phy97.f.c.coral.site15)
 # Number of Clades:
-site15.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site15))[9])$clade))))))
-site15.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site15))[9])$clade))
+site15.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site15))[9])$clade))))))
+site15.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site15))[9])$clade))
 # SITE 19   
 # Number of OTUs:
-site19.ntaxa <- ntaxa(phy97.f.c.site19)
+site19.coral.ntaxa <- ntaxa(phy97.f.c.coral.site19)
 # Number of Clades:
-site19.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site19))[9])$clade))))))
-site19.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site19))[9])$clade))
+site19.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site19))[9])$clade))))))
+site19.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site19))[9])$clade))
 # SITE 25   
 # Number of OTUs:
-site25.ntaxa <- ntaxa(phy97.f.c.site25)
+site25.coral.ntaxa <- ntaxa(phy97.f.c.coral.site25)
 # Number of Clades:
-site25.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site25))[9])$clade))))))
-site25.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site25))[9])$clade))
+site25.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site25))[9])$clade))))))
+site25.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site25))[9])$clade))
 # SITE 27   
 # Number of OTUs:
-site27.ntaxa <- ntaxa(phy97.f.c.site27)
+site27.coral.ntaxa <- ntaxa(phy97.f.c.coral.site27)
 # Number of Clades:
-site27.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site27))[9])$clade))))))
-site27.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site27))[9])$clade))
+site27.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site27))[9])$clade))))))
+site27.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site27))[9])$clade))
 # SITE 30   
 # Number of OTUs:
-site30.ntaxa <- ntaxa(phy97.f.c.site30)
+site30.coral.ntaxa <- ntaxa(phy97.f.c.coral.site30)
 # Number of Clades:
-site30.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site30))[9])$clade))))))
-site30.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site30))[9])$clade))
+site30.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site30))[9])$clade))))))
+site30.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site30))[9])$clade))
 # SITE 32   
 # Number of OTUs:
-site32.ntaxa <- ntaxa(phy97.f.c.site32)
+site32.coral.ntaxa <- ntaxa(phy97.f.c.coral.site32)
 # Number of Clades:
-site32.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site32))[9])$clade))))))
-site32.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site32))[9])$clade))
+site32.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site32))[9])$clade))))))
+site32.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site32))[9])$clade))
 # SITE 34   
 # Number of OTUs:
-site34.ntaxa <- ntaxa(phy97.f.c.site34)
+site34.coral.ntaxa <- ntaxa(phy97.f.c.coral.site34)
 # Number of Clades:
-site34.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site34))[9])$clade))))))
-site34.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site34))[9])$clade))
+site34.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site34))[9])$clade))))))
+site34.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site34))[9])$clade))
 # SITE 35   
 # Number of OTUs:
-site35.ntaxa <- ntaxa(phy97.f.c.site35)
+site35.coral.ntaxa <- ntaxa(phy97.f.c.coral.site35)
 # Number of Clades:
-site35.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site35))[9])$clade))))))
-site35.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site35))[9])$clade))
+site35.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site35))[9])$clade))))))
+site35.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site35))[9])$clade))
 # SITE 37   
 # Number of OTUs:
-site37.ntaxa <- ntaxa(phy97.f.c.site37)
+site37.coral.ntaxa <- ntaxa(phy97.f.c.coral.site37)
 # Number of Clades:
-site37.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site37))[9])$clade))))))
-site37.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site37))[9])$clade))
+site37.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site37))[9])$clade))))))
+site37.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site37))[9])$clade))
 # SITE 38  
 # Number of OTUs:
-site38.ntaxa <- ntaxa(phy97.f.c.site38)
+site38.coral.ntaxa <- ntaxa(phy97.f.c.coral.site38)
 # Number of Clades:
-site38.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site38))[9])$clade))))))
-site38.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site38))[9])$clade))
+site38.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site38))[9])$clade))))))
+site38.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site38))[9])$clade))
 # SITE 40
 # Number of OTUs:
-site40.ntaxa <- ntaxa(phy97.f.c.site40)
+site40.coral.ntaxa <- ntaxa(phy97.f.c.coral.site40)
 # Number of Clades:
-site40.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.site40))[9])$clade))))))
-site40.clades <- levels(unique((data.frame(tax_table(phy97.f.c.site40))[9])$clade))
+site40.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site40))[9])$clade))))))
+site40.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site40))[9])$clade))
 
+# # SITE 3   
+# # Number of OTUs:
+site3.sediment.ntaxa <- NA
+# site3.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site3)
+# # Number of Clades:
+site3.sediment.nclades <- NA
+# site3.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site3))[9])$clade))))))
+site3.sediment.clades <- NA
+# site3.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site3))[9])$clade))
+# # SITE 5  
+# # Number of OTUs:
+site5.sediment.ntaxa <- NA
+# site5.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site5)
+# # Number of Clades:
+site5.sediment.nclades <- NA
+# site5.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site5))[9])$clade))))))
+site5.sediment.clades <- NA
+# site5.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site5))[9])$clade))
+# # SITE 8   
+# # Number of OTUs:
+site8.sediment.ntaxa <- NA
+# site8.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site8)
+# # Number of Clades:
+site8.sediment.nclades <- NA
+# site8.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site8))[9])$clade))))))
+site8.sediment.clades <- NA
+# site8.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site8))[9])$clade))
+# # SITE 14   
+# # Number of OTUs:
+site14.sediment.ntaxa <- NA
+# site14.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site14)
+# # Number of Clades:
+site14.sediment.nclades <- NA
+# site14.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site14))[9])$clade))))))
+site14.sediment.clades <- NA
+# site14.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site14))[9])$clade))
+# # SITE 15   
+# # Number of OTUs:
+site15.sediment.ntaxa <- NA
+# site15.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site15)
+# # Number of Clades:
+site15.sediment.nclades <- NA
+# site15.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site15))[9])$clade))))))
+site15.sediment.clades <- NA
+# site15.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site15))[9])$clade))
+# # SITE 19   
+# # Number of OTUs:
+site19.sediment.ntaxa <- NA
+# site19.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site19)
+# # Number of Clades:
+site19.sediment.nclades <- NA
+# site19.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site19))[9])$clade))))))
+site19.sediment.clades <- NA
+# site19.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site19))[9])$clade))
+# # SITE 25   
+# # Number of OTUs:
+site25.sediment.ntaxa <- NA
+# site25.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site25)
+# # Number of Clades:
+site25.sediment.nclades <- NA
+# site25.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site25))[9])$clade))))))
+site25.sediment.clades <- NA
+# site25.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site25))[9])$clade))
+# # SITE 27   
+# # Number of OTUs:
+site27.sediment.ntaxa <- NA
+# site27.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site27)
+# # Number of Clades:
+site27.sediment.nclades <-NA
+# site27.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site27))[9])$clade))))))
+site27.sediment.clades <- NA
+# site27.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site27))[9])$clade))
+# SITE 30   
+# Number of OTUs:
+site30.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site30)
+# Number of Clades:
+site30.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site30))[9])$clade))))))
+site30.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site30))[9])$clade))
+# # SITE 32   
+# # Number of OTUs:
+site32.sediment.ntaxa <- NA
+# site32.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site32)
+# # Number of Clades:
+site32.sediment.nclades <- NA
+# site32.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site32))[9])$clade))))))
+site32.sediment.clades <- NA
+# site32.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site32))[9])$clade))
+# SITE 34   
+# Number of OTUs:
+site34.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site34)
+# Number of Clades:
+site34.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site34))[9])$clade))))))
+site34.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site34))[9])$clade))
+# SITE 35   
+# Number of OTUs:
+site35.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site35)
+# Number of Clades:
+site35.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site35))[9])$clade))))))
+site35.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site35))[9])$clade))
+# # SITE 37   
+# # Number of OTUs:
+site37.sediment.ntaxa <- NA
+# site37.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site37)
+# # Number of Clades:
+site37.sediment.nclades <- NA
+# site37.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site37))[9])$clade))))))
+site37.sediment.clades <- NA
+# site37.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site37))[9])$clade))
+# # SITE 38  
+# # Number of OTUs:
+site38.sediment.ntaxa <- NA
+# site38.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site38)
+# # Number of Clades:
+site38.sediment.nclades <- NA
+# site38.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site38))[9])$clade))))))
+site38.sediment.clades <- NA
+# site38.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site38))[9])$clade))
+# # SITE 40
+# # Number of OTUs:
+site40.sediment.ntaxa <- NA
+# site40.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site40)
+# # Number of Clades:
+site40.sediment.nclades <- NA
+# site40.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site40))[9])$clade))))))
+site40.sediment.clades <- NA
+# site40.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site40))[9])$clade))
+
+# # SITE 3   
+# # Number of OTUs:
+site3.water.ntaxa <- NA
+# site3.water.ntaxa <- ntaxa(phy97.f.c.water.site3)
+# # Number of Clades:
+site3.water.nclades <- NA
+# site3.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site3))[9])$clade))))))
+site3.water.clades <- NA
+# site3.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site3))[9])$clade))
+# SITE 5  
+# Number of OTUs:
+site5.water.ntaxa <- ntaxa(phy97.f.c.water.site5)
+# Number of Clades:
+site5.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site5))[9])$clade))))))
+site5.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site5))[9])$clade))
+# SITE 8   
+# Number of OTUs:
+site8.water.ntaxa <- ntaxa(phy97.f.c.water.site8)
+# Number of Clades:
+site8.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site8))[9])$clade))))))
+site8.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site8))[9])$clade))
+# # SITE 14   
+# # Number of OTUs:
+site14.water.ntaxa <- NA
+# site14.water.ntaxa <- ntaxa(phy97.f.c.water.site14)
+# # Number of Clades:
+site14.water.nclades <- NA
+# site14.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site14))[9])$clade))))))
+site14.water.clades <- NA
+# site14.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site14))[9])$clade))
+# # SITE 15   
+# # Number of OTUs:
+site15.water.ntaxa <- NA
+# site15.water.ntaxa <- ntaxa(phy97.f.c.water.site15)
+# # Number of Clades:
+site15.water.nclades <- NA
+# site15.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site15))[9])$clade))))))
+site15.water.clades <- NA
+# site15.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site15))[9])$clade))
+# # SITE 19   
+# # Number of OTUs:
+site19.water.ntaxa <- NA
+# site19.water.ntaxa <- ntaxa(phy97.f.c.water.site19)
+# # Number of Clades:
+site19.water.nclades <- NA
+# site19.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site19))[9])$clade))))))
+site19.water.clades <- NA
+# site19.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site19))[9])$clade))
+# # SITE 25   
+# # Number of OTUs:
+site25.water.ntaxa <- NA
+# site25.water.ntaxa <- ntaxa(phy97.f.c.water.site25)
+# # Number of Clades:
+site25.water.nclades <- NA
+# site25.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site25))[9])$clade))))))
+site25.water.clades <- NA
+# site25.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site25))[9])$clade))
+# SITE 27   
+# Number of OTUs:
+site27.water.ntaxa <- ntaxa(phy97.f.c.water.site27)
+# Number of Clades:
+site27.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site27))[9])$clade))))))
+site27.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site27))[9])$clade))
+# SITE 30   
+# Number of OTUs:
+site30.water.ntaxa <- ntaxa(phy97.f.c.water.site30)
+# Number of Clades:
+site30.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site30))[9])$clade))))))
+site30.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site30))[9])$clade))
+# # SITE 32   
+# # Number of OTUs:
+site32.water.ntaxa <- NA
+# site32.water.ntaxa <- ntaxa(phy97.f.c.water.site32)
+# # Number of Clades:
+site32.water.nclades <- NA
+# site32.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site32))[9])$clade))))))
+site32.water.clades <- NA
+# site32.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site32))[9])$clade))
+# SITE 34   
+# Number of OTUs:
+site34.water.ntaxa <- ntaxa(phy97.f.c.water.site34)
+# Number of Clades:
+site34.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site34))[9])$clade))))))
+site34.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site34))[9])$clade))
+# SITE 35   
+# Number of OTUs:
+site35.water.ntaxa <- ntaxa(phy97.f.c.water.site35)
+# Number of Clades:
+site35.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site35))[9])$clade))))))
+site35.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site35))[9])$clade))
+# # SITE 37   
+# # Number of OTUs:
+# site37.water.ntaxa <- ntaxa(phy97.f.c.water.site37)
+site37.water.ntaxa <- NA
+# # Number of Clades:
+site37.water.nclades <- NA
+# site37.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site37))[9])$clade))))))
+site37.water.clades <- NA
+# site37.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site37))[9])$clade))
+# # SITE 38  
+# # Number of OTUs:
+site38.water.ntaxa <- NA
+# site38.water.ntaxa <- ntaxa(phy97.f.c.water.site38)
+# # Number of Clades:
+site38.water.nclades <- NA
+# site38.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site38))[9])$clade))))))
+site38.water.clades <- NA
+# site38.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site38))[9])$clade))
+# # SITE 40
+# # Number of OTUs:
+site40.water.ntaxa <- NA
+# site40.water.ntaxa <- ntaxa(phy97.f.c.water.site40)
+# # Number of Clades:
+site40.water.nclades <- NA
+# site40.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site40))[9])$clade))))))
+site40.water.clades <- NA
+# site40.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site40))[9])$clade))
 ```
 
 <!-- Plot OTU and clade diversity by site -->
-```{r, include=TRUE, echo=FALSE}
-df2 <- data.frame(site3=site3.ntaxa,site5=site5.ntaxa,site8=site8.ntaxa,site14=site14.ntaxa,site15=site15.ntaxa,site19=site19.ntaxa,site25=site25.ntaxa,site27=site27.ntaxa,site30=site30.ntaxa,site32=site32.ntaxa,site34=site34.ntaxa,site35=site35.ntaxa,site37=site37.ntaxa,site38=site38.ntaxa,site40=site40.ntaxa)
-df2[2,] <- c(site3.nclades,site5.nclades,site8.nclades,site14.nclades,site15.nclades,site19.nclades,site25.nclades,site27.nclades,site30.nclades,site32.nclades,site34.nclades,site35.nclades,site37.nclades,site38.nclades,site40.nclades)
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+df2 <- data.frame(site3=site3.coral.ntaxa,site5=site5.coral.ntaxa,site8=site8.coral.ntaxa,site14=site14.coral.ntaxa,site15=site15.coral.ntaxa,site19=site19.coral.ntaxa,site25=site25.coral.ntaxa,site27=site27.coral.ntaxa,site30=site30.coral.ntaxa,site32=site32.coral.ntaxa,site34=site34.coral.ntaxa,site35=site35.coral.ntaxa,site37=site37.coral.ntaxa,site38=site38.coral.ntaxa,site40=site40.coral.ntaxa)
+df2[2,] <- c(site3.coral.nclades,site5.coral.nclades,site8.coral.nclades,site14.coral.nclades,site15.coral.nclades,site19.coral.nclades,site25.coral.nclades,site27.coral.nclades,site30.coral.nclades,site32.coral.nclades,site34.coral.nclades,site35.coral.nclades,site37.coral.nclades,site38.coral.nclades,site40.coral.nclades)
 df2[3,] <- c(2,5,3,3,6,6,2,1,1,1,3,3,5,2,1)
 rownames(df2) <- c("Number of OTUs","Number of Clades", "Dist")
 df2 <- t(df2)
@@ -177,19 +441,71 @@ mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
 palette(mycols)
 
 par(xpd=TRUE)
-barplot(df2[,1:2], names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2[,3],ylim = c(0,25))
+barplot(df2[,1:2], names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2[,3],ylim = c(0,25),main="Corals by Site")
 legend("topright", inset=c(0.05,-0.05), legend=rownames(df2), fill=df2[,3],cex=0.7)
 
 
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_by_Site.pdf", width=10, height=7)
+pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_Corals_by_Site.pdf", width=10, height=7)
 par(xpd=TRUE)
-barplot(df2[,1:2], names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2[,3],ylim = c(0,25))
+barplot(df2[,1:2], names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2[,3],ylim = c(0,25),main="Corals by Site")
 legend("topright", inset=c(0.05,-0.05), legend=rownames(df2), fill=df2[,3],cex=0.7)
 dev.off()
+
+df2.w <- data.frame(site3=site3.water.ntaxa,site5=site5.water.ntaxa,site8=site8.water.ntaxa,site14=site14.water.ntaxa,site15=site15.water.ntaxa,site19=site19.water.ntaxa,site25=site25.water.ntaxa,site27=site27.water.ntaxa,site30=site30.water.ntaxa,site32=site32.water.ntaxa,site34=site34.water.ntaxa,site35=site35.water.ntaxa,site37=site37.water.ntaxa,site38=site38.water.ntaxa,site40=site40.water.ntaxa)
+df2.w[2,] <- c(site3.water.nclades,site5.water.nclades,site8.water.nclades,site14.water.nclades,site15.water.nclades,site19.water.nclades,site25.water.nclades,site27.water.nclades,site30.water.nclades,site32.water.nclades,site34.water.nclades,site35.water.nclades,site37.water.nclades,site38.water.nclades,site40.water.nclades)
+df2.w[3,] <- c(2,5,3,3,6,6,2,1,1,1,3,3,5,2,1)
+rownames(df2.w) <- c("Number of OTUs","Number of Clades", "Dist")
+df2.w <- t(df2.w)
+df2.w <- data.frame(df2.w[order(df2.w[,3]),])
+df2.w <- df2.w[which(df2.w$Number.of.OTUs>0),]
+
+mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
+  
+palette(mycols)
+
+par(xpd=TRUE)
+barplot(as.matrix(df2.w[,1:2]), names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2.w[,3],ylim = c(0,25),main="Water by Site")
+legend("topright", inset=c(0.05,-0.05), legend=rownames(df2.w), fill=df2.w[,3],cex=0.7)
+
+
+pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_Water_by_Site.pdf", width=10, height=7)
+par(xpd=TRUE)
+barplot(as.matrix(df2.w[,1:2]), names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2.w[,3],ylim = c(0,25),main="waters by Site")
+legend("topright", inset=c(0.05,-0.05), legend=rownames(df2.w), fill=df2.w[,3],cex=0.7)
+dev.off()
+
+df2.s <- data.frame(site3=site3.sediment.ntaxa,site5=site5.sediment.ntaxa,site8=site8.sediment.ntaxa,site14=site14.sediment.ntaxa,site15=site15.sediment.ntaxa,site19=site19.sediment.ntaxa,site25=site25.sediment.ntaxa,site27=site27.sediment.ntaxa,site30=site30.sediment.ntaxa,site32=site32.sediment.ntaxa,site34=site34.sediment.ntaxa,site35=site35.sediment.ntaxa,site37=site37.sediment.ntaxa,site38=site38.sediment.ntaxa,site40=site40.sediment.ntaxa)
+df2.s[2,] <- c(site3.sediment.nclades,site5.sediment.nclades,site8.sediment.nclades,site14.sediment.nclades,site15.sediment.nclades,site19.sediment.nclades,site25.sediment.nclades,site27.sediment.nclades,site30.sediment.nclades,site32.water.nclades,site34.sediment.nclades,site35.sediment.nclades,site37.sediment.nclades,site38.sediment.nclades,site40.sediment.nclades)
+df2.s[3,] <- c(2,5,3,3,6,6,2,1,1,1,3,3,5,2,1)
+rownames(df2.s) <- c("Number of OTUs","Number of Clades", "Dist")
+df2.s <- t(df2.s)
+df2.s <- data.frame(df2.s[order(df2.s[,3]),])
+df2.s <- df2.s[which(df2.s$Number.of.OTUs>0),]
+
+mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
+  
+palette(mycols)
+
+par(xpd=TRUE)
+barplot(as.matrix(df2.s[,1:2]), names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2.s[,3],ylim = c(0,25),main="Sediment by Site")
+legend("topright", inset=c(0.05,-0.05), legend=rownames(df2.s), fill=df2.s[,3],cex=0.7)
+
+
+pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_Sediment_by_Site.pdf", width=10, height=7)
+par(xpd=TRUE)
+barplot(as.matrix(df2.s[,1:2]), names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2.s[,3],ylim = c(0,25),main="Sediment by Site")
+legend("topright", inset=c(0.05,-0.05), legend=rownames(df2.s), fill=df2.s[,3],cex=0.7)
+dev.off()
+
 ```
 
+The number of *Symbiodinium* types (OTUs) in coral range from 8 to 18 per site, in water range from 9 to 14 per site, and in sediment from 4 to 15 per site. 
+  
+The number of *Symbiodinium* clades in coral range from 2 to 5 per site, in water range from 4 to 6 per site, and in sediment from 4 to 6 per site. Corals have the biggest range of number of clades, while water and sediment seem to have more clades present in general.
+
+
 <!-- Calculate OTU and clade diversity by field season -->
-```{r, include=TRUE, echo=FALSE}
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # 2014  
 # Number of OTUs:
 s2014.ntaxa <- ntaxa(phy97.f.c.2014)
@@ -228,7 +544,7 @@ s2016March.clades <- levels(unique((data.frame(tax_table(phy97.f.c.2016March))[9
 
 
 <!-- Plot OTU and clade diversity by site -->
-```{r, include=TRUE, echo=FALSE}
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
 df3 <- data.frame(s2014=s2014.ntaxa,s2015Jan=s2015Jan.ntaxa,s2015May=s2015May.ntaxa,s2015July=s2015July.ntaxa,s2016March=s2016March.ntaxa)
 df3[2,] <- c(s2014=s2014.nclades,s2015Jan=s2015Jan.nclades,s2015May=s2015May.nclades,s2015July=s2015July.nclades,s2016March=s2016March.nclades)
 rownames(df3) <- c("Number of OTUs","Number of Clades")
@@ -252,7 +568,7 @@ dev.off()
 ```
 
 <!-- Principal and Background Types -->
-```{r, include=TRUE, echo=FALSE}
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
 principal.A <- sum(data.frame(tax_table(principal))$clade=="A")
 principal.C <- sum(data.frame(tax_table(principal))$clade=="C")
 principal.D <- sum(data.frame(tax_table(principal))$clade=="D")
@@ -411,7 +727,7 @@ dev.off()
 
 ```
 
-```{r, include=TRUE, echo=FALSE}
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
 venn.diagram(x=list("Water Background"=background.water.types,"Coral Background"=background.coral.types,"Sediment Background"=background.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/BackgroundTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
 
 background.overlap <- calculate.overlap(x=list("Water Background"=background.water.types,"Coral Background"=background.coral.types,"Sediment Background"=background.sediment.types))
@@ -433,7 +749,7 @@ venn.diagram(x=list("Water Background"=background.water.types,"Coral Background"
 ![Water Principal and Coral/Sediment Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/WaterPrincipal_CSBackground_Venn.jpg)
 ![Sediment Principal and Water/Coral Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/SedimentPrincipal_WCBackground_Venn.jpg)
 
-```{r, include=TRUE, echo=FALSE}
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
 names.coral.core <- names(coral.core)
 names.coral.common <- names(coral.common)
 names.coral.rare <- names(coral.rare)
@@ -473,7 +789,7 @@ venn.diagram(x=list("Coral Rare"=names.coral.rare,"Water Core"=names.water.core,
 
 More Venn Diagrams of Core/Common/Rare combinations are located in the figures folder.
 
-```{r, include=TRUE, echo=FALSE}
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
 coral.core.hits <- data.frame()
 for (i in names.coral.core){
   coral.core.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.coral)))[i,]$hit)
