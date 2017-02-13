@@ -1,6 +1,9 @@
 ---
 title: "KI_Platy_analysis_OTUSummary"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
 <!-- Setup, import libraries, and load RData -->
@@ -17,6 +20,9 @@ load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_gro
 tax_table(phy97.f.c)
 
 ```
+
+
+# Symbiont alpha-diversity - Grouped by Species  
 
 First, we look at how many *Symbiodinium* types (OTUs) and clades are present in each coral species:
 
@@ -83,6 +89,8 @@ The number of OTUs per coral genus/water/sediment are relatively similar, rangin
   
 The number of clades per coral genus/water/sediment are also relatively similar, although water and sediment have 6 clades present, while corals have 4-5 clades present (on a species-by-species basis).  
   
+# Symbiont alpha-diversity - Grouped by Sites (and SampleType)  
+
   
 Next, we look at the number of *Symbiodinium* types (OTUs) and clades in coral, water, and sediment at each Kiritimati site:  
 *Note that these are split up, because there are not water/sediment samples for all sites, which could skew interpretations of diversity*
@@ -502,8 +510,12 @@ dev.off()
 The number of *Symbiodinium* types (OTUs) in coral range from 8 to 18 per site, in water range from 9 to 14 per site, and in sediment from 4 to 15 per site. 
   
 The number of *Symbiodinium* clades in coral range from 2 to 5 per site, in water range from 4 to 6 per site, and in sediment from 4 to 6 per site. Corals have the biggest range of number of clades, while water and sediment seem to have more clades present in general.
-
-
+  
+  
+# Symbiont alpha-diversity - Grouped by Field Season  
+  
+To understand how *Symbiodinium* diversity changes among field seasons, clade diversity is divided by field season. This includes coral, water, and sediment-associated *Symbiodinium*.  
+  
 <!-- Calculate OTU and clade diversity by field season -->
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # 2014  
@@ -542,33 +554,44 @@ s2016March.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97
 s2016March.clades <- levels(unique((data.frame(tax_table(phy97.f.c.2016March))[9])$clade))
 ```
 
-
 <!-- Plot OTU and clade diversity by site -->
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# Make a data frame for plotting OTU and clade diversity by site
 df3 <- data.frame(s2014=s2014.ntaxa,s2015Jan=s2015Jan.ntaxa,s2015May=s2015May.ntaxa,s2015July=s2015July.ntaxa,s2016March=s2016March.ntaxa)
 df3[2,] <- c(s2014=s2014.nclades,s2015Jan=s2015Jan.nclades,s2015May=s2015May.nclades,s2015July=s2015July.nclades,s2016March=s2016March.nclades)
 rownames(df3) <- c("Number of OTUs","Number of Clades")
 df3 <- t(df3)
+# Print the data frame
 df3
 
+# Set colors for the plot
 mycols <- c("#2b83ba", "#abdda4", "#ffffbf", "#fdae61", "#d7191c")
-  
 palette(mycols)
 
+# Make the plot in the RMD document
 par(xpd=TRUE)
 barplot(df3, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=mycols,ylim = c(0,25))
 legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
 
-
+# Make the pdf of the plot
 pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_by_FieldSeason.pdf", width=10, height=7)
 par(xpd=TRUE)
-barplot(df3, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=mycols,ylim = c(0,25))
+barplot(df3, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=mycols,ylim = c(0,35))
 legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
 dev.off()
 ```
 
-<!-- Principal and Background Types -->
+The overall number of OTUs and clades observed during each field season were equal, showing stable diversity at the ecosystem (or meta-community) level.  
+
+# Principal and Background Types  
+
+Background *Symbiodinium* types are those which have <0.01% abundance, and Principal *Symbiodinium* types are those which ahve >0.01% abunance (per Quigley et al 2017).  
+  
+First, we look at all samples together:  
+
+<!-- Principal and Background Types - All Samples -->
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# Define Principal types
 principal.A <- sum(data.frame(tax_table(principal))$clade=="A")
 principal.C <- sum(data.frame(tax_table(principal))$clade=="C")
 principal.D <- sum(data.frame(tax_table(principal))$clade=="D")
@@ -576,13 +599,17 @@ principal.F <- sum(data.frame(tax_table(principal))$clade=="F")
 principal.G <- sum(data.frame(tax_table(principal))$clade=="G")
 principal.I <- sum(data.frame(tax_table(principal))$clade=="I")
 
+# Print "Principal Types"
 print("PRINCIPAL TYPES")
 
+# Define Principal Clades
 principal.clades <- c(A=principal.A,C=principal.C,D=principal.D,F=principal.F,G=principal.G,I=principal.I)
 
+# List and print principal types
 principal.types <- data.frame(tax_table(principal))$hit
 principal.types
 
+# Define background types
 background.A <- sum(data.frame(tax_table(background))$clade=="A")
 background.C <- sum(data.frame(tax_table(background))$clade=="C")
 background.D <- sum(data.frame(tax_table(background))$clade=="D")
@@ -590,24 +617,35 @@ background.F <- sum(data.frame(tax_table(background))$clade=="F")
 background.G <- sum(data.frame(tax_table(background))$clade=="G")
 background.I <- sum(data.frame(tax_table(background))$clade=="I")
 
+# Print "Background Types"
 print("BACKGROUND TYPES")
 
+# Define background clades
 background.clades <- c(A=background.A,C=background.C,D=background.D,F=background.F,G=background.G,I=background.I)
 
+# List and print background types
 background.types <- data.frame(tax_table(background))$hit
 background.types
 
+# Create data frame of principal and background clades
 principal.background.clades <- rbind(principal.clades,background.clades)
 t.principal.background.clades <- t(principal.background.clades)
 colnames(t.principal.background.clades) <- c("Principal Types", "Background Types")
 
-barplot(t.principal.background.clades,col=rainbow(6),legend=rownames(t.principal.background.clades),beside=TRUE,ylim=c(0,10))
+# Plot Principal and Background Types
+barplot(t.principal.background.clades,col=rainbow(6),legend=rownames(t.principal.background.clades),beside=TRUE,ylim=c(0,10),main = "All Samples")
 
+# Create pdf of principal and background types plot
 pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background_Pricipal_Clades.pdf", width=10, height=7)
 par(xpd=TRUE)
 barplot(t.principal.background.clades,col=rainbow(6),legend=rownames(t.principal.background.clades),beside=TRUE,ylim=c(0,10), main="All Samples")
 dev.off()
+```
 
+And then the coral samples only:  
+<!-- Principal and Background Types - Corals -->
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# Define the principal coral types
 principal.coral.A <- sum(data.frame(tax_table(principal.coral))$clade=="A")
 principal.coral.C <- sum(data.frame(tax_table(principal.coral))$clade=="C")
 principal.coral.D <- sum(data.frame(tax_table(principal.coral))$clade=="D")
@@ -615,13 +653,17 @@ principal.coral.F <- sum(data.frame(tax_table(principal.coral))$clade=="F")
 principal.coral.G <- sum(data.frame(tax_table(principal.coral))$clade=="G")
 principal.coral.I <- sum(data.frame(tax_table(principal.coral))$clade=="I")
 
-print("PRINCIPAL.coral TYPES")
+# Print Principal coral types
+print("PRINCIPAL CORAL TYPES")
 
+# Define principal coral clades
 principal.coral.clades <- c(A=principal.coral.A,C=principal.coral.C,D=principal.coral.D,F=principal.coral.F,G=principal.coral.G,I=principal.coral.I)
 
+# List and print principal coral types
 principal.coral.types <- data.frame(tax_table(principal.coral))$hit
 principal.coral.types
 
+# Define Background Types
 background.coral.A <- sum(data.frame(tax_table(background.coral))$clade=="A")
 background.coral.C <- sum(data.frame(tax_table(background.coral))$clade=="C")
 background.coral.D <- sum(data.frame(tax_table(background.coral))$clade=="D")
@@ -629,24 +671,37 @@ background.coral.F <- sum(data.frame(tax_table(background.coral))$clade=="F")
 background.coral.G <- sum(data.frame(tax_table(background.coral))$clade=="G")
 background.coral.I <- sum(data.frame(tax_table(background.coral))$clade=="I")
 
-print("BACKGROUND.coral TYPES")
+# Print "Background Coral Types"
+print("BACKGROUND CORAL TYPES")
 
+# Define Background Clades
 background.coral.clades <- c(A=background.coral.A,C=background.coral.C,D=background.coral.D,F=background.coral.F,G=background.coral.G,I=background.coral.I)
 
+# List and print background types
 background.coral.types <- data.frame(tax_table(background.coral))$hit
 background.coral.types
 
+# Create data frame of background and principal coral clades
 principal.coral.background.coral.clades <- rbind(principal.coral.clades,background.coral.clades)
 t.principal.coral.background.coral.clades <- t(principal.coral.background.coral.clades)
 colnames(t.principal.coral.background.coral.clades) <- c("Principal.coral Types", "Background.coral Types")
 
-barplot(t.principal.coral.background.coral.clades,col=rainbow(6),legend=rownames(t.principal.coral.background.coral.clades),beside=TRUE,ylim=c(0,10))
+# Plot background and principal coral clades
+barplot(t.principal.coral.background.coral.clades,col=rainbow(6),legend=rownames(t.principal.coral.background.coral.clades),beside=TRUE,ylim=c(0,10), main="Coral only")
 
+# Make pdf of background and principal coral clades
 pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background.coral_Pricipal_Clades.pdf", width=10, height=7)
 par(xpd=TRUE)
 barplot(t.principal.coral.background.coral.clades,col=rainbow(6),legend=rownames(t.principal.coral.background.coral.clades),beside=TRUE,ylim=c(0,10), main="Coral only")
 dev.off()
-
+```
+  
+The clade with the most principal (and background) *Symbiodinium* types is clade C (as expected). There are no principal coral types of clade F or I, although there are background coral types of these clades. There is one principal *Symbiodinium* clade G type, and no background types from clade G. There are 13 principal types, and 17 background types in coral.
+  
+And then the sediment samples only:  
+<!-- Principal and Background Types - Sediment Only -->
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# Define principal sediment types
 principal.sediment.A <- sum(data.frame(tax_table(principal.sediment))$clade=="A")
 principal.sediment.C <- sum(data.frame(tax_table(principal.sediment))$clade=="C")
 principal.sediment.D <- sum(data.frame(tax_table(principal.sediment))$clade=="D")
@@ -654,13 +709,17 @@ principal.sediment.F <- sum(data.frame(tax_table(principal.sediment))$clade=="F"
 principal.sediment.G <- sum(data.frame(tax_table(principal.sediment))$clade=="G")
 principal.sediment.I <- sum(data.frame(tax_table(principal.sediment))$clade=="I")
 
-print("PRINCIPAL.sediment TYPES")
+# Print "Principal Sediment Types"
+print("PRINCIPAL SEDIMENT TYPES")
 
+# Define principal sediment clades
 principal.sediment.clades <- c(A=principal.sediment.A,C=principal.sediment.C,D=principal.sediment.D,F=principal.sediment.F,G=principal.sediment.G,I=principal.sediment.I)
 
+# List and print principal sediment types
 principal.sediment.types <- data.frame(tax_table(principal.sediment))$hit
 principal.sediment.types
 
+# Define background sediment types
 background.sediment.A <- sum(data.frame(tax_table(background.sediment))$clade=="A")
 background.sediment.C <- sum(data.frame(tax_table(background.sediment))$clade=="C")
 background.sediment.D <- sum(data.frame(tax_table(background.sediment))$clade=="D")
@@ -668,24 +727,37 @@ background.sediment.F <- sum(data.frame(tax_table(background.sediment))$clade=="
 background.sediment.G <- sum(data.frame(tax_table(background.sediment))$clade=="G")
 background.sediment.I <- sum(data.frame(tax_table(background.sediment))$clade=="I")
 
-print("BACKGROUND.sediment TYPES")
+# Print "Background Sediment Types"
+print("BACKGROUND SEDIMENT TYPES")
 
+# Define background sediment clades
 background.sediment.clades <- c(A=background.sediment.A,C=background.sediment.C,D=background.sediment.D,F=background.sediment.F,G=background.sediment.G,I=background.sediment.I)
 
+# List and print background sediment types
 background.sediment.types <- data.frame(tax_table(background.sediment))$hit
 background.sediment.types
 
+# Create data frame of principal and background sediment types
 principal.sediment.background.sediment.clades <- rbind(principal.sediment.clades,background.sediment.clades)
 t.principal.sediment.background.sediment.clades <- t(principal.sediment.background.sediment.clades)
 colnames(t.principal.sediment.background.sediment.clades) <- c("Principal.sediment Types", "Background.sediment Types")
 
-barplot(t.principal.sediment.background.sediment.clades,col=rainbow(6),legend=rownames(t.principal.sediment.background.sediment.clades),beside=TRUE,ylim=c(0,10))
+# Plot sediment types and clades
+barplot(t.principal.sediment.background.sediment.clades,col=rainbow(6),legend=rownames(t.principal.sediment.background.sediment.clades),beside=TRUE,ylim=c(0,10), main="sediment only")
 
+# Make pdf of sediment types and clades
 pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background.sediment_Pricipal_Clades.pdf", width=10, height=7)
 par(xpd=TRUE)
 barplot(t.principal.sediment.background.sediment.clades,col=rainbow(6),legend=rownames(t.principal.sediment.background.sediment.clades),beside=TRUE,ylim=c(0,10), main="sediment only")
 dev.off()
-
+```
+  
+The clades with the most principal *Symbiodinium* types are clades A and C. There is only one background type in the sediment, and it is type C. There are 18 principal sediment *Symbiodinium* types.  
+  
+And then the water samples only:  
+<!-- Principal and Background Types - Sediment Only -->
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# Define principal water types
 principal.water.A <- sum(data.frame(tax_table(principal.water))$clade=="A")
 principal.water.C <- sum(data.frame(tax_table(principal.water))$clade=="C")
 principal.water.D <- sum(data.frame(tax_table(principal.water))$clade=="D")
@@ -693,13 +765,17 @@ principal.water.F <- sum(data.frame(tax_table(principal.water))$clade=="F")
 principal.water.G <- sum(data.frame(tax_table(principal.water))$clade=="G")
 principal.water.I <- sum(data.frame(tax_table(principal.water))$clade=="I")
 
-print("PRINCIPAL.water TYPES")
+# Print "Principal Water Types"
+print("PRINCIPAL WATER TYPES")
 
+# Define principal water clades
 principal.water.clades <- c(A=principal.water.A,C=principal.water.C,D=principal.water.D,F=principal.water.F,G=principal.water.G,I=principal.water.I)
 
+# List and print principal water types 
 principal.water.types <- data.frame(tax_table(principal.water))$hit
 principal.water.types
 
+# Define background water clades
 background.water.A <- sum(data.frame(tax_table(background.water))$clade=="A")
 background.water.C <- sum(data.frame(tax_table(background.water))$clade=="C")
 background.water.D <- sum(data.frame(tax_table(background.water))$clade=="D")
@@ -707,29 +783,44 @@ background.water.F <- sum(data.frame(tax_table(background.water))$clade=="F")
 background.water.G <- sum(data.frame(tax_table(background.water))$clade=="G")
 background.water.I <- sum(data.frame(tax_table(background.water))$clade=="I")
 
-print("BACKGROUND.water TYPES")
+# Print "Background Water Types"
+print("BACKGROUND WATER TYPES")
 
+# Define background water clades
 background.water.clades <- c(A=background.water.A,C=background.water.C,D=background.water.D,F=background.water.F,G=background.water.G,I=background.water.I)
 
+# List and print background water types
 background.water.types <- data.frame(tax_table(background.water))$hit
 background.water.types
 
+# Create data frame of principal and background water clades and types
 principal.water.background.water.clades <- rbind(principal.water.clades,background.water.clades)
 t.principal.water.background.water.clades <- t(principal.water.background.water.clades)
 colnames(t.principal.water.background.water.clades) <- c("Principal.water Types", "Background.water Types")
 
+# Create plot of principal and background water types and clades
 barplot(t.principal.water.background.water.clades,col=rainbow(6),legend=rownames(t.principal.water.background.water.clades),beside=TRUE,ylim=c(0,10))
 
+# Create pdf of principal and background water types and clades
 pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background.water_Pricipal_Clades.pdf", width=10, height=7)
 par(xpd=TRUE)
 barplot(t.principal.water.background.water.clades,col=rainbow(6),legend=rownames(t.principal.water.background.water.clades),beside=TRUE,ylim=c(0,10), main="water only")
 dev.off()
-
 ```
-
+  
+The clades with the most principal *Symbiodinium* types are again clades A and C. The clade with the most background *Symbiodinium* types is clade C with 3 types, and there is 1 clade A type that is a background type. There are 16 principal water *Symbiodinium* types, and 4 background water *Symbiodinium* types.  
+  
+  
+# Venn Diagrams of Principal and Background Types  
+  
+I created these Venn Diagrams to visualize the similarities and differences between Background and Principal *Symbiodinium* types in coral, sediment, and water.  
+  
+<!-- Venn Diagrams - Background vs. Principal -->  
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
-venn.diagram(x=list("Water Background"=background.water.types,"Coral Background"=background.coral.types,"Sediment Background"=background.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/BackgroundTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
+# Create a Venn Diagram of Background types
+venn.diagram(x=list("Water Background"=background.water.types,"Coral Background"=background.coral.types,"Sediment Background"=background.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/BackgroundTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1,main = "Background Types")
 
+# Calculate which taxa are overlapping betweeen the Background types
 background.overlap <- calculate.overlap(x=list("Water Background"=background.water.types,"Coral Background"=background.coral.types,"Sediment Background"=background.sediment.types))
 
 venn.diagram(x=list("Water Principal"=principal.water.types,"Coral Principal"=principal.coral.types,"Sediment Principal"=principal.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/PrincipalTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
@@ -742,26 +833,47 @@ venn.diagram(x=list("Water Principal"=principal.water.types,"Coral Background"=b
 
 venn.diagram(x=list("Water Background"=background.water.types,"Coral Background"=background.coral.types,"Sediment Principal"=principal.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/SedimentPrincipal_WCBackground_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
 ```
-
+  
+Venn Diagrams of Principal Types in coral, water, and sediment:  
+PRINCIPAL  
 ![Principal Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/PrincipalTypes_Venn.jpg)  
-![Background Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/BackgroundTypes_Venn.jpg)
-![Coral Principal and Water/Sediment Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralPrincipal_WSBackground_Venn.jpg)
-![Water Principal and Coral/Sediment Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/WaterPrincipal_CSBackground_Venn.jpg)
-![Sediment Principal and Water/Coral Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/SedimentPrincipal_WCBackground_Venn.jpg)
+There are 7 types which are principal types shared between coral, sediment, and water. Eight types are present as principal types in only one niche, while nine types are shared between two niches. Water and sediment have the most shared types (which are not also principal in coral).  
 
+BACKGROUND  
+![Background Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/BackgroundTypes_Venn.jpg)    
+Coral Principal and Water/Sediment Background  
+![Coral Principal and Water/Sediment Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralPrincipal_WSBackground_Venn.jpg)  
+  
+Water Principal and Coral/Sediment Background  
+![Water Principal and Coral/Sediment Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/WaterPrincipal_CSBackground_Venn.jpg)  
+  
+Coral has the most background types, whereas sediment has the fewest (only 1) background type, which is shared with neither coral or water background types. However, this background sediment type is shared with a principal coral type + a principal water type.   
+  
+Sediment Principal and Water/Coral Background  
+![Sediment Principal and Water/Coral Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/SedimentPrincipal_WCBackground_Venn.jpg)  
+  
+Sediment principal has the most types which are unique from water and coral background. However, sediment principal shares 9 types with coral background.  
+  
+  
+# Venn Diagrams of Core, Common, and Rare Types  
+<!-- Venn Diagrams - Core vs. Common vs. Rare -->  
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# Extract OTU names from Coral core, common, and rare types
 names.coral.core <- names(coral.core)
 names.coral.common <- names(coral.common)
 names.coral.rare <- names(coral.rare)
 
+# Extract OTU names from Water core, common, and rare types
 names.water.core <- names(water.core)
 names.water.common <- names(water.common)
 names.water.rare <- names(water.rare)
 
+# Extract OTU names from Sediment core, common, and rare types
 names.sediment.core <- names(sediment.core)
 names.sediment.common <- names(sediment.common)
 names.sediment.rare <- names(sediment.rare)
 
+# Create Venn Diagrams of core, common, and rare types
 venn.diagram(x=list("Coral Core"=names.coral.core,"Water Core"=names.water.core,"Sediment Core"=names.sediment.core),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoreTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
 
 venn.diagram(x=list("Coral Common"=names.coral.common,"Water Common"=names.water.common,"Sediment Common"=names.sediment.common),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CommonTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
@@ -779,16 +891,26 @@ venn.diagram(x=list("Coral Common"=names.coral.common,"Water Core"=names.water.c
 venn.diagram(x=list("Coral Rare"=names.coral.rare,"Water Common"=names.water.common,"Sediment Common"=names.sediment.common),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralRare_WSCommon_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
 
 venn.diagram(x=list("Coral Rare"=names.coral.rare,"Water Core"=names.water.core,"Sediment Core"=names.sediment.core),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralRare_WSCore_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
-
-
 ```
-
+  
+CORE TYPES  
+Compare the core types among niches (coral, sediment, water)  
 ![Core Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoreTypes_Venn.jpg)  
+Interestingly, this shows a nested structure. All niches share the 2 coral core types. Sediment shares one core type only with water, while water has 2 additional unique core types. 
+  
+COMMON TYPES  
+Compare the common types among niches (coral, sediment, water)  
 ![Common Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CommonTypes_Venn.jpg)  
+Coral shares only one common type with sediment, and none with water. Similarly, water shares only one common type with sediment, and again, none with coral. Sediment also has 9 unique common types.  
+  
+RARE TYPES  
+Compare the rare types among niches (coral, sediment, water)  
 ![Rare Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/RareTypes_Venn.jpg)  
+All rare types in sediment and water are encompassed within the coral rare types. 
+  
+More Venn Diagrams of Core/Common/Rare combinations are located in the figures folder.  
 
-More Venn Diagrams of Core/Common/Rare combinations are located in the figures folder.
-
+Print hits for core, common, and rare in all three niches
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 coral.core.hits <- data.frame()
 for (i in names.coral.core){
@@ -862,6 +984,4 @@ for (i in names.water.rare){
 colnames(water.rare.hits) <- "hits"
 print("water.rare.hits")
 water.rare.hits
-
-
 ```
