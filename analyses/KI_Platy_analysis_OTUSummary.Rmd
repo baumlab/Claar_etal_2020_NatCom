@@ -985,3 +985,54 @@ colnames(water.rare.hits) <- "hits"
 print("water.rare.hits")
 water.rare.hits
 ```
+
+# Abundance vs. Prevalence
+
+<!-- Abundance vs. prevalence - Coral -->
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# This is abundance
+phy97.f.c.coral.otuAbundance <- data.frame(otuAbundance = taxa_sums(phy97.f.c.coral))
+# This is prevalence
+phy97.f.c.coral.otuPrevalence <- data.frame(otuPrevalence = (rowSums(sign(data.frame(otu_table(phy97.f.c.coral))))/(nrow(sample_data(phy97.f.c.coral)))))
+
+phy97.f.c.coral.AbundPrev <- cbind(log(phy97.f.c.coral.otuAbundance),phy97.f.c.coral.otuPrevalence,hit=(data.frame(tax_table(phy97.f.c.coral)))$hit,clade=(data.frame(tax_table(phy97.f.c.coral)))$clade)
+
+palette(rainbow(5))
+plot(phy97.f.c.coral.AbundPrev[,1:2],xlab="Log OTU Abundance",ylab="OTU Prevalence", main="Coral",col=phy97.f.c.coral.AbundPrev$clade, pch=16)
+legend("topleft",inset=c(0.05,0.05), legend=phy97.f.c.coral.AbundPrev$hit, fill=phy97.f.c.coral.AbundPrev$clade, cex=0.5, text.width=2.5, ncol=3, xpd=TRUE)
+```
+
+<!-- Abundance vs. prevalence - Sediment -->
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# This is abundance
+phy97.f.c.sediment.otuAbundance <- data.frame(otuAbundance = taxa_sums(phy97.f.c.sediment))
+# This is prevalence
+phy97.f.c.sediment.otuPrevalence <- data.frame(otuPrevalence = (rowSums(sign(data.frame(otu_table(phy97.f.c.sediment))))/(nrow(sample_data(phy97.f.c.sediment)))))
+
+phy97.f.c.sediment.AbundPrev <- cbind(log(phy97.f.c.sediment.otuAbundance),phy97.f.c.sediment.otuPrevalence,hit=(data.frame(tax_table(phy97.f.c.sediment)))$hit,clade=(data.frame(tax_table(phy97.f.c.sediment)))$clade)
+
+palette(rainbow(5))
+plot(phy97.f.c.sediment.AbundPrev[,1:2],xlab="Log OTU Abundance",ylab="OTU Prevalence", main="sediment",col=phy97.f.c.sediment.AbundPrev$clade, pch=16)
+legend("topleft",inset=c(0.05,0.05), legend=phy97.f.c.sediment.AbundPrev$hit, fill=phy97.f.c.sediment.AbundPrev$clade, cex=0.4, text.width=1, ncol=2, xpd=TRUE)
+```
+
+<!-- Abundance vs. prevalence - Water -->
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# This is abundance
+phy97.f.c.water.otuAbundance <- data.frame(otuAbundance = taxa_sums(phy97.f.c.water))
+# This is prevalence
+phy97.f.c.water.otuPrevalence <- data.frame(otuPrevalence = (rowSums(sign(data.frame(otu_table(phy97.f.c.water))))/(nrow(sample_data(phy97.f.c.water)))))
+
+phy97.f.c.water.AbundPrev <- cbind(log(phy97.f.c.water.otuAbundance),phy97.f.c.water.otuPrevalence,hit=(data.frame(tax_table(phy97.f.c.water)))$hit,clade=(data.frame(tax_table(phy97.f.c.water)))$clade)
+
+palette(rainbow(5))
+plot(phy97.f.c.water.AbundPrev[,1:2],xlab="Log OTU Abundance",ylab="OTU Prevalence", main="water",col=phy97.f.c.water.AbundPrev$clade, pch=16)
+legend("topleft",inset=c(0.05,0.05), legend=phy97.f.c.water.AbundPrev$hit, fill=phy97.f.c.water.AbundPrev$clade, cex=0.4, text.width=1, ncol=2, xpd=TRUE)
+```
+
+
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# Save grouped data as RData file
+save.image(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped_OTUSummary.RData")
+```
+
