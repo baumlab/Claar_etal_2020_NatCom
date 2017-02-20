@@ -9,7 +9,8 @@ library(phyloseq)
 rm(list=ls())
 
 # Load filtered RData object from output of filter_notsym.R script
-load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f.RData")
+# load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f.RData")
+load("KI_seqs_f.RData")
 phy97.f <- phy.f # Rename phyloseq object for clarity
 
 # Characterize sites by disturbance level
@@ -46,139 +47,20 @@ sample_data(phy97.f)$Dist<- gsub ("9",as.character("HighMed"), as.character(data
 sample_data(phy97.f)$Dist<- gsub ("8",as.character("HighMed"), as.character(data.frame(sample_data(phy97.f))$Dist), as.character("HighMed"))
 rm(VeryHigh,High,HighMed,LowMed,Low,VeryLow)
 
-# Use merge_taxa to collapse OTUs with equivalent names ("hits")
+# Create a loop to merge OTUs with identical hits
+# Note that this is computationally slow and probably could be made much more efficient.
+phy97.f.c <- phy97.f
 
-# I tried this and it didn't work
-#phy97.f.test <- tax_glom(phy97.f, taxrank=rank_names(phy97.f)[9])
-#tax_glom(physeq=myData, taxrank=rank_names(myData)[2])
-#identical(tax_table(phy97.f),tax_table(phy97.f.test))
-
-# Ok fine I'll do it the long way around
-C3k_AY589737 <- grep("C3k_AY589737", data.frame(tax_table(phy97.f))$hit)
-phy97.f.c <- merge_taxa(phy97.f, eqtaxa=C3k_AY589737, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(C3k_AY589737)
-
-D1_multiple <- grep("D1_multiple", data.frame(tax_table(phy97.f.c))$hit)
-phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=D1_multiple, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(D1_multiple)
-
-C42_AY258487 <- grep("C42_AY258487", data.frame(tax_table(phy97.f.c))$hit)
-phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=C42_AY258487, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(C42_AY258487)
-
-C15_AY239369 <- grep("C15_AY239369", data.frame(tax_table(phy97.f.c))$hit)
-phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=C15_AY239369, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(C15_AY239369)
-
-C3_multiple <- grep("C3_multiple", data.frame(tax_table(phy97.f.c))$hit)
-phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=C3_multiple, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(C3_multiple)
-
-I4_FN561562 <- grep("I4_FN561562", data.frame(tax_table(phy97.f.c))$hit)
-phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=I4_FN561562, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(I4_FN561562)
-
-G100_AB253788 <- grep("G100_AB253788", data.frame(tax_table(phy97.f.c))$hit)
-phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=G100_AB253788, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(G100_AB253788)
-
-F5.2c_AM748596 <- grep("F5.2c_AM748596", data.frame(tax_table(phy97.f.c))$hit)
-phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=F5.2c_AM748596, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(F5.2c_AM748596)
-
-F5.1a_AM748591 <- grep("F5.1a_AM748591", data.frame(tax_table(phy97.f.c))$hit)
-phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=F5.1a_AM748591, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(F5.1a_AM748591)
-
-F3.2a_AM748568 <- grep("F3.2a_AM748568", data.frame(tax_table(phy97.f.c))$hit)
-phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=F3.2a_AM748568, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(F3.2a_AM748568)
-
-C3b_AF499791 <- grep("C3b_AF499791", data.frame(tax_table(phy97.f.c))$hit)
-phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=C3b_AF499791, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(C3b_AF499791)
-
-C1051_AF195153 <- grep("C1051_AF195153", data.frame(tax_table(phy97.f.c))$hit)
-phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=C1051_AF195153, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(C1051_AF195153)
-
-C1232_EU118163 <- grep("C1232_EU118163", data.frame(tax_table(phy97.f.c))$hit)
-phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=C1232_EU118163, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(C1232_EU118163)
-
-A133_DQ174725 <- grep("A133_DQ174725", data.frame(tax_table(phy97.f.c))$hit)
-phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=A133_DQ174725, archetype=1)
-tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-isna <- rownames(tt)[is.na(tt$hit)]
-info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-tt[isna,"hit"] <- info
-tax_table(phy97.f.c) <- as.matrix(tt)
-rm(A133_DQ174725)
+for (i in data.frame(tax_table(phy97.f.c))$hit){
+  i <- grep(i, data.frame(tax_table(phy97.f.c))$hit)
+  phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=i, archetype=1)
+  tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
+  isna <- rownames(tt)[is.na(tt$hit)]
+  info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
+  tt[isna,"hit"] <- info
+  tax_table(phy97.f.c) <- as.matrix(tt)
+  rm(i)
+}
 
 rm(info,isna,tt)
 
@@ -186,7 +68,7 @@ rm(info,isna,tt)
 # t <- sort(data.frame(tax_table(phy97.f.c))$hit)
 # t
 # 
-# Check if all equivalent taxa are collapsed
+# # Check if all equivalent taxa are collapsed
 # x <- length(unique(data.frame(tax_table(phy97.f.c))$hit))
 # y <- length(data.frame(tax_table(phy97.f.c))$hit)
 # identical(x,y)
@@ -222,7 +104,7 @@ phy97.f.c.faviaall <- merge_phyloseq(phy97.f.c.faviasp,phy97.f.c.faviam)
 phy97.f.c.faviaall <- subset_taxa(phy97.f.c.faviaall, taxa_sums(phy97.f.c.faviaall) > 0, prune=TRUE)
 
 phy97.f.c.coral <- subset_samples(phy97.f.c,SampleType=="coral")
-phy97.f.c.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c) > 0, prune=TRUE)
+phy97.f.c.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
 
 phy97.f.c.water <- subset_samples(phy97.f.c,SampleType=="water")
 phy97.f.c.water <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water) > 0, prune=TRUE)
@@ -247,99 +129,47 @@ phy97.f.c.sediment.p <- transform_sample_counts(phy97.f.c.sediment, function(x) 
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.coral.p <- transform_sample_counts(phy97.f.c.coral, function(x) x/sum(x))
 
-# Subset by site
-phy97.f.c.coral.site3 <- subset_samples(phy97.f.c.coral,Site=="3")
-phy97.f.c.coral.site3 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site3) > 0, prune=TRUE)
-phy97.f.c.coral.site5 <- subset_samples(phy97.f.c.coral,Site=="5")
-phy97.f.c.coral.site5 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site5) > 0, prune=TRUE)
-phy97.f.c.coral.site8 <- subset_samples(phy97.f.c.coral,Site=="8")
-phy97.f.c.coral.site8 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site8) > 0, prune=TRUE)
-phy97.f.c.coral.site14 <- subset_samples(phy97.f.c.coral,Site=="14")
-phy97.f.c.coral.site14 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site14) > 0, prune=TRUE)
-phy97.f.c.coral.site15 <- subset_samples(phy97.f.c.coral,Site=="15")
-phy97.f.c.coral.site15 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site15) > 0, prune=TRUE)
-phy97.f.c.coral.site19 <- subset_samples(phy97.f.c.coral,Site=="19")
-phy97.f.c.coral.site19 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site19) > 0, prune=TRUE)
-phy97.f.c.coral.site25 <- subset_samples(phy97.f.c.coral,Site=="25")
-phy97.f.c.coral.site25 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site25) > 0, prune=TRUE)
-phy97.f.c.coral.site27 <- subset_samples(phy97.f.c.coral,Site=="27")
-phy97.f.c.coral.site27 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site27) > 0, prune=TRUE)
-phy97.f.c.coral.site30 <- subset_samples(phy97.f.c.coral,Site=="30")
-phy97.f.c.coral.site30 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site30) > 0, prune=TRUE)
-phy97.f.c.coral.site32 <- subset_samples(phy97.f.c.coral,Site=="32")
-phy97.f.c.coral.site32 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site32) > 0, prune=TRUE)
-phy97.f.c.coral.site34 <- subset_samples(phy97.f.c.coral,Site=="34")
-phy97.f.c.coral.site34 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site34) > 0, prune=TRUE)
-phy97.f.c.coral.site35 <- subset_samples(phy97.f.c.coral,Site=="35")
-phy97.f.c.coral.site35 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site35) > 0, prune=TRUE)
-phy97.f.c.coral.site37 <- subset_samples(phy97.f.c.coral,Site=="37")
-phy97.f.c.coral.site37 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site37) > 0, prune=TRUE)
-phy97.f.c.coral.site38 <- subset_samples(phy97.f.c.coral,Site=="38")
-phy97.f.c.coral.site38 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site38) > 0, prune=TRUE)
-phy97.f.c.coral.site40 <- subset_samples(phy97.f.c.coral,Site=="40")
-phy97.f.c.coral.site40 <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.site40) > 0, prune=TRUE)
+# Log transform coral
+phy97.f.c.coral.log <- transform_sample_counts(phy97.f.c.coral, function(x) (log10(x+1)))
 
-# phy97.f.c.water.site3 <- subset_samples(phy97.f.c.water,Site=="3")
-# phy97.f.c.water.site3 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site3) > 0, prune=TRUE)
-phy97.f.c.water.site5 <- subset_samples(phy97.f.c.water,Site=="5")
-phy97.f.c.water.site5 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site5) > 0, prune=TRUE)
-phy97.f.c.water.site8 <- subset_samples(phy97.f.c.water,Site=="8")
-phy97.f.c.water.site8 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site8) > 0, prune=TRUE)
-# phy97.f.c.water.site14 <- subset_samples(phy97.f.c.water,Site=="14")
-# phy97.f.c.water.site14 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site14) > 0, prune=TRUE)
-# phy97.f.c.water.site15 <- subset_samples(phy97.f.c.water,Site=="15")
-# phy97.f.c.water.site15 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site15) > 0, prune=TRUE)
-# phy97.f.c.water.site19 <- subset_samples(phy97.f.c.water,Site=="19")
-# phy97.f.c.water.site19 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site19) > 0, prune=TRUE)
-# phy97.f.c.water.site25 <- subset_samples(phy97.f.c.water,Site=="25")
-# phy97.f.c.water.site25 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site25) > 0, prune=TRUE)
-phy97.f.c.water.site27 <- subset_samples(phy97.f.c.water,Site=="27")
-phy97.f.c.water.site27 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site27) > 0, prune=TRUE)
-phy97.f.c.water.site30 <- subset_samples(phy97.f.c.water,Site=="30")
-phy97.f.c.water.site30 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site30) > 0, prune=TRUE)
-# phy97.f.c.water.site32 <- subset_samples(phy97.f.c.water,Site=="32")
-# phy97.f.c.water.site32 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site32) > 0, prune=TRUE)
-phy97.f.c.water.site34 <- subset_samples(phy97.f.c.water,Site=="34")
-phy97.f.c.water.site34 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site34) > 0, prune=TRUE)
-phy97.f.c.water.site35 <- subset_samples(phy97.f.c.water,Site=="35")
-phy97.f.c.water.site35 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site35) > 0, prune=TRUE)
-# phy97.f.c.water.site37 <- subset_samples(phy97.f.c.water,Site=="37")
-# phy97.f.c.water.site37 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site37) > 0, prune=TRUE)
-# phy97.f.c.water.site38 <- subset_samples(phy97.f.c.water,Site=="38")
-# phy97.f.c.water.site38 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site38) > 0, prune=TRUE)
-# phy97.f.c.water.site40 <- subset_samples(phy97.f.c.water,Site=="40")
-# phy97.f.c.water.site40 <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.site40) > 0, prune=TRUE)
+# Subset coral by site
+for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
+  nam <- paste("phy97.f.c.coral.site",i,sep="")
+  a <- eval(subset_samples(phy97.f.c.coral,Site==i, prune=TRUE))
+  assign(nam,a)
+  b <- eval(subset_taxa(a, taxa_sums(a) > 0, prune=TRUE))
+  assign(nam,b)
+}
 
-# phy97.f.c.sediment.site3 <- subset_samples(phy97.f.c.sediment,Site=="3")
-# phy97.f.c.sediment.site3 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site3) > 0, prune=TRUE)
-# phy97.f.c.sediment.site5 <- subset_samples(phy97.f.c.sediment,Site=="5")
-# phy97.f.c.sediment.site5 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site5) > 0, prune=TRUE)
-# phy97.f.c.sediment.site8 <- subset_samples(phy97.f.c.sediment,Site=="8")
-# phy97.f.c.sediment.site8 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site8) > 0, prune=TRUE)
-# phy97.f.c.sediment.site14 <- subset_samples(phy97.f.c.sediment,Site=="14")
-# phy97.f.c.sediment.site14 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site14) > 0, prune=TRUE)
-# phy97.f.c.sediment.site15 <- subset_samples(phy97.f.c.sediment,Site=="15")
-# phy97.f.c.sediment.site15 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site15) > 0, prune=TRUE)
-# phy97.f.c.sediment.site19 <- subset_samples(phy97.f.c.sediment,Site=="19")
-# phy97.f.c.sediment.site19 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site19) > 0, prune=TRUE)
-# phy97.f.c.sediment.site25 <- subset_samples(phy97.f.c.sediment,Site=="25")
-# phy97.f.c.sediment.site25 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site25) > 0, prune=TRUE)
-# phy97.f.c.sediment.site27 <- subset_samples(phy97.f.c.sediment,Site=="27")
-# phy97.f.c.sediment.site27 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site27) > 0, prune=TRUE)
-phy97.f.c.sediment.site30 <- subset_samples(phy97.f.c.sediment,Site=="30")
-phy97.f.c.sediment.site30 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site30) > 0, prune=TRUE)
-# phy97.f.c.sediment.site32 <- subset_samples(phy97.f.c.sediment,Site=="32")
-# phy97.f.c.sediment.site32 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site32) > 0, prune=TRUE)
-phy97.f.c.sediment.site34 <- subset_samples(phy97.f.c.sediment,Site=="34")
-phy97.f.c.sediment.site34 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site34) > 0, prune=TRUE)
-phy97.f.c.sediment.site35 <- subset_samples(phy97.f.c.sediment,Site=="35")
-phy97.f.c.sediment.site35 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site35) > 0, prune=TRUE)
-# phy97.f.c.sediment.site37 <- subset_samples(phy97.f.c.sediment,Site=="37")
-# phy97.f.c.sediment.site37 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site37) > 0, prune=TRUE)
-# phy97.f.c.sediment.site38 <- subset_samples(phy97.f.c.sediment,Site=="38")
-# phy97.f.c.sediment.site38 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site38) > 0, prune=TRUE)
-# phy97.f.c.sediment.site40 <- subset_samples(phy97.f.c.sediment,Site=="40")
-# phy97.f.c.sediment.site40 <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.site40) > 0, prune=TRUE)
+# Subset water by site
+for (i in unique(data.frame(sample_data(phy97.f.c.water))$Site)){
+  nam <- paste("phy97.f.c.water.site",i,sep="")
+  a <- eval(subset_samples(phy97.f.c.water,Site==i, prune=TRUE))
+  assign(nam,a)
+  b <- eval(subset_taxa(a, taxa_sums(a) > 0, prune=TRUE))
+  assign(nam,b)
+}
+
+# Subset sediment by site
+for (i in unique(data.frame(sample_data(phy97.f.c.sediment))$Site)){
+  nam <- paste("phy97.f.c.sediment.site",i,sep="")
+  a <- eval(subset_samples(phy97.f.c.sediment,Site==i, prune=TRUE))
+  assign(nam,a)
+  b <- eval(subset_taxa(a, taxa_sums(a) > 0, prune=TRUE))
+  assign(nam,b)
+}
+
+
+# Transform sample counts to proportional abundance for downstream analyses
+for (i in print(ls(pattern="phy97.f.c.coral.site"))){
+  nam <- paste(i,".p",sep="")
+  a <- eval(transform_sample_counts(i, function(x) x/sum(x)))
+  assign(nam,a)
+}
+
+X <- get(ls(pattern="phy97.f.c.coral.site"))
+
+lapply(X, transform_sample_counts(X, function(x) x/sum(x)))
 
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.coral.site3.p <- transform_sample_counts(phy97.f.c.coral.site3, function(x) x/sum(x))
