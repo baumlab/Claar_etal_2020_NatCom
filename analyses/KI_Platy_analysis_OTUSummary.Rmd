@@ -266,7 +266,7 @@ names.coral.common <- names(coral.common)
 names.coral.rare <- names(coral.rare)
 ```
   
-Print hits for core, common, and rare in all three niches
+Print hits for core, common, and rare in coral
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 if (!is.null(names.coral.core)) {
   coral.core.hits <- data.frame()

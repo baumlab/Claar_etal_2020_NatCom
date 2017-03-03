@@ -102,7 +102,7 @@ tax_table(phy97.f.c)[,9] <- gsub("^I.*", "I", tax_table(phy97.f.c)[,9])
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.p <- transform_sample_counts(phy97.f.c, function(x) x/sum(x))
 
-# Subset coral data set into individual genus data sets (and water and sediment)
+# Subset coral data set into individual genus data sets
 phy97.f.c.platy <- subset_samples(phy97.f.c,Coral_Species=="Platygyra_sp")
 phy97.f.c.platy <- subset_taxa(phy97.f.c.platy, taxa_sums(phy97.f.c.platy) > 0, prune=TRUE)
 
@@ -151,25 +151,6 @@ for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
 }
 
 # Subset by Field Season
-phy97.f.c.2014 <- subset_samples(phy97.f.c,Year=="2014")
-phy97.f.c.2014 <- subset_taxa(phy97.f.c.2014, taxa_sums(phy97.f.c) > 0, prune=TRUE)
-phy97.f.c.2015Jan <- subset_samples(phy97.f.c,Year=="2015Jan")
-phy97.f.c.2015Jan <- subset_taxa(phy97.f.c.2015Jan, taxa_sums(phy97.f.c) > 0, prune=TRUE)
-phy97.f.c.2015May <- subset_samples(phy97.f.c,Year=="2015May")
-phy97.f.c.2015May <- subset_taxa(phy97.f.c.2015May, taxa_sums(phy97.f.c) > 0, prune=TRUE)
-phy97.f.c.2015July <- subset_samples(phy97.f.c,Year=="2015July")
-phy97.f.c.2015July <- subset_taxa(phy97.f.c.2015July, taxa_sums(phy97.f.c) > 0, prune=TRUE)
-phy97.f.c.2016March <- subset_samples(phy97.f.c,Year=="2016March")
-phy97.f.c.2016March <- subset_taxa(phy97.f.c.2016March, taxa_sums(phy97.f.c) > 0, prune=TRUE)
-
-# Transform sample counts to proportional abundance for downstream analyses
-phy97.f.c.2014.p <- transform_sample_counts(phy97.f.c.2014, function(x) x/sum(x))
-phy97.f.c.2015Jan.p <- transform_sample_counts(phy97.f.c.2015Jan, function(x) x/sum(x))
-phy97.f.c.2015May.p <- transform_sample_counts(phy97.f.c.2015May, function(x) x/sum(x))
-phy97.f.c.2015July.p <- transform_sample_counts(phy97.f.c.2015July, function(x) x/sum(x))
-phy97.f.c.2016March.p <- transform_sample_counts(phy97.f.c.2016March, function(x) x/sum(x))
-
-# Subset by SampleType within Field Season
 phy97.f.c.coral.2014 <- subset_samples(phy97.f.c.coral,Year=="2014")
 phy97.f.c.coral.2014 <- subset_taxa(phy97.f.c.coral.2014, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
 phy97.f.c.coral.2015Jan <- subset_samples(phy97.f.c.coral,Year=="2015Jan")
