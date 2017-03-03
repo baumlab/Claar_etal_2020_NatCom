@@ -117,12 +117,6 @@ phy97.f.c.faviaall <- subset_taxa(phy97.f.c.faviaall, taxa_sums(phy97.f.c.faviaa
 phy97.f.c.coral <- subset_samples(phy97.f.c,SampleType=="coral")
 phy97.f.c.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
 
-# phy97.f.c.water <- subset_samples(phy97.f.c,SampleType=="water")
-# phy97.f.c.water <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water) > 0, prune=TRUE)
-# 
-# phy97.f.c.sediment <- subset_samples(phy97.f.c,SampleType=="sediment")
-# phy97.f.c.sediment <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment) > 0, prune=TRUE)
-
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.platy.p <- transform_sample_counts(phy97.f.c.platy, function(x) x/sum(x))
 # Transform sample counts to proportional abundance for downstream analyses
@@ -133,10 +127,6 @@ phy97.f.c.faviasp.p <- transform_sample_counts(phy97.f.c.faviasp, function(x) x/
 phy97.f.c.faviam.p <- transform_sample_counts(phy97.f.c.faviam, function(x) x/sum(x))
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.faviaall.p <- transform_sample_counts(phy97.f.c.faviaall, function(x) x/sum(x))
-# # Transform sample counts to proportional abundance for downstream analyses
-# phy97.f.c.water.p <- transform_sample_counts(phy97.f.c.water, function(x) x/sum(x))
-# # Transform sample counts to proportional abundance for downstream analyses
-# phy97.f.c.sediment.p <- transform_sample_counts(phy97.f.c.sediment, function(x) x/sum(x))
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.coral.p <- transform_sample_counts(phy97.f.c.coral, function(x) x/sum(x))
 
@@ -152,25 +142,6 @@ for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
   assign(nam,b)
 }
 
-# Subset water by site
-# for (i in unique(data.frame(sample_data(phy97.f.c.water))$Site)){
-#   nam <- paste("phy97.f.c.water.site",i,sep="")
-#   a <- eval(subset_samples(phy97.f.c.water,Site==i, prune=TRUE))
-#   assign(nam,a)
-#   b <- eval(subset_taxa(a, taxa_sums(a) > 0, prune=TRUE))
-#   assign(nam,b)
-# }
-
-# Subset sediment by site
-# for (i in unique(data.frame(sample_data(phy97.f.c.sediment))$Site)){
-#   nam <- paste("phy97.f.c.sediment.site",i,sep="")
-#   a <- eval(subset_samples(phy97.f.c.sediment,Site==i, prune=TRUE))
-#   assign(nam,a)
-#   b <- eval(subset_taxa(a, taxa_sums(a) > 0, prune=TRUE))
-#   assign(nam,b)
-# }
-
-
 # Transform sample counts to proportional abundance for downstream analyses
 for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
   nam <- paste("phy97.f.c.coral.site",i,".p",sep="")
@@ -178,22 +149,6 @@ for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
   a <- eval(transform_sample_counts(get(c), function(x) x/sum(x)))
   assign(nam,a)
 }
-
-# Transform sample counts to proportional abundance for downstream analyses
-# for (i in unique(data.frame(sample_data(phy97.f.c.sediment))$Site)){
-#   nam <- paste("phy97.f.c.sediment.site",i,".p",sep="")
-#   c <- paste("phy97.f.c.sediment.site",i,sep="")
-#   a <- eval(transform_sample_counts(get(c), function(x) x/sum(x)))
-#   assign(nam,a)
-# }
-
-# Transform sample counts to proportional abundance for downstream analyses
-# for (i in unique(data.frame(sample_data(phy97.f.c.water))$Site)){
-#   nam <- paste("phy97.f.c.water.site",i,".p",sep="")
-#   c <- paste("phy97.f.c.water.site",i,sep="")
-#   a <- eval(transform_sample_counts(get(c), function(x) x/sum(x)))
-#   assign(nam,a)
-# }
 
 # Subset by Field Season
 phy97.f.c.2014 <- subset_samples(phy97.f.c,Year=="2014")
@@ -226,47 +181,8 @@ phy97.f.c.coral.2015July <- subset_taxa(phy97.f.c.coral.2015July, taxa_sums(phy9
 phy97.f.c.coral.2016March <- subset_samples(phy97.f.c.coral,Year=="2016March")
 phy97.f.c.coral.2016March <- subset_taxa(phy97.f.c.coral.2016March, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
 
-# phy97.f.c.sediment.2015Jan <- subset_samples(phy97.f.c.sediment,Year=="2015Jan")
-# phy97.f.c.sediment.2015Jan <- subset_taxa(phy97.f.c.sediment.2015Jan, taxa_sums(phy97.f.c.sediment) > 0, prune=TRUE)
-# phy97.f.c.sediment.2015May <- subset_samples(phy97.f.c.sediment,Year=="2015May")
-# phy97.f.c.sediment.2015May <- subset_taxa(phy97.f.c.sediment.2015May, taxa_sums(phy97.f.c.sediment) > 0, prune=TRUE)
-# phy97.f.c.sediment.2015July <- subset_samples(phy97.f.c.sediment,Year=="2015July")
-# phy97.f.c.sediment.2015July <- subset_taxa(phy97.f.c.sediment.2015July, taxa_sums(phy97.f.c.sediment) > 0, prune=TRUE)
-# phy97.f.c.sediment.2016March <- subset_samples(phy97.f.c.sediment,Year=="2016March")
-# phy97.f.c.sediment.2016March <- subset_taxa(phy97.f.c.sediment.2016March, taxa_sums(phy97.f.c.sediment) > 0, prune=TRUE)
-
-# phy97.f.c.water.2014 <- subset_samples(phy97.f.c.water,Year=="2014")
-# phy97.f.c.water.2014 <- subset_taxa(phy97.f.c.water.2014, taxa_sums(phy97.f.c.water) > 0, prune=TRUE)
-# phy97.f.c.water.2015Jan <- subset_samples(phy97.f.c.water,Year=="2015Jan")
-# phy97.f.c.water.2015Jan <- subset_taxa(phy97.f.c.water.2015Jan, taxa_sums(phy97.f.c.water) > 0, prune=TRUE)
-# phy97.f.c.water.2015May <- subset_samples(phy97.f.c.water,Year=="2015May")
-# phy97.f.c.water.2015May <- subset_taxa(phy97.f.c.water.2015May, taxa_sums(phy97.f.c.water) > 0, prune=TRUE)
-# phy97.f.c.water.2015July <- subset_samples(phy97.f.c.water,Year=="2015July")
-# phy97.f.c.water.2015July <- subset_taxa(phy97.f.c.water.2015July, taxa_sums(phy97.f.c.water) > 0, prune=TRUE)
-# phy97.f.c.water.2016March <- subset_samples(phy97.f.c.water,Year=="2016March")
-# phy97.f.c.water.2016March <- subset_taxa(phy97.f.c.water.2016March, taxa_sums(phy97.f.c.water) > 0, prune=TRUE)
-
-# principal <- subset_taxa(phy97.f.c, taxa_sums(phy97.f.c.p) > 0.01, prune=TRUE)
-# background <- subset_taxa(phy97.f.c, taxa_sums(phy97.f.c.p) < 0.01, prune=TRUE)
-
 principal.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.p) > 0.01, prune=TRUE)
 background.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.p) < 0.01, prune=TRUE)
-
-# principal.sediment <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.p) > 0.01, prune=TRUE)
-# background.sediment <- subset_taxa(phy97.f.c.sediment, taxa_sums(phy97.f.c.sediment.p) < 0.01, prune=TRUE)
-# 
-# principal.water <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.p) > 0.01, prune=TRUE)
-# background.water <- subset_taxa(phy97.f.c.water, taxa_sums(phy97.f.c.water.p) < 0.01, prune=TRUE)
-
-
-# phy97.f.c.otu.logical <- sign(data.frame(otu_table(phy97.f.c)))
-# phy97.f.c.otu.samples <- rowSums(phy97.f.c.otu.logical)
-# phy97.f.c.num.samples <- ncol(phy97.f.c.otu.logical)
-# phy97.f.c.otu.samples.p <- as.matrix(phy97.f.c.otu.samples)/phy97.f.c.num.samples*100
-
-# all.core <- phy97.f.c.otu.samples.p[which(phy97.f.c.otu.samples.p>75),]
-# all.common <- phy97.f.c.otu.samples.p[which(phy97.f.c.otu.samples.p>25 & phy97.f.c.otu.samples.p<75),]
-# all.rare <- phy97.f.c.otu.samples.p[which(phy97.f.c.otu.samples.p<25),]
 
 phy97.f.c.coral.otu.logical <- sign(data.frame(otu_table(phy97.f.c.coral)))
 phy97.f.c.coral.otu.samples <- rowSums(phy97.f.c.coral.otu.logical)
@@ -276,24 +192,6 @@ phy97.f.c.coral.otu.samples.p <- as.matrix(phy97.f.c.coral.otu.samples)/phy97.f.
 coral.core <- phy97.f.c.coral.otu.samples.p[which(phy97.f.c.coral.otu.samples.p>75),]
 coral.common <- phy97.f.c.coral.otu.samples.p[which(phy97.f.c.coral.otu.samples.p>25 & phy97.f.c.coral.otu.samples.p<75),]
 coral.rare <- phy97.f.c.coral.otu.samples.p[which(phy97.f.c.coral.otu.samples.p<25),]
-
-# phy97.f.c.sediment.otu.logical <- sign(data.frame(otu_table(phy97.f.c.sediment)))
-# phy97.f.c.sediment.otu.samples <- rowSums(phy97.f.c.sediment.otu.logical)
-# phy97.f.c.sediment.num.samples <- ncol(phy97.f.c.sediment.otu.logical)
-# phy97.f.c.sediment.otu.samples.p <- as.matrix(phy97.f.c.sediment.otu.samples)/phy97.f.c.sediment.num.samples*100
-# 
-# sediment.core <- phy97.f.c.sediment.otu.samples.p[which(phy97.f.c.sediment.otu.samples.p>75),]
-# sediment.common <- phy97.f.c.sediment.otu.samples.p[which(phy97.f.c.sediment.otu.samples.p>25 & phy97.f.c.sediment.otu.samples.p<75),]
-# sediment.rare <- phy97.f.c.sediment.otu.samples.p[which(phy97.f.c.sediment.otu.samples.p<25),]
-# 
-# phy97.f.c.water.otu.logical <- sign(data.frame(otu_table(phy97.f.c.water)))
-# phy97.f.c.water.otu.samples <- rowSums(phy97.f.c.water.otu.logical)
-# phy97.f.c.water.num.samples <- ncol(phy97.f.c.water.otu.logical)
-# phy97.f.c.water.otu.samples.p <- as.matrix(phy97.f.c.water.otu.samples)/phy97.f.c.water.num.samples*100
-# 
-# water.core <- phy97.f.c.water.otu.samples.p[which(phy97.f.c.water.otu.samples.p>75),]
-# water.common <- phy97.f.c.water.otu.samples.p[which(phy97.f.c.water.otu.samples.p>25 & phy97.f.c.water.otu.samples.p<75),]
-# water.rare <- phy97.f.c.water.otu.samples.p[which(phy97.f.c.water.otu.samples.p<25),]
 
 rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,phy97.f,Low,LowMed,High,HighMed)
 

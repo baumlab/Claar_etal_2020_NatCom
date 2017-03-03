@@ -14,7 +14,9 @@ library(phyloseq)
 library(data.table)
 library(VennDiagram)
 
-load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped.RData")
+rm(list=ls())
+
+load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/KI_seqs_f_coral_grouped.RData")
 
 # Look at tax_table
 tax_table(phy97.f.c)
@@ -46,26 +48,14 @@ favia.ntaxa <- ntaxa(phy97.f.c.faviaall)
 # Number of Clades:
 favia.nclades <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.faviaall))[9])$clade))))))
 favia.clades <- levels(unique((data.frame(tax_table(phy97.f.c.faviaall))[9])$clade))
-# WATER 
-# Number of OTUs:
-water.ntaxa <- ntaxa(phy97.f.c.water)
-# Number of Clades:
-water.nclades <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water))[9])$clade))))))
-water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water))[9])$clade))
-# SEDIMENT 
-# Number of OTUs:
-sediment.ntaxa <- ntaxa(phy97.f.c.sediment)
-# Number of Clades:
-sediment.nclades <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment))[9])$clade))))))
-sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment))[9])$clade))
 ```
 
 <!-- Plot OTU and clade diversity by species -->
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Make a data frame including the number of OTUs
-df <- data.frame(Platygyra=platy.ntaxa,Favia=favia.ntaxa,Favites=favites.ntaxa,Water=water.ntaxa, Sediment=sediment.ntaxa)
+df <- data.frame(Platygyra=platy.ntaxa,Favia=favia.ntaxa,Favites=favites.ntaxa)
 # Add the number of clades to the data frame
-df[2,] <- c(platy.nclades,favia.nclades,favites.nclades,water.nclades,sediment.nclades)
+df[2,] <- c(platy.nclades,favia.nclades,favites.nclades)
 # Set the row names
 rownames(df) <- c("Number of OTUs","Number of Clades")
 # Transpose the data frame
@@ -74,364 +64,38 @@ df <- t(df)
 df
 
 # Create and print a barplot of these data
-barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan", "darkturquoise", "dodgerblue3"),ylim = c(0,25))
+barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan"),ylim = c(0,max(df)))
 
 # Create a pdf of this plot and save in the 'figures' folder
 # Open a new pdf file
 pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_by_Species.pdf")
 # Make the plot
-barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan", "darkturquoise", "dodgerblue3"),ylim = c(0,25))
+barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan"),ylim = c(0,max(df)))
 # Close the pdf file
 dev.off()
 ```
   
-The number of OTUs per coral genus/water/sediment are relatively similar, ranging from 15 OTUs (in *Favia*), to 21 OTUs (in *Platygyra*).   
-  
-The number of clades per coral genus/water/sediment are also relatively similar, although water and sediment have 6 clades present, while corals have 4-5 clades present (on a species-by-species basis).  
-  
+
+
 # Symbiont alpha-diversity - Grouped by Sites (and SampleType)  
 
   
-Next, we look at the number of *Symbiodinium* types (OTUs) and clades in coral, water, and sediment at each Kiritimati site:  
-*Note that these are split up, because there are not water/sediment samples for all sites, which could skew interpretations of diversity*
+Next, we look at the number of *Symbiodinium* types (OTUs) and clades in coral at each Kiritimati site:  
 
 <!-- Calculate OTU and clade diversity by site -->
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
-# SITE 3   
-# Number of OTUs:
-site3.coral.ntaxa <- ntaxa(phy97.f.c.coral.site3)
-# Number of Clades:
-site3.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site3))[9])$clade))))))
-site3.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site3))[9])$clade))
-# SITE 5  
-# Number of OTUs:
-site5.coral.ntaxa <- ntaxa(phy97.f.c.coral.site5)
-# Number of Clades:
-site5.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site5))[9])$clade))))))
-site5.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site5))[9])$clade))
-# SITE 8   
-# Number of OTUs:
-site8.coral.ntaxa <- ntaxa(phy97.f.c.coral.site8)
-# Number of Clades:
-site8.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site8))[9])$clade))))))
-site8.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site8))[9])$clade))
-# SITE 14   
-# Number of OTUs:
-site14.coral.ntaxa <- ntaxa(phy97.f.c.coral.site14)
-# Number of Clades:
-site14.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site14))[9])$clade))))))
-site14.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site14))[9])$clade))
-# SITE 15   
-# Number of OTUs:
-site15.coral.ntaxa <- ntaxa(phy97.f.c.coral.site15)
-# Number of Clades:
-site15.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site15))[9])$clade))))))
-site15.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site15))[9])$clade))
-# SITE 19   
-# Number of OTUs:
-site19.coral.ntaxa <- ntaxa(phy97.f.c.coral.site19)
-# Number of Clades:
-site19.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site19))[9])$clade))))))
-site19.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site19))[9])$clade))
-# SITE 25   
-# Number of OTUs:
-site25.coral.ntaxa <- ntaxa(phy97.f.c.coral.site25)
-# Number of Clades:
-site25.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site25))[9])$clade))))))
-site25.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site25))[9])$clade))
-# SITE 27   
-# Number of OTUs:
-site27.coral.ntaxa <- ntaxa(phy97.f.c.coral.site27)
-# Number of Clades:
-site27.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site27))[9])$clade))))))
-site27.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site27))[9])$clade))
-# SITE 30   
-# Number of OTUs:
-site30.coral.ntaxa <- ntaxa(phy97.f.c.coral.site30)
-# Number of Clades:
-site30.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site30))[9])$clade))))))
-site30.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site30))[9])$clade))
-# SITE 32   
-# Number of OTUs:
-site32.coral.ntaxa <- ntaxa(phy97.f.c.coral.site32)
-# Number of Clades:
-site32.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site32))[9])$clade))))))
-site32.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site32))[9])$clade))
-# SITE 34   
-# Number of OTUs:
-site34.coral.ntaxa <- ntaxa(phy97.f.c.coral.site34)
-# Number of Clades:
-site34.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site34))[9])$clade))))))
-site34.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site34))[9])$clade))
-# SITE 35   
-# Number of OTUs:
-site35.coral.ntaxa <- ntaxa(phy97.f.c.coral.site35)
-# Number of Clades:
-site35.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site35))[9])$clade))))))
-site35.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site35))[9])$clade))
-# SITE 37   
-# Number of OTUs:
-site37.coral.ntaxa <- ntaxa(phy97.f.c.coral.site37)
-# Number of Clades:
-site37.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site37))[9])$clade))))))
-site37.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site37))[9])$clade))
-# SITE 38  
-# Number of OTUs:
-site38.coral.ntaxa <- ntaxa(phy97.f.c.coral.site38)
-# Number of Clades:
-site38.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site38))[9])$clade))))))
-site38.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site38))[9])$clade))
-# SITE 40
-# Number of OTUs:
-site40.coral.ntaxa <- ntaxa(phy97.f.c.coral.site40)
-# Number of Clades:
-site40.coral.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.site40))[9])$clade))))))
-site40.coral.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.site40))[9])$clade))
-
-# # SITE 3   
-# # Number of OTUs:
-site3.sediment.ntaxa <- NA
-# site3.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site3)
-# # Number of Clades:
-site3.sediment.nclades <- NA
-# site3.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site3))[9])$clade))))))
-site3.sediment.clades <- NA
-# site3.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site3))[9])$clade))
-# # SITE 5  
-# # Number of OTUs:
-site5.sediment.ntaxa <- NA
-# site5.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site5)
-# # Number of Clades:
-site5.sediment.nclades <- NA
-# site5.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site5))[9])$clade))))))
-site5.sediment.clades <- NA
-# site5.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site5))[9])$clade))
-# # SITE 8   
-# # Number of OTUs:
-site8.sediment.ntaxa <- NA
-# site8.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site8)
-# # Number of Clades:
-site8.sediment.nclades <- NA
-# site8.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site8))[9])$clade))))))
-site8.sediment.clades <- NA
-# site8.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site8))[9])$clade))
-# # SITE 14   
-# # Number of OTUs:
-site14.sediment.ntaxa <- NA
-# site14.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site14)
-# # Number of Clades:
-site14.sediment.nclades <- NA
-# site14.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site14))[9])$clade))))))
-site14.sediment.clades <- NA
-# site14.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site14))[9])$clade))
-# # SITE 15   
-# # Number of OTUs:
-site15.sediment.ntaxa <- NA
-# site15.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site15)
-# # Number of Clades:
-site15.sediment.nclades <- NA
-# site15.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site15))[9])$clade))))))
-site15.sediment.clades <- NA
-# site15.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site15))[9])$clade))
-# # SITE 19   
-# # Number of OTUs:
-site19.sediment.ntaxa <- NA
-# site19.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site19)
-# # Number of Clades:
-site19.sediment.nclades <- NA
-# site19.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site19))[9])$clade))))))
-site19.sediment.clades <- NA
-# site19.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site19))[9])$clade))
-# # SITE 25   
-# # Number of OTUs:
-site25.sediment.ntaxa <- NA
-# site25.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site25)
-# # Number of Clades:
-site25.sediment.nclades <- NA
-# site25.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site25))[9])$clade))))))
-site25.sediment.clades <- NA
-# site25.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site25))[9])$clade))
-# # SITE 27   
-# # Number of OTUs:
-site27.sediment.ntaxa <- NA
-# site27.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site27)
-# # Number of Clades:
-site27.sediment.nclades <-NA
-# site27.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site27))[9])$clade))))))
-site27.sediment.clades <- NA
-# site27.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site27))[9])$clade))
-# SITE 30   
-# Number of OTUs:
-site30.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site30)
-# Number of Clades:
-site30.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site30))[9])$clade))))))
-site30.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site30))[9])$clade))
-# # SITE 32   
-# # Number of OTUs:
-site32.sediment.ntaxa <- NA
-# site32.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site32)
-# # Number of Clades:
-site32.sediment.nclades <- NA
-# site32.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site32))[9])$clade))))))
-site32.sediment.clades <- NA
-# site32.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site32))[9])$clade))
-# SITE 34   
-# Number of OTUs:
-site34.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site34)
-# Number of Clades:
-site34.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site34))[9])$clade))))))
-site34.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site34))[9])$clade))
-# SITE 35   
-# Number of OTUs:
-site35.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site35)
-# Number of Clades:
-site35.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site35))[9])$clade))))))
-site35.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site35))[9])$clade))
-# # SITE 37   
-# # Number of OTUs:
-site37.sediment.ntaxa <- NA
-# site37.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site37)
-# # Number of Clades:
-site37.sediment.nclades <- NA
-# site37.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site37))[9])$clade))))))
-site37.sediment.clades <- NA
-# site37.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site37))[9])$clade))
-# # SITE 38  
-# # Number of OTUs:
-site38.sediment.ntaxa <- NA
-# site38.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site38)
-# # Number of Clades:
-site38.sediment.nclades <- NA
-# site38.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site38))[9])$clade))))))
-site38.sediment.clades <- NA
-# site38.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site38))[9])$clade))
-# # SITE 40
-# # Number of OTUs:
-site40.sediment.ntaxa <- NA
-# site40.sediment.ntaxa <- ntaxa(phy97.f.c.sediment.site40)
-# # Number of Clades:
-site40.sediment.nclades <- NA
-# site40.sediment.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.sediment.site40))[9])$clade))))))
-site40.sediment.clades <- NA
-# site40.sediment.clades <- levels(unique((data.frame(tax_table(phy97.f.c.sediment.site40))[9])$clade))
-
-# # SITE 3   
-# # Number of OTUs:
-site3.water.ntaxa <- NA
-# site3.water.ntaxa <- ntaxa(phy97.f.c.water.site3)
-# # Number of Clades:
-site3.water.nclades <- NA
-# site3.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site3))[9])$clade))))))
-site3.water.clades <- NA
-# site3.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site3))[9])$clade))
-# SITE 5  
-# Number of OTUs:
-site5.water.ntaxa <- ntaxa(phy97.f.c.water.site5)
-# Number of Clades:
-site5.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site5))[9])$clade))))))
-site5.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site5))[9])$clade))
-# SITE 8   
-# Number of OTUs:
-site8.water.ntaxa <- ntaxa(phy97.f.c.water.site8)
-# Number of Clades:
-site8.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site8))[9])$clade))))))
-site8.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site8))[9])$clade))
-# # SITE 14   
-# # Number of OTUs:
-site14.water.ntaxa <- NA
-# site14.water.ntaxa <- ntaxa(phy97.f.c.water.site14)
-# # Number of Clades:
-site14.water.nclades <- NA
-# site14.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site14))[9])$clade))))))
-site14.water.clades <- NA
-# site14.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site14))[9])$clade))
-# # SITE 15   
-# # Number of OTUs:
-site15.water.ntaxa <- NA
-# site15.water.ntaxa <- ntaxa(phy97.f.c.water.site15)
-# # Number of Clades:
-site15.water.nclades <- NA
-# site15.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site15))[9])$clade))))))
-site15.water.clades <- NA
-# site15.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site15))[9])$clade))
-# # SITE 19   
-# # Number of OTUs:
-site19.water.ntaxa <- NA
-# site19.water.ntaxa <- ntaxa(phy97.f.c.water.site19)
-# # Number of Clades:
-site19.water.nclades <- NA
-# site19.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site19))[9])$clade))))))
-site19.water.clades <- NA
-# site19.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site19))[9])$clade))
-# # SITE 25   
-# # Number of OTUs:
-site25.water.ntaxa <- NA
-# site25.water.ntaxa <- ntaxa(phy97.f.c.water.site25)
-# # Number of Clades:
-site25.water.nclades <- NA
-# site25.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site25))[9])$clade))))))
-site25.water.clades <- NA
-# site25.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site25))[9])$clade))
-# SITE 27   
-# Number of OTUs:
-site27.water.ntaxa <- ntaxa(phy97.f.c.water.site27)
-# Number of Clades:
-site27.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site27))[9])$clade))))))
-site27.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site27))[9])$clade))
-# SITE 30   
-# Number of OTUs:
-site30.water.ntaxa <- ntaxa(phy97.f.c.water.site30)
-# Number of Clades:
-site30.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site30))[9])$clade))))))
-site30.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site30))[9])$clade))
-# # SITE 32   
-# # Number of OTUs:
-site32.water.ntaxa <- NA
-# site32.water.ntaxa <- ntaxa(phy97.f.c.water.site32)
-# # Number of Clades:
-site32.water.nclades <- NA
-# site32.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site32))[9])$clade))))))
-site32.water.clades <- NA
-# site32.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site32))[9])$clade))
-# SITE 34   
-# Number of OTUs:
-site34.water.ntaxa <- ntaxa(phy97.f.c.water.site34)
-# Number of Clades:
-site34.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site34))[9])$clade))))))
-site34.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site34))[9])$clade))
-# SITE 35   
-# Number of OTUs:
-site35.water.ntaxa <- ntaxa(phy97.f.c.water.site35)
-# Number of Clades:
-site35.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site35))[9])$clade))))))
-site35.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site35))[9])$clade))
-# # SITE 37   
-# # Number of OTUs:
-# site37.water.ntaxa <- ntaxa(phy97.f.c.water.site37)
-site37.water.ntaxa <- NA
-# # Number of Clades:
-site37.water.nclades <- NA
-# site37.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site37))[9])$clade))))))
-site37.water.clades <- NA
-# site37.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site37))[9])$clade))
-# # SITE 38  
-# # Number of OTUs:
-site38.water.ntaxa <- NA
-# site38.water.ntaxa <- ntaxa(phy97.f.c.water.site38)
-# # Number of Clades:
-site38.water.nclades <- NA
-# site38.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site38))[9])$clade))))))
-site38.water.clades <- NA
-# site38.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site38))[9])$clade))
-# # SITE 40
-# # Number of OTUs:
-site40.water.ntaxa <- NA
-# site40.water.ntaxa <- ntaxa(phy97.f.c.water.site40)
-# # Number of Clades:
-site40.water.nclades <- NA
-# site40.water.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.water.site40))[9])$clade))))))
-site40.water.clades <- NA
-# site40.water.clades <- levels(unique((data.frame(tax_table(phy97.f.c.water.site40))[9])$clade))
+for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
+  nam <- paste("site",i,".coral.ntaxa",sep="")
+  nam2 <- paste("site",i,".coral.nclades",sep="")
+  nam3 <- paste("site",i,".coral.clades",sep="")
+  ornam <- get(paste("phy97.f.c.coral.site",i,sep=""))
+  a <- eval(ntaxa(ornam))
+  assign(nam,a)
+  b <- eval(sum(table(unlist(sort((unique((data.frame(tax_table(ornam))[9])$clade)))))))
+  assign(nam2,b)
+  c <- eval(levels(unique((data.frame(tax_table(ornam))[9])$clade)))
+  assign(nam3,c)
+}
 ```
 
 <!-- Plot OTU and clade diversity by site -->
@@ -449,109 +113,59 @@ mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
 palette(mycols)
 
 par(xpd=TRUE)
-barplot(df2[,1:2], names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2[,3],ylim = c(0,25),main="Corals by Site")
+barplot(df2[,1:2], names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2[,3],ylim = c(0,max(df2)),main="Corals by Site")
 legend("topright", inset=c(0.05,-0.05), legend=rownames(df2), fill=df2[,3],cex=0.7)
 
 
 pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_Corals_by_Site.pdf", width=10, height=7)
 par(xpd=TRUE)
-barplot(df2[,1:2], names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2[,3],ylim = c(0,25),main="Corals by Site")
+barplot(df2[,1:2], names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2[,3],ylim = c(0,max(df2)),main="Corals by Site")
 legend("topright", inset=c(0.05,-0.05), legend=rownames(df2), fill=df2[,3],cex=0.7)
 dev.off()
-
-df2.w <- data.frame(site3=site3.water.ntaxa,site5=site5.water.ntaxa,site8=site8.water.ntaxa,site14=site14.water.ntaxa,site15=site15.water.ntaxa,site19=site19.water.ntaxa,site25=site25.water.ntaxa,site27=site27.water.ntaxa,site30=site30.water.ntaxa,site32=site32.water.ntaxa,site34=site34.water.ntaxa,site35=site35.water.ntaxa,site37=site37.water.ntaxa,site38=site38.water.ntaxa,site40=site40.water.ntaxa)
-df2.w[2,] <- c(site3.water.nclades,site5.water.nclades,site8.water.nclades,site14.water.nclades,site15.water.nclades,site19.water.nclades,site25.water.nclades,site27.water.nclades,site30.water.nclades,site32.water.nclades,site34.water.nclades,site35.water.nclades,site37.water.nclades,site38.water.nclades,site40.water.nclades)
-df2.w[3,] <- c(2,5,3,3,6,6,2,1,1,1,3,3,5,2,1)
-rownames(df2.w) <- c("Number of OTUs","Number of Clades", "Dist")
-df2.w <- t(df2.w)
-df2.w <- data.frame(df2.w[order(df2.w[,3]),])
-df2.w <- df2.w[which(df2.w$Number.of.OTUs>0),]
-
-mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
-  
-palette(mycols)
-
-par(xpd=TRUE)
-barplot(as.matrix(df2.w[,1:2]), names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2.w[,3],ylim = c(0,25),main="Water by Site")
-legend("topright", inset=c(0.05,-0.05), legend=rownames(df2.w), fill=df2.w[,3],cex=0.7)
-
-
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_Water_by_Site.pdf", width=10, height=7)
-par(xpd=TRUE)
-barplot(as.matrix(df2.w[,1:2]), names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2.w[,3],ylim = c(0,25),main="waters by Site")
-legend("topright", inset=c(0.05,-0.05), legend=rownames(df2.w), fill=df2.w[,3],cex=0.7)
-dev.off()
-
-df2.s <- data.frame(site3=site3.sediment.ntaxa,site5=site5.sediment.ntaxa,site8=site8.sediment.ntaxa,site14=site14.sediment.ntaxa,site15=site15.sediment.ntaxa,site19=site19.sediment.ntaxa,site25=site25.sediment.ntaxa,site27=site27.sediment.ntaxa,site30=site30.sediment.ntaxa,site32=site32.sediment.ntaxa,site34=site34.sediment.ntaxa,site35=site35.sediment.ntaxa,site37=site37.sediment.ntaxa,site38=site38.sediment.ntaxa,site40=site40.sediment.ntaxa)
-df2.s[2,] <- c(site3.sediment.nclades,site5.sediment.nclades,site8.sediment.nclades,site14.sediment.nclades,site15.sediment.nclades,site19.sediment.nclades,site25.sediment.nclades,site27.sediment.nclades,site30.sediment.nclades,site32.water.nclades,site34.sediment.nclades,site35.sediment.nclades,site37.sediment.nclades,site38.sediment.nclades,site40.sediment.nclades)
-df2.s[3,] <- c(2,5,3,3,6,6,2,1,1,1,3,3,5,2,1)
-rownames(df2.s) <- c("Number of OTUs","Number of Clades", "Dist")
-df2.s <- t(df2.s)
-df2.s <- data.frame(df2.s[order(df2.s[,3]),])
-df2.s <- df2.s[which(df2.s$Number.of.OTUs>0),]
-
-mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
-  
-palette(mycols)
-
-par(xpd=TRUE)
-barplot(as.matrix(df2.s[,1:2]), names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2.s[,3],ylim = c(0,25),main="Sediment by Site")
-legend("topright", inset=c(0.05,-0.05), legend=rownames(df2.s), fill=df2.s[,3],cex=0.7)
-
-
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_Sediment_by_Site.pdf", width=10, height=7)
-par(xpd=TRUE)
-barplot(as.matrix(df2.s[,1:2]), names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2.s[,3],ylim = c(0,25),main="Sediment by Site")
-legend("topright", inset=c(0.05,-0.05), legend=rownames(df2.s), fill=df2.s[,3],cex=0.7)
-dev.off()
-
 ```
 
-The number of *Symbiodinium* types (OTUs) in coral range from 8 to 18 per site, in water range from 9 to 14 per site, and in sediment from 4 to 15 per site. 
-  
-The number of *Symbiodinium* clades in coral range from 2 to 5 per site, in water range from 4 to 6 per site, and in sediment from 4 to 6 per site. Corals have the biggest range of number of clades, while water and sediment seem to have more clades present in general.
-  
+
   
 # Symbiont alpha-diversity - Grouped by Field Season  
   
-To understand how *Symbiodinium* diversity changes among field seasons, clade diversity is divided by field season. This includes coral, water, and sediment-associated *Symbiodinium*.  
+To understand how *Symbiodinium* diversity changes among field seasons, clade diversity is divided by field season. This includes coral-associated *Symbiodinium*.  
   
 <!-- Calculate OTU and clade diversity by field season -->
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # 2014  
 # Number of OTUs:
-s2014.ntaxa <- ntaxa(phy97.f.c.2014)
+s2014.ntaxa <- ntaxa(phy97.f.c.coral.2014)
 # Number of Clades:
-s2014.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.2014))[9])$clade))))))
-s2014.clades <- levels(unique((data.frame(tax_table(phy97.f.c.2014))[9])$clade))
+s2014.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.2014))[9])$clade))))))
+s2014.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.2014))[9])$clade))
 
 # 2015 Jan
 # Number of OTUs:
-s2015Jan.ntaxa <- ntaxa(phy97.f.c.2015Jan)
+s2015Jan.ntaxa <- ntaxa(phy97.f.c.coral.2015Jan)
 # Number of Clades:
-s2015Jan.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.2015Jan))[9])$clade))))))
-s2015Jan.clades <- levels(unique((data.frame(tax_table(phy97.f.c.2015Jan))[9])$clade))
+s2015Jan.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.2015Jan))[9])$clade))))))
+s2015Jan.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.2015Jan))[9])$clade))
 
 # 2015 May
 # Number of OTUs:
-s2015May.ntaxa <- ntaxa(phy97.f.c.2015May)
+s2015May.ntaxa <- ntaxa(phy97.f.c.coral.2015May)
 # Number of Clades:
-s2015May.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.2015May))[9])$clade))))))
-s2015May.clades <- levels(unique((data.frame(tax_table(phy97.f.c.2015May))[9])$clade))
+s2015May.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.2015May))[9])$clade))))))
+s2015May.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.2015May))[9])$clade))
 
 # 2015 July
 # Number of OTUs:
-s2015July.ntaxa <- ntaxa(phy97.f.c.2015July)
+s2015July.ntaxa <- ntaxa(phy97.f.c.coral.2015July)
 # Number of Clades:
-s2015July.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.2015July))[9])$clade))))))
-s2015July.clades <- levels(unique((data.frame(tax_table(phy97.f.c.2015July))[9])$clade))
+s2015July.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.2015July))[9])$clade))))))
+s2015July.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.2015July))[9])$clade))
 
 # 2016 March
 # Number of OTUs:
-s2016March.ntaxa <- ntaxa(phy97.f.c.2016March)
+s2016March.ntaxa <- ntaxa(phy97.f.c.coral.2016March)
 # Number of Clades:
-s2016March.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.2016March))[9])$clade))))))
-s2016March.clades <- levels(unique((data.frame(tax_table(phy97.f.c.2016March))[9])$clade))
+s2016March.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.2016March))[9])$clade))))))
+s2016March.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.2016March))[9])$clade))
 ```
 
 <!-- Plot OTU and clade diversity by site -->
@@ -570,79 +184,24 @@ palette(mycols)
 
 # Make the plot in the RMD document
 par(xpd=TRUE)
-barplot(df3, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=mycols,ylim = c(0,25))
+barplot(df3, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=mycols,ylim = c(0,max(df3)))
 legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
 
 # Make the pdf of the plot
 pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_by_FieldSeason.pdf", width=10, height=7)
 par(xpd=TRUE)
-barplot(df3, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=mycols,ylim = c(0,35))
+barplot(df3, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=mycols,ylim = c(0,max(df3)))
 legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
 dev.off()
 ```
 
-The overall number of OTUs and clades observed during each field season were equal, showing stable diversity at the ecosystem (or meta-community) level.  
+The overall number of OTUs and clades observed during each field season were equal, showing stable diversity at the ecosystem (or meta-community) level.
 
 # Principal and Background Types  
 
 Background *Symbiodinium* types are those which have <0.01% abundance, and Principal *Symbiodinium* types are those which ahve >0.01% abunance (per Quigley et al 2017).  
   
-First, we look at all samples together:  
-
-<!-- Principal and Background Types - All Samples -->
-```{r, include=TRUE, echo=FALSE, cache=TRUE}
-# Define Principal types
-principal.A <- sum(data.frame(tax_table(principal))$clade=="A")
-principal.C <- sum(data.frame(tax_table(principal))$clade=="C")
-principal.D <- sum(data.frame(tax_table(principal))$clade=="D")
-principal.F <- sum(data.frame(tax_table(principal))$clade=="F")
-principal.G <- sum(data.frame(tax_table(principal))$clade=="G")
-principal.I <- sum(data.frame(tax_table(principal))$clade=="I")
-
-# Print "Principal Types"
-print("PRINCIPAL TYPES")
-
-# Define Principal Clades
-principal.clades <- c(A=principal.A,C=principal.C,D=principal.D,F=principal.F,G=principal.G,I=principal.I)
-
-# List and print principal types
-principal.types <- data.frame(tax_table(principal))$hit
-principal.types
-
-# Define background types
-background.A <- sum(data.frame(tax_table(background))$clade=="A")
-background.C <- sum(data.frame(tax_table(background))$clade=="C")
-background.D <- sum(data.frame(tax_table(background))$clade=="D")
-background.F <- sum(data.frame(tax_table(background))$clade=="F")
-background.G <- sum(data.frame(tax_table(background))$clade=="G")
-background.I <- sum(data.frame(tax_table(background))$clade=="I")
-
-# Print "Background Types"
-print("BACKGROUND TYPES")
-
-# Define background clades
-background.clades <- c(A=background.A,C=background.C,D=background.D,F=background.F,G=background.G,I=background.I)
-
-# List and print background types
-background.types <- data.frame(tax_table(background))$hit
-background.types
-
-# Create data frame of principal and background clades
-principal.background.clades <- rbind(principal.clades,background.clades)
-t.principal.background.clades <- t(principal.background.clades)
-colnames(t.principal.background.clades) <- c("Principal Types", "Background Types")
-
-# Plot Principal and Background Types
-barplot(t.principal.background.clades,col=rainbow(6),legend=rownames(t.principal.background.clades),beside=TRUE,ylim=c(0,10),main = "All Samples")
-
-# Create pdf of principal and background types plot
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background_Pricipal_Clades.pdf", width=10, height=7)
-par(xpd=TRUE)
-barplot(t.principal.background.clades,col=rainbow(6),legend=rownames(t.principal.background.clades),beside=TRUE,ylim=c(0,10), main="All Samples")
-dev.off()
-```
-
-And then the coral samples only:  
+Looking at coral samples only:  
 <!-- Principal and Background Types - Corals -->
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Define the principal coral types
@@ -687,303 +246,64 @@ t.principal.coral.background.coral.clades <- t(principal.coral.background.coral.
 colnames(t.principal.coral.background.coral.clades) <- c("Principal.coral Types", "Background.coral Types")
 
 # Plot background and principal coral clades
-barplot(t.principal.coral.background.coral.clades,col=rainbow(6),legend=rownames(t.principal.coral.background.coral.clades),beside=TRUE,ylim=c(0,10), main="Coral only")
+barplot(t.principal.coral.background.coral.clades,col=rainbow(6),beside=TRUE, ylim=c(0,max(t.principal.coral.background.coral.clades)), main="Coral only")
+legend("topleft", legend=rownames(t.principal.coral.background.coral.clades), fill=rainbow(6))
 
 # Make pdf of background and principal coral clades
 pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background.coral_Pricipal_Clades.pdf", width=10, height=7)
 par(xpd=TRUE)
-barplot(t.principal.coral.background.coral.clades,col=rainbow(6),legend=rownames(t.principal.coral.background.coral.clades),beside=TRUE,ylim=c(0,10), main="Coral only")
+barplot(t.principal.coral.background.coral.clades,col=rainbow(6),beside=TRUE, ylim=c(0,max(t.principal.coral.background.coral.clades)), main="Coral only")
+legend("topleft", legend=rownames(t.principal.coral.background.coral.clades), fill=rainbow(6))
 dev.off()
 ```
   
-The clade with the most principal (and background) *Symbiodinium* types is clade C (as expected). There are no principal coral types of clade F or I, although there are background coral types of these clades. There is one principal *Symbiodinium* clade G type, and no background types from clade G. There are 13 principal types, and 17 background types in coral.
-  
-And then the sediment samples only:  
-<!-- Principal and Background Types - Sediment Only -->
-```{r, include=TRUE, echo=FALSE, cache=TRUE}
-# Define principal sediment types
-principal.sediment.A <- sum(data.frame(tax_table(principal.sediment))$clade=="A")
-principal.sediment.C <- sum(data.frame(tax_table(principal.sediment))$clade=="C")
-principal.sediment.D <- sum(data.frame(tax_table(principal.sediment))$clade=="D")
-principal.sediment.F <- sum(data.frame(tax_table(principal.sediment))$clade=="F")
-principal.sediment.G <- sum(data.frame(tax_table(principal.sediment))$clade=="G")
-principal.sediment.I <- sum(data.frame(tax_table(principal.sediment))$clade=="I")
 
-# Print "Principal Sediment Types"
-print("PRINCIPAL SEDIMENT TYPES")
-
-# Define principal sediment clades
-principal.sediment.clades <- c(A=principal.sediment.A,C=principal.sediment.C,D=principal.sediment.D,F=principal.sediment.F,G=principal.sediment.G,I=principal.sediment.I)
-
-# List and print principal sediment types
-principal.sediment.types <- data.frame(tax_table(principal.sediment))$hit
-principal.sediment.types
-
-# Define background sediment types
-background.sediment.A <- sum(data.frame(tax_table(background.sediment))$clade=="A")
-background.sediment.C <- sum(data.frame(tax_table(background.sediment))$clade=="C")
-background.sediment.D <- sum(data.frame(tax_table(background.sediment))$clade=="D")
-background.sediment.F <- sum(data.frame(tax_table(background.sediment))$clade=="F")
-background.sediment.G <- sum(data.frame(tax_table(background.sediment))$clade=="G")
-background.sediment.I <- sum(data.frame(tax_table(background.sediment))$clade=="I")
-
-# Print "Background Sediment Types"
-print("BACKGROUND SEDIMENT TYPES")
-
-# Define background sediment clades
-background.sediment.clades <- c(A=background.sediment.A,C=background.sediment.C,D=background.sediment.D,F=background.sediment.F,G=background.sediment.G,I=background.sediment.I)
-
-# List and print background sediment types
-background.sediment.types <- data.frame(tax_table(background.sediment))$hit
-background.sediment.types
-
-# Create data frame of principal and background sediment types
-principal.sediment.background.sediment.clades <- rbind(principal.sediment.clades,background.sediment.clades)
-t.principal.sediment.background.sediment.clades <- t(principal.sediment.background.sediment.clades)
-colnames(t.principal.sediment.background.sediment.clades) <- c("Principal.sediment Types", "Background.sediment Types")
-
-# Plot sediment types and clades
-barplot(t.principal.sediment.background.sediment.clades,col=rainbow(6),legend=rownames(t.principal.sediment.background.sediment.clades),beside=TRUE,ylim=c(0,10), main="sediment only")
-
-# Make pdf of sediment types and clades
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background.sediment_Pricipal_Clades.pdf", width=10, height=7)
-par(xpd=TRUE)
-barplot(t.principal.sediment.background.sediment.clades,col=rainbow(6),legend=rownames(t.principal.sediment.background.sediment.clades),beside=TRUE,ylim=c(0,10), main="sediment only")
-dev.off()
-```
-  
-The clades with the most principal *Symbiodinium* types are clades A and C. There is only one background type in the sediment, and it is type C. There are 18 principal sediment *Symbiodinium* types.  
-  
-And then the water samples only:  
-<!-- Principal and Background Types - Sediment Only -->
-```{r, include=TRUE, echo=FALSE, cache=TRUE}
-# Define principal water types
-principal.water.A <- sum(data.frame(tax_table(principal.water))$clade=="A")
-principal.water.C <- sum(data.frame(tax_table(principal.water))$clade=="C")
-principal.water.D <- sum(data.frame(tax_table(principal.water))$clade=="D")
-principal.water.F <- sum(data.frame(tax_table(principal.water))$clade=="F")
-principal.water.G <- sum(data.frame(tax_table(principal.water))$clade=="G")
-principal.water.I <- sum(data.frame(tax_table(principal.water))$clade=="I")
-
-# Print "Principal Water Types"
-print("PRINCIPAL WATER TYPES")
-
-# Define principal water clades
-principal.water.clades <- c(A=principal.water.A,C=principal.water.C,D=principal.water.D,F=principal.water.F,G=principal.water.G,I=principal.water.I)
-
-# List and print principal water types 
-principal.water.types <- data.frame(tax_table(principal.water))$hit
-principal.water.types
-
-# Define background water clades
-background.water.A <- sum(data.frame(tax_table(background.water))$clade=="A")
-background.water.C <- sum(data.frame(tax_table(background.water))$clade=="C")
-background.water.D <- sum(data.frame(tax_table(background.water))$clade=="D")
-background.water.F <- sum(data.frame(tax_table(background.water))$clade=="F")
-background.water.G <- sum(data.frame(tax_table(background.water))$clade=="G")
-background.water.I <- sum(data.frame(tax_table(background.water))$clade=="I")
-
-# Print "Background Water Types"
-print("BACKGROUND WATER TYPES")
-
-# Define background water clades
-background.water.clades <- c(A=background.water.A,C=background.water.C,D=background.water.D,F=background.water.F,G=background.water.G,I=background.water.I)
-
-# List and print background water types
-background.water.types <- data.frame(tax_table(background.water))$hit
-background.water.types
-
-# Create data frame of principal and background water clades and types
-principal.water.background.water.clades <- rbind(principal.water.clades,background.water.clades)
-t.principal.water.background.water.clades <- t(principal.water.background.water.clades)
-colnames(t.principal.water.background.water.clades) <- c("Principal.water Types", "Background.water Types")
-
-# Create plot of principal and background water types and clades
-barplot(t.principal.water.background.water.clades,col=rainbow(6),legend=rownames(t.principal.water.background.water.clades),beside=TRUE,ylim=c(0,10))
-
-# Create pdf of principal and background water types and clades
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background.water_Pricipal_Clades.pdf", width=10, height=7)
-par(xpd=TRUE)
-barplot(t.principal.water.background.water.clades,col=rainbow(6),legend=rownames(t.principal.water.background.water.clades),beside=TRUE,ylim=c(0,10), main="water only")
-dev.off()
-```
-  
-The clades with the most principal *Symbiodinium* types are again clades A and C. The clade with the most background *Symbiodinium* types is clade C with 3 types, and there is 1 clade A type that is a background type. There are 16 principal water *Symbiodinium* types, and 4 background water *Symbiodinium* types.  
-  
-  
-# Venn Diagrams of Principal and Background Types  
-  
-I created these Venn Diagrams to visualize the similarities and differences between Background and Principal *Symbiodinium* types in coral, sediment, and water.  
-  
-<!-- Venn Diagrams - Background vs. Principal -->  
-```{r, include=TRUE, echo=FALSE, cache=TRUE}
-# Create a Venn Diagram of Background types
-venn.diagram(x=list("Water Background"=background.water.types,"Coral Background"=background.coral.types,"Sediment Background"=background.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/BackgroundTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1,main = "Background Types")
-
-# Calculate which taxa are overlapping betweeen the Background types
-background.overlap <- calculate.overlap(x=list("Water Background"=background.water.types,"Coral Background"=background.coral.types,"Sediment Background"=background.sediment.types))
-
-venn.diagram(x=list("Water Principal"=principal.water.types,"Coral Principal"=principal.coral.types,"Sediment Principal"=principal.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/PrincipalTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
-
-principal.overlap <- calculate.overlap(x=list("Water principal"=principal.water.types,"Coral principal"=principal.coral.types,"Sediment principal"=principal.sediment.types))
-
-venn.diagram(x=list("Water Background"=background.water.types,"Coral Principal"=principal.coral.types,"Sediment Background"=background.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralPrincipal_WSBackground_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
-
-venn.diagram(x=list("Water Principal"=principal.water.types,"Coral Background"=background.coral.types,"Sediment Background"=background.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/WaterPrincipal_CSBackground_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
-
-venn.diagram(x=list("Water Background"=background.water.types,"Coral Background"=background.coral.types,"Sediment Principal"=principal.sediment.types),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/SedimentPrincipal_WCBackground_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
-```
-  
-Venn Diagrams of Principal Types in coral, water, and sediment:  
-PRINCIPAL  
-![Principal Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/PrincipalTypes_Venn.jpg)  
-There are 7 types which are principal types shared between coral, sediment, and water. Eight types are present as principal types in only one niche, while nine types are shared between two niches. Water and sediment have the most shared types (which are not also principal in coral).  
-
-BACKGROUND  
-![Background Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/BackgroundTypes_Venn.jpg)    
-Coral Principal and Water/Sediment Background  
-![Coral Principal and Water/Sediment Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralPrincipal_WSBackground_Venn.jpg)  
-  
-Water Principal and Coral/Sediment Background  
-![Water Principal and Coral/Sediment Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/WaterPrincipal_CSBackground_Venn.jpg)  
-  
-Coral has the most background types, whereas sediment has the fewest (only 1) background type, which is shared with neither coral or water background types. However, this background sediment type is shared with a principal coral type + a principal water type.   
-  
-Sediment Principal and Water/Coral Background  
-![Sediment Principal and Water/Coral Background](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/SedimentPrincipal_WCBackground_Venn.jpg)  
-  
-Sediment principal has the most types which are unique from water and coral background. However, sediment principal shares 9 types with coral background.  
-  
-  
-# Venn Diagrams of Core, Common, and Rare Types  
-<!-- Venn Diagrams - Core vs. Common vs. Rare -->  
+<!-- Core vs. Common vs. Rare -->  
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Extract OTU names from Coral core, common, and rare types
 names.coral.core <- names(coral.core)
 names.coral.common <- names(coral.common)
 names.coral.rare <- names(coral.rare)
-
-# Extract OTU names from Water core, common, and rare types
-names.water.core <- names(water.core)
-names.water.common <- names(water.common)
-names.water.rare <- names(water.rare)
-
-# Extract OTU names from Sediment core, common, and rare types
-names.sediment.core <- names(sediment.core)
-names.sediment.common <- names(sediment.common)
-names.sediment.rare <- names(sediment.rare)
-
-# Create Venn Diagrams of core, common, and rare types
-venn.diagram(x=list("Coral Core"=names.coral.core,"Water Core"=names.water.core,"Sediment Core"=names.sediment.core),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoreTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
-
-venn.diagram(x=list("Coral Common"=names.coral.common,"Water Common"=names.water.common,"Sediment Common"=names.sediment.common),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CommonTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
-
-venn.diagram(x=list("Coral Rare"=names.coral.rare,"Water Rare"=names.water.rare,"Sediment Rare"=names.sediment.rare),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/RareTypes_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
-
-venn.diagram(x=list("Coral Core"=names.coral.core,"Water Rare"=names.water.rare,"Sediment Rare"=names.sediment.rare),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralCore_WSRare_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
-
-venn.diagram(x=list("Coral Core"=names.coral.core,"Water Common"=names.water.common,"Sediment Common"=names.sediment.common),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralCore_WSCommon_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
-
-venn.diagram(x=list("Coral Common"=names.coral.common,"Water Rare"=names.water.rare,"Sediment Rare"=names.sediment.rare),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralCommon_WSRare_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
-
-venn.diagram(x=list("Coral Common"=names.coral.common,"Water Core"=names.water.core,"Sediment Core"=names.sediment.core),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralCommon_WSCore_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
-
-venn.diagram(x=list("Coral Rare"=names.coral.rare,"Water Common"=names.water.common,"Sediment Common"=names.sediment.common),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralRare_WSCommon_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
-
-venn.diagram(x=list("Coral Rare"=names.coral.rare,"Water Core"=names.water.core,"Sediment Core"=names.sediment.core),file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoralRare_WSCore_Venn.jpg",col=rainbow(3),fill=rainbow(3), margin=0.1)
 ```
   
-CORE TYPES  
-Compare the core types among niches (coral, sediment, water)  
-![Core Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CoreTypes_Venn.jpg)  
-Interestingly, this shows a nested structure. All niches share the 2 coral core types. Sediment shares one core type only with water, while water has 2 additional unique core types. 
-  
-COMMON TYPES  
-Compare the common types among niches (coral, sediment, water)  
-![Common Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/CommonTypes_Venn.jpg)  
-Coral shares only one common type with sediment, and none with water. Similarly, water shares only one common type with sediment, and again, none with coral. Sediment also has 9 unique common types.  
-  
-RARE TYPES  
-Compare the rare types among niches (coral, sediment, water)  
-![Rare Types](C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/RareTypes_Venn.jpg)  
-All rare types in sediment and water are encompassed within the coral rare types. 
-  
-More Venn Diagrams of Core/Common/Rare combinations are located in the figures folder.  
-
 Print hits for core, common, and rare in all three niches
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
-coral.core.hits <- data.frame()
-for (i in names.coral.core){
-  coral.core.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.coral)))[i,]$hit)
+if (!is.null(names.coral.core)) {
+  coral.core.hits <- data.frame()
+  for (i in names.coral.core){
+    coral.core.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.coral)))[i,]$hit)
+  }
+  colnames(coral.core.hits) <- "hits"
+  print("coral.core.hits")
+  coral.core.hits
+} else {
+  print("There were no core hits (for coral)")
 }
-colnames(coral.core.hits) <- "hits"
-print("coral.core.hits")
-coral.core.hits
 
-coral.common.hits <- data.frame()
-for (i in names.coral.common){
-  coral.common.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.coral)))[i,]$hit)
+if (!is.null(names.coral.common)) {
+  coral.common.hits <- data.frame()
+  for (i in names.coral.common){
+    coral.common.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.coral)))[i,]$hit)
+  }
+  colnames(coral.common.hits) <- "hits"
+  print("coral.common.hits")
+  coral.common.hits
+} else {
+  print("There were no common hits (for coral)")
 }
-colnames(coral.common.hits) <- "hits"
-print("coral.common.hits")
-coral.common.hits
 
-coral.rare.hits <- data.frame()
-for (i in names.coral.rare){
-  coral.rare.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.coral)))[i,]$hit)
+if (!is.null(names.coral.rare)) {
+  coral.rare.hits <- data.frame()
+  for (i in names.coral.rare){
+    coral.rare.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.coral)))[i,]$hit)
+  }
+  colnames(coral.rare.hits) <- "hits"
+  print("coral.rare.hits")
+  coral.rare.hits
+} else {
+  print("There were no rare hits (for coral)")
 }
-colnames(coral.rare.hits) <- "hits"
-print("coral.rare.hits")
-coral.rare.hits
 
-
-sediment.core.hits <- data.frame()
-for (i in names.sediment.core){
-  sediment.core.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.sediment)))[i,]$hit)
-}
-colnames(sediment.core.hits) <- "hits"
-print("sediment.core.hits")
-sediment.core.hits
-
-sediment.common.hits <- data.frame()
-for (i in names.sediment.common){
-  sediment.common.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.sediment)))[i,]$hit)
-}
-colnames(sediment.common.hits) <- "hits"
-print("sediment.common.hits")
-sediment.common.hits
-
-sediment.rare.hits <- data.frame()
-for (i in names.sediment.rare){
-  sediment.rare.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.sediment)))[i,]$hit)
-}
-colnames(sediment.rare.hits) <- "hits"
-print("sediment.rare.hits")
-sediment.rare.hits
-
-water.core.hits <- data.frame()
-for (i in names.water.core){
-  water.core.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.water)))[i,]$hit)
-}
-colnames(water.core.hits) <- "hits"
-print("water.core.hits")
-water.core.hits
-
-water.common.hits <- data.frame()
-for (i in names.water.common){
-  water.common.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.water)))[i,]$hit)
-}
-colnames(water.common.hits) <- "hits"
-print("water.common.hits")
-water.common.hits
-
-water.rare.hits <- data.frame()
-for (i in names.water.rare){
-  water.rare.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.water)))[i,]$hit)
-}
-colnames(water.rare.hits) <- "hits"
-print("water.rare.hits")
-water.rare.hits
 ```
 
 # Abundance vs. Prevalence
@@ -999,40 +319,11 @@ phy97.f.c.coral.AbundPrev <- cbind(log(phy97.f.c.coral.otuAbundance),phy97.f.c.c
 
 palette(rainbow(5))
 plot(phy97.f.c.coral.AbundPrev[,1:2],xlab="Log OTU Abundance",ylab="OTU Prevalence", main="Coral",col=phy97.f.c.coral.AbundPrev$clade, pch=16)
-legend("topleft",inset=c(0.05,0.05), legend=phy97.f.c.coral.AbundPrev$hit, fill=phy97.f.c.coral.AbundPrev$clade, cex=0.5, text.width=2.5, ncol=3, xpd=TRUE)
+# legend("topleft",inset=c(0.05,0.05), legend=phy97.f.c.coral.AbundPrev$hit, fill=phy97.f.c.coral.AbundPrev$clade, cex=0.5, text.width=2.5, ncol=3, xpd=TRUE)
 ```
-
-<!-- Abundance vs. prevalence - Sediment -->
-```{r, include=TRUE, echo=FALSE, cache=TRUE}
-# This is abundance
-phy97.f.c.sediment.otuAbundance <- data.frame(otuAbundance = taxa_sums(phy97.f.c.sediment))
-# This is prevalence
-phy97.f.c.sediment.otuPrevalence <- data.frame(otuPrevalence = (rowSums(sign(data.frame(otu_table(phy97.f.c.sediment))))/(nrow(sample_data(phy97.f.c.sediment)))))
-
-phy97.f.c.sediment.AbundPrev <- cbind(log(phy97.f.c.sediment.otuAbundance),phy97.f.c.sediment.otuPrevalence,hit=(data.frame(tax_table(phy97.f.c.sediment)))$hit,clade=(data.frame(tax_table(phy97.f.c.sediment)))$clade)
-
-palette(rainbow(5))
-plot(phy97.f.c.sediment.AbundPrev[,1:2],xlab="Log OTU Abundance",ylab="OTU Prevalence", main="sediment",col=phy97.f.c.sediment.AbundPrev$clade, pch=16)
-legend("topleft",inset=c(0.05,0.05), legend=phy97.f.c.sediment.AbundPrev$hit, fill=phy97.f.c.sediment.AbundPrev$clade, cex=0.4, text.width=1, ncol=2, xpd=TRUE)
-```
-
-<!-- Abundance vs. prevalence - Water -->
-```{r, include=TRUE, echo=FALSE, cache=TRUE}
-# This is abundance
-phy97.f.c.water.otuAbundance <- data.frame(otuAbundance = taxa_sums(phy97.f.c.water))
-# This is prevalence
-phy97.f.c.water.otuPrevalence <- data.frame(otuPrevalence = (rowSums(sign(data.frame(otu_table(phy97.f.c.water))))/(nrow(sample_data(phy97.f.c.water)))))
-
-phy97.f.c.water.AbundPrev <- cbind(log(phy97.f.c.water.otuAbundance),phy97.f.c.water.otuPrevalence,hit=(data.frame(tax_table(phy97.f.c.water)))$hit,clade=(data.frame(tax_table(phy97.f.c.water)))$clade)
-
-palette(rainbow(5))
-plot(phy97.f.c.water.AbundPrev[,1:2],xlab="Log OTU Abundance",ylab="OTU Prevalence", main="water",col=phy97.f.c.water.AbundPrev$clade, pch=16)
-legend("topleft",inset=c(0.05,0.05), legend=phy97.f.c.water.AbundPrev$hit, fill=phy97.f.c.water.AbundPrev$clade, cex=0.4, text.width=1, ncol=2, xpd=TRUE)
-```
-
 
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Save grouped data as RData file
-save.image(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f_grouped_OTUSummary.RData")
+save.image(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_seqs_f_coral_grouped_OTUSummary.RData")
 ```
 
