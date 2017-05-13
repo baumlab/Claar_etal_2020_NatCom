@@ -71,7 +71,7 @@ p2 + scale_colour_manual(values = cols) + theme(panel.background = element_rect(
                                                 axis.text=element_text(size=14,color="white"),
                                                 axis.title = element_text(size=14,color="white"),
                                                 panel.grid.major = element_blank(), 
-                                                panel.grid.minor = element_blank())+ geom_text(aes(label = clade), size = 5,hjust=-.5)
+                                                panel.grid.minor = element_blank())+ geom_text(aes(label = clade),position=position_jitter(width=.25,height=,.2), size = 5,hjust=0,vjust=0)+scale_y_continuous(limits=c(-1.25,1.25))+scale_x_continuous(limits=c(-1.25,1.25))+stat_ellipse(type = "norm", linetype = 2,size=1)
 dev.off()
 
 # Create the sample plot
@@ -88,7 +88,7 @@ p3 + scale_colour_manual(values = cols[2:3]) + theme(panel.background = element_
                                                 axis.text=element_text(size=14,color="white"),
                                                 axis.title = element_text(size=14,color="white"),
                                                 panel.grid.major = element_blank(), 
-                                                panel.grid.minor = element_blank()) +stat_ellipse(type = "norm", linetype = 2,size=1) +geom_point(size=5)
+                                                panel.grid.minor = element_blank()) +stat_ellipse(type = "norm", linetype = 2,size=1) +geom_point(size=5)+scale_y_continuous(limits=c(-1.25,1.25))+scale_x_continuous(limits=c(-1.25,1.25))
 dev.off()
 
 
@@ -147,12 +147,30 @@ bar.D.clade.during <- plot_bar(platy.during.D,fill="clade")+aes(width=0.9)+theme
 grid.arrange(bar.A.clade.during,bar.D.clade.during,ncol=2,widths=c(0.8,0.2))
 
 # Plot a barplot by hit for Alive corals
+
 bar.A.clade.after <- plot_bar(platy.after.A,fill="clade")+aes(width=0.9)+theme(legend.position="none", panel.background = element_rect(fill = "white"), text = element_text(size=20),
         axis.text.x = element_text(angle=90, hjust=1),axis.title.x=element_blank())+scale_fill_manual(values=clade.colors)
 # Plot a barplot by hit for Dead corals
 # bar.D.clade.after <- plot_bar(platy.after.D,fill="clade")+aes(width=0.9)+theme(legend.position="none",panel.background=element_rect(fill="white"), text = element_text(size=20),
 #         axis.text.x = element_text(angle=90, hjust=1),axis.title.y=element_blank(),axis.text.y=element_blank(),axis.title.x=element_blank())+scale_fill_manual(values=clade.colors)
-bar.A.clade.after
+tiff(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/analyses/CSEE_platy_bar_after.tiff",width = 7, height = 4,units="in",res=300)
+bar.A.clade.after+
+    theme(panel.background = element_rect(fill = "black"), 
+        plot.background = element_rect(fill = "black"),
+        legend.position = "right",
+        legend.text = element_text(size=14,color="white"),
+        legend.title = element_text(size=14,color="white"),
+        legend.background = element_blank(),
+        legend.key = element_blank(),
+        axis.text.x=element_text(size=10,color="white"),
+        axis.text.y=element_text(size=10,color="white"),
+        axis.title = element_text(size=14,color="white"),
+        axis.title.x=element_text(size=14,color="white"),
+        axis.title.y=element_text(size=14,color="white",angle=90),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        text = element_text(size=10))+scale_fill_manual(values=clade.colors)
+dev.off()
 # grid.arrange(bar.A.clade.after,bar.D.clade.after,ncol=2,widths=c(0.8,0.2))
 
 
