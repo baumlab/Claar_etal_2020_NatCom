@@ -391,7 +391,7 @@ plot_richness(phy97coral.f2.site34,x="Year",color="Coral_Species")
 # Make nMDS plots
 coralsam <- phy97coral.f2.fpenta
 coralsam.ord <- ordinate(phy97coral.f2.fpenta, "PCoA", "bray")
-p1 = plot_ordination(phy97coral.f2.fpenta, coralsam.ord, type="samples", color="Dist", title="samples",shape="Status")
+p1 = plot_ordination(phy97coral.f2.fpenta, coralsam.ord, type="samples", color="Dist", title="samples",shape="Status") 
 print(p1)
 
 coralsam <- phy97coral.f2.fpenta.ad

@@ -1,0 +1,305 @@
+---
+title: "CSEE"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+library(gridExtra)
+library(phyloseq)
+library(ggplot2)
+
+# Load in sequence data
+rm(list=ls())
+load("C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/otus_97_bysample/KI_seqs_f_grouped.RData")
+clade.colors <- c(A = "#D55E00", C = "#009E73", D = "#56B4E9", F = "#E69F00", G = "#F0E442", Other = "#A9A9A9")
+cols=c("grey","blue","red","pink","orange")
+
+```
+
+```{r,echo=FALSE}
+# Subset only corals for which we know alive/dead
+phy97.f.c.platy.AD <- subset_samples(phy97.f.c.platy,Status=="alive"|Status=="dead")
+
+# Temp subset with >100 seqs
+phy97.f.c.platy.AD <- subset_samples(phy97.f.c.platy.AD,sample_sums(phy97.f.c.platy.AD)>100,prune=TRUE)
+
+# Transform sample counts to proportional counts
+phy97.f.c.platy.AD.p <- transform_sample_counts(phy97.f.c.platy.AD, function(x) x/sum(x))
+# Look at all the platys through time
+plot_bar(phy97.f.c.platy.AD.p,fill="hit")
+# Subset alive platys
+phy97.f.c.platy.A <- subset_samples(phy97.f.c.platy.AD,Status=="alive")
+# Transform sample counts to proportional counts
+phy97.f.c.platy.A.p <- transform_sample_counts(phy97.f.c.platy.A, function(x) x/sum(x))
+# Subset dead platys
+phy97.f.c.platy.D <- subset_samples(phy97.f.c.platy.AD,Status=="dead")
+# Transform sample counts to proportional counts
+phy97.f.c.platy.D.p <- transform_sample_counts(phy97.f.c.platy.D, function(x) x/sum(x))
+
+# Subset only platy samples from 2014 - 2015b
+platy.before <- subset_samples(phy97.f.c.platy.AD.p,Year_Pre_Post=="2014"|Year_Pre_Post=="2015Jan_Pre"|Year_Pre_Post=="2015Jan_Post"|Year_Pre_Post=="2015May")
+platy.before.A <- subset_samples(platy.before,Status=="alive")
+platy.before.D <- subset_samples(platy.before,Status=="dead")
+
+platy.during <- subset_samples(phy97.f.c.platy.AD.p,Year_Pre_Post=="2015July")
+platy.during.A <- subset_samples(platy.during,Status=="alive")
+platy.during.D <- subset_samples(platy.during,Status=="dead")
+
+platy.after <- subset_samples(phy97.f.c.platy.AD.p,Year_Pre_Post=="2016March")
+platy.after.A <- subset_samples(platy.after,Status=="alive")
+# platy.after.D <- subset_samples(platy.after,Status=="dead")
+
+
+# Ordinate platys - PCoA with Bray
+platy.ord <- ordinate(platy.before, "PCoA", "bray")
+# # Create the split plot
+# p1 = plot_ordination(platy.before, platy.ord, type="split", color="Status", title="samples",label="clade")
+# # Plot it and scale colour manually
+# p1 + scale_colour_manual(values = cols)
+# Create the biplot
+p2 = plot_ordination(platy.before, platy.ord, type="biplot", color="Status") 
+# Plot it and scale colour manually
+tiff(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/analyses/CSEE_platy_ord.tiff",width = 6, height = 4,units="in",res=200)
+p2 + scale_colour_manual(values = cols) + theme(panel.background = element_rect(fill = "black"), 
+                                                plot.background = element_rect(fill = "black"),
+                                                legend.position = "null",
+                                                legend.text = element_text(size=14,color="white"),
+                                                legend.title = element_text(size=14,color="white"),
+                                                legend.background = element_blank(),
+                                                legend.key = element_blank(),
+                                                axis.text=element_text(size=14,color="white"),
+                                                axis.title = element_text(size=14,color="white"),
+                                                panel.grid.major = element_blank(), 
+                                                panel.grid.minor = element_blank())+ geom_text(aes(label = clade),position=position_jitter(width=.25,height=,.2), size = 5,hjust=0,vjust=0)+scale_y_continuous(limits=c(-1.25,1.25))+scale_x_continuous(limits=c(-1.25,1.25))+stat_ellipse(type = "norm", linetype = 2,size=1)
+dev.off()
+
+# Create the sample plot
+p3 = plot_ordination(platy.before, platy.ord, type="samples", color="Status") 
+# Plot it and scale colour manually
+tiff(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/analyses/CSEE_platy_ord_samples.tiff",width = 6, height = 4,units="in",res=200)
+p3 + scale_colour_manual(values = cols[2:3]) + theme(panel.background = element_rect(fill = "black"), 
+                                                plot.background = element_rect(fill = "black"),
+                                                legend.position = c(0.9,0.8),
+                                                legend.text = element_text(size=14,color="white"),
+                                                legend.title = element_text(size=14,color="white"),
+                                                legend.background = element_blank(),
+                                                legend.key = element_blank(),
+                                                axis.text=element_text(size=14,color="white"),
+                                                axis.title = element_text(size=14,color="white"),
+                                                panel.grid.major = element_blank(), 
+                                                panel.grid.minor = element_blank()) +stat_ellipse(type = "norm", linetype = 2,size=1) +geom_point(size=5)+scale_y_continuous(limits=c(-1.25,1.25))+scale_x_continuous(limits=c(-1.25,1.25))
+dev.off()
+
+
+
+# Plot a barplot by hit for Alive corals
+bar.A.clade <- plot_bar(platy.before.A,fill="clade")+
+  theme(panel.background = element_rect(fill = "black"), 
+        plot.background = element_rect(fill = "black"),
+        legend.position = "none",
+        legend.text = element_text(size=14,color="white"),
+        legend.title = element_text(size=14,color="white"),
+        legend.background = element_blank(),
+        legend.key = element_blank(),
+        axis.text.x = element_text(size=10,color="white",angle=90),
+        axis.text.y = element_text(size=10,color="white"),
+        axis.title = element_text(size=14,color="white"),
+        axis.title.x=element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        text = element_text(size=10))+scale_fill_manual(values=clade.colors)
+
+# Plot a barplot by hit for Dead corals
+bar.D.clade <- plot_bar(platy.before.D,fill="clade")+
+  theme(panel.background = element_rect(fill = "black"), 
+        plot.background = element_rect(fill = "black"),
+        legend.position = "right",
+        legend.text = element_text(size=14,color="white"),
+        legend.title = element_text(size=14,color="white"),
+        legend.background = element_blank(),
+        legend.key = element_blank(),
+        axis.text.x=element_text(size=10,color="white",angle=90),
+        axis.text.y=element_blank(),
+        axis.title = element_text(size=14,color="white"),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        text = element_text(size=10))+scale_fill_manual(values=clade.colors)
+tiff(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/analyses/CSEE_platy_bar.tiff",width = 8, height = 4,units="in",res=200)
+grid.arrange(bar.A.clade,bar.D.clade,ncol=2,widths=c(0.7,0.3))
+dev.off()
+
+
+# Plot a barplot by hit for Alive corals
+bar.A.hit <- plot_bar(platy.before.A,fill="hit")+theme(legend.position="none")
+# Plot a barplot by hit for Dead corals
+bar.D.hit <- plot_bar(platy.before.D,fill="hit")
+grid.arrange(bar.D.hit,bar.A.hit)
+
+# Plot a barplot by hit for Alive corals
+bar.A.clade.during <- plot_bar(platy.during.A,fill="clade")+aes(width=0.9)+theme(legend.position="none", panel.background = element_rect(fill = "white"), text = element_text(size=10),
+        axis.text.x = element_text(angle=90, hjust=1),axis.title.x=element_blank())+scale_fill_manual(values=clade.colors)
+# Plot a barplot by hit for Dead corals
+bar.D.clade.during <- plot_bar(platy.during.D,fill="clade")+aes(width=0.9)+theme(legend.position="none",panel.background=element_rect(fill="white"), text = element_text(size=10),
+        axis.text.x = element_text(angle=90, hjust=1),axis.title.y=element_blank(),axis.text.y=element_blank(),axis.title.x=element_blank())+scale_fill_manual(values=clade.colors)
+grid.arrange(bar.A.clade.during,bar.D.clade.during,ncol=2,widths=c(0.8,0.2))
+
+# Plot a barplot by hit for Alive corals
+
+bar.A.clade.after <- plot_bar(platy.after.A,fill="clade")+aes(width=0.9)+theme(legend.position="none", panel.background = element_rect(fill = "white"), text = element_text(size=20),
+        axis.text.x = element_text(angle=90, hjust=1),axis.title.x=element_blank())+scale_fill_manual(values=clade.colors)
+# Plot a barplot by hit for Dead corals
+# bar.D.clade.after <- plot_bar(platy.after.D,fill="clade")+aes(width=0.9)+theme(legend.position="none",panel.background=element_rect(fill="white"), text = element_text(size=20),
+#         axis.text.x = element_text(angle=90, hjust=1),axis.title.y=element_blank(),axis.text.y=element_blank(),axis.title.x=element_blank())+scale_fill_manual(values=clade.colors)
+tiff(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/analyses/CSEE_platy_bar_after.tiff",width = 7, height = 4,units="in",res=300)
+bar.A.clade.after+
+    theme(panel.background = element_rect(fill = "black"), 
+        plot.background = element_rect(fill = "black"),
+        legend.position = "right",
+        legend.text = element_text(size=14,color="white"),
+        legend.title = element_text(size=14,color="white"),
+        legend.background = element_blank(),
+        legend.key = element_blank(),
+        axis.text.x=element_text(size=10,color="white"),
+        axis.text.y=element_text(size=10,color="white"),
+        axis.title = element_text(size=14,color="white"),
+        axis.title.x=element_text(size=14,color="white"),
+        axis.title.y=element_text(size=14,color="white",angle=90),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        text = element_text(size=10))+scale_fill_manual(values=clade.colors)
+dev.off()
+# grid.arrange(bar.A.clade.after,bar.D.clade.after,ncol=2,widths=c(0.8,0.2))
+
+
+
+# # Make the network
+# net <- make_network(platy.before, dist.fun="bray", max.dist=.8)
+# # Plot the network
+# plot_network(net, platy.before, color="Status", line_weight=0.7, point_size = 6, label="Site",type="samples",hjust=2)+scale_colour_manual(values=cols)
+# 
+phy97.f.c.platy.AD.p.test <- phy97.f.c.platy.AD.p
+tax_table(phy97.f.c.platy.AD.p.test) <- tax_table(phy97.f.c.platy.AD.p)[,c(9,8)]
+test <- tax_glom(phy97.f.c.platy.AD.p.test,taxrank = "clade")
+# test<-subset_samples(test,Status=="alive")
+
+taxa_names(test) <- tax_table(test)[,1]
+
+otu_table(test)
+
+test2 <- data.frame(sample_data(test))
+test3 <- data.frame(t(otu_table(test)))
+
+row.names(test2)==row.names(test3)
+
+test4 <- cbind(test2,test3)
+
+test5 <- test4[which(test4$Year_Pre_Post=="2014"|test4$Year_Pre_Post=="2015Jan_Post"|test4$Year_Pre_Post=="2015Jan_Post"|test4$Year_Pre_Post=="2015May"),]
+
+ggplot(dat=test5, aes(x=D, y=C,color=Year_Pre_Post))+geom_point(size=3)+
+    theme(panel.background = element_rect(fill = "black"), 
+        plot.background = element_rect(fill = "black"),
+        legend.position = "right",
+        legend.text = element_text(size=14,color="white"),
+        legend.title = element_text(size=14,color="white"),
+        legend.background = element_blank(),
+        legend.key = element_blank(),
+        axis.text.x=element_text(size=10,color="white"),
+        axis.text.y=element_text(size=10,color="white"),
+        axis.title = element_text(size=14,color="white"),
+        axis.title.x=element_text(size=14,color="white"),
+        axis.title.y=element_text(size=14,color="white",angle=90),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        text = element_text(size=10))+scale_fill_manual(values=clade.colors)
+
+
+ggplot(dat=test4, aes(x=D, y=C,color=Year_Pre_Post))+geom_point(size=3)+
+    theme(panel.background = element_rect(fill = "black"), 
+        plot.background = element_rect(fill = "black"),
+        legend.position = "right",
+        legend.text = element_text(size=14,color="white"),
+        legend.title = element_text(size=14,color="white"),
+        legend.background = element_blank(),
+        legend.key = element_blank(),
+        axis.text.x=element_text(size=10,color="white"),
+        axis.text.y=element_text(size=10,color="white"),
+        axis.title = element_text(size=14,color="white"),
+        axis.title.x=element_text(size=14,color="white"),
+        axis.title.y=element_text(size=14,color="white",angle=90),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        text = element_text(size=10))+scale_fill_manual(values=clade.colors)
+
+ggplot(dat=test4, aes(x=Year_Pre_Post, y=C,color=Status))+geom_point(size=3)+
+    theme(panel.background = element_rect(fill = "black"), 
+        plot.background = element_rect(fill = "black"),
+        legend.position = "right",
+        legend.text = element_text(size=14,color="white"),
+        legend.title = element_text(size=14,color="white"),
+        legend.background = element_blank(),
+        legend.key = element_blank(),
+        axis.text.x=element_text(size=10,color="white"),
+        axis.text.y=element_text(size=10,color="white"),
+        axis.title = element_text(size=14,color="white"),
+        axis.title.x=element_text(size=14,color="white"),
+        axis.title.y=element_text(size=14,color="white",angle=90),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        text = element_text(size=10))+scale_fill_manual(values=clade.colors) + stat_summary(fun.y = "mean", colour = "red", size = 2, geom = "point")
+
+test4.1 <- test4[,c(9,11,15)]
+test4.1[,4] <- 1-test4.1[,2]-test4.1[,3]
+test4.1$sample <- rownames(test4.1)
+test4.1 <- test4.1[,c(5,1:4)]
+test4.2 <- melt(test4.1,id.vars=c("sample","Year_Pre_Post"))
+
+test4.2
+st.err <- function(x) {
+    sd(x)/sqrt(length(x))
+}
+test4.1$Year_Pre_Post<-gsub("2015Jan_[A-z]*","2015Jan",test4.1$Year_Pre_Post)
+test4.3 <- aggregate(test4.1[,3:4],list(test4.1$Year_Pre_Post), FUN=mean)
+test4.3[,4:6] <- aggregate(test4.1[,3:4],list(test4.1$Year_Pre_Post), FUN=st.err)
+test4.3 <- test4.3[,c(1:3,5:6)]
+plot(test4.3[,2:3])
+
+test4.3$Other <- 1-test4.3[,3]-test4.3[,2]
+test4.3 <- test4.3[c(1:2,4,3,5),]
+test4.4 <- melt(test4.3[,c(1:3,6)])
+# levels(test4.4$Group.1) <- c("2014","2015Jan","2015May","2015July","2016March")
+test4.4$Group.1 <- factor(test4.4$Group.1, levels = c("2014","2015Jan","2015May","2015July","2016March"))
+test4.4$variable <- factor(test4.4$variable, levels = c("C","D","Other"))
+
+test4.5 <- test4.3[c(1:2,4,3,5),]
+test4.5 <- melt(test4.5[,c(1,4:5)])
+test4.5$Group.1 <- factor(test4.5$Group.1, levels = c("2014","2015Jan","2015May","2015July","2016March"))
+
+test4.5$ymin=(test4.4$value[1:10]-test4.5$value)
+test4.5$ymax=(test4.4$value[1:10]+test4.5$value)
+
+
+tiff(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/analyses/CSEE_platy_CtoD.tiff",width = 7, height = 4,units="in",res=300)
+ggplot(dat=test4.4, aes(x=Group.1, y=value,group=variable, fill=variable, color=variable))+geom_point(size=5) + scale_fill_manual(values = clade.colors[c(2:3,6)])+geom_line(size=2)+
+    theme(panel.background = element_rect(fill = "black"), 
+        plot.background = element_rect(fill = "black"),
+        legend.position = c(0.92,0.6),
+        legend.text = element_text(size=14,color="white"),
+        legend.title = element_blank(),
+        legend.background = element_blank(),
+        legend.key = element_blank(),
+        axis.text.x=element_text(size=14,color="white"),
+        axis.text.y=element_text(size=14,color="white"),
+        axis.title = element_text(size=14,color="white"),
+        axis.title.x=element_text(size=18,color="white"),
+        axis.title.y=element_text(size=18,color="white",angle=90),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        text = element_text(size=10))+scale_color_manual(values = clade.colors[c(2:3,6)])+
+        labs(x="Field Season",y="Relative Abundance")+
+  scale_x_discrete(labels=c("Aug-14","Jan-15","May-15","July-15","March-16"))
+dev.off()
+
+```

@@ -1,0 +1,142 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(lme4)
+alivedead <- read.table("alive_dead.txt",header=TRUE)
+load("C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/otus_97_bysample/KI_seqs_f_grouped.RData")
+
+```
+
+```{r, include=TRUE, echo=FALSE}
+model.1 <- glm(Status~Site, data=alivedead, family=binomial(link="logit"))
+library(car) # John Fox package
+car::Anova(model.1, test="LR", type="III") # type 3 analysis (SAS verbiage)
+model.2 <- glm(Status~Coral_Species, data=alivedead, family=binomial(link="logit"))
+car::Anova(model.2, test="LR", type="III") # type 3 analysis (SAS verbiage)
+model.3 <- glm(Status~Site+Coral_Species, data=alivedead, family=binomial(link="logit"))
+car::Anova(model.3, test="LR", type="III") # type 3 analysis (SAS verbiage)
+
+model.4 <- glmer(Status ~ Site + (1|Coral_Species), data=alivedead, family = binomial)
+model.5 <- glmer(Status ~ (1|Coral_Species), data=alivedead, family = binomial)
+anova(model.4,model.5)
+
+library(BiodiversityR) 
+library(vegan) 
+
+nested.npmanova(t(otu_table(phy97.f.c.p)) ~ data.frame(sample_data(phy97.f.c.p),rownames=TRUE)$Coral_Species + data.frame(sample_data(phy97.f.c.p))$Site, data = alivedead, method = "jac", 
+permutations = 1000) 
+
+```
+
+There doesn't seem to be a significant difference among survival by Site, when controlling for Coral_Species as a random effect.
+
+```{r, include=TRUE, echo=FALSE}
+GPdist = phyloseq::distance(phy97.f.c.coral, "bray")
+adon <- adonis(GPdist ~ Year_Pre_Post + Coral_Species + Site, as(sample_data(phy97.f.c.coral), "data.frame"))
+adon
+
+phy97.f.c.coral.p.nmds.bray <- metaMDS(data.frame(t(otu_table(phy97.f.c.coral.p))),distance="bray",trymax=100,trace=FALSE)
+fit <- envfit(phy97.f.c.coral.p.nmds.bray, data.frame(sample_data(phy97.f.c.coral.p))[,6:9], permu=999,na.rm=TRUE)
+
+source("evplot.R")
+phy97.f.c.coral.AD.s <- subset_samples(phy97.f.c.coral.AD,InputFileName!="KI14FSYM131_MERGED-MAX-MISMATCH-3")
+phy97.f.c.coral.cca <- cca(t(data.frame(otu_table(phy97.f.c.coral.s))))
+summary(phy97.f.c.coral.cca,scaling=2)
+summary(phy97.f.c.coral.cca,scaling=1)
+ev2 <- phy97.f.c.coral.cca$CA$eig
+evplot(ev2)
+par(mfrow=c(1,2))
+plot(phy97.f.c.coral.cca,scaling=1,main="CA scl1",type="t")
+plot(phy97.f.c.coral.cca,scaling=2,main="CA scl2")
+fit <- envfit(phy97.f.c.coral.cca, data.frame(sample_data(phy97.f.c.coral.s))[,7:9], permu=999,na.rm=TRUE)
+plot(fit,type="t")
+
+phy97.f.c.platy.cca <- cca(t(data.frame(otu_table(phy97.f.c.platy))))
+summary(phy97.f.c.platy.cca,scaling=2)
+summary(phy97.f.c.platy.cca,scaling=1)
+ev2 <- phy97.f.c.platy.cca$CA$eig
+evplot(ev2)
+par(mfrow=c(1,2))
+plot(phy97.f.c.platy.cca,scaling=1,main="CA scl1",type="t")
+plot(phy97.f.c.platy.cca,scaling=2,main="CA scl2",type="t")
+fit <- envfit(phy97.f.c.platy.cca, data.frame(sample_data(phy97.f.c.platy))[,7:9], permu=999,na.rm=TRUE)
+plot(fit)
+
+
+GPdist.platy = phyloseq::distance(phy97.f.c.platy, "bray")
+adon.platy <- adonis(GPdist.platy ~ Year_Pre_Post + Site, as(sample_data(phy97.f.c.platy), "data.frame"))
+
+phy97.f.c.platy.nmds.bray <- metaMDS(data.frame(t(otu_table(phy97.f.c.platy))),distance="bray",trymax=10000,trace=FALSE)
+
+
+phy97.f.c.platy.p.AD.nmds.bray <- metaMDS(data.frame(t(otu_table(phy97.f.c.platy.p.AD))),distance="bray",trymax=10000,trace=FALSE)
+fit <- envfit(phy97.f.c.platy.p.AD.nmds.bray, data.frame(sample_data(phy97.f.c.platy.p.AD))[,8:9], permu=999,na.rm=TRUE)
+ordiellipse(phy97.f.c.platy.p.AD.nmds.bray,groups=data.frame(sample_data(phy97.f.c.platy.p.AD))$Status,display="sites")
+
+
+
+GPdist.fpenta = phyloseq::distance(phy97.f.c.fpenta, "bray")
+adon.fpenta <- adonis(GPdist.fpenta ~ Year_Pre_Post + Site, as(sample_data(phy97.f.c.fpenta), "data.frame"))
+adon.fpenta
+
+GPdist = phyloseq::distance(phy97.f.c.coral.p.AD, "bray")
+dat <- as(sample_data(phy97.f.c.coral.p.AD), "data.frame")
+dbrda1 <- capscale(GPdist ~ Condition(Coral_Species) + Condition(Year_Pre_Post)+ Status, data=dat,dist="bray")
+dbrda1
+
+phy97.f.c.platy.p.AD <- subset_samples(phy97.f.c.platy.p,Status=="alive"|Status=="dead")
+phy97.f.c.fpenta.p.AD <- subset_samples(phy97.f.c.fpenta.p,Status=="alive"|Status=="dead")
+phy97.f.c.porites <- subset_samples(phy97.f.c,Coral_Species=="Porites_lobata")
+phy97.f.c.porites.p <- transform_sample_counts(phy97.f.c.porites, function(x) x/sum(x))
+phy97.f.c.porites.p.AD <- subset_samples(phy97.f.c.porites.p,Status=="alive"|Status=="dead")
+
+GPdist = phyloseq::distance(phy97.f.c.platy.p.AD, "bray")
+dat <- as(sample_data(phy97.f.c.platy.p.AD), "data.frame")
+dbrda1 <- capscale(GPdist ~ Condition(Year_Pre_Post)+ Status, data=dat,dist="bray")
+dbrda1
+plot(dbrda1) 
+anova(dbrda1)
+
+
+
+GPdist = phyloseq::distance(phy97.f.c.platy.p.AD, "bray")
+dat <- as(sample_data(phy97.f.c.platy.p.AD), "data.frame")
+dbrda1 <- capscale(GPdist ~ Status, data=dat,dist="bray")
+dbrda1
+plot(dbrda1)
+anova(dbrda1)
+
+GPdist = phyloseq::distance(phy97.f.c.fpenta.p.AD, "bray")
+dat <- as(sample_data(phy97.f.c.fpenta.p.AD), "data.frame")
+dbrda1 <- capscale(GPdist ~ Condition(Year_Pre_Post) + Status, data=dat,dist="bray")
+dbrda1
+plot(dbrda1)
+anova(dbrda1)
+
+GPdist = phyloseq::distance(phy97.f.c.porites.p.AD, "bray")
+dat <- as(sample_data(phy97.f.c.porites.p.AD), "data.frame")
+dbrda1 <- capscale(GPdist ~ Status, data=dat,dist="bray")
+dbrda1
+plot(dbrda1)
+anova(dbrda1)
+
+
+```
+
+```{r, echo=FALSE}
+mvabundPlaty <- mvabund(t(data.frame(otu_table(phy97.f.c.platy))))
+plot(mvabundPlaty~data.frame(sample_data(phy97.f.c.platy))$Year,col=as.numeric(data.frame(sample_data(phy97.f.c.platy))$Dist),xlim=c(0,max(mvabundPlaty)))
+pltemp <- t(data.frame(otu_table(phy97.f.c.platy)))
+yrtemp <- data.frame(sample_data(phy97.f.c.platy))$Year
+disttemp <- (data.frame(sample_data(phy97.f.c.platy))$Dist)
+
+mg <- manyglm(pltemp~yrtemp*disttemp,family="negative.binomial")
+
+
+
+
+```
