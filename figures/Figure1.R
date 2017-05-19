@@ -13,14 +13,16 @@ plot_jpeg = function(path, add=FALSE)
 # Reset graphical parameters
 dev.off()
 
+tiff(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Figure1.tiff",width = 8, height = 6,units="in",res=300)
+
 # Set both inner and outer margins to 0
 par(oma=c(0,0,0,0),mar=c(3,5,1.5,1.5))
 # Setup layout for single top panel and 5 bottom panels
 layout(matrix(c(1,1,1,1,1,2,3,4,5,6), nrow=2, ncol=5, byrow = TRUE), heights=c(0.5,0.2))
 # Plot top panel
-temp <- read.csv("thistout_kiritimati.csv", sep=",", header=FALSE)
-mtime <- read.csv("timevec_kiritimati.csv", sep=",", header=FALSE)
-dhw <- read.csv("histout_kiritimati.csv", sep=",", header=FALSE)
+temp <- read.csv("data/thistout_kiritimati.csv", sep=",", header=FALSE)
+mtime <- read.csv("data/timevec_kiritimati.csv", sep=",", header=FALSE)
+dhw <- read.csv("data/histout_kiritimati.csv", sep=",", header=FALSE)
 time <- "NA"
 
 KI_heat <- cbind(temp,mtime,dhw,time)
@@ -58,9 +60,10 @@ axis.Date(side=1,KI_heat$time,cex.axis=1.5)
 par(mar=c(0.1,0.1,0.1,0.1))
 
 # Plot image panels using function created above
-plot_jpeg('KI2014_site35_99.jpg')
-plot_jpeg('KI2015a_site35_99_after.jpg')
-plot_jpeg('KI2015c_site35_99.jpg')
-plot_jpeg('KI2016a_site35_99.jpg')
-plot_jpeg('KI2016b_site35_99.jpg')
+plot_jpeg('figures/KI2014_site35_99.jpg')
+plot_jpeg('figures/KI2015a_site35_99_after.jpg')
+plot_jpeg('figures/KI2015c_site35_99.jpg')
+plot_jpeg('figures/KI2016a_site35_99.jpg')
+plot_jpeg('figures/KI2016b_site35_99.jpg')
 
+dev.off()
