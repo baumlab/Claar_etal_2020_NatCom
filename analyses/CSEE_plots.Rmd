@@ -195,10 +195,11 @@ test3 <- data.frame(t(otu_table(test)))
 row.names(test2)==row.names(test3)
 
 test4 <- cbind(test2,test3)
+levels(test4$Year) <- c("2014","2015Jan","2015May","2015July","2016March")
 
 test5 <- test4[which(test4$Year_Pre_Post=="2014"|test4$Year_Pre_Post=="2015Jan_Post"|test4$Year_Pre_Post=="2015Jan_Post"|test4$Year_Pre_Post=="2015May"),]
 
-ggplot(dat=test5, aes(x=D, y=C,color=Year_Pre_Post))+geom_point(size=3)+
+ggplot(dat=test5, aes(x=D, y=C,color=Year))+geom_point(size=3)+
     theme(panel.background = element_rect(fill = "black"), 
         plot.background = element_rect(fill = "black"),
         legend.position = "right",
@@ -216,7 +217,7 @@ ggplot(dat=test5, aes(x=D, y=C,color=Year_Pre_Post))+geom_point(size=3)+
         text = element_text(size=10))+scale_fill_manual(values=clade.colors)
 
 
-ggplot(dat=test4, aes(x=D, y=C,color=Year_Pre_Post))+geom_point(size=3)+
+ggplot(dat=test4, aes(x=D, y=C,color=Year))+geom_point(size=3)+
     theme(panel.background = element_rect(fill = "black"), 
         plot.background = element_rect(fill = "black"),
         legend.position = "right",
@@ -233,7 +234,7 @@ ggplot(dat=test4, aes(x=D, y=C,color=Year_Pre_Post))+geom_point(size=3)+
         panel.grid.minor = element_blank(),
         text = element_text(size=10))+scale_fill_manual(values=clade.colors)
 
-ggplot(dat=test4, aes(x=Year_Pre_Post, y=C,color=Status))+geom_point(size=3)+
+ggplot(dat=test4, aes(x=Year, y=C,color=Status,group=Status)) +geom_point(size=3)+scale_color_manual(values=c("blue","red"))+
     theme(panel.background = element_rect(fill = "black"), 
         plot.background = element_rect(fill = "black"),
         legend.position = "right",
@@ -248,7 +249,7 @@ ggplot(dat=test4, aes(x=Year_Pre_Post, y=C,color=Status))+geom_point(size=3)+
         axis.title.y=element_text(size=14,color="white",angle=90),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
-        text = element_text(size=10))+scale_fill_manual(values=clade.colors) + stat_summary(fun.y = "mean", colour = "red", size = 2, geom = "point")
+        text = element_text(size=10))+scale_fill_manual(values=clade.colors) + stat_summary(data=test4[which(test4$Status=="alive"),],fun.y = "mean", colour = "white", size = 4, geom = "point") + stat_summary(data=test4[which(test4$Status=="dead"),],fun.y = "mean", colour = "gray", size = 4, geom = "point") + stat_summary(data=test4[which(test4$Status=="alive"),], fun.data = mean_se, geom = "errorbar",colour="blue", width =0.3)+ stat_summary(data=test4[which(test4$Status=="dead"),], fun.data = mean_se, geom = "errorbar",colour="red", width =0.3)
 
 test4.1 <- test4[,c(9,11,15)]
 test4.1[,4] <- 1-test4.1[,2]-test4.1[,3]
