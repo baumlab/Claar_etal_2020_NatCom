@@ -51,7 +51,18 @@ KI_heat$time <- as.Date(KI_heat$time, '%m/%d/%Y',tz="UTC")
 # <!-- axis(2, col="black",lwd=2) -->
 # <!-- mtext(2,text="Temperature",line=2) -->
 # par(new=TRUE)
-plot(spline(KI_heat$time,KI_heat$dhw), type="l", xlab="", ylab="Degree Heating Weeks", ylim=c(0,30),col="black",cex.axis=1.5,cex.lab=2,lwd=4,xaxt='n')
+
+# KI_heat$Colour <- cut(KI_heat$dhw, breaks = c(-Inf, 4, 8, 24, Inf), labels = c("yellow", "orange", "red", "maroon"))
+# KI_heat$Colour <- as.character(KI_heat$Colour)
+
+plot(spline(KI_heat$time,KI_heat$dhw), type="l", xlab="", ylab="Degree Heating Weeks", ylim=c(0,30),cex.axis=1.5,cex.lab=2,lwd=4,xaxt='n')
+abline(4,0,col="orange")
+abline(8,0,col="darkorange")
+abline(12,0,col="red")
+abline(24,0,col="maroon")
+# ggplot(KI_heat, aes(time, dhw,color=Colour)) + geom_point() + xlab("") + ylab("Degree Heating Weeks") + scale_color_gradient(low="black",high="white", na.value = "grey50")
+
+
 # axis(4, col="black",lwd=2)
 # abline(27.897,0,col="blue",lty=2)
 mtext(4,text="Degree Heating Week",line=10,cex=1.5)
