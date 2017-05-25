@@ -14,3 +14,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 Coral reefs, which already live on the edge of their thermal tolerance (CITE), are under acute threat from El Nino-associated ocean warming (CITE). The 2015/16 El Nino is the worst on record in terms of severity and longevity (@Eakin:2016vf), yet despite massive coral mortality, some corals show resilience to this extreme event. Corals form a nutritional symbiosis with unicellular algae (Symbiodinium) (Muscatine and Porter 1977). During thermal stress, this symbiosis deteriorates and Symbiodinium are expelled from the coral host, creating the characteristic white appearance of coral bleaching. *Need to emphasize the stress must decrease for symbiosis to be reestablished construct* *Variable capacity for recovery* Coral resilience is related to many factors (CITE), including the structure and flexibility of their internal symbiotic communities (CITE,CITE). However, the mechanisms of coral resilience to extended pulse stress events are still poorly understood. Here we show that corals have the remarkable ability to regain symbionts and recover during an extended stress event, providing hope for the future of coral resilience. Furthermore, we show that contrary to current opinion (CITE), symbionts present in miniscule abundances (<2%) are indeed important for coral recovery.
+
+(Methods like NGS are really important for understanding these changes in symbiont diversity, as well as for seeing those low aboundance symbionts)
+
+El nino warming threatens coral reefs by disrupting the dynamic symbiosis between coral and their internal symbiotic algae (Symbiodinium). 
+
+Example of when this high-risk ecological opportunity (@Baker:2001bf) actually pays off...
+
+

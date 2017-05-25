@@ -1,7 +1,7 @@
 ---
 title: "KI Platygyra Manuscript"
 author: "Danielle C Claar, Kristina L Tietjen, Ruth D Gates, Julia K Baum"
-date: '`r format(Sys.time(), ''%d %B, %Y'')`'
+date: 'r format(Sys.time(), "%d %B, %Y")'
 output:
   html_document:
     fig_caption: yes
@@ -45,25 +45,29 @@ bibliography: PapersLibrary_Bibtex.bib
 ```
   
 # Summary
-Coral reefs, which already live on the edge of their thermal tolerance (CITE), are under acute threat from El Nino-associated ocean warming (@Baker2008-ky, CITE). Corals live in symbiosis with an extraordinarily diverse genus of photosynthetic dinoflagellates (Symbiodinium spp.; @Muscatine1977-pn, @Rowan1992-lg). The symbiotic association and diversity of various taxa of *Symbiodinium* is flexible over time (@Baker2003-ks, CITE CITE), and individual *Symbidoinium* taxa can range from parasites to mutualists in their interaction with their coral host (@Lesser2013-dj). Warming causes the breakdown of coral symbiosis, causing coral "bleaching" when symbionts are expelled and the white coral skeleton is visible through the coral tissue (@Brown1997-mf). Coral bleaching can lead to mortality (CITE), although it is well established that corals can regain symbiosis after heat stress has abated (CITE, CITE, CITE). The 2015/16 El Nino is the worst pulse warming event on record in terms of severity and longevity (@Eakin:2016vf), yet despite massive coral mortality, some corals show resilience to this extreme event (CITE). Here, we track coral symbioses and survival at the epicenter of this bleaching event (Kiritimati, Central Pacific), and show, contrary to our current understanding, that some corals have the capacity to re-establish symbiosis before heat stress subsides. Furthermore, we demonstrate potential mechanisms for coral survival and recovery, including the lack of preferential symbiont expulsion, and the effect of pre-bleaching symbiont community structure on the probability of coral survival. Together, these results show the potential for reef corals to survive extreme warming events, providing tentative hope for the survival of corals in the Anthropocene.
+Coral reefs, which already live on the edge of their thermal tolerance (CITE), are under acute threat from ocean warming (@Baker2008-ky, Hoegh-Guldberg). Corals live in symbiosis with an extraordinarily diverse genus of photosynthetic dinoflagellates (Symbiodinium spp.; @Muscatine1977-pn, @Rowan1992-lg). The symbiotic association and diversity of various taxa of *Symbiodinium* is flexible over time (@Baker2003-ks, CITE CITE), and individual *Symbidoinium* taxa can range from parasites to mutualists in their interaction with their coral host (@Lesser2013-dj). Warming causes the breakdown of coral symbiosis, causing coral "bleaching" when symbionts are expelled and the white coral skeleton is visible through the coral tissue (@Brown1997-mf). Coral bleaching can lead to mortality (CITE), although corals can regain their symbionts after heat stress has abated (CITE, CITE, CITE). The 2015/16 El Nino is the worst pulse warming event on record in terms of severity and longevity (@Eakin:2016vf), yet despite massive coral mortality, some corals show resilience to this extreme event (CITE). Here, we track coral symbioses and survival at the epicenter of this bleaching event (Kiritimati, Central Pacific), and show, contrary to our current paradigm of coral bleaching and recovery, that some corals have the capacity to re-establish symbiosis before heat stress subsides. Furthermore, we demonstrate potential mechanisms for coral survival and recovery, including the lack of preferential symbiont expulsion, and the effect of pre-bleaching symbiont community structure on the probability of coral survival. Together, these results show the potential for reef corals to survive extreme warming events, providing tentative hope for the survival of corals in the Anthropocene.
 
 
 # Main Text
 ```{r, echo=FALSE, include=FALSE}
 citep("Article")
 ```
-*The rest of the text is typically about 1,500 words long (not including Methods, summary paragraph or other sections). Letters have 3 or 4 small display items.*
+*The rest of the text is typically about 1,500 words long (not including Methods, summary paragraph or other sections). Letters have 3 or 4 small display items.* potentially 500 wds background/intro, 700 results/discussion, 300 conclusion or so?
 
 *Little bit more background - this needs to read more convincingly, as a story building up to why anyone should care that they recovered before the heat stress subsided*
-Ocean ecosystems worldwide are threatened by climate change-induced increases in seawater temperatures (CITE, CITE, CITE). Pulse warming events such as El Nino amplify these threats, causing massive losses of coral cover (e.g. 17% of coral reefs during the 1997/98 El Nino) (CITE,CITE). El Niño, the positive phase of the ENSO (El Niño Southern Oscillation), is a natural climatic event that occurs when surface waters heat up in the equatorial Pacific, that causes catastrophic effects on reef ecosystems by disrupting coral symbioses (i.e. coral bleaching). El nino warming threatens coral reefs by disrupting the dynamic symbiosis between coral and their internal symbiotic algae (Symbiodinium). This symbiosis is the foundation of reef ecosystems, and a critical element of reef resilience (van oppen and gates 2006). Corals host a diverse community of Symbiodinium, ranging along a continuum from 'selfish opportunistic symbionts' (e.g. some clade D Symbiodinium) which are better suited to sustained environmental stress than others, to 'intimately evolved symbionts' which provide exceptional amounts of nutrition to their coral host (@Lesser:2013tu). The 2015-2016 El Niño is the first major global event since 1997-1998, and has been declared the third global coral bleaching event by NOAA (@Eakin:2016vf).  Kiritimati Atoll (Christmas Island), located in the Central Equatorial Pacific, is at the epicenter of this extreme El Niño event. Thermal anomalies were severe on Kiritimati, reaching an unprecedented (cite o h-g) XX number of DHW over a XX month long bleaching event, demolishing most of the reef (@Baum_inprep). *Why we picked Platy*
+Ocean ecosystems worldwide are threatened by climate change-induced increases in seawater temperatures (CITE, CITE, CITE). Pulse warming events such as El Nino amplify these threats, causing massive losses of coral cover (e.g. 17% of coral reefs during the 1997/98 El Nino) (CITE,CITE). El Niño, the positive phase of the ENSO (El Niño Southern Oscillation), is a natural climatic event that occurs when surface waters heat up in the equatorial Pacific, that causes catastrophic effects on reef ecosystems by disrupting coral symbioses, causing coral bleaching. The 2015-2016 El Niño is the first major global event since 1997-1998, and has been declared the third global coral bleaching event by NOAA (@Eakin:2016vf).  Kiritimati Atoll (Christmas Island), located in the Central Equatorial Pacific, is at the epicenter of this extreme El Niño event. Thermal anomalies were severe on Kiritimati, rapidly exceeding NOAA Coral Reef Watch's Coral Bleaching Alert Level 1 (4 DHW) and Alert Level 2 (8DHW) thresholds, reaching an unprecedented (Hoegh-Guldberg 2011) 25.? DHW over a 10? month long bleaching event, demolishing most of the reef (@Baum_inprep). *Why we picked Platy* Despite the massive mortality resulting from this extreme heat stress event, some corals survived.
+
+
+Coral-Symbiodinium symbiosis is the foundation of reef ecosystems, and a critical element of reef resilience (van oppen and gates 2006). Corals host a diverse community of Symbiodinium, ranging along a continuum from 'selfish opportunistic symbionts' (e.g. some clade D Symbiodinium) which are better suited to sustained environmental stress than others, to 'intimately evolved symbionts' which provide exceptional amounts of nutrition to their coral host (@Lesser:2013tu). 
 
 Thus, although these relationships have developed over evolutionary time, the resilience of the coral symbiome is constantly shaped by dynamic coral-symbiont interactions (@Stat:2006ww). 
 
-*Hough-Guldberg 2011* - good segment on DHW and bleaching (excellent figure for bleaching..never before seen on reefs...)
+"Bleaching susceptibility and mortality of corals are determined by fine-scale differences in symbiont type" Sampayo et al 2008
+
+"Most Low-abundance "background" symbiodinium spp are transitory and have minimal functional siginificance for symbiotic corals" Lee et al 2016
 
 *Briefest methods plus results summary*
 Here we assess *briefest methods section ever* Here, we tagged and sampled the same corals before, during, and immediately after the el nino event, on Kiritimati (something about Kiritimati). We used Illumina MiSeq sequencing to evaluate changes in symbiodinium community structure coincident with the 2015-2016 major el nino event. The goal was to understand...why the hell these corals survived 10 months of extreme heat stress, and actually got better in the middle of it.
-Example of when this high-risk ecological opportunity (@Baker:2001bf) actually pays off...
 
 # *Symbiosis re-established before heat stress subsides!!*
 # *Corals can regain symbionts, whoa!*
@@ -74,17 +78,14 @@ source("../figures/Figure1.R")
 
 
 # *Clade predicts survival, and diverse communities can survive bleaching*
+Opposed to other study which showed that only those with D survived, C didn't, and that those which started with undetectable D and switched to C still died. Bay et al 2016 (threshold densities study)
 
 # *Mechanisms for Survival: 1) Tiny abundances are important 2) Timing of community shift*
  *We used to think that bleaching might be good - ABH says that corals bleach in order to expel suboptimal Symbiodinium types in exchange for optimal symbionts during the new conditions (@Buddemeier:1993bb, Baker:2001bf, @Buddemeier:2004vj)* *We do know that corals house background symbionts in low abundances (@Correa:2009jy, all the recent ngs studies...), but these relationships have been described as unstable (@Coffroth:2010ju, more cites?). *Switching and shuffling (@Baker:2003uo)* *And we do know that some symbio are "better" than others* *And then we said that bleaching is definitely bad* *But at least we do know that it allows changes to occur in the Symbiodinium community structure*
-*Figure of example sequence abundances, superimposed on coral 99 images*
 
 
 # *In a sea of destruction, a glimmer of hope*
 *we have shown....why this is important*
-
-
-(Methods like NGS are really important for understanding these changes in symbiont diversity, as well as for seeing those low aboundance symbionts)
 (What does their recovery tell us about the future of coral reefs?)... Why are Platys so excellent and what does that tell us about when coral resilience is threatened by extreme climatic events?
 Elucidating the mechanisms underlying changes in coral-symbiont interactions is essential to understanding the ability of the coral symbiome to adapt to the multiple stressors they now face. 
 El Nino warming is intensifying (@Trenberth:1997vw, @Cobb:2013fe, @Cai:2014ky), threatening coral reefs and endangering the persistence of vital ecosystem services, and threatening the food security and coastline protection of coastal communities worldwide (CITE).
@@ -134,10 +135,13 @@ ITS2 region - it's annoying, but it's the best we've got right now
 PCR and Cleanup - Amy's method of PCR and cleanup
 Library Prep - Amy's method of library prep, include Illumina Sequencing information (barcodes, etc)
 
-## Post Processing - Maybe call it Bioinformatics
+## Bioinformatics
 Sequence QC - boku, then merge with illumina utils, max mismatch=3
 Sequence clustering - denovo clustering using UCLUST in QIIME, then compare to reference database to assign taxonomy
-Statistical Analysis - alpha diversity of sequence reads, co-occurence?, beta diversity?
+
+
+## Statistical Analysis 
+Alpha diversity of sequence reads, co-occurence?, beta diversity?
 Code will be avaible on git hub
 
 # References
