@@ -34,14 +34,14 @@ bibliography: PapersLibrary_Bibtex.bib
   # biocLite('phyloseq')
   # packageVersion('phyloseq')
   library(phyloseq)
-  library("qdap") # to be able to use word count
+  # library("qdap") # to be able to use word count
   require("dplyr")
   require("mosaic")
 ```
 
 <!-- Word Count -->
-```{r, echo=FALSE, warning=FALSE, message=FALSE, incl=FALSE}
-  wc("") # to count words
+```{r, echo=FALSE, warning=FALSE, message=FALSE, incl=FALSE, evaluate=FALSE}
+  # wc("") # to count words
 ```
   
 # Summary
@@ -57,7 +57,7 @@ citep("Article")
 *The rest of the text is typically about 1,500 words long (not including Methods, summary paragraph or other sections). Letters have 3 or 4 small display items.* potentially 500 wds background/intro, 700 results/discussion, 300 conclusion or so?
 
 *Little bit more background - this needs to read more convincingly, as a story building up to why anyone should care that they recovered before the heat stress subsided*
-Ocean ecosystems worldwide are threatened by climate change-induced increases in seawater temperatures (CITE, CITE, CITE). Pulse warming events such as El Nino amplify these threats, causing massive losses of coral cover (e.g. 17% of coral reefs during the 1997/98 El Nino) (CITE,CITE). El Niño, the positive phase of the ENSO (El Niño Southern Oscillation), is a natural climatic event that occurs when surface waters heat up in the equatorial Pacific, that causes catastrophic effects on reef ecosystems by disrupting coral symbioses, causing coral bleaching. The 2015-2016 El Niño is the first major global event since 1997-1998, and has been declared the third global coral bleaching event by NOAA (@Eakin:2016vf).  Kiritimati Atoll (Christmas Island), located in the Central Equatorial Pacific, is at the epicenter of this extreme El Niño event. Thermal anomalies were severe on Kiritimati, rapidly exceeding NOAA Coral Reef Watch's Coral Bleaching Alert Level 1 (4 DHW) and Alert Level 2 (8DHW) thresholds, reaching an unprecedented (Hoegh-Guldberg 2011) 25.? DHW over a 10? month long bleaching event, demolishing most of the reef (@Baum_inprep). *Why we picked Platy* Despite the massive mortality resulting from this extreme heat stress event, some corals survived.
+Ocean ecosystems worldwide are threatened by climate change-induced increases in seawater temperatures (CITE, CITE, CITE). Pulse warming events such as El Nino amplify these threats, causing massive losses of coral cover (e.g. 17% of coral reefs during the 1997/98 El Nino) (CITE,CITE). El Niño, the positive phase of the ENSO (El Niño Southern Oscillation), is a natural climatic event that occurs when surface waters heat up in the equatorial Central and Eastern Pacific, causing catastrophic effects on reef ecosystems by disrupting coral symbioses and causing coral bleaching. The 2015-2016 El Niño has been declared the third global coral bleaching event by NOAA (@Eakin:2016vf).  Kiritimati Atoll (Christmas Island), located in the Central Equatorial Pacific, is at the epicenter of this extreme El Niño event. Thermal anomalies were severe on Kiritimati, rapidly exceeding NOAA Coral Reef Watch's Coral Bleaching Alert Level 1 (4 Degree Heating Weeks, DHW, a metric of cumulative thermal stress) and Alert Level 2 (8 DHW) thresholds, reaching an unprecedented (Hoegh-Guldberg 2011) 25.? DHW over a 10? month long bleaching event, demolishing most of the reef (@Baum_inprep). *Why we picked Platy* Despite the massive mortality resulting from this extreme heat stress event, some corals survived.
 
 
 Coral-Symbiodinium symbiosis is the foundation of reef ecosystems, and a critical element of reef resilience (van oppen and gates 2006). Corals host a diverse community of Symbiodinium, ranging along a continuum from 'selfish opportunistic symbionts' (e.g. some clade D Symbiodinium) which are better suited to sustained environmental stress than others, to 'intimately evolved symbionts' which provide exceptional amounts of nutrition to their coral host (@Lesser:2013tu). 
@@ -69,7 +69,7 @@ Thus, although these relationships have developed over evolutionary time, the re
 "Most Low-abundance "background" symbiodinium spp are transitory and have minimal functional siginificance for symbiotic corals" Lee et al 2016
 
 *Briefest methods plus results summary*
-Here we assess *briefest methods section ever* Here, we tagged and sampled the same corals before, during, and immediately after the el nino event, on Kiritimati (something about Kiritimati). We used Illumina MiSeq sequencing to evaluate changes in symbiodinium community structure coincident with the 2015-2016 major el nino event. The goal was to understand...why the hell these corals survived 10 months of extreme heat stress, and actually got better in the middle of it.
+Here we assess coral symbiosis and survival during the massive 2015/2016 El Nino event. We tagged and sampled the same coral colonies before, during, and immediately after the el nino event, on Kiritimati (something about Kiritimati). We used Illumina MiSeq sequencing to evaluate changes in symbiodinium community structure coincident with the 2015-2016 major el nino event. The goal was to understand...why the hell these corals survived 10 months of extreme heat stress, and actually got better in the middle of it.
 
 # *Symbiosis re-established before heat stress subsides!!*
 # *Corals can regain symbionts, whoa!*
