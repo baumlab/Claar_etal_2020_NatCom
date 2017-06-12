@@ -57,7 +57,7 @@ citep("Article")
 *The rest of the text is typically about 1,500 words long (not including Methods, summary paragraph or other sections). Letters have 3 or 4 small display items.* potentially 500 wds background/intro, 700 results/discussion, 300 conclusion or so?
 
 *Little bit more background - this needs to read more convincingly, as a story building up to why anyone should care that they recovered before the heat stress subsided*
-Ocean ecosystems worldwide are threatened by climate change-induced increases in seawater temperatures (CITE, CITE, CITE). Pulse warming events such as El Nino amplify these threats, causing massive losses of coral cover (e.g. 17% of coral reefs during the 1997/98 El Nino) (CITE,CITE). El NiÃ±o, the positive phase of the ENSO (El NiÃ±o Southern Oscillation), is a natural climatic event that occurs when surface waters heat up in the equatorial Central and Eastern Pacific, causing catastrophic effects on reef ecosystems by disrupting coral symbioses and causing coral bleaching. The 2015-2016 El NiÃ±o has been declared the third global coral bleaching event by NOAA (@Eakin:2016vf).  Kiritimati Atoll (Christmas Island), located in the Central Equatorial Pacific, is at the epicenter of this extreme El NiÃ±o event. Thermal anomalies were severe on Kiritimati, rapidly exceeding NOAA Coral Reef Watch's Coral Bleaching Alert Level 1 (4 Degree Heating Weeks, DHW, a metric of cumulative thermal stress) and Alert Level 2 (8 DHW) thresholds, reaching an unprecedented (Hoegh-Guldberg 2011) 25.? DHW over a 10? month long bleaching event, demolishing most of the reef (@Baum_inprep). *Why we picked Platy* Despite the massive mortality resulting from this extreme heat stress event, some corals survived.
+Ocean ecosystems worldwide are threatened by climate change-induced increases in seawater temperatures (CITE, CITE, CITE). Pulse warming events such as El Nino amplify these threats, causing massive losses of coral cover (e.g. 17% of coral reefs during the 1997/98 El Nino) (CITE,CITE). El Niño, the positive phase of the ENSO (El Niño Southern Oscillation), is a natural climatic event that occurs when surface waters heat up in the equatorial Central and Eastern Pacific, causing catastrophic effects on reef ecosystems by disrupting coral symbioses and causing coral bleaching. The 2015-2016 El Niño has been declared the third global coral bleaching event by NOAA (@Eakin:2016vf). Kiritimati Atoll (Christmas Island), located in the Central Equatorial Pacific, is at the epicenter of this extreme El Niño event. Thermal anomalies were severe on Kiritimati, rapidly exceeding NOAA Coral Reef Watch's Coral Bleaching Alert Level 1 (4 Degree Heating Weeks, DHW, a metric of cumulative thermal stress) and Alert Level 2 (8 DHW) thresholds, reaching an unprecedented (Hoegh-Guldberg 2011) 25.? DHW over a 10? month long bleaching event, demolishing most of the reef (@Baum_inprep). *Why we picked Platy* Despite the massive mortality resulting from this extreme heat stress event, some corals survived.
 
 
 Coral-Symbiodinium symbiosis is the foundation of reef ecosystems, and a critical element of reef resilience (van oppen and gates 2006). Corals host a diverse community of Symbiodinium, ranging along a continuum from 'selfish opportunistic symbionts' (e.g. some clade D Symbiodinium) which are better suited to sustained environmental stress than others, to 'intimately evolved symbionts' which provide exceptional amounts of nutrition to their coral host (@Lesser:2013tu). 
@@ -69,11 +69,11 @@ Thus, although these relationships have developed over evolutionary time, the re
 "Most Low-abundance "background" symbiodinium spp are transitory and have minimal functional siginificance for symbiotic corals" Lee et al 2016
 
 *Briefest methods plus results summary*
-Here we assess coral symbiosis and survival during the massive 2015/2016 El Nino event. We tagged and sampled the same coral colonies before, during, and immediately after the el nino event, on Kiritimati (something about Kiritimati). We used Illumina MiSeq sequencing to evaluate changes in symbiodinium community structure coincident with the 2015-2016 major el nino event. The goal was to understand...why the hell these corals survived 10 months of extreme heat stress, and actually got better in the middle of it.
+Here, we assess coral symbiosis and survival during the massive 2015/2016 El Nino event. We tagged, sampled, and photographed the same coral colonies before, during, and immediately after the El Niño event. We assessed bleaching condition and survival for each coral colony, and used Illumina MiSeq ITS2 amplicon sequencing and 97% *de novo* OTU clustering to evaluate changes in *Symbiodinium* community structure. To investigate mechanisms underlying the ability of these corals to not only survive 10 months of extreme heat stress, but to recover in the interim, we assessed the relationship between pre-bleaching *Symbiodinium* community structure and survival, threshold levels for *Symbiodinium* community dominance shifts, and the timing of the overall community shift and recovery.
 
 # *Symbiosis re-established before heat stress subsides!!*
-# *Corals can regain symbionts, whoa!*
 *When we've seen resilience/recovery before, corals have only been demonstrated to recover if the stress goes away first* Previously, corals have been shown to recover from bleaching only after the external stress (e.g. warming) has subsided. *implying that longer and more frequent stressors spell disaster for reefs worldwide*
+
 ```{r, echo=FALSE, warning=FALSE, eval=TRUE}
 source("../figures/Figure1.R")
 ```
@@ -90,42 +90,18 @@ Opposed to other study which showed that only those with D survived, C didn't, a
 *we have shown....why this is important*
 (What does their recovery tell us about the future of coral reefs?)... Why are Platys so excellent and what does that tell us about when coral resilience is threatened by extreme climatic events?
 Elucidating the mechanisms underlying changes in coral-symbiont interactions is essential to understanding the ability of the coral symbiome to adapt to the multiple stressors they now face. 
-El Nino warming is intensifying (@Trenberth:1997vw, @Cobb:2013fe, @Cai:2014ky), threatening coral reefs and endangering the persistence of vital ecosystem services, and threatening the food security and coastline protection of coastal communities worldwide (CITE).
 
 # Methods
 *The Methods section should be written as concisely as possible but should contain all elements necessary to allow interpretation and replication of the results. As a guideline, Methods sections typically do not exceed 3,000 words. Detailed descriptions of methods already published should be avoided; a reference number can be provided to save space, with any new addition or variation stated. The Methods section should be subdivided by short bold headings referring to methods used and we encourage the inclusion of specific subsections for statistics, reagents and animal models. If further references are included in this section, the numbering should continue from the end of the last reference number in the rest of the paper and the list should accompany the additional Methods at the end of the paper. The Methods section cannot contain figures or tables (essential display items should be included in the Extended Data).*
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
-path <- "/Volumes/Seagate_Blue/JuliaBaum_DanielleClaar-32138116_all/"
-biom_dir <- "otu_tables/"
-biom_file <- paste(path, biom_dir, "KI14FSYM004_otu_table.biom", sep = "")
-map_dir <- 
-map_file <- paste(path, map_dir, "", sep = "")
-ref_dir <- 
-ref_file <- 
-
-biom_otu_tax <- import_biom(biom_file, "greengenes")
-
-
-# Add sample data to the dataset using merge
-bmsd <- import_qiime_sample_data(map_file)
-class(bmsd)
-Bushman <- merge_phyloseq(biom_otu_tax, bmsd)
-
-import_biom(biom, treefilename, refseqfilename, parseFunction=parse_taxonomy_greengenes)
-import_biom(rich_dense_biom, treefilename, refseqfilename, parseFunction=parse_taxonomy_greengenes)
-
-```
-
-
 ## Field Information
 
-Kiritimati Atoll, Kiribati is located in the Central Equatorial Pacific (1.9N 157W). Kiritimati is located in the center of the El NiÃ±o 3.4 region (used to quantify El NiÃ±o presence and strength). During the 2015/2016 El NiÃ±o event, Kiritimati experienced 10 months of sustained temperature stress, causing a mass bleaching and mortality event (@BauminPrep). 
+Kiritimati Atoll, Kiribati is located in the Central Equatorial Pacific (1.9N 157W), at the center of the El Niño 3.4 region (used to quantify El Niño presence and strength). During the 2015/2016 El Niño event, Kiritimati experienced 10 months of sustained temperature stress, causing a mass bleaching and mortality event (@BauminPrep). 
 
-Temperature loggers (Seabird 56) were deployed around the island at 10-12m depths starting in summer 2013 to measure the temperature *in situ*.
+Temperature loggers (Sea-Bird 56) were deployed around the island at 10-12m depth from 2011-2016 to measure *in situ* thermal stress.
 
 ##Coral Tagging and sampling  
-In August/September 2014 seven taxa of coral were tagged along a 60m transect at 10-12m depth at 10 different sites around the atoll.  At each site, 12 colonies of each focal species (*Porites lobata*, *Montipora aequituberculata*, and *Pocillopora eyedouxi*) were tagged and a total of 18 colonies of a varying assortment of *Platygyra*, *Favities*, *Favia*, and *Hydnophora microconos* were tagged. A photo of each coral with a ruler beside it was taken for colony measurments and characterists (i.e. bleaching) to be analyzed in the lab. The tissue samples were stored in a cooler on the boat and at night they were rinsed with fresh water and alliquoted into centrifuge tubes with Guanidinium, then stored at 4 (I havent looked to see how to put in a degree symbol yet) C.  The tagged coral colonies were resampled once more before the El NiÃ±o (January/February 2015), twice during (May/April 2015 and July 2015), and once near the end (March 2016). Due to either storm waves breaking and moving coral or the tags dissapearing some of the corals were unable to be located and new corals were tagged to replenish numbers **I(KT) dont like this sentence - still working on how to word it*.
+In August/September 2014 seven taxa of coral were tagged along a 60m transect at 10-12m depth at 10 different sites around the atoll.  At each site, 12 colonies of each focal species (*Porites lobata*, *Montipora aequituberculata*, and *Pocillopora eyedouxi*) were tagged and a total of 18 colonies of a varying assortment of *Platygyra*, *Favities*, *Favia*, and *Hydnophora microconos* were tagged. A photo of each coral with a ruler beside it was taken for colony measurments and characterists (i.e. bleaching) to be analyzed in the lab. The tissue samples were stored in a cooler on the boat and at night they were rinsed with fresh water and alliquoted into centrifuge tubes with Guanidinium, then stored at 4 (I havent looked to see how to put in a degree symbol yet) C.  The tagged coral colonies were resampled once more before the El Niño (January/February 2015), twice during (May/April 2015 and July 2015), and once near the end (March 2016). Due to either storm waves breaking and moving coral or the tags dissapearing some of the corals were unable to be located and new corals were tagged to replenish numbers **I(KT) dont like this sentence - still working on how to word it*.
 
 
 ## Pre-processing and sequencing
