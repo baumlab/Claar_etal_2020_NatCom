@@ -68,7 +68,7 @@ barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legen
 
 # Create a pdf of this plot and save in the 'figures' folder
 # Open a new pdf file
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_by_Species.pdf")
+pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Diversity_by_Species.pdf")
 # Make the plot
 barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan"),ylim = c(0,max(df)))
 # Close the pdf file
@@ -117,7 +117,7 @@ barplot(df2[,1:2], names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE
 legend("topright", inset=c(0.05,-0.05), legend=rownames(df2), fill=df2[,3],cex=0.7)
 
 
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_Corals_by_Site.pdf", width=10, height=7)
+pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Diversity_Corals_by_Site.pdf", width=10, height=7)
 par(xpd=TRUE)
 barplot(df2[,1:2], names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2[,3],ylim = c(0,max(df2)),main="Corals by Site")
 legend("topright", inset=c(0.05,-0.05), legend=rownames(df2), fill=df2[,3],cex=0.7)
@@ -188,7 +188,7 @@ barplot(df3, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=
 legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
 
 # Make the pdf of the plot
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Diversity_by_FieldSeason.pdf", width=10, height=7)
+pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Diversity_by_FieldSeason.pdf", width=10, height=7)
 par(xpd=TRUE)
 barplot(df3, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=mycols,ylim = c(0,max(df3)))
 legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
@@ -250,7 +250,7 @@ barplot(t.principal.coral.background.coral.clades,col=rainbow(6),beside=TRUE, yl
 legend("topleft", legend=rownames(t.principal.coral.background.coral.clades), fill=rainbow(6))
 
 # Make pdf of background and principal coral clades
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/Background.coral_Pricipal_Clades.pdf", width=10, height=7)
+pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Background.coral_Pricipal_Clades.pdf", width=10, height=7)
 par(xpd=TRUE)
 barplot(t.principal.coral.background.coral.clades,col=rainbow(6),beside=TRUE, ylim=c(0,max(t.principal.coral.background.coral.clades)), main="Coral only")
 legend("topleft", legend=rownames(t.principal.coral.background.coral.clades), fill=rainbow(6))

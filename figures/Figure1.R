@@ -71,10 +71,10 @@ axis.Date(side=1,KI_heat$time,cex.axis=1.5)
 par(mar=c(0.1,0.1,0.1,0.1))
 
 # Plot image panels using function created above
-plot_jpeg('../figures/KI2014_site35_99.jpg')
-plot_jpeg('../figures/KI2015a_site35_99_after.jpg')
-plot_jpeg('../figures/KI2015c_site35_99.jpg')
-plot_jpeg('../figures/KI2016a_site35_99.jpg')
-plot_jpeg('../figures/KI2016b_site35_99.jpg')
+plot_jpeg('../figures/coral99/KI2014_site35_99.jpg')
+plot_jpeg('../figures/coral99/KI2015a_site35_99_after.jpg')
+plot_jpeg('../figures/coral99/KI2015c_site35_99.jpg')
+plot_jpeg('../figures/coral99/KI2016a_site35_99.jpg')
+plot_jpeg('../figures/coral99/KI2016b_site35_99.jpg')
 
 dev.off()
