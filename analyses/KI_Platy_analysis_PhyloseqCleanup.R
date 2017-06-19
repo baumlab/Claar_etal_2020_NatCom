@@ -176,14 +176,19 @@ phy97.f.c.p <- transform_sample_counts(phy97.f.c, function(x) x/sum(x))
 # Subset coral data set into individual genus data sets
 phy97.f.c.platy <- subset_samples(phy97.f.c,Coral_Species=="Platygyra_sp")
 phy97.f.c.platy <- subset_taxa(phy97.f.c.platy, taxa_sums(phy97.f.c.platy) > 0, prune=TRUE)
+phy97.f.c.platy.AD <- subset_samples(phy97.f.c.platy,Status=="alive"|Status=="dead")
 
 phy97.f.c.fpenta <- subset_samples(phy97.f.c,Coral_Species=="Favites_pentagona")
 phy97.f.c.fpenta <- subset_taxa(phy97.f.c.fpenta, taxa_sums(phy97.f.c.fpenta) > 0, prune=TRUE)
+phy97.f.c.fpenta.AD <- subset_samples(phy97.f.c.fpenta,Status=="alive"|Status=="dead")
 
 phy97.f.c.faviasp <- subset_samples(phy97.f.c,Coral_Species=="Favia_sp")
+phy97.f.c.faviasp.AD <- subset_samples(phy97.f.c.faviasp,Status=="alive"|Status=="dead")
 phy97.f.c.faviam <- subset_samples(phy97.f.c,Coral_Species=="Favia_matthai")
+phy97.f.c.faviam.AD <- subset_samples(phy97.f.c.faviam,Status=="alive"|Status=="dead")
 phy97.f.c.faviaall <- merge_phyloseq(phy97.f.c.faviasp,phy97.f.c.faviam)
 phy97.f.c.faviaall <- subset_taxa(phy97.f.c.faviaall, taxa_sums(phy97.f.c.faviaall) > 0, prune=TRUE)
+phy97.f.c.faviaall.AD <- subset_samples(phy97.f.c.faviaall,Status=="alive"|Status=="dead")
 
 phy97.f.c.coral <- subset_samples(phy97.f.c,SampleType=="coral")
 phy97.f.c.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
@@ -227,14 +232,20 @@ for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
 # Subset by Field Season
 phy97.f.c.coral.2014 <- subset_samples(phy97.f.c.coral,Year=="2014")
 phy97.f.c.coral.2014 <- subset_taxa(phy97.f.c.coral.2014, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
+phy97.f.c.coral.2014.AD <- subset_samples(phy97.f.c.coral.2014,Status=="alive"|Status=="dead")
 phy97.f.c.coral.2015Jan <- subset_samples(phy97.f.c.coral,Year=="2015Jan")
 phy97.f.c.coral.2015Jan <- subset_taxa(phy97.f.c.coral.2015Jan, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
+phy97.f.c.coral.2015Jan.AD <- subset_samples(phy97.f.c.coral.2015Jan,Status=="alive"|Status=="dead")
 phy97.f.c.coral.2015May <- subset_samples(phy97.f.c.coral,Year=="2015May")
 phy97.f.c.coral.2015May <- subset_taxa(phy97.f.c.coral.2015May, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
+phy97.f.c.coral.2015May.AD <- subset_samples(phy97.f.c.coral.2015May,Status=="alive"|Status=="dead")
 phy97.f.c.coral.2015July <- subset_samples(phy97.f.c.coral,Year=="2015July")
 phy97.f.c.coral.2015July <- subset_taxa(phy97.f.c.coral.2015July, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
+phy97.f.c.coral.2015July.AD <- subset_samples(phy97.f.c.coral.2015July,Status=="alive"|Status=="dead")
 phy97.f.c.coral.2016March <- subset_samples(phy97.f.c.coral,Year=="2016March")
 phy97.f.c.coral.2016March <- subset_taxa(phy97.f.c.coral.2016March, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
+phy97.f.c.coral.2016March.AD <- subset_samples(phy97.f.c.coral.2016March,Status=="alive"|Status=="dead")
+
 
 principal.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.p) > 0.01, prune=TRUE)
 background.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.p) < 0.01, prune=TRUE)
