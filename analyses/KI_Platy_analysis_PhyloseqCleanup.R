@@ -188,6 +188,9 @@ phy97.f.c.faviaall <- subset_taxa(phy97.f.c.faviaall, taxa_sums(phy97.f.c.faviaa
 phy97.f.c.coral <- subset_samples(phy97.f.c,SampleType=="coral")
 phy97.f.c.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
 
+# Subset coral samples that have been confirmed either alive or dead (remove unknowns/gone)
+phy97.f.c.coral.AD <- subset_samples(phy97.f.c.coral,Status=="alive"|Status=="dead")
+
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.platy.p <- transform_sample_counts(phy97.f.c.platy, function(x) x/sum(x))
 # Transform sample counts to proportional abundance for downstream analyses
