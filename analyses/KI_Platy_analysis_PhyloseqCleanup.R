@@ -252,4 +252,4 @@ rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,phy97.f,Low,LowMed,High,HighMed)
 
 
 # Save grouped data as RData file
-save.image(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/KI_seqs_f_coral_grouped.RData")
+save(list = ls(all.names = TRUE), file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/KI_seqs_f_coral_grouped.RData")
