@@ -5,43 +5,110 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+rm(list=ls())
+
+library(phyloseq)
+library(vegan)
+
+load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/KI_seqs_f_coral_grouped.RData")
+
 ```
 ## Ordinate *Symbiodinium* communities
 ```{r echo=FALSE}
+# Subset to only keep coral species we are using in this manuscript
+phy97.f.c.coral.now <- subset_samples(phy97.f.c.coral,Coral_Species=="Favia_sp"|Coral_Species=="Favia_matthai"|Coral_Species=="Favia_sp"|Coral_Species=="Platygyra_sp"|Coral_Species=="Favites_halicora"|Coral_Species=="Favites_sp"|Coral_Species=="Favites_pentagona"|Coral_Species=="Hydnophora_microconos")
+# Subset samples to only keep those which are confirmed alive or dead
+phy97.f.c.coral.now.AD <- subset_samples(phy97.f.c.coral.now,Status=="alive"|Status=="dead")
+# Subset samples to only keep samples taken before the event (==2014 to May 2015)
+phy97.f.c.coral.AD.before <- subset_samples(phy97.f.c.coral.now.AD,Year!="2016March")
+phy97.f.c.coral.AD.before <- subset_samples(phy97.f.c.coral.AD.before,Year!="2015July")
+# Subset Platygyra samples to only keep samples taken before the event (==2014 to May 2015)
+phy97.f.c.platy.AD.before <- subset_samples(phy97.f.c.platy.AD,Year!="2016March")
+phy97.f.c.platy.AD.before <- subset_samples(phy97.f.c.platy.AD.before,Year!="2015July")
+# Subset Platygyra samples to only keep samples taken during/after the event (== July 2015 - 2016)
+phy97.f.c.platy.AD.da <- subset_samples(phy97.f.c.platy.AD,Year=="2016March"|Year=="2015July")
 
-ord.phy97.f.c.coral <- ordinate(phy97.f.c.coral,method="PCoA",distance="wunifrac")
-plot_ordination(phy97.f.c.coral, ord.phy97.f.c.coral,  color="Status", title="97% within-sample OTUs - PCoA") 
+# Do an unconstrained ordination on all coral data, using weighted unifrac distances
+ord.phy97.f.c.coral.AD <- ordinate(phy97.f.c.coral.AD,method="PCoA",distance="wunifrac")
+# Plot this ordination (this has lots of data, so it takes a while to run)
+plot_ordination(phy97.f.c.coral.AD, ord.phy97.f.c.coral.AD,  color="Coral_Species", shape="Status",title="97% within-sample OTUs - PCoA") 
 
+# Do an unconstrained ordination on all coral data before the event, using weighted unifrac distances
+ord.phy97.f.c.coral.AD.before <- ordinate(phy97.f.c.coral.AD.before,method="PCoA",distance="wunifrac")
+# Plot this ordination 
+plot_ordination(phy97.f.c.coral.AD.before, ord.phy97.f.c.coral.AD.before,  color="Status", shape="Coral_Species", title="97% within-sample OTUs - PCoA") 
 
-
-ord.phy97.f.c.platy <- ordinate(phy97.f.c.platy,method="PCoA",distance="wunifrac")
-plot_ordination(phy97.f.c.platy, ord.phy97.f.c.platy, color="Year", shape="Status",
+# Do an unconstrained ordination on only Platygyra corals, using weighted unifrac distances
+ord.phy97.f.c.platy.AD <- ordinate(phy97.f.c.platy.AD,method="PCoA",distance="wunifrac")
+# Plot this ordination 
+plot_ordination(phy97.f.c.platy.AD, ord.phy97.f.c.platy.AD, color="Status", shape="Year",
                 title="97% within-sample OTUs - PCoA - Platy only")
 
-ord.phy97.f.c.coral.2016March <- ordinate(phy97.f.c.coral.2016March,method="CAP",distance="wunifrac",formula= ~ Site)
-plot_ordination(phy97.f.c.coral.2016March, ord.phy97.f.c.coral.2016March, color="Coral_Species", shape="Dist", title="97% within-sample OTUs - PCoA")
+# Do an unconstrained ordination on only Platygyra corals before the event, using weighted unifrac distances
+ord.phy97.f.c.platy.AD.before <- ordinate(phy97.f.c.platy.AD.before,method="PCoA",distance="wunifrac")
+# Plot this ordination 
+plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before, color="Dist", 
+                shape="Year",title="97% within-sample OTUs - PCoA - Platy only")
 
-
-ord.phy97.f.c.platy.CAP <- ordinate(phy97.f.c.platy,method="CAP",distance="wunifrac",formula= ~ Year + Site)
-plot_ordination(phy97.f.c.platy, ord.phy97.f.c.platy.CAP,  shape="Status",type="scree",
+# Do a constrained ordination on Platygyra corals
+ord.phy97.f.c.platy.AD.CAP <- ordinate(phy97.f.c.platy.AD,method="CAP",distance="wunifrac",formula= ~ Year + Dist + Status)
+# Plot this ordination - scree plot
+plot_ordination(phy97.f.c.platy.AD, ord.phy97.f.c.platy.AD.CAP,  shape="Status",type="scree",
                 title="97% within-sample OTUs - CAP Platygyra only")
+# Plot this ordination - sample plot
+plot_ordination(phy97.f.c.platy.AD, ord.phy97.f.c.platy.AD.CAP,  shape="Status", color="Dist",type="samples",title="97% within-sample OTUs - CAP Platygyra only")
+# Test ordination
+anova(ord.phy97.f.c.platy.AD.CAP)
+# Use ordistep to assess which model terms should be included
+finalmodel.platy.AD <- ordistep(ord.phy97.f.c.platy.AD.CAP, formula= ~ Year + Dist + Status, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
+# Look at the ordistep final model
+finalmodel.platy.AD
+# Check for covariance
+vif.cca(finalmodel.platy.AD)
+# Test the full model
+anova.cca(finalmodel.platy.AD)
+# Test the model terms
+anova.cca(finalmodel.platy.AD, by="terms")
 
+# Do a constrained ordination on Platygyra corals before the event
+ord.phy97.f.c.platy.AD.before.CAP <- ordinate(phy97.f.c.platy.AD.before,method="CAP",distance="wunifrac",formula= ~ Year + Status + Dist)
+# Plot this ordination - scree plot
+plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before.CAP,  shape="Status",type="scree",
+                title="97% within-sample OTUs - CAP Platygyra only")
+# Plot this ordination - sample plot
+plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before.CAP,  shape="Status", color="Site",type="samples",title="97% within-sample OTUs - CAP Platygyra only")
+# Test ordination
+anova(ord.phy97.f.c.platy.AD.before.CAP)
+# Use ordistep to assess which model terms should be included
+finalmodel.platy.AD.before <- ordistep(ord.phy97.f.c.platy.AD.before.CAP, formula= ~ Year + Status +  Dist, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
+# Look at the ordistep final model
+finalmodel.platy.AD.before
+# Check for covariance
+vif.cca(finalmodel.platy.AD.before)
+# Test the full model
+anova.cca(finalmodel.platy.AD.before)
+# Test the model terms
+anova.cca(finalmodel.platy.AD.before, by="terms")
 
-anova(ord.phy97.f.c.platy.CAP)
-
-finalmodel.platy <- ordistep(ord.phy97.f.c.platy.CAP, formula= ~ Year + Site, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
-
-finalmodel.2016March <- ordistep(ord.phy97.f.c.coral.2016March, formula= ~ Site, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
-
-finalmodel.2016March
-finalmodel.platy
-
-vif.cca(finalmodel.platy)
-
-anova.cca(finalmodel.platy)
-anova.cca(finalmodel.platy, by="terms")
-anova.cca(finalmodel.platy, by="axis")
-
-
+# Do a constrained ordination on all corals
+ord.phy97.f.c.coral.AD.CAP <- ordinate(phy97.f.c.coral.AD,method="CAP",distance="wunifrac",formula= ~ Year + Status + Dist + Coral_Species + Year*Status + Year*Dist + Year*Coral_Species + Status*Dist + Status*Coral_Species + Dist*Coral_Species)
+# Plot this ordination - scree plot
+plot_ordination(phy97.f.c.coral.AD, ord.phy97.f.c.coral.AD.CAP,  shape="Status",type="scree",
+                title="97% within-sample OTUs - CAP all corals")
+# Plot this ordination - sample plot
+plot_ordination(phy97.f.c.coral.AD, ord.phy97.f.c.coral.AD.CAP,  shape="Status", color="Site",type="samples",title="97% within-sample OTUs - CAP all corals")
+# Test ordination
+anova(ord.phy97.f.c.coral.AD.CAP)
+# Use ordistep to assess which model terms should be included
+finalmodel.coral.AD <- ordistep(ord.phy97.f.c.coral.AD.CAP, formula= ~ Year + Status + Dist + Coral_Species + Year*Status + Year*Dist + Year*Coral_Species + Status*Dist + Status*Coral_Species + Dist*Coral_Species, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
+# Look at the ordistep final model
+finalmodel.coral.AD
+# Check for covariance
+vif.cca(finalmodel.coral.AD)
+# Test the full model
+anova.cca(finalmodel.coral.AD)
+# Test the model terms
+anova.cca(finalmodel.coral.AD, by="terms")
 
 ```

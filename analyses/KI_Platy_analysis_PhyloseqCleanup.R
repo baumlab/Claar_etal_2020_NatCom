@@ -15,6 +15,27 @@ rm(list=ls())
 # load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_Platy_f.RData")
 # Loading the full sequence database - from the first two MiSeq Runs
 load("C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/otus_97_bysample/KI_seqs_f.RData")
+
+# Filter OTUs by minimum count
+# Set threshold count
+n <- 10
+# Identify OTUs below threshold count
+taxa <- taxa_sums(phy.f)[which(taxa_sums(phy.f) >= n)]
+# Remove taxa below threshold count
+phy.f <- prune_taxa(names(taxa), phy.f)
+
+# Filter samples by minimum count
+# Set threshold number of reads
+sn <- 300
+# Remove samples with fewer reads than threshold
+phy.f <- prune_samples(sample_sums(phy.f)>=sn, phy.f)
+
+# Filter OTUs by minimum count again in case any dropped below threshold after filtering samples
+# Identify OTUs below threshold count
+taxa <- taxa_sums(phy.f)[which(taxa_sums(phy.f) >= n)]
+# Remove taxa below threshold count
+phy.f <- prune_taxa(names(taxa), phy.f)
+
 phy97.f <- phy.f # Rename phyloseq object for clarity
 
 # Characterize sites by disturbance level
@@ -57,6 +78,8 @@ for (i in VeryLow){
   if(i %in% unique(as.character(data.frame(sample_data(phy97.f))$Site)))
     (sample_data(phy97.f)$Dist<- gsub (paste("\\<",as.character(i),"\\>",sep=""),as.character("VeryLow"), as.character(data.frame(sample_data(phy97.f))$Dist), as.character("VeryLow")))
 }
+
+levels(sample_data(phy97.f)$Dist) <- c("VeryHigh","High","HighMed","Low","VeryLow")
 
 # Assign new name for clarity
 phy97.f.c <- phy97.f
@@ -181,6 +204,12 @@ phy97.f.c.platy.AD <- subset_samples(phy97.f.c.platy,Status=="alive"|Status=="de
 phy97.f.c.fpenta <- subset_samples(phy97.f.c,Coral_Species=="Favites_pentagona")
 phy97.f.c.fpenta <- subset_taxa(phy97.f.c.fpenta, taxa_sums(phy97.f.c.fpenta) > 0, prune=TRUE)
 phy97.f.c.fpenta.AD <- subset_samples(phy97.f.c.fpenta,Status=="alive"|Status=="dead")
+phy97.f.c.favhal <- subset_samples(phy97.f.c,Coral_Species=="Favites_halicora")
+phy97.f.c.favhal <- subset_taxa(phy97.f.c.favhal, taxa_sums(phy97.f.c.favhal) > 0, prune=TRUE)
+phy97.f.c.favhal.AD <- subset_samples(phy97.f.c.favhal,Status=="alive"|Status=="dead")
+phy97.f.c.favsp <- subset_samples(phy97.f.c,Coral_Species=="Favites_sp")
+phy97.f.c.favsp <- subset_taxa(phy97.f.c.favsp, taxa_sums(phy97.f.c.favsp) > 0, prune=TRUE)
+phy97.f.c.favsp.AD <- subset_samples(phy97.f.c.favsp,Status=="alive"|Status=="dead")
 
 phy97.f.c.faviasp <- subset_samples(phy97.f.c,Coral_Species=="Favia_sp")
 phy97.f.c.faviasp.AD <- subset_samples(phy97.f.c.faviasp,Status=="alive"|Status=="dead")
@@ -189,6 +218,24 @@ phy97.f.c.faviam.AD <- subset_samples(phy97.f.c.faviam,Status=="alive"|Status=="
 phy97.f.c.faviaall <- merge_phyloseq(phy97.f.c.faviasp,phy97.f.c.faviam)
 phy97.f.c.faviaall <- subset_taxa(phy97.f.c.faviaall, taxa_sums(phy97.f.c.faviaall) > 0, prune=TRUE)
 phy97.f.c.faviaall.AD <- subset_samples(phy97.f.c.faviaall,Status=="alive"|Status=="dead")
+
+phy97.f.c.hydno <- subset_samples(phy97.f.c,Coral_Species=="Hydnophora_microconos")
+phy97.f.c.hydno <- subset_taxa(phy97.f.c.hydno, taxa_sums(phy97.f.c.hydno) > 0, prune=TRUE)
+phy97.f.c.hydno.AD <- subset_samples(phy97.f.c.hydno,Status=="alive"|Status=="dead")
+
+phy97.f.c.mfol <- subset_samples(phy97.f.c,Coral_Species=="Montipora_foliosa")
+phy97.f.c.mfol <- subset_taxa(phy97.f.c.mfol, taxa_sums(phy97.f.c.mfol) > 0, prune=TRUE)
+phy97.f.c.mfol.AD <- subset_samples(phy97.f.c.mfol,Status=="alive"|Status=="dead")
+
+phy97.f.c.peydo <- subset_samples(phy97.f.c,Coral_Species=="Pocillopora_eydouxi")
+phy97.f.c.peydo <- subset_taxa(phy97.f.c.peydo, taxa_sums(phy97.f.c.peydo) > 0, prune=TRUE)
+phy97.f.c.peydo.AD <- subset_samples(phy97.f.c.peydo,Status=="alive"|Status=="dead")
+
+phy97.f.c.plob <- subset_samples(phy97.f.c,Coral_Species=="Porites_lobata")
+phy97.f.c.plob <- subset_taxa(phy97.f.c.plob, taxa_sums(phy97.f.c.plob) > 0, prune=TRUE)
+phy97.f.c.plob.AD <- subset_samples(phy97.f.c.plob,Status=="alive"|Status=="dead")
+
+
 
 phy97.f.c.coral <- subset_samples(phy97.f.c,SampleType=="coral")
 phy97.f.c.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
