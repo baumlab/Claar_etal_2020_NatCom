@@ -10,6 +10,8 @@ rm(list=ls())
 
 library(phyloseq)
 library(vegan)
+library(ggplot2)
+library(phangorn)
 
 load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/KI_seqs_f_coral_grouped.RData")
 
@@ -110,5 +112,60 @@ vif.cca(finalmodel.coral.AD)
 anova.cca(finalmodel.coral.AD)
 # Test the model terms
 anova.cca(finalmodel.coral.AD, by="terms")
+```
 
+```{r sat_curves}
+coralsat <- specaccum(otu_table(phy97.f.c.coral), method = "exact", permutations = 100)
+plot(coralsat)
+platysat <- specaccum(otu_table(phy97.f.c.platy), method = "coleman", permutations = 100)
+plot(platysat)
+```
+
+```{r richness_plot}
+plot_richness(phy97.f.c.platy.AD, x="Status",color="Year", measures=c("Observed", "Chao1", "Shannon"))
+phy97.f.c.platy.AD.Year = merge_samples(phy97.f.c.platy.AD, "Year")
+# repair variables that were damaged during merge (coerced to numeric)
+sample_data(phy97.f.c.platy.AD.Year)$Year <- factor(sample_names(phy97.f.c.platy.AD.Year), levels=c("2014","2015Jan","2015May","2015July","2016March"))
+
+p = plot_richness(phy97.f.c.platy.AD.Year, x="Year", color="Year", measures=c("Observed","Chao1", "Shannon"))
+p + geom_point(size=5, alpha=0.7)
+
+phy97.f.c.platy.AD.Status = merge_samples(phy97.f.c.platy.AD, "Status")
+# repair variables that were damaged during merge (coerced to numeric)
+sample_data(phy97.f.c.platy.AD.Status)$Status <- factor(sample_names(phy97.f.c.platy.AD.Status), levels=c("alive","dead"))
+
+p = plot_richness(phy97.f.c.platy.AD.Status, x="Status", color="Status", measures=c("Observed","Chao1", "Shannon"))
+p + geom_point(size=5, alpha=0.7)
+
+phy97.f.c.platy.AD.before.Status = merge_samples(phy97.f.c.platy.AD.before, "Status")
+# repair variables that were damaged during merge (coerced to numeric)
+sample_data(phy97.f.c.platy.AD.before.Status)$Status <- factor(sample_names(phy97.f.c.platy.AD.before.Status), levels=c("alive","dead"))
+
+p = plot_richness(phy97.f.c.platy.AD.before.Status, x="Status", color="Status", measures=c("Observed","Chao1", "Shannon"))
+p + geom_point(size=5, alpha=0.7)
+
+
+phy97.f.c.fpenta.AD.Status = merge_samples(phy97.f.c.fpenta.AD, "Status")
+# repair variables that were damaged during merge (coerced to numeric)
+sample_data(phy97.f.c.fpenta.AD.Status)$Status <- factor(sample_names(phy97.f.c.fpenta.AD.Status), levels=c("alive","dead"))
+
+p = plot_richness(phy97.f.c.fpenta.AD.Status, x="Status", color="Status", measures=c("Observed","Chao1", "Shannon"))
+p + geom_point(size=5, alpha=0.7)
+```
+
+```{r upgma_comm_trees, include=FALSE}
+dist.phy97.f.c.coral <- distance(phy97.f.c.coral, method="unifrac", type="samples")
+upgma.phy97.f.c.coral <-  upgma(dist.phy97.f.c.coral)
+plot(upgma.phy97.f.c.coral)
+
+cols= c("red","orange","green","turquoise","blue")
+
+sample_data(phy97.f.c.platy.AD.before)$Dist <- factor(sample_data(phy97.f.c.platy.AD.before)$Dist,levels=c("VeryHigh","High","HighMed","Low","VeryLow"))
+
+par(mar=c(0,0,0,0))
+dist.phy97.f.c.platy.AD.before <- distance(phy97.f.c.platy.AD.before, method="unifrac", type="samples")
+upgma.phy97.f.c.platy.AD.before <-  upgma(dist.phy97.f.c.platy.AD.before)
+plot(upgma.phy97.f.c.platy.AD.before,show.tip.label = TRUE, tip.color = "white")
+phy97.f.c.platy.AD.before.tip.labels <- get_variable(phy97.f.c.platy.AD.before, "Status")
+tiplabels(phy97.f.c.platy.AD.before.tip.labels, col = c(phy97.f.c.platy.AD.before.tip.labels), frame = "none", adj = -0.05, cex = 0.7)
 ```
