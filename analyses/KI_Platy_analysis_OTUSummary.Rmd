@@ -74,14 +74,31 @@ barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legen
 # Close the pdf file
 dev.off()
 
-plot_bar(phy97.f.c.platy.p, fill="hit") # new color scheme!
+```
 
+# Sample sizes for different coral taxa
+```{r, sample_sizes include=TRUE, echo=FALSE, cache=TRUE}
+# Number of samples - PLATYGYRA SP.
+sum(sample_data(phy97.f.c.coral)$Coral_Species=="Platygyra_sp")
+# Number of tagged colonies - PLATYGYRA SP.
+unique(sample_data(phy97.f.c.platy)$CoralTag)
+#  PLATYGYRA SP.
+plot_bar(phy97.f.c.platy.p,fill="hit")
+
+# Number of samples - FAVITES PENTAGONA
+sum(sample_data(phy97.f.c.coral)$Coral_Species=="Favites_pentagona")
+# Number of tagged colonies - FAVITES PENTAGONA
+unique(sample_data(phy97.f.c.fpenta)$CoralTag)
+#  FAVITES PENTAGONA
+plot_bar(phy97.f.c.fpenta.p,fill="hit")
+
+# Number of samples - FAVIA MATTHAI
 sum(sample_data(phy97.f.c.coral)$Coral_Species=="Favia_matthai")
+# Number of tagged colonies - FAVIA MATTHAI
 unique(sample_data(phy97.f.c.faviam)$CoralTag)
+#  FAVIA MATTHAI
 plot_bar(phy97.f.c.faviam.p,fill="hit")
 ```
-  
-
 
 # Symbiont alpha-diversity - Grouped by Sites (and SampleType)  
 
@@ -201,7 +218,42 @@ legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
 dev.off()
 ```
 
+
 The overall number of OTUs and clades observed during each field season were equal, showing stable diversity at the ecosystem (or meta-community) level.
+
+<!-- Plot unique Symbiont types by coral taxa -->
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# Platygyra
+# Number of Symbiodinium Types:
+platy.ntaxa <- length(unique(data.frame(tax_table(phy97.f.c.platy))$hit))
+platy.ntaxa.before <- length(unique(data.frame(tax_table(phy97.f.c.platy.AD.before))$hit))
+platy.ntaxa.durAft <- length(unique(data.frame(tax_table(phy97.f.c.platy.AD.da))$hit))
+# Total 
+platy.ntaxa
+# Before the event
+platy.ntaxa.before
+# During/after the event
+platy.ntaxa.durAft
+
+# Favites pentagona
+# Number of Symbiodinium Types:
+fpenta.ntaxa <- length(unique(data.frame(tax_table(phy97.f.c.fpenta))$hit))
+fpenta.ntaxa.before <- length(unique(data.frame(tax_table(phy97.f.c.fpenta.AD.before))$hit))
+fpenta.ntaxa.durAft <- length(unique(data.frame(tax_table(phy97.f.c.fpenta.AD.da))$hit))
+# Total 
+fpenta.ntaxa
+# Before the event
+fpenta.ntaxa.before
+# During/after the event
+fpenta.ntaxa.durAft
+
+df4 <- t(data.frame("Platy all"= platy.ntaxa, "Platy before"=platy.ntaxa.before, "Platy during/after"=platy.ntaxa.durAft,"FPenta all"=fpenta.ntaxa,"Fpenta before"= fpenta.ntaxa.before, "FPenta during/after"=fpenta.ntaxa.durAft))
+# Make the plot in the RMD document
+par(xpd=TRUE,mar=c(3,3,3,11))
+barplot(df4, names.arg=c("Platy all","Platy before", "Platy during/after","FPenta all", "Fpenta before","FPenta during/after"), beside=TRUE, col=c("deepskyblue4","deepskyblue4","deepskyblue4","lightblue","lightblue","lightblue"), ylim = c(0,max(df4)))
+legend(7.1,20, legend=rownames(df4), fill=c("deepskyblue4","deepskyblue4","deepskyblue4","lightblue","lightblue","lightblue"), cex=0.7)
+
+```
 
 # Principal and Background Types  
 
