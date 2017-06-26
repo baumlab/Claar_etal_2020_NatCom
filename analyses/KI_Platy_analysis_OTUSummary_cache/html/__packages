@@ -3,3 +3,5 @@ phyloseq
 data.table
 futile.logger
 VennDiagram
+dplyr
+ggplot2

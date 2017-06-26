@@ -13,6 +13,10 @@ knitr::opts_chunk$set(echo = TRUE)
 library(phyloseq)
 library(data.table)
 library(VennDiagram)
+library(dplyr)
+library(ggplot2)
+
+
 
 rm(list=ls())
 
@@ -546,6 +550,115 @@ phy97.f.c.coral.AbundPrev <- cbind(log(phy97.f.c.coral.otuAbundance),phy97.f.c.c
 palette(rainbow(5))
 plot(phy97.f.c.coral.AbundPrev[,1:2],xlab="Log OTU Abundance",ylab="OTU Prevalence", main="Coral",col=phy97.f.c.coral.AbundPrev$clade, pch=16)
 # legend("topleft",inset=c(0.05,0.05), legend=phy97.f.c.coral.AbundPrev$hit, fill=phy97.f.c.coral.AbundPrev$clade, cex=0.5, text.width=2.5, ncol=3, xpd=TRUE)
+```
+
+# Rank Abundance Curves - all timepoints
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# All corals
+par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
+N=15
+rac.temp <- data.frame(sort(taxa_sums(phy97.f.c.coral)))
+rac.temp$otu<-rownames(rac.temp)
+colnames(rac.temp)[1] <- "Abundance"
+rac <- merge(rac.temp, data.frame(tax_table(phy97.f.c.coral)), by="otu")
+rac <- rac[order(-rac$Abundance),]
+
+barplot(rac$Abundance[1:N], las=2, names.arg=rac$hit[1:N],space=0,col=rac$clade,main="All Corals")
+
+# Platygyra
+par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
+N=20
+rac.platy.temp <- data.frame(sort(taxa_sums(phy97.f.c.platy)))
+rac.platy.temp$otu<-rownames(rac.platy.temp)
+colnames(rac.platy.temp)[1] <- "Abundance"
+rac.platy <- merge(rac.platy.temp, data.frame(tax_table(phy97.f.c.platy)), by="otu")
+rac.platy <- rac.platy[order(-rac.platy$Abundance),]
+
+barplot(rac.platy$Abundance[1:N], las=2, names.arg=rac.platy$hit[1:N],space=0,col=rac.platy$clade,main="Platygyra")
+
+# FPenta
+par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
+N=20
+rac.fpenta.temp <- data.frame(sort(taxa_sums(phy97.f.c.fpenta)))
+rac.fpenta.temp$otu<-rownames(rac.fpenta.temp)
+colnames(rac.fpenta.temp)[1] <- "Abundance"
+rac.fpenta <- merge(rac.fpenta.temp, data.frame(tax_table(phy97.f.c.fpenta)), by="otu")
+rac.fpenta <- rac.fpenta[order(-rac.fpenta$Abundance),]
+
+barplot(rac.fpenta$Abundance[1:N], las=2, names.arg=rac.fpenta$hit[1:N],space=0,col=rac.fpenta$clade,main="Favites pentagona")
+
+```
+
+# Rank Abundance Curves - before and after (alive/dead corals only)
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# All corals: before
+par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
+N=15
+rac.before.temp <- data.frame(sort(taxa_sums(phy97.f.c.coral.AD.before)))
+rac.before.temp$otu<-rownames(rac.before.temp)
+colnames(rac.before.temp)[1] <- "Abundance"
+rac.before <- merge(rac.before.temp, data.frame(tax_table(phy97.f.c.coral.AD.before)), by="otu")
+rac.before <- rac.before[order(-rac.before$Abundance),]
+
+barplot(rac.before$Abundance[1:N], las=2, names.arg=rac.before$hit[1:N],space=0,col=rac.before$clade,main="All Corals: before")
+
+# All corals: during/after
+par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
+N=15
+rac.da.temp <- data.frame(sort(taxa_sums(phy97.f.c.coral.AD.da)))
+rac.da.temp$otu<-rownames(rac.da.temp)
+colnames(rac.da.temp)[1] <- "Abundance"
+rac.da <- merge(rac.da.temp, data.frame(tax_table(phy97.f.c.coral.AD.da)), by="otu")
+rac.da <- rac.da[order(-rac.da$Abundance),]
+
+barplot(rac.da$Abundance[1:N], las=2, names.arg=rac.da$hit[1:N],space=0,col=rac.da$clade,main="All Corals: During/After")
+
+# Platygyra: before
+par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
+N=20
+rac.before.platy.temp <- data.frame(sort(taxa_sums(phy97.f.c.platy.AD.before)))
+rac.before.platy.temp$otu<-rownames(rac.before.platy.temp)
+colnames(rac.before.platy.temp)[1] <- "Abundance"
+rac.before.platy <- merge(rac.before.platy.temp, data.frame(tax_table(phy97.f.c.platy.AD.before)), by="otu")
+rac.before.platy <- rac.before.platy[order(-rac.before.platy$Abundance),]
+
+barplot(rac.before.platy$Abundance[1:N], las=2, names.arg=rac.before.platy$hit[1:N],space=0,col=rac.before.platy$clade,main="Platygyra: before")
+
+# Platygyra: during/after
+par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
+N=20
+rac.da.platy.temp <- data.frame(sort(taxa_sums(phy97.f.c.platy.AD.da)))
+rac.da.platy.temp$otu<-rownames(rac.da.platy.temp)
+colnames(rac.da.platy.temp)[1] <- "Abundance"
+rac.da.platy <- merge(rac.da.platy.temp, data.frame(tax_table(phy97.f.c.platy.AD.da)), by="otu")
+rac.da.platy <- rac.da.platy[order(-rac.da.platy$Abundance),]
+
+barplot(rac.da.platy$Abundance[1:N], las=2, names.arg=rac.da.platy$hit[1:N],space=0,col=rac.da.platy$clade,main="Platygyra: during/after")
+
+
+# FPenta: before
+par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
+N=20
+rac.before.fpenta.temp <- data.frame(sort(taxa_sums(phy97.f.c.fpenta.AD.before)))
+rac.before.fpenta.temp$otu<-rownames(rac.before.fpenta.temp)
+colnames(rac.before.fpenta.temp)[1] <- "Abundance"
+rac.before.fpenta <- merge(rac.before.fpenta.temp, data.frame(tax_table(phy97.f.c.fpenta.AD.before)), by="otu")
+rac.before.fpenta <- rac.before.fpenta[order(-rac.before.fpenta$Abundance),]
+
+barplot(rac.before.fpenta$Abundance[1:N], las=2, names.arg=rac.before.fpenta$hit[1:N],space=0,col=rac.before.fpenta$clade,main="Favites pentagona: before")
+
+# FPenta: during/after
+par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
+N=20
+rac.da.fpenta.temp <- data.frame(sort(taxa_sums(phy97.f.c.fpenta.AD.da)))
+rac.da.fpenta.temp$otu<-rownames(rac.da.fpenta.temp)
+colnames(rac.da.fpenta.temp)[1] <- "Abundance"
+rac.da.fpenta <- merge(rac.da.fpenta.temp, data.frame(tax_table(phy97.f.c.fpenta.AD.da)), by="otu")
+rac.da.fpenta <- rac.da.fpenta[order(-rac.da.fpenta$Abundance),]
+
+barplot(rac.da.fpenta$Abundance[1:N], las=2, names.arg=rac.da.fpenta$hit[1:N],space=0,col=rac.da.fpenta$clade,main="Favites pentagona: during/after")
+
+
 ```
 
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
