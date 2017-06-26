@@ -293,6 +293,24 @@ phy97.f.c.coral.2016March <- subset_samples(phy97.f.c.coral,Year=="2016March")
 phy97.f.c.coral.2016March <- subset_taxa(phy97.f.c.coral.2016March, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
 phy97.f.c.coral.2016March.AD <- subset_samples(phy97.f.c.coral.2016March,Status=="alive"|Status=="dead")
 
+# Subset to only keep coral species we are using in this manuscript
+phy97.f.c.coral.now <- subset_samples(phy97.f.c.coral,Coral_Species=="Platygyra_sp"|Coral_Species=="Favites_pentagona", prune=TRUE)
+# Subset samples to only keep those which are confirmed alive or dead
+phy97.f.c.coral.now.AD <- subset_samples(phy97.f.c.coral.now,Status=="alive"|Status=="dead", prune=TRUE)
+# Subset samples to only keep samples taken before the event (==2014 to May 2015)
+phy97.f.c.coral.now.AD.before <- subset_samples(phy97.f.c.coral.now.AD,Year!="2016March", prune=TRUE)
+phy97.f.c.coral.now.AD.before <- subset_samples(phy97.f.c.coral.AD.before,Year!="2015July", prune=TRUE)
+# Subset Platygyra samples to only keep samples taken before the event (==2014 to May 2015)
+phy97.f.c.platy.AD.before <- subset_samples(phy97.f.c.platy.AD,Year!="2016March", prune=TRUE)
+phy97.f.c.platy.AD.before <- subset_samples(phy97.f.c.platy.AD.before,Year!="2015July", prune=TRUE)
+# Subset fpenta samples to only keep samples taken before the event (==2014 to May 2015)
+phy97.f.c.fpenta.AD.before <- subset_samples(phy97.f.c.fpenta.AD,Year!="2016March", prune=TRUE)
+phy97.f.c.fpenta.AD.before <- subset_samples(phy97.f.c.fpenta.AD.before,Year!="2015July", prune=TRUE)
+# Subset Platygyra samples to only keep samples taken during/after the event (== July 2015 - 2016)
+phy97.f.c.platy.AD.da <- subset_samples(phy97.f.c.platy.AD,Year=="2016March"|Year=="2015July", prune=TRUE)
+# Subset FPenta samples to only keep samples taken during/after the event (== July 2015 - 2016)
+phy97.f.c.fpenta.AD.da <- subset_samples(phy97.f.c.fpenta.AD,Year=="2016March"|Year=="2015July", prune=TRUE)
+
 
 principal.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.p) > 0.01, prune=TRUE)
 background.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.p) < 0.01, prune=TRUE)
