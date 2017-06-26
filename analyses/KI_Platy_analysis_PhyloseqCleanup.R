@@ -268,6 +268,52 @@ for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
   assign(nam,b)
 }
 
+# Subset platygyra only by site
+for (i in unique(data.frame(sample_data(phy97.f.c.platy))$Site)){
+  nam <- paste("phy97.f.c.platy.site",i,sep="")
+  a <- eval(subset_samples(phy97.f.c.platy,Site==i, prune=TRUE))
+  assign(nam,a)
+  b <- eval(subset_taxa(a, taxa_sums(a) > 0, prune=TRUE))
+  assign(nam,b)
+}
+
+# Subset fpenta only by site
+for (i in unique(data.frame(sample_data(phy97.f.c.fpenta))$Site)){
+  nam <- paste("phy97.f.c.fpenta.site",i,sep="")
+  a <- eval(subset_samples(phy97.f.c.fpenta,Site==i, prune=TRUE))
+  assign(nam,a)
+  b <- eval(subset_taxa(a, taxa_sums(a) > 0, prune=TRUE))
+  assign(nam,b)
+}
+
+# Subset coral by disturbance level
+for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Dist)){
+  nam <- paste("phy97.f.c.coral.",i,sep="")
+  a <- eval(subset_samples(phy97.f.c.coral,Dist==i, prune=TRUE))
+  assign(nam,a)
+  b <- eval(subset_taxa(a, taxa_sums(a) > 0, prune=TRUE))
+  assign(nam,b)
+}
+
+# Subset platygyra only by Disturbance level
+for (i in unique(data.frame(sample_data(phy97.f.c.platy))$Dist)){
+  nam <- paste("phy97.f.c.platy.",i,sep="")
+  a <- eval(subset_samples(phy97.f.c.platy,Dist==i, prune=TRUE))
+  assign(nam,a)
+  b <- eval(subset_taxa(a, taxa_sums(a) > 0, prune=TRUE))
+  assign(nam,b)
+}
+
+# Subset fpenta only by disturbance level
+for (i in unique(data.frame(sample_data(phy97.f.c.fpenta))$Dist)){
+  nam <- paste("phy97.f.c.fpenta.",i,sep="")
+  a <- eval(subset_samples(phy97.f.c.fpenta,Dist==i, prune=TRUE))
+  assign(nam,a)
+  b <- eval(subset_taxa(a, taxa_sums(a) > 0, prune=TRUE))
+  assign(nam,b)
+}
+
+
 # Transform sample counts to proportional abundance for downstream analyses
 for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
   nam <- paste("phy97.f.c.coral.site",i,".p",sep="")
@@ -299,7 +345,7 @@ phy97.f.c.coral.now <- subset_samples(phy97.f.c.coral,Coral_Species=="Platygyra_
 phy97.f.c.coral.now.AD <- subset_samples(phy97.f.c.coral.now,Status=="alive"|Status=="dead", prune=TRUE)
 # Subset samples to only keep samples taken before the event (==2014 to May 2015)
 phy97.f.c.coral.now.AD.before <- subset_samples(phy97.f.c.coral.now.AD,Year!="2016March", prune=TRUE)
-phy97.f.c.coral.now.AD.before <- subset_samples(phy97.f.c.coral.AD.before,Year!="2015July", prune=TRUE)
+phy97.f.c.coral.now.AD.before <- subset_samples(phy97.f.c.coral.now.AD.before,Year!="2015July", prune=TRUE)
 # Subset Platygyra samples to only keep samples taken before the event (==2014 to May 2015)
 phy97.f.c.platy.AD.before <- subset_samples(phy97.f.c.platy.AD,Year!="2016March", prune=TRUE)
 phy97.f.c.platy.AD.before <- subset_samples(phy97.f.c.platy.AD.before,Year!="2015July", prune=TRUE)

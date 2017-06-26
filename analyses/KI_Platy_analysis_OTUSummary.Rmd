@@ -50,7 +50,7 @@ favia.nclades <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.f
 favia.clades <- levels(unique((data.frame(tax_table(phy97.f.c.faviaall))[9])$clade))
 ```
 
-<!-- Plot OTU and clade diversity by species -->
+# Plot OTU and clade diversity by species
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Make a data frame including the number of OTUs
 df <- data.frame(Platygyra=platy.ntaxa,Favia=favia.ntaxa,Favites=favites.ntaxa)
@@ -77,7 +77,7 @@ dev.off()
 ```
 
 # Sample sizes for different coral taxa
-```{r, sample_sizes include=TRUE, echo=FALSE, cache=TRUE}
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Number of samples - PLATYGYRA SP.
 sum(sample_data(phy97.f.c.coral)$Coral_Species=="Platygyra_sp")
 # Number of tagged colonies - PLATYGYRA SP.
@@ -111,6 +111,7 @@ for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
   nam <- paste("site",i,".coral.ntaxa",sep="")
   nam2 <- paste("site",i,".coral.nclades",sep="")
   nam3 <- paste("site",i,".coral.clades",sep="")
+  nam4 <- paste("site",i,".coral.hits",sep="")
   ornam <- get(paste("phy97.f.c.coral.site",i,sep=""))
   a <- eval(ntaxa(ornam))
   assign(nam,a)
@@ -118,15 +119,51 @@ for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
   assign(nam2,b)
   c <- eval(levels(unique((data.frame(tax_table(ornam))[9])$clade)))
   assign(nam3,c)
+  d <- eval(length((unique(data.frame(tax_table(ornam))$hit))))
+  assign(nam4,d)
 }
+
+for (i in unique(data.frame(sample_data(phy97.f.c.platy))$Site)){
+  nam <- paste("site",i,".platy.ntaxa",sep="")
+  nam2 <- paste("site",i,".platy.nclades",sep="")
+  nam3 <- paste("site",i,".platy.clades",sep="")
+  nam4 <- paste("site",i,".platy.hits",sep="")
+  ornam <- get(paste("phy97.f.c.platy.site",i,sep=""))
+  a <- eval(ntaxa(ornam))
+  assign(nam,a)
+  b <- eval(sum(table(unlist(sort((unique((data.frame(tax_table(ornam))[9])$clade)))))))
+  assign(nam2,b)
+  c <- eval(levels(unique((data.frame(tax_table(ornam))[9])$clade)))
+  assign(nam3,c)
+  d <- eval(length((unique(data.frame(tax_table(ornam))$hit))))
+  assign(nam4,d)
+}
+
+for (i in unique(data.frame(sample_data(phy97.f.c.fpenta))$Site)){
+  nam <- paste("site",i,".fpenta.ntaxa",sep="")
+  nam2 <- paste("site",i,".fpenta.nclades",sep="")
+  nam3 <- paste("site",i,".fpenta.clades",sep="")
+  nam4 <- paste("site",i,".fpenta.hits",sep="")
+  ornam <- get(paste("phy97.f.c.fpenta.site",i,sep=""))
+  a <- eval(ntaxa(ornam))
+  assign(nam,a)
+  b <- eval(sum(table(unlist(sort((unique((data.frame(tax_table(ornam))[9])$clade)))))))
+  assign(nam2,b)
+  c <- eval(levels(unique((data.frame(tax_table(ornam))[9])$clade)))
+  assign(nam3,c)
+  d <- eval(length((unique(data.frame(tax_table(ornam))$hit))))
+  assign(nam4,d)
+}
+
 ```
 
-<!-- Plot OTU and clade diversity by site -->
+# Plot OTU and clade diversity by site
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 df2 <- data.frame(site3=site3.coral.ntaxa,site5=site5.coral.ntaxa,site8=site8.coral.ntaxa,site14=site14.coral.ntaxa,site15=site15.coral.ntaxa,site19=site19.coral.ntaxa,site25=site25.coral.ntaxa,site27=site27.coral.ntaxa,site30=site30.coral.ntaxa,site32=site32.coral.ntaxa,site34=site34.coral.ntaxa,site35=site35.coral.ntaxa,site37=site37.coral.ntaxa,site38=site38.coral.ntaxa,site40=site40.coral.ntaxa)
 df2[2,] <- c(site3.coral.nclades,site5.coral.nclades,site8.coral.nclades,site14.coral.nclades,site15.coral.nclades,site19.coral.nclades,site25.coral.nclades,site27.coral.nclades,site30.coral.nclades,site32.coral.nclades,site34.coral.nclades,site35.coral.nclades,site37.coral.nclades,site38.coral.nclades,site40.coral.nclades)
 df2[3,] <- c(2,5,3,3,6,6,2,1,1,1,3,3,5,2,1)
-rownames(df2) <- c("Number of OTUs","Number of Clades", "Dist")
+df2[4,] <- c(site3.coral.hits,site5.coral.hits,site8.coral.hits,site14.coral.hits,site15.coral.hits,site19.coral.hits,site25.coral.hits,site27.coral.hits,site30.coral.hits,site32.coral.hits,site34.coral.hits,site35.coral.hits,site37.coral.hits,site38.coral.hits,site40.coral.hits)
+rownames(df2) <- c("Number of OTUs","Number of Clades", "Dist", "Number of Subclades")
 df2 <- t(df2)
 df2 <- df2[order(df2[,3]),]
 df2
@@ -135,20 +172,151 @@ mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
   
 palette(mycols)
 
-par(xpd=TRUE)
-barplot(df2[,1:2], names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2[,3],ylim = c(0,max(df2)),main="Corals by Site")
-legend("topright", inset=c(0.05,-0.05), legend=rownames(df2), fill=df2[,3],cex=0.7)
+par(xpd=TRUE,mar=c(3,3,3,11))
+barplot(df2[,c(1,4,2)], names.arg=c("Number of OTUs","Number of Subclades","Number of Clades"), beside=TRUE, col=df2[,3],ylim = c(0,max(df2)),main="Corals by Site")
+legend(50,90, inset=c(0.05,-0.05), legend=rownames(df2), fill=df2[,3],cex=0.55)
 
 
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Diversity_Corals_by_Site.pdf", width=10, height=7)
-par(xpd=TRUE)
-barplot(df2[,1:2], names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=df2[,3],ylim = c(0,max(df2)),main="Corals by Site")
-legend("topright", inset=c(0.05,-0.05), legend=rownames(df2), fill=df2[,3],cex=0.7)
-dev.off()
+## Now for platy only
+df2platy <- data.frame(site3=site3.platy.ntaxa,site5=site5.platy.ntaxa,site8=site8.platy.ntaxa,site14=site14.platy.ntaxa,site15=site15.platy.ntaxa,site25=site25.platy.ntaxa,site27=site27.platy.ntaxa,site30=site30.platy.ntaxa,site32=site32.platy.ntaxa,site34=site34.platy.ntaxa,site35=site35.platy.ntaxa,site37=site37.platy.ntaxa,site38=site38.platy.ntaxa,site40=site40.platy.ntaxa)
+df2platy[2,] <- c(site3.platy.nclades,site5.platy.nclades,site8.platy.nclades,site14.platy.nclades,site15.platy.nclades,site25.platy.nclades,site27.platy.nclades,site30.platy.nclades,site32.platy.nclades,site34.platy.nclades,site35.platy.nclades,site37.platy.nclades,site38.platy.nclades,site40.platy.nclades)
+df2platy[3,] <- c(2,5,3,3,6,2,1,1,1,3,3,5,2,1)
+df2platy[4,] <- c(site3.platy.hits,site5.platy.hits,site8.platy.hits,site14.platy.hits,site15.platy.hits,site25.platy.hits,site27.platy.hits,site30.platy.hits,site32.platy.hits,site34.platy.hits,site35.platy.hits,site37.platy.hits,site38.platy.hits,site40.platy.hits)
+rownames(df2platy) <- c("Number of OTUs","Number of Clades", "Dist", "Number of Subclades")
+df2platy <- t(df2platy)
+df2platy <- df2platy[order(df2platy[,3]),]
+df2platy
+
+mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
+  
+palette(mycols)
+
+par(xpd=TRUE,mar=c(3,3,3,11))
+barplot(df2platy[,c(1,4,2)], names.arg=c("Number of OTUs","Number of Subclades","Number of Clades"), beside=TRUE, col=df2platy[,3],ylim = c(0,max(df2)),main="platys by Site")
+legend(50,15, inset=c(0.05,-0.05), legend=rownames(df2platy), fill=df2platy[,3],cex=0.55)
+
+## Now for fpenta only
+df2fpenta <- data.frame(site3=site3.fpenta.ntaxa,site5=site5.fpenta.ntaxa,site8=site8.fpenta.ntaxa,site14=site14.fpenta.ntaxa,site15=site15.fpenta.ntaxa,site19=site19.fpenta.ntaxa,site25=site25.fpenta.ntaxa,site27=site27.fpenta.ntaxa,site30=site30.fpenta.ntaxa,site32=site32.fpenta.ntaxa,site34=site34.fpenta.ntaxa,site35=site35.fpenta.ntaxa,site37=site37.fpenta.ntaxa,site38=site38.fpenta.ntaxa,site40=site40.fpenta.ntaxa)
+df2fpenta[2,] <- c(site3.fpenta.nclades,site5.fpenta.nclades,site8.fpenta.nclades,site14.fpenta.nclades,site15.fpenta.nclades,site19.fpenta.nclades,site25.fpenta.nclades,site27.fpenta.nclades,site30.fpenta.nclades,site32.fpenta.nclades,site34.fpenta.nclades,site35.fpenta.nclades,site37.fpenta.nclades,site38.fpenta.nclades,site40.fpenta.nclades)
+df2fpenta[3,] <- c(2,5,3,3,6,6,2,1,1,1,3,3,5,2,1)
+df2fpenta[4,] <- c(site3.fpenta.hits,site5.fpenta.hits,site8.fpenta.hits,site14.fpenta.hits,site15.fpenta.hits,site19.fpenta.hits,site25.fpenta.hits,site27.fpenta.hits,site30.fpenta.hits,site32.fpenta.hits,site34.fpenta.hits,site35.fpenta.hits,site37.fpenta.hits,site38.fpenta.hits,site40.fpenta.hits)
+rownames(df2fpenta) <- c("Number of OTUs","Number of Clades", "Dist", "Number of Subclades")
+df2fpenta <- t(df2fpenta)
+df2fpenta <- df2fpenta[order(df2fpenta[,3]),]
+df2fpenta
+
+mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
+  
+palette(mycols)
+
+par(xpd=TRUE,mar=c(3,3,3,11))
+barplot(df2fpenta[,c(1,4,2)], names.arg=c("Number of OTUs","Number of Subclades","Number of Clades"), beside=TRUE, col=df2fpenta[,3],ylim = c(0,max(df2)),main="fpentas by Site")
+legend(50,30, inset=c(0.05,-0.05), legend=rownames(df2fpenta), fill=df2fpenta[,3],cex=0.55)
+
 ```
 
 
+ <!-- Calculate OTU and clade diversity by Disturbance level -->
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Dist)){
+  nam <- paste(i,".coral.ntaxa",sep="")
+  nam2 <- paste(i,".coral.nclades",sep="")
+  nam3 <- paste(i,".coral.clades",sep="")
+  nam4 <- paste(i,".coral.hits",sep="")
+  ornam <- get(paste("phy97.f.c.coral.",i,sep=""))
+  a <- eval(ntaxa(ornam))
+  assign(nam,a)
+  b <- eval(sum(table(unlist(sort((unique((data.frame(tax_table(ornam))[9])$clade)))))))
+  assign(nam2,b)
+  c <- eval(levels(unique((data.frame(tax_table(ornam))[9])$clade)))
+  assign(nam3,c)
+  d <- eval(length((unique(data.frame(tax_table(ornam))$hit))))
+  assign(nam4,d)
+}
+
+for (i in unique(data.frame(sample_data(phy97.f.c.platy))$Dist)){
+  nam <- paste(i,".platy.ntaxa",sep="")
+  nam2 <- paste(i,".platy.nclades",sep="")
+  nam3 <- paste(i,".platy.clades",sep="")
+  nam4 <- paste(i,".platy.hits",sep="")
+  ornam <- get(paste("phy97.f.c.platy.",i,sep=""))
+  a <- eval(ntaxa(ornam))
+  assign(nam,a)
+  b <- eval(sum(table(unlist(sort((unique((data.frame(tax_table(ornam))[9])$clade)))))))
+  assign(nam2,b)
+  c <- eval(levels(unique((data.frame(tax_table(ornam))[9])$clade)))
+  assign(nam3,c)
+  d <- eval(length((unique(data.frame(tax_table(ornam))$hit))))
+  assign(nam4,d)
+}
+
+for (i in unique(data.frame(sample_data(phy97.f.c.fpenta))$Dist)){
+  nam <- paste(i,".fpenta.ntaxa",sep="")
+  nam2 <- paste(i,".fpenta.nclades",sep="")
+  nam3 <- paste(i,".fpenta.clades",sep="")
+  nam4 <- paste(i,".fpenta.hits",sep="")
+  ornam <- get(paste("phy97.f.c.fpenta.",i,sep=""))
+  a <- eval(ntaxa(ornam))
+  assign(nam,a)
+  b <- eval(sum(table(unlist(sort((unique((data.frame(tax_table(ornam))[9])$clade)))))))
+  assign(nam2,b)
+  c <- eval(levels(unique((data.frame(tax_table(ornam))[9])$clade)))
+  assign(nam3,c)
+  d <- eval(length((unique(data.frame(tax_table(ornam))$hit))))
+  assign(nam4,d)
+}
+
+```
+
+# Plot OTU and clade diversity by Disturbance level
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
+df2dist <- data.frame(VeryHigh=VeryHigh.coral.ntaxa, High=High.coral.ntaxa, HighMed=HighMed.coral.ntaxa, Low=Low.coral.ntaxa, VeryLow=VeryLow.coral.ntaxa)
+df2dist[2,] <- c(VeryHigh.coral.hits,High.coral.hits,HighMed.coral.hits,Low.coral.hits,VeryLow.coral.hits)
+df2dist[3,] <- c(VeryHigh.coral.nclades,High.coral.nclades,HighMed.coral.nclades,Low.coral.nclades,VeryLow.coral.nclades)
+rownames(df2dist) <- c("Number of OTUs","Number of Clades", "Number of Subclades")
+df2dist <- t(df2dist)
+
+mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
   
+palette(mycols)
+
+par(xpd=TRUE,mar=c(3,3,3,3))
+barplot(df2dist[,c(1:3)], names.arg=c("Number of OTUs","Number of Subclades","Number of Clades"), beside=TRUE, col=mycols, ylim = c(0,max(df2dist)), main="Corals by Disturbance")
+legend("topright", inset=c(0.05,-0.05), legend=rownames(df2dist), fill=mycols,cex=0.55)
+
+
+## Now for platy only
+df2dist.platy <- data.frame(VeryHigh=VeryHigh.platy.ntaxa, High=High.platy.ntaxa, HighMed=HighMed.platy.ntaxa, Low=Low.platy.ntaxa, VeryLow=VeryLow.platy.ntaxa)
+df2dist.platy[2,] <- c(VeryHigh.platy.hits,High.platy.hits,HighMed.platy.hits,Low.platy.hits,VeryLow.platy.hits)
+df2dist.platy[3,] <- c(VeryHigh.platy.nclades,High.platy.nclades,HighMed.platy.nclades,Low.platy.nclades,VeryLow.platy.nclades)
+rownames(df2dist.platy) <- c("Number of OTUs","Number of Clades", "Number of Subclades")
+df2dist.platy <- t(df2dist.platy)
+
+mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
+  
+palette(mycols)
+
+par(xpd=TRUE,mar=c(3,3,3,3))
+barplot(df2dist.platy[,c(1:3)], names.arg=c("Number of OTUs","Number of Subclades","Number of Clades"), beside=TRUE, col=mycols, ylim = c(0,max(df2dist)), main="Platys by Disturbance")
+legend("topright", inset=c(0.05,-0.05), legend=rownames(df2dist.platy), fill=mycols,cex=0.55)
+
+## Now for fpenta only
+df2dist.fpenta <- data.frame(VeryHigh=VeryHigh.fpenta.ntaxa, High=High.fpenta.ntaxa, HighMed=HighMed.fpenta.ntaxa, Low=Low.fpenta.ntaxa, VeryLow=VeryLow.fpenta.ntaxa)
+df2dist.fpenta[2,] <- c(VeryHigh.fpenta.hits,High.fpenta.hits,HighMed.fpenta.hits,Low.fpenta.hits,VeryLow.fpenta.hits)
+df2dist.fpenta[3,] <- c(VeryHigh.fpenta.nclades,High.fpenta.nclades,HighMed.fpenta.nclades,Low.fpenta.nclades,VeryLow.fpenta.nclades)
+rownames(df2dist.fpenta) <- c("Number of OTUs","Number of Clades", "Number of Subclades")
+df2dist.fpenta <- t(df2dist.fpenta)
+
+mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
+  
+palette(mycols)
+
+par(xpd=TRUE,mar=c(3,3,3,3))
+barplot(df2dist.fpenta[,c(1:3)], names.arg=c("Number of OTUs","Number of Subclades","Number of Clades"), beside=TRUE, col=mycols, ylim = c(0,max(df2dist)), main="fpentas by Disturbance")
+legend("topright", inset=c(0.05,-0.05), legend=rownames(df2dist.fpenta), fill=mycols,cex=0.55)
+
+```
+ 
 # Symbiont alpha-diversity - Grouped by Field Season  
   
 To understand how *Symbiodinium* diversity changes among field seasons, clade diversity is divided by field season. This includes coral-associated *Symbiodinium*.  
@@ -191,7 +359,7 @@ s2016March.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97
 s2016March.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.2016March))[9])$clade))
 ```
 
-<!-- Plot OTU and clade diversity by site -->
+# Plot OTU and clade diversity by site
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Make a data frame for plotting OTU and clade diversity by site
 df3 <- data.frame(s2014=s2014.ntaxa,s2015Jan=s2015Jan.ntaxa,s2015May=s2015May.ntaxa,s2015July=s2015July.ntaxa,s2016March=s2016March.ntaxa)
@@ -221,7 +389,7 @@ dev.off()
 
 The overall number of OTUs and clades observed during each field season were equal, showing stable diversity at the ecosystem (or meta-community) level.
 
-<!-- Plot unique Symbiont types by coral taxa -->
+# Plot unique Symbiont types by coral taxa
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Platygyra
 # Number of Symbiodinium Types:
@@ -316,7 +484,7 @@ dev.off()
 ```
   
 
-<!-- Core vs. Common vs. Rare -->  
+# Core vs. Common vs. Rare
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Extract OTU names from Coral core, common, and rare types
 names.coral.core <- names(coral.core)
@@ -324,7 +492,7 @@ names.coral.common <- names(coral.common)
 names.coral.rare <- names(coral.rare)
 ```
   
-Print hits for core, common, and rare in coral
+# Print hits for core, common, and rare in coral
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 if (!is.null(names.coral.core)) {
   coral.core.hits <- data.frame()
