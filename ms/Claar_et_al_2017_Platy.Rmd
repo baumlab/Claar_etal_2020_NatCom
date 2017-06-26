@@ -39,11 +39,6 @@ bibliography: PapersLibrary_Bibtex.bib
   require("mosaic")
 ```
 
-<!-- Word Count -->
-```{r, echo=FALSE, warning=FALSE, message=FALSE, incl=FALSE, evaluate=FALSE}
-  # wc("") # to count words
-```
-  
 # Summary
 Coral reefs, which already live on the edge of their thermal tolerance (@Sampayo2016-vd), are under acute threat from ocean warming (@Hughes2003-aj, @Hoegh-Guldberg2007-fh, @Baker2008-ky). Corals live in symbiosis with an extraordinarily diverse genus of photosynthetic dinoflagellates (Symbiodinium spp.; @Muscatine1977-pn, @Rowan1992-lg). The symbiotic association and diversity of various taxa of *Symbiodinium* can be flexible over time (@Baker2003-ks, @Little2004-tm, but see @Thornhill2006-cs, @Thornhill2009-jh), and individual *Symbidoinium* taxa can range from parasites to mutualists in their interaction with their coral host (@Lesser2013-dj). Warming causes the breakdown of coral symbiosis, causing coral "bleaching" when symbionts are expelled and the white coral skeleton is visible through the coral tissue (@Brown1997-mf). Coral bleaching can lead to mortality, although corals can regain their symbionts after heat stress has abated (@Douglas2003-nr, @Stat2009-qq). The 2015/16 El Nino is the worst pulse warming event on record in terms of severity and longevity (@Eakin:2016vf, @Heron2016-am), yet despite massive coral mortality, some corals show resilience to this extreme event (@Bauminprep). Here, we track coral symbioses and survival at the epicenter of this bleaching event (Kiritimati, Central Pacific), and show, contrary to our current paradigm of coral bleaching and recovery dynamics, that some corals have the capacity to re-establish symbiosis before heat stress subsides. Furthermore, we demonstrate potential mechanisms for coral survival and recovery, including the lack of preferential symbiont expulsion, and the effect of local human disturbance on  pre-bleaching symbiont community structure and the probability of coral survival. Together, these results show the potential for reef corals to survive extreme warming events, providing tentative hope for the survival of corals in the Anthropocene.
 

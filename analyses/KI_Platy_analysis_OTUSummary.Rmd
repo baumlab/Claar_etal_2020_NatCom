@@ -73,6 +73,12 @@ pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Dive
 barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan"),ylim = c(0,max(df)))
 # Close the pdf file
 dev.off()
+
+plot_bar(phy97.f.c.platy.p, fill="hit") # new color scheme!
+
+sum(sample_data(phy97.f.c.coral)$Coral_Species=="Favia_matthai")
+unique(sample_data(phy97.f.c.faviam)$CoralTag)
+plot_bar(phy97.f.c.faviam.p,fill="hit")
 ```
   
 

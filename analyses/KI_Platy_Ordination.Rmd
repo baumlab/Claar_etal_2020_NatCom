@@ -28,6 +28,9 @@ phy97.f.c.coral.AD.before <- subset_samples(phy97.f.c.coral.AD.before,Year!="201
 # Subset Platygyra samples to only keep samples taken before the event (==2014 to May 2015)
 phy97.f.c.platy.AD.before <- subset_samples(phy97.f.c.platy.AD,Year!="2016March")
 phy97.f.c.platy.AD.before <- subset_samples(phy97.f.c.platy.AD.before,Year!="2015July")
+# Subset fpenta samples to only keep samples taken before the event (==2014 to May 2015)
+phy97.f.c.fpenta.AD.before <- subset_samples(phy97.f.c.fpenta.AD,Year!="2016March")
+phy97.f.c.fpenta.AD.before <- subset_samples(phy97.f.c.fpenta.AD.before,Year!="2015July")
 # Subset Platygyra samples to only keep samples taken during/after the event (== July 2015 - 2016)
 phy97.f.c.platy.AD.da <- subset_samples(phy97.f.c.platy.AD,Year=="2016March"|Year=="2015July")
 
@@ -112,6 +115,31 @@ vif.cca(finalmodel.coral.AD)
 anova.cca(finalmodel.coral.AD)
 # Test the model terms
 anova.cca(finalmodel.coral.AD, by="terms")
+
+# Do a constrained ordination on fpentagyra corals before the event
+ord.phy97.f.c.fpenta.AD.before.CAP <- ordinate(phy97.f.c.fpenta.AD.before,method="CAP",distance="wunifrac",formula= ~ Year + Status + Dist)
+# Plot this ordination - scree plot
+plot_ordination(phy97.f.c.fpenta.AD.before, ord.phy97.f.c.fpenta.AD.before.CAP,  shape="Status",type="scree",
+                title="97% within-sample OTUs - CAP fpenta only")
+# Plot this ordination - sample plot
+plot_ordination(phy97.f.c.fpenta.AD.before, ord.phy97.f.c.fpenta.AD.before.CAP, shape="Status", color="Dist",type="samples",title="97% within-sample OTUs - CAP fpenta only")
+# Test ordination
+anova(ord.phy97.f.c.fpenta.AD.before.CAP)
+# Use ordistep to assess which model terms should be included
+finalmodel.fpenta.AD.before <- ordistep(ord.phy97.f.c.fpenta.AD.before.CAP, formula= ~ Year + Status +  Dist, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
+# Look at the ordistep final model
+finalmodel.fpenta.AD.before
+# Check for covariance
+vif.cca(finalmodel.fpenta.AD.before)
+# Test the full model
+anova.cca(finalmodel.fpenta.AD.before)
+# Test the model terms
+anova.cca(finalmodel.fpenta.AD.before, by="terms")
+
+ord.phy97.f.c.fpenta.AD.CAP <- ordinate(phy97.f.c.fpenta.AD,method="CAP",distance="wunifrac",formula= ~ Year + Dist + Status)
+# Plot this ordination - sample plot
+plot_ordination(phy97.f.c.fpenta.AD, ord.phy97.f.c.fpenta.AD.CAP,  shape="Status", color="Dist",type="samples",title="97% within-sample OTUs - CAP Fpenta only")
+
 ```
 
 ```{r sat_curves}
