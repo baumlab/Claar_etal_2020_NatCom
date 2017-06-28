@@ -27,3 +27,6 @@ Kiritimati reefs range from heavily impacted to nearly pristine, and thus provid
 
 El Nino warming poses an acute threat to coral reefs, which already live on the edge of their thermal tolerance. 
 
+El Niño, the positive phase of the ENSO (El Niño Southern Oscillation), is a natural climatic event that occurs when surface waters heat up in the equatorial Central and Eastern Pacific, causing catastrophic effects on reef ecosystems by disrupting coral symbioses and causing coral bleaching.
+
+

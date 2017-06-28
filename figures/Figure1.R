@@ -8,11 +8,11 @@ rm(list=ls())
 library(imager)
 
 # Load in Data
-load("data/KI_SB_temp_DHW.RData")
-load("data/KI_satellite_heat.RData")
+load("../data/KI_SB_temp_DHW.RData")
+load("../data/KI_satellite_heat.RData")
 
 
-tiff(file="figures/Figure1.tiff",width = 8, height = 4,units="in",res=300)
+tiff(file="../figures/Figure1.tiff",width = 8, height = 4,units="in",res=300)
 
 # Set both inner and outer margins to 0
 par(oma=c(0,0,0,0),mar=c(2,2,1.5,1.5))
@@ -30,7 +30,7 @@ KI_satellite_heat <- KI_satellite_heat[which(KI_satellite_heat$time<as.Date(endd
 # Rename columns
 colnames(KI_heat)<- c("time","dhw")
 
-cbar <- read.csv("figures/cmap_enso.csv",header=F)
+cbar <- read.csv("../figures/cmap_enso.csv",header=F)
 dhw.floor <- floor(KI_heat$dhw)+1
 dhw.cc <- cbar[dhw.floor,]
 dhw.cc.rgb <- rgb(dhw.cc)
@@ -97,11 +97,11 @@ axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0,padj=-1.5)
 par(mar=c(0.1,0.1,0.1,0.1))
 
 # Plot image panels using function created above
-img_KI2014_site35_99 <- load.image('figures/coral99/KI2014_site35_99.jpg')
-img_KI2015a_site35_99_after <- load.image('figures/coral99/KI2015a_site35_99_after.jpg')
-img_KI2015c_site35_99 <- load.image('figures/coral99/KI2015c_site35_99.jpg')
-img_KI2016a_site35_99 <- load.image('figures/coral99/KI2016a_site35_99.jpg')
-img_KI2016b_site35_99 <- load.image('figures/coral99/KI2016b_site35_99.jpg')
+img_KI2014_site35_99 <- load.image('../figures/coral99/KI2014_site35_99.jpg')
+img_KI2015a_site35_99_after <- load.image('../figures/coral99/KI2015a_site35_99_after.jpg')
+img_KI2015c_site35_99 <- load.image('../figures/coral99/KI2015c_site35_99.jpg')
+img_KI2016a_site35_99 <- load.image('../figures/coral99/KI2016a_site35_99.jpg')
+img_KI2016b_site35_99 <- load.image('../figures/coral99/KI2016b_site35_99.jpg')
 
 plot(img_KI2014_site35_99, axes=F)
 plot(img_KI2015a_site35_99_after, axes=F)
