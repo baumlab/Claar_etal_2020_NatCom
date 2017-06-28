@@ -5,3 +5,5 @@ futile.logger
 VennDiagram
 dplyr
 ggplot2
+gridExtra
+cowplot

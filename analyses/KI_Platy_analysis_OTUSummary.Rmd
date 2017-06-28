@@ -15,6 +15,9 @@ library(data.table)
 library(VennDiagram)
 library(dplyr)
 library(ggplot2)
+library(gridExtra)
+library(grid)
+library(cowplot)
 
 
 
@@ -25,6 +28,44 @@ load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/KI_seqs_f_coral_groupe
 # Look at tax_table
 tax_table(phy97.f.c)
 
+mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#2b83ba")
+
+palette(mycols)
+
+clade.colors <- c(A = "#D55E00", C = "#009E73", D = "#56B4E9", F = "#E69F00", G = "#F0E442", Other = "#A9A9A9")
+
+```
+
+<!-- https://github.com/tidyverse/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs -->
+```{r include=FALSE}
+grid_arrange_shared_legend <- function(..., ncol = length(list(...)), nrow = 1, position = c("bottom", "right")) {
+
+  plots <- list(...)
+  position <- match.arg(position)
+  g <- ggplotGrob(plots[[1]] + theme(legend.position = position))$grobs
+  legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
+  lheight <- sum(legend$height)
+  lwidth <- sum(legend$width)
+  gl <- lapply(plots, function(x) x + theme(legend.position="none"))
+  gl <- c(gl, ncol = ncol, nrow = nrow)
+
+  combined <- switch(position,
+                     "bottom" = arrangeGrob(do.call(arrangeGrob, gl),
+                                            legend,
+                                            ncol = 1,
+                                            heights = unit.c(unit(1, "npc") - lheight, lheight)),
+                     "right" = arrangeGrob(do.call(arrangeGrob, gl),
+                                           legend,
+                                           ncol = 2,
+                                           widths = unit.c(unit(1, "npc") - lwidth, lwidth)))
+
+  grid.newpage()
+  grid.draw(combined)
+
+  # return gtable invisibly
+  invisible(combined)
+
+}
 ```
 
 
@@ -61,20 +102,20 @@ df <- data.frame(Platygyra=platy.ntaxa,Favia=favia.ntaxa,Favites=favites.ntaxa)
 # Add the number of clades to the data frame
 df[2,] <- c(platy.nclades,favia.nclades,favites.nclades)
 # Set the row names
-rownames(df) <- c("Number of OTUs","Number of Clades")
+rownames(df) <- c("OTUs","Clades")
 # Transpose the data frame
 df <- t(df)
 # Print the data frame
 df
 
 # Create and print a barplot of these data
-barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan"),ylim = c(0,max(df)))
+barplot(df, names.arg=c("OTUs","Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan"),ylim = c(0,max(df)))
 
 # Create a pdf of this plot and save in the 'figures' folder
 # Open a new pdf file
 pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Diversity_by_Species.pdf")
 # Make the plot
-barplot(df, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan"),ylim = c(0,max(df)))
+barplot(df, names.arg=c("OTUs","Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan"),ylim = c(0,max(df)))
 # Close the pdf file
 dev.off()
 
@@ -87,22 +128,56 @@ sum(sample_data(phy97.f.c.coral)$Coral_Species=="Platygyra_sp")
 # Number of tagged colonies - PLATYGYRA SP.
 unique(sample_data(phy97.f.c.platy)$CoralTag)
 #  PLATYGYRA SP.
-plot_bar(phy97.f.c.platy.p,fill="hit")
+p1 <- plot_bar(phy97.f.c.platy.p,fill="hit",title = "Platygyra") 
+# + scale_fill_manual(values=c(
+#   "#a6bddb","#74a9cf","#3690c0","#0570b0", # Clade A
+# "#fdd0a2","#fdae6b","#fd8d3c","#f16913","#d94801","#a63603","#7f2704","#a50f15","#cb181d","#ef3b2c","#fb6a4a","#fc9272", # Clade C
+# "#fcbba1",  "#74c476","#41ab5d", # Clade D
+#   "yellow", # Clade F
+#   "purple")) # Clade G
 
 # Number of samples - FAVITES PENTAGONA
 sum(sample_data(phy97.f.c.coral)$Coral_Species=="Favites_pentagona")
 # Number of tagged colonies - FAVITES PENTAGONA
 unique(sample_data(phy97.f.c.fpenta)$CoralTag)
 #  FAVITES PENTAGONA
-plot_bar(phy97.f.c.fpenta.p,fill="hit")
+p2 <- plot_bar(phy97.f.c.fpenta.p,fill="hit",title="Favites pentagona")
+#+ scale_fill_manual(values=c(
+#   "#a6bddb","#74a9cf","#3690c0","#0570b0", # Clade A
+# "#fdd0a2","#fdae6b","#fd8d3c","#f16913","#d94801","#a63603","#7f2704","#a50f15","#cb181d","#ef3b2c","#fb6a4a","#fc9272", # Clade C
+# "#fcbba1",  "#74c476","#41ab5d", # Clade D
+#   "yellow", # Clade F
+#   "purple")) # Clade G
 
-# Number of samples - FAVIA MATTHAI
-sum(sample_data(phy97.f.c.coral)$Coral_Species=="Favia_matthai")
-# Number of tagged colonies - FAVIA MATTHAI
-unique(sample_data(phy97.f.c.faviam)$CoralTag)
-#  FAVIA MATTHAI
-plot_bar(phy97.f.c.faviam.p,fill="hit")
+# # Number of samples - FAVIA MATTHAI
+# sum(sample_data(phy97.f.c.coral)$Coral_Species=="Favia_matthai")
+# # Number of tagged colonies - FAVIA MATTHAI
+# unique(sample_data(phy97.f.c.faviam)$CoralTag)
+# #  FAVIA MATTHAI
+# p3 <- plot_bar(phy97.f.c.faviam.p,fill="hit", title="Favia matthai")
+
+# Write new figure to pdf
+jpeg(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Combined_Barplot.jpg",height=9, width=14,units = "in", res=300)
+# Plot Platygyra and Favites pentagona with a shared legend
+grid_arrange_shared_legend(p1, p2, ncol = 1, nrow = 2)
+dev.off()
+
+jpeg(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Combined_Barplot_byclade.jpg",height=9, width=14,units="in",res=300)
+p4 <- plot_bar(phy97.f.c.platy.p,fill="clade",title = "Platygyra")
+p5 <- plot_bar(phy97.f.c.fpenta.p,fill="clade",title="Favites pentagona")
+grid_arrange_shared_legend(p4, p5, ncol = 1, nrow = 2)
+dev.off()
+
 ```
+
+Barplot by *Symbiodinium* Clade - Platygyra and Favites pentagona
+![Combined barplot by clade](../figures/OTUSummary/Combined_Barplot_byclade.jpg)
+
+
+Barplot by *Symbiodinium* Hit - Platygyra and Favites pentagona
+![Combined barplot by Hit](../figures/OTUSummary/Combined_Barplot.jpg)
+
+
 
 # Symbiont alpha-diversity - Grouped by Sites (and SampleType)  
 
@@ -161,24 +236,21 @@ for (i in unique(data.frame(sample_data(phy97.f.c.fpenta))$Site)){
 
 ```
 
-# Plot OTU and clade diversity by site
+# OTU and Clade Diversity by Site
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 df2 <- data.frame(site3=site3.coral.ntaxa,site5=site5.coral.ntaxa,site8=site8.coral.ntaxa,site14=site14.coral.ntaxa,site15=site15.coral.ntaxa,site19=site19.coral.ntaxa,site25=site25.coral.ntaxa,site27=site27.coral.ntaxa,site30=site30.coral.ntaxa,site32=site32.coral.ntaxa,site34=site34.coral.ntaxa,site35=site35.coral.ntaxa,site37=site37.coral.ntaxa,site38=site38.coral.ntaxa,site40=site40.coral.ntaxa)
 df2[2,] <- c(site3.coral.nclades,site5.coral.nclades,site8.coral.nclades,site14.coral.nclades,site15.coral.nclades,site19.coral.nclades,site25.coral.nclades,site27.coral.nclades,site30.coral.nclades,site32.coral.nclades,site34.coral.nclades,site35.coral.nclades,site37.coral.nclades,site38.coral.nclades,site40.coral.nclades)
 df2[3,] <- c(2,5,3,3,6,6,2,1,1,1,3,3,5,2,1)
 df2[4,] <- c(site3.coral.hits,site5.coral.hits,site8.coral.hits,site14.coral.hits,site15.coral.hits,site19.coral.hits,site25.coral.hits,site27.coral.hits,site30.coral.hits,site32.coral.hits,site34.coral.hits,site35.coral.hits,site37.coral.hits,site38.coral.hits,site40.coral.hits)
-rownames(df2) <- c("Number of OTUs","Number of Clades", "Dist", "Number of Subclades")
+rownames(df2) <- c("OTUs","Clades", "Dist", "Subclades")
 df2 <- t(df2)
 df2 <- df2[order(df2[,3]),]
 df2
 
-mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
-  
-palette(mycols)
 
 par(xpd=TRUE,mar=c(3,3,3,11))
-barplot(df2[,c(1,4,2)], names.arg=c("Number of OTUs","Number of Subclades","Number of Clades"), beside=TRUE, col=df2[,3],ylim = c(0,max(df2)),main="Corals by Site")
-legend(50,90, inset=c(0.05,-0.05), legend=rownames(df2), fill=df2[,3],cex=0.55)
+barplot(df2[,c(1,4,2)], names.arg=c("OTUs","Subclades","Clades"), beside=TRUE, col=df2[,3],ylim = c(0,max(df2)),main="Symbiodinium Alpha Diversity - All Corals by Site")
+legend("topright", inset=c(0.05,-0.05), legend=rownames(df2), fill=df2[,3],cex=0.55)
 
 
 ## Now for platy only
@@ -186,36 +258,28 @@ df2platy <- data.frame(site3=site3.platy.ntaxa,site5=site5.platy.ntaxa,site8=sit
 df2platy[2,] <- c(site3.platy.nclades,site5.platy.nclades,site8.platy.nclades,site14.platy.nclades,site15.platy.nclades,site25.platy.nclades,site27.platy.nclades,site30.platy.nclades,site32.platy.nclades,site34.platy.nclades,site35.platy.nclades,site37.platy.nclades,site38.platy.nclades,site40.platy.nclades)
 df2platy[3,] <- c(2,5,3,3,6,2,1,1,1,3,3,5,2,1)
 df2platy[4,] <- c(site3.platy.hits,site5.platy.hits,site8.platy.hits,site14.platy.hits,site15.platy.hits,site25.platy.hits,site27.platy.hits,site30.platy.hits,site32.platy.hits,site34.platy.hits,site35.platy.hits,site37.platy.hits,site38.platy.hits,site40.platy.hits)
-rownames(df2platy) <- c("Number of OTUs","Number of Clades", "Dist", "Number of Subclades")
+rownames(df2platy) <- c("OTUs","Clades", "Dist", "Subclades")
 df2platy <- t(df2platy)
 df2platy <- df2platy[order(df2platy[,3]),]
 df2platy
 
-mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
-  
-palette(mycols)
-
 par(xpd=TRUE,mar=c(3,3,3,11))
-barplot(df2platy[,c(1,4,2)], names.arg=c("Number of OTUs","Number of Subclades","Number of Clades"), beside=TRUE, col=df2platy[,3],ylim = c(0,max(df2)),main="platys by Site")
-legend(50,15, inset=c(0.05,-0.05), legend=rownames(df2platy), fill=df2platy[,3],cex=0.55)
+barplot(df2platy[,c(1,4,2)], names.arg=c("OTUs","Subclades","Clades"), beside=TRUE, col=df2platy[,3],ylim = c(0,max(df2)),main="Symbiodinium Alpha Diversity - Platygyra by Site")
+legend("topright", inset=c(0.05,-0.05), legend=rownames(df2platy), fill=df2platy[,3],cex=0.55)
 
 ## Now for fpenta only
 df2fpenta <- data.frame(site3=site3.fpenta.ntaxa,site5=site5.fpenta.ntaxa,site8=site8.fpenta.ntaxa,site14=site14.fpenta.ntaxa,site15=site15.fpenta.ntaxa,site19=site19.fpenta.ntaxa,site25=site25.fpenta.ntaxa,site27=site27.fpenta.ntaxa,site30=site30.fpenta.ntaxa,site32=site32.fpenta.ntaxa,site34=site34.fpenta.ntaxa,site35=site35.fpenta.ntaxa,site37=site37.fpenta.ntaxa,site38=site38.fpenta.ntaxa,site40=site40.fpenta.ntaxa)
 df2fpenta[2,] <- c(site3.fpenta.nclades,site5.fpenta.nclades,site8.fpenta.nclades,site14.fpenta.nclades,site15.fpenta.nclades,site19.fpenta.nclades,site25.fpenta.nclades,site27.fpenta.nclades,site30.fpenta.nclades,site32.fpenta.nclades,site34.fpenta.nclades,site35.fpenta.nclades,site37.fpenta.nclades,site38.fpenta.nclades,site40.fpenta.nclades)
 df2fpenta[3,] <- c(2,5,3,3,6,6,2,1,1,1,3,3,5,2,1)
 df2fpenta[4,] <- c(site3.fpenta.hits,site5.fpenta.hits,site8.fpenta.hits,site14.fpenta.hits,site15.fpenta.hits,site19.fpenta.hits,site25.fpenta.hits,site27.fpenta.hits,site30.fpenta.hits,site32.fpenta.hits,site34.fpenta.hits,site35.fpenta.hits,site37.fpenta.hits,site38.fpenta.hits,site40.fpenta.hits)
-rownames(df2fpenta) <- c("Number of OTUs","Number of Clades", "Dist", "Number of Subclades")
+rownames(df2fpenta) <- c("OTUs","Clades", "Dist", "Subclades")
 df2fpenta <- t(df2fpenta)
 df2fpenta <- df2fpenta[order(df2fpenta[,3]),]
 df2fpenta
 
-mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
-  
-palette(mycols)
-
 par(xpd=TRUE,mar=c(3,3,3,11))
-barplot(df2fpenta[,c(1,4,2)], names.arg=c("Number of OTUs","Number of Subclades","Number of Clades"), beside=TRUE, col=df2fpenta[,3],ylim = c(0,max(df2)),main="fpentas by Site")
-legend(50,30, inset=c(0.05,-0.05), legend=rownames(df2fpenta), fill=df2fpenta[,3],cex=0.55)
+barplot(df2fpenta[,c(1,4,2)], names.arg=c("OTUs","Subclades","Clades"), beside=TRUE, col=df2fpenta[,3],ylim = c(0,max(df2)),main="Symbiodinium Alpha Diversity - F. pentagona by Site")
+legend("topright", inset=c(0.05,-0.05), legend=rownames(df2fpenta), fill=df2fpenta[,3],cex=0.55)
 
 ```
 
@@ -272,20 +336,19 @@ for (i in unique(data.frame(sample_data(phy97.f.c.fpenta))$Dist)){
 
 ```
 
-# Plot OTU and clade diversity by Disturbance level
+# OTU and Clade Diversity by Disturbance Level
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
+mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#2b83ba")
+palette(mycols)
+
 df2dist <- data.frame(VeryHigh=VeryHigh.coral.ntaxa, High=High.coral.ntaxa, HighMed=HighMed.coral.ntaxa, Low=Low.coral.ntaxa, VeryLow=VeryLow.coral.ntaxa)
 df2dist[2,] <- c(VeryHigh.coral.hits,High.coral.hits,HighMed.coral.hits,Low.coral.hits,VeryLow.coral.hits)
 df2dist[3,] <- c(VeryHigh.coral.nclades,High.coral.nclades,HighMed.coral.nclades,Low.coral.nclades,VeryLow.coral.nclades)
-rownames(df2dist) <- c("Number of OTUs","Number of Clades", "Number of Subclades")
+rownames(df2dist) <- c("OTUs","Clades", "Subclades")
 df2dist <- t(df2dist)
 
-mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
-  
-palette(mycols)
-
 par(xpd=TRUE,mar=c(3,3,3,3))
-barplot(df2dist[,c(1:3)], names.arg=c("Number of OTUs","Number of Subclades","Number of Clades"), beside=TRUE, col=mycols, ylim = c(0,max(df2dist)), main="Corals by Disturbance")
+barplot(df2dist[,c(1:3)], names.arg=c("OTUs","Subclades","Clades"), beside=TRUE, col=mycols, ylim = c(0,max(df2dist)), main="Symbiodinium Alpha Diversity - All Corals by Disturbance")
 legend("topright", inset=c(0.05,-0.05), legend=rownames(df2dist), fill=mycols,cex=0.55)
 
 
@@ -293,30 +356,22 @@ legend("topright", inset=c(0.05,-0.05), legend=rownames(df2dist), fill=mycols,ce
 df2dist.platy <- data.frame(VeryHigh=VeryHigh.platy.ntaxa, High=High.platy.ntaxa, HighMed=HighMed.platy.ntaxa, Low=Low.platy.ntaxa, VeryLow=VeryLow.platy.ntaxa)
 df2dist.platy[2,] <- c(VeryHigh.platy.hits,High.platy.hits,HighMed.platy.hits,Low.platy.hits,VeryLow.platy.hits)
 df2dist.platy[3,] <- c(VeryHigh.platy.nclades,High.platy.nclades,HighMed.platy.nclades,Low.platy.nclades,VeryLow.platy.nclades)
-rownames(df2dist.platy) <- c("Number of OTUs","Number of Clades", "Number of Subclades")
+rownames(df2dist.platy) <- c("OTUs","Clades", "Subclades")
 df2dist.platy <- t(df2dist.platy)
 
-mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
-  
-palette(mycols)
-
 par(xpd=TRUE,mar=c(3,3,3,3))
-barplot(df2dist.platy[,c(1:3)], names.arg=c("Number of OTUs","Number of Subclades","Number of Clades"), beside=TRUE, col=mycols, ylim = c(0,max(df2dist)), main="Platys by Disturbance")
+barplot(df2dist.platy[,c(1:3)], names.arg=c("OTUs","Subclades","Clades"), beside=TRUE, col=mycols, ylim = c(0,max(df2dist)), main="Symbiodinium Alpha Diversity - Platygyra by Disturbance")
 legend("topright", inset=c(0.05,-0.05), legend=rownames(df2dist.platy), fill=mycols,cex=0.55)
 
 ## Now for fpenta only
 df2dist.fpenta <- data.frame(VeryHigh=VeryHigh.fpenta.ntaxa, High=High.fpenta.ntaxa, HighMed=HighMed.fpenta.ntaxa, Low=Low.fpenta.ntaxa, VeryLow=VeryLow.fpenta.ntaxa)
 df2dist.fpenta[2,] <- c(VeryHigh.fpenta.hits,High.fpenta.hits,HighMed.fpenta.hits,Low.fpenta.hits,VeryLow.fpenta.hits)
 df2dist.fpenta[3,] <- c(VeryHigh.fpenta.nclades,High.fpenta.nclades,HighMed.fpenta.nclades,Low.fpenta.nclades,VeryLow.fpenta.nclades)
-rownames(df2dist.fpenta) <- c("Number of OTUs","Number of Clades", "Number of Subclades")
+rownames(df2dist.fpenta) <- c("OTUs","Clades", "Subclades")
 df2dist.fpenta <- t(df2dist.fpenta)
 
-mycols <- c("#d7191c", "#fdae61", "#ffffbf", "#abdda4", "#abdda4", "#2b83ba")
-  
-palette(mycols)
-
 par(xpd=TRUE,mar=c(3,3,3,3))
-barplot(df2dist.fpenta[,c(1:3)], names.arg=c("Number of OTUs","Number of Subclades","Number of Clades"), beside=TRUE, col=mycols, ylim = c(0,max(df2dist)), main="fpentas by Disturbance")
+barplot(df2dist.fpenta[,c(1:3)], names.arg=c("OTUs","Subclades","Clades"), beside=TRUE, col=mycols, ylim = c(0,max(df2dist)), main="Symbiodinium Alpha Diversity - F. pentagona by Disturbance")
 legend("topright", inset=c(0.05,-0.05), legend=rownames(df2dist.fpenta), fill=mycols,cex=0.55)
 
 ```
@@ -363,31 +418,23 @@ s2016March.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97
 s2016March.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.2016March))[9])$clade))
 ```
 
-# Plot OTU and clade diversity by site
+# OTU and Clade Diversity by Field Season
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
-# Make a data frame for plotting OTU and clade diversity by site
+mycols <- c("lightblue2", "lightblue2", "lightblue2", "orange", "red")
+palette(mycols)
+# Make a data frame for plotting OTU and clade diversity by Field Season
 df3 <- data.frame(s2014=s2014.ntaxa,s2015Jan=s2015Jan.ntaxa,s2015May=s2015May.ntaxa,s2015July=s2015July.ntaxa,s2016March=s2016March.ntaxa)
 df3[2,] <- c(s2014=s2014.nclades,s2015Jan=s2015Jan.nclades,s2015May=s2015May.nclades,s2015July=s2015July.nclades,s2016March=s2016March.nclades)
-rownames(df3) <- c("Number of OTUs","Number of Clades")
+rownames(df3) <- c("OTUs","Clades")
 df3 <- t(df3)
 # Print the data frame
 df3
 
-# Set colors for the plot
-mycols <- c("#2b83ba", "#abdda4", "#ffffbf", "#fdae61", "#d7191c")
-palette(mycols)
-
 # Make the plot in the RMD document
 par(xpd=TRUE)
-barplot(df3, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=mycols,ylim = c(0,max(df3)))
+barplot(df3, names.arg=c("OTUs","Clades"), beside=TRUE, col=mycols,ylim = c(0,max(df3)), main="Symbiodinium Alpha Diversity - by Field Season")
 legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
 
-# Make the pdf of the plot
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Diversity_by_FieldSeason.pdf", width=10, height=7)
-par(xpd=TRUE)
-barplot(df3, names.arg=c("Number of OTUs","Number of Clades"), beside=TRUE, col=mycols,ylim = c(0,max(df3)))
-legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
-dev.off()
 ```
 
 
@@ -554,9 +601,10 @@ plot(phy97.f.c.coral.AbundPrev[,1:2],xlab="Log OTU Abundance",ylab="OTU Prevalen
 
 # Rank Abundance Curves - all timepoints
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
-# All corals
-par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
+par(mar=c(12,5,1,1),xaxs="i",yaxs="i",mfrow=c(1,3))
 N=15
+
+# All corals
 rac.temp <- data.frame(sort(taxa_sums(phy97.f.c.coral)))
 rac.temp$otu<-rownames(rac.temp)
 colnames(rac.temp)[1] <- "Abundance"
@@ -566,8 +614,6 @@ rac <- rac[order(-rac$Abundance),]
 barplot(rac$Abundance[1:N], las=2, names.arg=rac$hit[1:N],space=0,col=rac$clade,main="All Corals")
 
 # Platygyra
-par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
-N=20
 rac.platy.temp <- data.frame(sort(taxa_sums(phy97.f.c.platy)))
 rac.platy.temp$otu<-rownames(rac.platy.temp)
 colnames(rac.platy.temp)[1] <- "Abundance"
@@ -577,8 +623,6 @@ rac.platy <- rac.platy[order(-rac.platy$Abundance),]
 barplot(rac.platy$Abundance[1:N], las=2, names.arg=rac.platy$hit[1:N],space=0,col=rac.platy$clade,main="Platygyra")
 
 # FPenta
-par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
-N=20
 rac.fpenta.temp <- data.frame(sort(taxa_sums(phy97.f.c.fpenta)))
 rac.fpenta.temp$otu<-rownames(rac.fpenta.temp)
 colnames(rac.fpenta.temp)[1] <- "Abundance"
@@ -586,14 +630,14 @@ rac.fpenta <- merge(rac.fpenta.temp, data.frame(tax_table(phy97.f.c.fpenta)), by
 rac.fpenta <- rac.fpenta[order(-rac.fpenta$Abundance),]
 
 barplot(rac.fpenta$Abundance[1:N], las=2, names.arg=rac.fpenta$hit[1:N],space=0,col=rac.fpenta$clade,main="Favites pentagona")
-
 ```
 
 # Rank Abundance Curves - before and after (alive/dead corals only)
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
-# All corals: before
-par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
+par(mar=c(12,5,1,1),xaxs="i",yaxs="i",mfrow=c(1,3))
 N=15
+
+# All corals: before
 rac.before.temp <- data.frame(sort(taxa_sums(phy97.f.c.coral.AD.before)))
 rac.before.temp$otu<-rownames(rac.before.temp)
 colnames(rac.before.temp)[1] <- "Abundance"
@@ -602,20 +646,7 @@ rac.before <- rac.before[order(-rac.before$Abundance),]
 
 barplot(rac.before$Abundance[1:N], las=2, names.arg=rac.before$hit[1:N],space=0,col=rac.before$clade,main="All Corals: before")
 
-# All corals: during/after
-par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
-N=15
-rac.da.temp <- data.frame(sort(taxa_sums(phy97.f.c.coral.AD.da)))
-rac.da.temp$otu<-rownames(rac.da.temp)
-colnames(rac.da.temp)[1] <- "Abundance"
-rac.da <- merge(rac.da.temp, data.frame(tax_table(phy97.f.c.coral.AD.da)), by="otu")
-rac.da <- rac.da[order(-rac.da$Abundance),]
-
-barplot(rac.da$Abundance[1:N], las=2, names.arg=rac.da$hit[1:N],space=0,col=rac.da$clade,main="All Corals: During/After")
-
 # Platygyra: before
-par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
-N=20
 rac.before.platy.temp <- data.frame(sort(taxa_sums(phy97.f.c.platy.AD.before)))
 rac.before.platy.temp$otu<-rownames(rac.before.platy.temp)
 colnames(rac.before.platy.temp)[1] <- "Abundance"
@@ -624,21 +655,7 @@ rac.before.platy <- rac.before.platy[order(-rac.before.platy$Abundance),]
 
 barplot(rac.before.platy$Abundance[1:N], las=2, names.arg=rac.before.platy$hit[1:N],space=0,col=rac.before.platy$clade,main="Platygyra: before")
 
-# Platygyra: during/after
-par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
-N=20
-rac.da.platy.temp <- data.frame(sort(taxa_sums(phy97.f.c.platy.AD.da)))
-rac.da.platy.temp$otu<-rownames(rac.da.platy.temp)
-colnames(rac.da.platy.temp)[1] <- "Abundance"
-rac.da.platy <- merge(rac.da.platy.temp, data.frame(tax_table(phy97.f.c.platy.AD.da)), by="otu")
-rac.da.platy <- rac.da.platy[order(-rac.da.platy$Abundance),]
-
-barplot(rac.da.platy$Abundance[1:N], las=2, names.arg=rac.da.platy$hit[1:N],space=0,col=rac.da.platy$clade,main="Platygyra: during/after")
-
-
 # FPenta: before
-par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
-N=20
 rac.before.fpenta.temp <- data.frame(sort(taxa_sums(phy97.f.c.fpenta.AD.before)))
 rac.before.fpenta.temp$otu<-rownames(rac.before.fpenta.temp)
 colnames(rac.before.fpenta.temp)[1] <- "Abundance"
@@ -647,9 +664,25 @@ rac.before.fpenta <- rac.before.fpenta[order(-rac.before.fpenta$Abundance),]
 
 barplot(rac.before.fpenta$Abundance[1:N], las=2, names.arg=rac.before.fpenta$hit[1:N],space=0,col=rac.before.fpenta$clade,main="Favites pentagona: before")
 
+# All corals: during/after
+rac.da.temp <- data.frame(sort(taxa_sums(phy97.f.c.coral.AD.da)))
+rac.da.temp$otu<-rownames(rac.da.temp)
+colnames(rac.da.temp)[1] <- "Abundance"
+rac.da <- merge(rac.da.temp, data.frame(tax_table(phy97.f.c.coral.AD.da)), by="otu")
+rac.da <- rac.da[order(-rac.da$Abundance),]
+
+barplot(rac.da$Abundance[1:N], las=2, names.arg=rac.da$hit[1:N],space=0,col=rac.da$clade,main="All Corals: During/After")
+
+# Platygyra: during/after
+rac.da.platy.temp <- data.frame(sort(taxa_sums(phy97.f.c.platy.AD.da)))
+rac.da.platy.temp$otu<-rownames(rac.da.platy.temp)
+colnames(rac.da.platy.temp)[1] <- "Abundance"
+rac.da.platy <- merge(rac.da.platy.temp, data.frame(tax_table(phy97.f.c.platy.AD.da)), by="otu")
+rac.da.platy <- rac.da.platy[order(-rac.da.platy$Abundance),]
+
+barplot(rac.da.platy$Abundance[1:N], las=2, names.arg=rac.da.platy$hit[1:N],space=0,col=rac.da.platy$clade,main="Platygyra: during/after")
+
 # FPenta: during/after
-par(mar=c(12,5,1,1),xaxs="i",yaxs="i")
-N=20
 rac.da.fpenta.temp <- data.frame(sort(taxa_sums(phy97.f.c.fpenta.AD.da)))
 rac.da.fpenta.temp$otu<-rownames(rac.da.fpenta.temp)
 colnames(rac.da.fpenta.temp)[1] <- "Abundance"
@@ -657,7 +690,6 @@ rac.da.fpenta <- merge(rac.da.fpenta.temp, data.frame(tax_table(phy97.f.c.fpenta
 rac.da.fpenta <- rac.da.fpenta[order(-rac.da.fpenta$Abundance),]
 
 barplot(rac.da.fpenta$Abundance[1:N], las=2, names.arg=rac.da.fpenta$hit[1:N],space=0,col=rac.da.fpenta$clade,main="Favites pentagona: during/after")
-
 
 ```
 
