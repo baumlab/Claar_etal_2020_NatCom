@@ -72,6 +72,38 @@ For example:
 
 4. What is known / expected about local protection's influence on symbiont community? influence on survival through heat stress?
 
+Danielle's Notes:  
+  
+1.	*Coral symbiosis is the foundation of coral reef ecosystems* (van Oppen & Gates 2006, Muller-Parker 2015).  
+  
+2.	*The coral holobiont responds to environmental conditions, and is the unit that interacts with the broader reef community* (Gates and Ainsworth 2011)  
+  
+3.	*There is much genetic, functional, and response diversity within Symbiodinium*  
+Although Symbiodinium is a single genus, it contains diversity similar to diversity found within other dinoflagellate orders (Rowan and Powers 1992), and is divided into nine clades and hundreds of types (Rodrigues-Lanetty et al 2011, van Oppen et al 2005, Franklin et al 2012, Lesser et al 2013, Tonk et al 2013). There is much debate about species classifications within Symbiodinium, which has hampered species naming within Symbiodinium (Stat et al 2012, Smith 2017 but see LaJeunesse 2001). Symbiodinium types have distinct geographic distributions, host associations, and environmental optima (Fabina et al 2012). Furthermore, total and relative abundance of Symbiodinium can vary among coral colonies, across environmental gradients, and over time (Fitt 2000), with increased Symbiodinium abundance leading to increased environmental sensitivity and bleaching risk (Cunning and Baker 2013). There are functional differences between Symbiodinium clades (Stat et al 2008), and Symbiodinium associations can range from mutualistic to neutral to parasitic based on Symbiodinium type as well as environmental conditions (Lesser et al 2013). Next-generation sequencing has revealed cryptic genetic diversity within symbiotic Symbiodinium (Kenkel et al 2013, Nelson et al 2014, Quigley et al 2014), and has allowed for long-term genetic and ecological comparisons of symbiont community structure (Edmunds et al 2014).  
+  
+4.	*Corals exhibit varying levels of symbiotic flexibility, but this flexibility comes with functional tradeoffs.*  
+Corals that host flexible symbioses (generalists) may be more sensitive to environmental perturbations than those with intimate symbioses (specialists) (Putnam et al 2012). A history of thermal stress increased the prevalence of clade D Symbiodinium in a generalist coral species, but did not instigate similar changes in two specialist coral species (Stat et al 2013). Although the prevalence of clade D Symbiodinium increases during thermal stress and may increase thermal tolerance (Berkelmans and van Oppen 2006), corals that house clade D symbionts may have slower growth rates (Little et al 2004) or lower energy storage (Jones and Berkelmans 2011).  
+  
+5.	*The current paradigm of coral bleaching and recovery states that the stress must cease for coral to regain their symbiosis*  
+Coral bleaching is the loss of obligate symbionts (Symbiodinium) from the coral tissue (Gates et al 1992, Douglas 2003). Thermal stress is the primary cause for coral bleaching, and can cause not only the breakdown of coral symbioses, but also cause coral mortality (Hoegh-Guldberg 1999, Abrego et al 2012, Stat et al 2013, Baker 2013). Thermal stress can be exacerbated by other environmental stressors (Cooper et al 2011, Béraud et al 2013, Maina et al 2008), and in turn, exacerbates ocean acidification (Gibbin et al 2015). The current paradigm of coral bleaching and resilience is that as environmental stress  (such as warming) increases, corals begin to bleach. Extreme or long-lasting warming causes a complete breakdown of the coral symbioses, leading to expulsion of all (or nearly all) Symbiodinium from the coral host tissue. During bleaching, there is a window for recovery, that is, a certain amount of time during which the warming must cease and conditions must return to normal so that the coral can regain its symbionts. If the window for recovery passes without amelioration of the environmental conditions, the coral will starve and die. (Cunning et al 2016, Putnam et al 2017).  
+  
+6.	*The adaptive bleaching hypothesis provides a testable hypothesis for bleaching causes and consequences, but hasn't found extensive support*  
+The adaptive bleaching hypothesis suggests that corals bleach in order to expel environmentally sub-optimal symbionts, followed by switching (picking up new symbionts from the environment) or shuffling (an internal change in dominant symbiont type or overall symbiont community structure) (Buddemeier and Fautin 1993, Baker 2001, Baker 2003, Buddemeier et al 2004).  
+  
+7.	*The "transient microbiome" assembled by environmental anomalies can undergo rapid changes (Putnam et al 2017), providing symbiotic stochasticity which may build or weaken a coral's capacity for resilience.*  
+The "transient microbiome" assembled by environmental anomalies can undergo rapid changes (Putnam et al 2017), providing symbiotic stochasticity which may build or weaken a coral's capacity for resilience. While corals can change symbiotic partners during a bleaching event, there is often a quick return to pre-bleaching Symbiodinium communities after recovery (Thornhill 2005, LaJeunesse et al 2010), and persistence of stress-related changes to Symbiodinium community structure may require sustained environmental pressure (Baird et al 2007). However, shifts in Symbiodinium community diversity may have a larger influence on coral resilience than the evolution of symbiont thermal tolerance (Baskett et al 2010). Corals commonly host background Symbiodinium types in low levels (Correa et al 2009), but sub-dominant Symbiodinium communities are often unstable (Coffroth et al 2010).  
+  
+8.	*Global coral bleaching is increasing, and the 2014-2017 event caused a catastrophic loss of corals around the globe.*  
+There was up to 95% mortality in some regions during the 1997/1998 El Niño event (Glynn 1993). The 2014-2017 global coral bleaching event caused coral bleaching across the world's oceans (Eakin 2016, Normile 2016), with up to 75% bleaching on some reefs in hawaii, and at least some level of bleaching across 93% of the Great Barrier Reef (Minton et al 2015, GBRMPA 2016). Despite these staggering losses, some corals have the capacity to be resilient to these increasingly frequent mass-bleaching events (Hughes et al 2017).   
+  
+9.	*Our results suggest that some Kiritimati coral species may experience evolutionary rescue*   
+Our results suggest that some Kiritimati coral species may experience evolutionary rescue, defined as adaptation at a rate that allows an endangered population to survive the rate of environmental change (Orr & Unkless  2014, Carlson 2014).   
+  
+10.	*There is evidence for local adaptation in corals* (Howells et al 2012, Logan et al 2013, Dixon et al 2015).  
+  
+11.	*Thick-tissue corals may be less susceptible to coral bleaching and mortality due to their tissue biomass and associated energy reserves.*  
+Thick-tissue corals (such as Platygyra) may be less susceptible to coral bleaching and mortality due to their tissue biomass and associated energy reserves (Loya et al 2001). Furthermore, self-shading can protect "understory" Symbiodinium, those which reside deeper in the coral's tissue and consequently experiences less light stress, which can provide a symbiont reserve for repopulation and recovery (Kemp et al 2014).  
+  
 
 
 *Main text draft*
