@@ -51,14 +51,13 @@ citep("Article")
 
 *Here's what I see as the main discoveries:* 
 
-1. Despite unprecedented heat stress, we show that some corals exhibited resilience and survived. Survival through such an extreme heat even provides an exceptional opportunity to study/to understand HOW some corals are able to do so. i.e. how some corals can withstand intense heat stress and how corals in general might survive long-term warming.
-"Remarkably, we find that some coral colonies were able to survive this prolonged heat stress by regaining their symbionts while temperatures were still elevated"
+1. Despite unprecedented heat stress, we show that some corals exhibited resilience and survived. Survival through such an extreme heat event provides an exceptional opportunity to understand how some corals can withstand intense heat stress, and how corals in general might survive long-term warming. Remarkably, we find that some coral colonies were able to survive this prolonged heat stress by regaining their symbionts while temperatures were still elevated.
 
-2. Lack of preferential symbiont expulsion
+2. After two months of heat stress, fully-bleached corals retained approximately the same *Symbiodinium* community as they had before the bleaching event. This suggests that a wholesale breakdown of symbiosis occurred in bleached corals during this event, indicating a lack of preferential symbiont expulsion or exodus.
 
-3. Symbionts present in even very low abundances can play a critical role in coral recovery;
+3. Symbionts present in even very low abundances can play a critical role in coral survival and recovery. Some coral colonies recovered symbiosis with *Symbiodinium* types that were present in only a negligible amount before the bleaching event.
 
-4. Local protection important i.e. corals living in sites with distinct levels of local disturbance had distinct symbiont communities that corresponded tightly to survivorship. 
+4. Local protection is critical for coral symbiosis and survival. Corals living at different levels of local human disturbance had distinct symbiont communities that corresponded tightly to survivorship. 
 
 *Danielle to write out here a section of bullet points on - 'What is expected to happen to corals during heat stress?' (this can include bullets on prevailing viewpoints, bullets on observations from previous heat stress events or from this heat stress event in other locations (e.g. Hughes - GBR), along with the relevant citations).*
 
