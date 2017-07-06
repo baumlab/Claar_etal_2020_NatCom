@@ -137,32 +137,39 @@ Although massive bleaching events like this one will likely continue to cause ca
 
 ## Field Information
 
-Kiritimati Atoll, Kiribati is located in the Central Equatorial Pacific (1.9N 157W), at the center of the El Ni?o 3.4 region (used to quantify El Ni?o presence and strength). During the 2015/2016 El Ni?o event, Kiritimati experienced 10 months of sustained temperature stress, causing a mass bleaching and mortality event (@BauminPrep). 
+Kiritimati Atoll (Christmas Island), Kiribati is located in the Central Equatorial Pacific (1.9N 157W), at the center of the El Niño 3.4 region (a region which is used to quantify El Niño presence and strength). During the 2015/2016 El Niño event, Kiritimati experienced 10 months of sustained temperature stress, causing a mass bleaching and mortality event (@BauminPrep). 
 
 Temperature loggers (Sea-Bird 56) were deployed around the island at 10-12m depth from 2011-2016 to measure *in situ* thermal stress.
 
 ##Coral Tagging and sampling  
-In August/September 2014 seven taxa of coral were tagged along a 60m transect at 10-12m depth at 10 different sites around the atoll.  At each site, 12 colonies of each focal species (*Porites lobata*, *Montipora aequituberculata*, and *Pocillopora eyedouxi*) were tagged and a total of 18 colonies of a varying assortment of *Platygyra*, *Favities*, *Favia*, and *Hydnophora microconos* were tagged. A photo of each coral with a ruler beside it was taken for colony measurments and characterists (i.e. bleaching) to be analyzed in the lab. The tissue samples were stored in a cooler on the boat and at night they were rinsed with fresh water and alliquoted into centrifuge tubes with Guanidinium, then stored at 4 (I havent looked to see how to put in a degree symbol yet) C.  The tagged coral colonies were resampled once more before the El Ni?o (January/February 2015), twice during (May/April 2015 and July 2015), and once near the end (March 2016). Due to either storm waves breaking and moving coral or the tags dissapearing some of the corals were unable to be located and new corals were tagged to replenish numbers **I(KT) dont like this sentence - still working on how to word it*.
+In August/September 2014 seven taxa of coral were tagged along a 60m transect at 10-12m depth at 10 different sites around the atoll.  A photo of each coral with a ruler beside it was taken for colony measurments and characteristics (i.e. bleaching). The tagged coral colonies were resampled twice more before (January/February 2015, April/May 2015), once during (July 2015), and once near the end (March 2016) of the El Niño warming. Due to either storm waves breaking and moving coral or the tags dissapearing some of the corals were unable to be located and new corals were tagged to replenish numbers
 
+Coral tissue samples were preserved in Guanidinium buffer (50% w/v
+guanidinium isothiocyanate; 50 mM Tris pH 7.6; 10 µM EDTA; 4.2% w/v sarkosyl; 2.1%
+v/v ??-mercaptoethanol) and stored at the Hawaii Institute of Marine Biology.
 
 ## Pre-processing and sequencing
-DNA extraction was performed as in Stat et al. (2009) with a few modifications. The DNA pellet was washed with 70% ethanol three times, and after the final wash was removed, the remaining ethanol was allowed to evaporate off before the DNA pellet was resuspended in Tris buffer (0.1M pH8).
+DNA extraction was performed using a guanidinium-based extraction protocol (Stat et al 2009, Cunning et al 2015, Cunning et al 2017) with the modification that the DNA pellet was washed with 70% ethanol three times rather than once.
+
 Cleanup by Amy here
-Library Prep
+Library Prep- Amy's method of library prep, include Illumina Sequencing information (barcodes, etc) for sequencing of ITS2 amplicons ('itsD' and 'its2rev2' primers from Stat
+et al., 2009) 
+Illumina MiSeq platform with 2×300 paired-end read chemistry.
 sequencing exact information
 
 
 ITS2 region - it's annoying, but it's the best we've got right now
-PCR and Cleanup - Amy's method of PCR and cleanup
-Library Prep - Amy's method of library prep, include Illumina Sequencing information (barcodes, etc)
+
 
 ## Bioinformatics
-Sequence QC - boku, then merge with illumina utils, max mismatch=3
-Sequence clustering - denovo clustering using UCLUST in QIIME, then compare to reference database to assign taxonomy
+We conducted quality filtering of raw reads (in .fastq format) first using (Bokulich et al. 2013) implemented in Illumina-Utils (Eren et al 2013), followed by paired-end sequence merging via iu-merge-pairs (also in Illumina-Utils, Eren et al 2013), with a maximum mismatch of three bases between the forward and reverse reads. (*Q30Check? overlap >150bp?)* After quality filtering, sequence processing and identification was performed following all specifications of Cunning et al 2017; primers were trimmed, sequences from each sample were clustered independently using UCLUST (Edgar 2010) implemented in QIIME (Caporaso et al 2010) and resulting OTUs were collapsed at 100% identity across samples, sequences were aligned using the Needleman-Wunsch global alignment algorithm (Biostrings package, Pagès et al., 2016) in R (R Core Team, 2014), and sequences were named using a reference database. 
+
+The Phyloseq package (McMurdie and Holmes, 2013) in R was used to store and analyze OTU tables, taxonomic information, and sample metadata. The phyloseq object was filtered to remove OTUs observed <10 times, which removed more than half of observed otus (n=83 OTUs removed and n=81 kept, including n=10 doubletons). The phyloseq object was further filtered to remove samples with very low sequence abundance (<200 sequences, n=27 samples removed and n=262 kept).
+
+In 262 coral samples, we found XXXX sequencces after quality filtering. *clade abundances here*
 
 
 ## Statistical Analysis 
-Alpha diversity of sequence reads, co-occurence?, beta diversity?
 Code will be avaible on git hub
 
 # References
