@@ -1,5 +1,3 @@
-# Platy analysis - Phyloseq Cleanup
-
 # Import Libraries
 library(stringr)
 library(reshape2)
@@ -16,27 +14,31 @@ rm(list=ls())
 # Loading the full sequence database - from the first two MiSeq Runs
 load("C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/otus_97_bysample/KI_seqs_f.RData")
 
+phy.f.coral.now <- subset_samples(phy.f,Coral_Species=="Platygyra_sp"|Coral_Species=="Favites_pentagona", prune=TRUE)
+taxa <- taxa_sums(phy.f.coral.now)[which(taxa_sums(phy.f.coral.now) > 0)]
+# Remove taxa below threshold count
+phy.f.coral.now <- prune_taxa(names(taxa), phy.f.coral.now)
+
 # Filter OTUs by minimum count
 # Set threshold count
 n <- 10
 # Identify OTUs below threshold count
-taxa <- taxa_sums(phy.f)[which(taxa_sums(phy.f) >= n)]
+taxa <- taxa_sums(phy.f.coral.now)[which(taxa_sums(phy.f.coral.now) >= n)]
 # Remove taxa below threshold count
-phy.f <- prune_taxa(names(taxa), phy.f)
+phy.f.coral.now <- prune_taxa(names(taxa), phy.f.coral.now)
 
 # Filter samples by minimum count
 # Set threshold number of reads
 sn <- 200
 # Remove samples with fewer reads than threshold
-phy.f <- prune_samples(sample_sums(phy.f)>=sn, phy.f)
+phy.f.coral.now <- prune_samples(sample_sums(phy.f.coral.now)>=sn, phy.f.coral.now)
+
 
 # Filter OTUs by minimum count again in case any dropped below threshold after filtering samples
 # Identify OTUs below threshold count
-taxa <- taxa_sums(phy.f)[which(taxa_sums(phy.f) >= n)]
+taxa <- taxa_sums(phy.f.coral.now)[which(taxa_sums(phy.f.coral.now) >= n)]
 # Remove taxa below threshold count
-phy.f <- prune_taxa(names(taxa), phy.f)
-
-phy97.f <- phy.f # Rename phyloseq object for clarity
+phy97.f <- prune_taxa(names(taxa), phy.f.coral.now)
 
 # Characterize sites by disturbance level
 VeryHigh <- c(33,40,32,31,27,30,26)
@@ -50,9 +52,9 @@ sample_data(phy97.f)$Site <- factor(sample_data(phy97.f)$Site)
 sample_data(phy97.f)$Dist <- sample_data(phy97.f)$Site
 
 for (i in VeryHigh){
-    if(i %in% unique(as.character(data.frame(sample_data(phy97.f))$Site)))
+  if(i %in% unique(as.character(data.frame(sample_data(phy97.f))$Site)))
     (sample_data(phy97.f)$Dist<- gsub (paste("\\<",as.character(i),"\\>",sep=""),as.character("VeryHigh"), as.character(data.frame(sample_data(phy97.f))$Dist), as.character("VeryHigh")))
-  }
+}
 
 for (i in High){
   if(i %in% unique(as.character(data.frame(sample_data(phy97.f))$Site)))
@@ -84,32 +86,6 @@ levels(sample_data(phy97.f)$Dist) <- c("VeryHigh","High","HighMed","Low","VeryLo
 # Assign new name for clarity
 phy97.f.c <- phy97.f
 
-# Create a loop to merge OTUs with identical hits
-# Note that this is computationally slow and probably could be made much more efficient.
-# I have removed this for now
-
-# for (i in data.frame(tax_table(phy97.f.c))$hit){
-#   i <- grep(i, data.frame(tax_table(phy97.f.c))$hit)
-#   phy97.f.c <- merge_taxa(phy97.f.c, eqtaxa=i, archetype=1)
-#   tt <- data.frame(tax_table(phy97.f.c), stringsAsFactors = F)
-#   isna <- rownames(tt)[is.na(tt$hit)]
-#   info <- data.frame(tax_table(phy97.f), stringsAsFactors = F)[isna, "hit"]
-#   tt[isna,"hit"] <- info
-#   tax_table(phy97.f.c) <- as.matrix(tt)
-#   rm(i)
-# }
-# 
-# rm(info,isna,tt)
-
-# Manually checking whether all equivalent taxa are collapsed
-# t <- sort(data.frame(tax_table(phy97.f.c))$hit)
-# t
-# 
-# # Check if all equivalent taxa are collapsed
-# x <- length(unique(data.frame(tax_table(phy97.f.c))$hit))
-# y <- length(data.frame(tax_table(phy97.f.c))$hit)
-# identical(x,y)
-
 # Make a tax_table column for "clade"
 # Rename rank_names (aka column names in phy97.f.c)
 colnames(tax_table(phy97.f.c)) <- c(otu = "otu", sim = "sim", del = "del", ins = "ins", mis = "mis", len = "len", score = "score", hit = "hit", i = "clade")
@@ -126,32 +102,32 @@ tax_table(phy97.f.c)[,9] <- gsub("^G.*", "G", tax_table(phy97.f.c)[,9])
 tax_table(phy97.f.c)[,9] <- gsub("^I.*", "I", tax_table(phy97.f.c)[,9])
 
 # Write tax table for phylogenetically-informed diversity
-write.table(data.frame(tax_table(phy97.f.c)), "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/allseqs/tax_table.txt", row.names=T, quote=F)
+write.table(data.frame(tax_table(phy97.f.c)), "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/tax_table.txt", row.names=T, quote=F)
 # Write otu table for phylogenetically-informed diversity
-write.delim(data.frame(otu_table(phy97.f.c)), "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/allseqs/otu_table.tsv", quote = FALSE, row.names = T, sep = "\t")
+write.delim(data.frame(otu_table(phy97.f.c)), "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otu_table.tsv", quote = FALSE, row.names = T, sep = "\t")
 
 #https://rdrr.io/rforge/seqinr/man/dist.alignment.html
 #returns sqrt of pairwise genetic distance, then squared the matrices
-A.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/A_tree_seqs_aligned_clean.fasta", format= "fasta")
+A.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/A_tree_seqs_aligned_clean.fasta", format= "fasta")
 
 A.dis <- (as.matrix(dist.alignment(A.seqs, matrix = "identity" )))^2
-write.csv(A.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/A.dis.matx.csv")
+write.csv(A.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/A.dis.matx.csv")
 
-C.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/C_tree_seqs_aligned_clean.fasta", format= "fasta")
+C.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/C_tree_seqs_aligned_clean.fasta", format= "fasta")
 C.dis <- (as.matrix(dist.alignment(C.seqs, matrix = "identity" )))^2
-write.csv(C.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/C.dis.matx.csv")
+write.csv(C.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/C.dis.matx.csv")
 
-D.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/D_tree_seqs_aligned_clean.fasta", format= "fasta")
+D.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/D_tree_seqs_aligned_clean.fasta", format= "fasta")
 D.dis <- (as.matrix(dist.alignment(D.seqs, matrix = "identity" )))^2
-write.csv(D.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/D.dis.matx.csv")
+write.csv(D.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/D.dis.matx.csv")
 
-F.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/F_tree_seqs_aligned_clean.fasta", format= "fasta")
+F.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/F_tree_seqs_aligned_clean.fasta", format= "fasta")
 F.dis <- (as.matrix(dist.alignment(F.seqs, matrix = "identity" )))^2
-write.csv(F.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/F.dis.matx.csv")
+write.csv(F.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/F.dis.matx.csv")
 
-G.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/G_tree_seqs_aligned_clean.fasta", format= "fasta")
+G.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/G_tree_seqs_aligned_clean.fasta", format= "fasta")
 G.dis <- (as.matrix(dist.alignment(G.seqs, matrix = "identity" )))^2
-write.csv(G.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/G.dis.matx.csv")
+write.csv(G.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/G.dis.matx.csv")
 
 #give clade distances using average 28s distance from Pochon and Gates 2010
 A_C <- matrix(0.1960, ncol=ncol(A.dis), nrow=nrow(C.dis), dimnames=list(rownames(C.dis), colnames(A.dis)))
@@ -181,7 +157,7 @@ uber.tree <- phangorn::upgma(ubermatrix)
 plot(uber.tree, main="UPGMA")
 
 #write tree to file
-write.tree(uber.tree, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/uber.tre")
+write.tree(uber.tree, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/uber.tre")
 
 #use tree and OTU table for calculating beta_diversity.py
 #http://qiime.org/scripts/beta_diversity.html
@@ -204,39 +180,8 @@ phy97.f.c.platy.AD <- subset_samples(phy97.f.c.platy,Status=="alive"|Status=="de
 phy97.f.c.fpenta <- subset_samples(phy97.f.c,Coral_Species=="Favites_pentagona")
 phy97.f.c.fpenta <- subset_taxa(phy97.f.c.fpenta, taxa_sums(phy97.f.c.fpenta) > 0, prune=TRUE)
 phy97.f.c.fpenta.AD <- subset_samples(phy97.f.c.fpenta,Status=="alive"|Status=="dead")
-phy97.f.c.favhal <- subset_samples(phy97.f.c,Coral_Species=="Favites_halicora")
-phy97.f.c.favhal <- subset_taxa(phy97.f.c.favhal, taxa_sums(phy97.f.c.favhal) > 0, prune=TRUE)
-phy97.f.c.favhal.AD <- subset_samples(phy97.f.c.favhal,Status=="alive"|Status=="dead")
-phy97.f.c.favsp <- subset_samples(phy97.f.c,Coral_Species=="Favites_sp")
-phy97.f.c.favsp <- subset_taxa(phy97.f.c.favsp, taxa_sums(phy97.f.c.favsp) > 0, prune=TRUE)
-phy97.f.c.favsp.AD <- subset_samples(phy97.f.c.favsp,Status=="alive"|Status=="dead")
 
-phy97.f.c.faviasp <- subset_samples(phy97.f.c,Coral_Species=="Favia_sp")
-phy97.f.c.faviasp.AD <- subset_samples(phy97.f.c.faviasp,Status=="alive"|Status=="dead")
-phy97.f.c.faviam <- subset_samples(phy97.f.c,Coral_Species=="Favia_matthai")
-phy97.f.c.faviam.AD <- subset_samples(phy97.f.c.faviam,Status=="alive"|Status=="dead")
-phy97.f.c.faviaall <- merge_phyloseq(phy97.f.c.faviasp,phy97.f.c.faviam)
-phy97.f.c.faviaall <- subset_taxa(phy97.f.c.faviaall, taxa_sums(phy97.f.c.faviaall) > 0, prune=TRUE)
-phy97.f.c.faviaall.AD <- subset_samples(phy97.f.c.faviaall,Status=="alive"|Status=="dead")
-
-phy97.f.c.hydno <- subset_samples(phy97.f.c,Coral_Species=="Hydnophora_microconos")
-phy97.f.c.hydno <- subset_taxa(phy97.f.c.hydno, taxa_sums(phy97.f.c.hydno) > 0, prune=TRUE)
-phy97.f.c.hydno.AD <- subset_samples(phy97.f.c.hydno,Status=="alive"|Status=="dead")
-
-phy97.f.c.mfol <- subset_samples(phy97.f.c,Coral_Species=="Montipora_foliosa")
-phy97.f.c.mfol <- subset_taxa(phy97.f.c.mfol, taxa_sums(phy97.f.c.mfol) > 0, prune=TRUE)
-phy97.f.c.mfol.AD <- subset_samples(phy97.f.c.mfol,Status=="alive"|Status=="dead")
-
-phy97.f.c.peydo <- subset_samples(phy97.f.c,Coral_Species=="Pocillopora_eydouxi")
-phy97.f.c.peydo <- subset_taxa(phy97.f.c.peydo, taxa_sums(phy97.f.c.peydo) > 0, prune=TRUE)
-phy97.f.c.peydo.AD <- subset_samples(phy97.f.c.peydo,Status=="alive"|Status=="dead")
-
-phy97.f.c.plob <- subset_samples(phy97.f.c,Coral_Species=="Porites_lobata")
-phy97.f.c.plob <- subset_taxa(phy97.f.c.plob, taxa_sums(phy97.f.c.plob) > 0, prune=TRUE)
-phy97.f.c.plob.AD <- subset_samples(phy97.f.c.plob,Status=="alive"|Status=="dead")
-
-
-
+# Note, this is now the same as phy97.f.c - renaming and subsetting was completed before when water and sediment samples were included
 phy97.f.c.coral <- subset_samples(phy97.f.c,SampleType=="coral")
 phy97.f.c.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
 
@@ -247,17 +192,6 @@ phy97.f.c.coral.AD <- subset_samples(phy97.f.c.coral,Status=="alive"|Status=="de
 phy97.f.c.platy.p <- transform_sample_counts(phy97.f.c.platy, function(x) x/sum(x))
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.fpenta.p <- transform_sample_counts(phy97.f.c.fpenta, function(x) x/sum(x))
-# Transform sample counts to proportional abundance for downstream analyses
-phy97.f.c.faviasp.p <- transform_sample_counts(phy97.f.c.faviasp, function(x) x/sum(x))
-# Transform sample counts to proportional abundance for downstream analyses
-phy97.f.c.faviam.p <- transform_sample_counts(phy97.f.c.faviam, function(x) x/sum(x))
-# Transform sample counts to proportional abundance for downstream analyses
-phy97.f.c.faviaall.p <- transform_sample_counts(phy97.f.c.faviaall, function(x) x/sum(x))
-# Transform sample counts to proportional abundance for downstream analyses
-phy97.f.c.coral.p <- transform_sample_counts(phy97.f.c.coral, function(x) x/sum(x))
-
-# Log transform coral
-phy97.f.c.coral.log <- transform_sample_counts(phy97.f.c.coral, function(x) (log10(x+1)))
 
 # Subset coral by site
 for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
@@ -339,13 +273,6 @@ phy97.f.c.coral.2016March <- subset_samples(phy97.f.c.coral,Year=="2016March")
 phy97.f.c.coral.2016March <- subset_taxa(phy97.f.c.coral.2016March, taxa_sums(phy97.f.c.coral) > 0, prune=TRUE)
 phy97.f.c.coral.2016March.AD <- subset_samples(phy97.f.c.coral.2016March,Status=="alive"|Status=="dead")
 
-# Subset to only keep coral species we are using in this manuscript
-phy97.f.c.coral.now <- subset_samples(phy97.f.c.coral,Coral_Species=="Platygyra_sp"|Coral_Species=="Favites_pentagona", prune=TRUE)
-# Subset samples to only keep those which are confirmed alive or dead
-phy97.f.c.coral.now.AD <- subset_samples(phy97.f.c.coral.now,Status=="alive"|Status=="dead", prune=TRUE)
-# Subset samples to only keep samples taken before the event (==2014 to May 2015)
-phy97.f.c.coral.now.AD.before <- subset_samples(phy97.f.c.coral.now.AD,Year!="2016March", prune=TRUE)
-phy97.f.c.coral.now.AD.before <- subset_samples(phy97.f.c.coral.now.AD.before,Year!="2015July", prune=TRUE)
 # Subset coral samples to only keep samples taken before the event (==2014 to May 2015)
 phy97.f.c.coral.AD.before <- subset_samples(phy97.f.c.coral.AD,Year!="2016March", prune=TRUE)
 phy97.f.c.coral.AD.before <- subset_samples(phy97.f.c.coral.AD.before,Year!="2015July", prune=TRUE)
@@ -362,21 +289,7 @@ phy97.f.c.platy.AD.da <- subset_samples(phy97.f.c.platy.AD,Year=="2016March"|Yea
 # Subset FPenta samples to only keep samples taken during/after the event (== July 2015 - 2016)
 phy97.f.c.fpenta.AD.da <- subset_samples(phy97.f.c.fpenta.AD,Year=="2016March"|Year=="2015July", prune=TRUE)
 
-
-principal.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.p) > 0.01, prune=TRUE)
-background.coral <- subset_taxa(phy97.f.c.coral, taxa_sums(phy97.f.c.coral.p) < 0.01, prune=TRUE)
-
-phy97.f.c.coral.otu.logical <- sign(data.frame(otu_table(phy97.f.c.coral)))
-phy97.f.c.coral.otu.samples <- rowSums(phy97.f.c.coral.otu.logical)
-phy97.f.c.coral.num.samples <- ncol(phy97.f.c.coral.otu.logical)
-phy97.f.c.coral.otu.samples.p <- as.matrix(phy97.f.c.coral.otu.samples)/phy97.f.c.coral.num.samples*100
-
-coral.core <- phy97.f.c.coral.otu.samples.p[which(phy97.f.c.coral.otu.samples.p>75),]
-coral.common <- phy97.f.c.coral.otu.samples.p[which(phy97.f.c.coral.otu.samples.p>25 & phy97.f.c.coral.otu.samples.p<75),]
-coral.rare <- phy97.f.c.coral.otu.samples.p[which(phy97.f.c.coral.otu.samples.p<25),]
-
 rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,phy97.f,Low,LowMed,High,HighMed)
 
-
 # Save grouped data as RData file
-save(list = ls(all.names = TRUE), file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/allseqs/KI_seqs_f_coral_grouped_allsamples.RData")
+save(list = ls(all.names = TRUE), file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/KI_seqs_f_coral_grouped.RData")
