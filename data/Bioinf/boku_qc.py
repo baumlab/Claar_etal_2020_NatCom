@@ -10,5 +10,5 @@ for file in os.listdir("."): # For each file listed in the current directory
 		file = open("boku_qc_KI_Platy.sh", "a") # open boku_qc_KI_Platy.sh, "a" means it will be appending to the file, not overwriting what's already there
 		file.write(s+f+"\n") # write to the file s (Illumina-utils command) plus f (the file that you are currently looking at) plus \n an end of line character.
 
-os.system("chmod u+x boku_qc_KI_Platy.sh") # Give permissions so .sh file will run
-os.system("./boku_qc_KI_Platy.sh") # Run .sh file that was just created 
+#os.system("chmod u+x boku_qc_KI_Platy.sh") # Give permissions so .sh file will run
+#os.system("./boku_qc_KI_Platy.sh") # Run .sh file that was just created 

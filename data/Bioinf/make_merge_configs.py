@@ -19,15 +19,14 @@ for root, dirs, files in os.walk("."): # Use os.walk to walk through all files a
 					else: # ... otherwise ...
 						name2 = name2+"_"+v[x] # ... name2 equals name2 plus v[x]
 				name2 = name2+".fastq" # Once you're done iterating through each string in array v, then add .fastq to the end of name2
+				#print(name2)
 				filename="" # Initialize filename
 				f=t[1].split('/') # Split the first string in array t on '/' to index individual chunks of string t[1]
+				# print(f)
 				g=f[len(f)-1].split('_') # Split the last string in array f on '_' to index individual chunks of the last string in array f
+				# print(g)
 				filename=g[2]+"_"+g[3]+"_"+g[4]+"_"+g[5] # Reconstruct filename using strings in array g
+				# print(filename)
 				file = open(filename+"_merge_config", "w") # Initialize new file based on filename created above concatenated with _config. "w" means write a new file, Note: will clobber files with the same name!
 				file.write("[general]\nproject_name = KI_Platy_"+filename+"\nresearcher_email = dclaar@uvic.ca\ninput_directory = "+path+"/"+root[2:]+"\noutput_directory = "+path+"/"+root[2:]+"\n\n[files]\npair_1= "+path+"/"+root[2:]+"/"+name+"\npair_2= "+path+"/"+name2[2:]) # Write the Illumina-utils config file ready for boku_qc
 				file.close() # Close the file that was opened above.
-		#print(os.path.join(root,name))
-		#print(v[m-2])
-		#print(name2)
-		#print(v)
-		#print(filename)

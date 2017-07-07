@@ -1,0 +1,8 @@
+mkdir -p ~/virtual-envs/ # Create a folder for virtual environments
+virtualenv -p /usr/bin/python3.5 ~/virtual-envs/illumina-utils-v2.0.0 # Create a virtual environment for illumina-utils
+source ~/virtual-envs/illumina-utils-v2.0.0/bin/activate # Use this after setup to start this environment
+python --version # Check that this is python-3.5
+sudo apt-get install build-essential # If you don't have it already (necessary to install illumina-utils)
+sudo apt-get install python3.5-dev # If you don't have it already (necessary to install illumina-utils)
+pip install illumina utils # Actually install illumina-utils
+# deactivate # use this to exit the illumina-utils-v2.0.0 environment.
