@@ -1,6 +1,7 @@
 #!/bin/bash
 
 find . -type f -exec gunzip {} + # Unzip these files
+
 # They are going to get really big! And this may take quite some time!
 
 python make_configs.py # Make the Illumina-utils config files for the Bokulich QC method
@@ -21,6 +22,8 @@ chmod u+x iu-merge-pairs_KI_Platy.sh # Give permissions so .sh file will run
 # find . -maxdepth 1 -name # To check how far along the merging is (because it takes a long time to do hundreds of samples)
 
 python iu_filter_merged_reads.py # Filter merged reads (MAX-MISMATCH=3) using Illumina-utils
+chmod u+x iu-filter-merged-reads_KI_Platy.sh # Give permissions so .sh file will run
+./iu-filter-merged-reads_KI_Platy.sh # Run .sh file that was just created 
 
 python rename.py # Rename merged files for downstream processing
 
