@@ -55,6 +55,9 @@ data/otus_97_bysample/nosingles_otus.txt
 # Ignore raw data files
 data/Bioinf/sequences/KI*
 
+# Ignore merged fasta files
+data/Bioinf/sequences/merged/KI*
+
 # Ignore config files
 *config
 
