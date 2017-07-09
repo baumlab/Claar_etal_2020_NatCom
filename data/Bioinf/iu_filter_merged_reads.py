@@ -11,5 +11,4 @@ for root, dirs, files in os.walk("."): # Use os.walk to walk through all files a
 			file = open("iu-filter-merged-reads_KI_Platy.sh", "a") # open iu-filter-merged-reads_KI_Platy.sh, "a" means it will be appending to the file, not overwriting what's already there
 			file.write(s+path+"/"+root+"/"+name+"\n") # write to the file s (Illumina-utils command) plus f (the file that you are currently looking at) plus \n an end of line character.
 
-os.system("chmod u+x iu-filter-merged-reads_KI_Platy.sh") # Give permissions so .sh file will run
-os.system("./iu-filter-merged-reads_KI_Platy.sh") # Run .sh file that was just created 
+
