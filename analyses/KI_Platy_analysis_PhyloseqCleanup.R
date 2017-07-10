@@ -26,7 +26,7 @@ phy.f <- prune_taxa(names(taxa), phy.f)
 
 # Filter samples by minimum count
 # Set threshold number of reads
-sn <- 300
+sn <- 200
 # Remove samples with fewer reads than threshold
 phy.f <- prune_samples(sample_sums(phy.f)>=sn, phy.f)
 
@@ -126,32 +126,32 @@ tax_table(phy97.f.c)[,9] <- gsub("^G.*", "G", tax_table(phy97.f.c)[,9])
 tax_table(phy97.f.c)[,9] <- gsub("^I.*", "I", tax_table(phy97.f.c)[,9])
 
 # Write tax table for phylogenetically-informed diversity
-write.table(data.frame(tax_table(phy97.f.c)), "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/tax_table.txt", row.names=T, quote=F)
+write.table(data.frame(tax_table(phy97.f.c)), "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/allseqs/tax_table.txt", row.names=T, quote=F)
 # Write otu table for phylogenetically-informed diversity
-write.delim(data.frame(otu_table(phy97.f.c)), "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otu_table.tsv", quote = FALSE, row.names = T, sep = "\t")
+write.delim(data.frame(otu_table(phy97.f.c)), "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/allseqs/otu_table.tsv", quote = FALSE, row.names = T, sep = "\t")
 
 #https://rdrr.io/rforge/seqinr/man/dist.alignment.html
 #returns sqrt of pairwise genetic distance, then squared the matrices
-A.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/A_tree_seqs_aligned_clean.fasta", format= "fasta")
+A.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/A_tree_seqs_aligned_clean.fasta", format= "fasta")
 
 A.dis <- (as.matrix(dist.alignment(A.seqs, matrix = "identity" )))^2
-write.csv(A.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/A.dis.matx.csv")
+write.csv(A.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/A.dis.matx.csv")
 
-C.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/C_tree_seqs_aligned_clean.fasta", format= "fasta")
+C.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/C_tree_seqs_aligned_clean.fasta", format= "fasta")
 C.dis <- (as.matrix(dist.alignment(C.seqs, matrix = "identity" )))^2
-write.csv(C.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/C.dis.matx.csv")
+write.csv(C.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/C.dis.matx.csv")
 
-D.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/D_tree_seqs_aligned_clean.fasta", format= "fasta")
+D.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/D_tree_seqs_aligned_clean.fasta", format= "fasta")
 D.dis <- (as.matrix(dist.alignment(D.seqs, matrix = "identity" )))^2
-write.csv(D.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/D.dis.matx.csv")
+write.csv(D.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/D.dis.matx.csv")
 
-F.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/F_tree_seqs_aligned_clean.fasta", format= "fasta")
+F.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/F_tree_seqs_aligned_clean.fasta", format= "fasta")
 F.dis <- (as.matrix(dist.alignment(F.seqs, matrix = "identity" )))^2
-write.csv(F.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/F.dis.matx.csv")
+write.csv(F.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/F.dis.matx.csv")
 
-G.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/G_tree_seqs_aligned_clean.fasta", format= "fasta")
+G.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/G_tree_seqs_aligned_clean.fasta", format= "fasta")
 G.dis <- (as.matrix(dist.alignment(G.seqs, matrix = "identity" )))^2
-write.csv(G.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/G.dis.matx.csv")
+write.csv(G.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/G.dis.matx.csv")
 
 #give clade distances using average 28s distance from Pochon and Gates 2010
 A_C <- matrix(0.1960, ncol=ncol(A.dis), nrow=nrow(C.dis), dimnames=list(rownames(C.dis), colnames(A.dis)))
@@ -181,7 +181,7 @@ uber.tree <- phangorn::upgma(ubermatrix)
 plot(uber.tree, main="UPGMA")
 
 #write tree to file
-write.tree(uber.tree, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/uber.tre")
+write.tree(uber.tree, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/allseqs/uber.tre")
 
 #use tree and OTU table for calculating beta_diversity.py
 #http://qiime.org/scripts/beta_diversity.html
@@ -379,4 +379,4 @@ rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,phy97.f,Low,LowMed,High,HighMed)
 
 
 # Save grouped data as RData file
-save(list = ls(all.names = TRUE), file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/KI_seqs_f_coral_grouped.RData")
+save(list = ls(all.names = TRUE), file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/allseqs/KI_seqs_f_coral_grouped_allsamples.RData")

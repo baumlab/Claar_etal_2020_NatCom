@@ -53,7 +53,13 @@ data/otus_97_bysample/merged_otu_map.txt
 data/otus_97_bysample/nosingles_otus.txt
 
 # Ignore raw data files
-data/fastq/*
+data/Bioinf/sequences/KI*
+
+# Ignore merged fasta files
+data/Bioinf/sequences/merged/KI*
+
+# Ignore config files
+*config
 
 *.swp
 
