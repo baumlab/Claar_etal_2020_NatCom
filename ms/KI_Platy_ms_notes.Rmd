@@ -69,3 +69,11 @@ FYI - probably don't include these points:
 Thick-tissue corals (such as Platygyra) may be less susceptible to coral bleaching and mortality due to their tissue biomass and associated energy reserves (Loya et al 2001). Furthermore, self-shading can protect "understory" *Symbiodinium*, those which reside deeper in the coral's tissue and consequently experiences less light stress, which can provide a symbiont reserve for repopulation and recovery (Kemp et al 2014).  
   
 13. *Coral host gene regulation can influence *Symbiodinium* stress levels* Parkinson et al 2015 In a bleaching study with genetically different coral colonies and genetically similar *Symbiodinium*, symbionts that partnered with 'adaptive hosts', or those which altered the regulation of more genes during bleaching, were less stressed (Parkinson et al 2015). Indeed, coral transcription is correlated with the presence of different *Symbiodinium* genotypes (DeSalvo et al 2010), but it is unclear whether it is the host transcription or the *Symbiodinium* community that is the driver in this correlation.
+
+
+
+Although *Symbiodinium* is currently classified as a single genus, it contains diversity similar to diversity found within other dinoflagellate orders [@Rowan1992-lg], and is divided into nine clades and hundreds of types [@Van2005-di; @Franklin2012-sz; @Tonk2013-pf]. There is much debate about species classifications within *Symbiodinium*, which has hampered species naming within *Symbiodinium* [@Stat2012-gw; but see @LaJeunesse2001-hf) although *Symbiodinium* types are generally considered putative species 
+
+Furthermore, total and relative abundance of *Symbiodinium* can vary among coral colonies, across environmental gradients, and over time [@Fitt2000-ex], with increased *Symbiodinium* abundance leading to increased environmental sensitivity and bleaching risk [@Cunning2012-um].
+
+Corals exhibit varying levels of symbiotic flexibility, but this flexibility comes with functional tradeoffs. Corals that host flexible symbioses (generalists) may be more sensitive to environmental perturbations than those with intimate symbioses (specialists) [@Putnam2012-om].
