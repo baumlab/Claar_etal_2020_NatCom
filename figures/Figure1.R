@@ -90,7 +90,7 @@ with(KI_heat, plot(KI_heat$time,KI_heat$dhw, type="l", xlab="", ylab="", ylim=c(
                        polyCurve(KI_heat$time, KI_heat$dhw, from = from, to = to, miny = 0,
                                  col = dhw.cc.rgb)
                        )))
-title(ylab="Degree Heating Weeks", line=1.2, cex.lab=1.2)
+title(ylab="Degree Heating Weeks (°C-weeks)", line=1.2, cex.lab=1.2)
 # mtext(4,text="Degree Heating Week",line=10,cex=0.5) # Label y axis
 axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0.05,lwd.ticks=2,labels=FALSE)
 axis.POSIXct(side=1,at=seq(KI_heat$time[1],KI_heat$time[240],by="month"),KI_heat$time,tck=0.03,cex.axis=0.93,labels=c("","","Oct","","","","","","Apr","","","Jul","","","Oct","","","","","","Apr","","","Jul","","","Oct",""),lwd.ticks=1.5,padj=-1.5)
