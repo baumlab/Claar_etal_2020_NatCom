@@ -77,3 +77,5 @@ Although *Symbiodinium* is currently classified as a single genus, it contains d
 Furthermore, total and relative abundance of *Symbiodinium* can vary among coral colonies, across environmental gradients, and over time [@Fitt2000-ex], with increased *Symbiodinium* abundance leading to increased environmental sensitivity and bleaching risk [@Cunning2012-um].
 
 Corals exhibit varying levels of symbiotic flexibility, but this flexibility comes with functional tradeoffs. Corals that host flexible symbioses (generalists) may be more sensitive to environmental perturbations than those with intimate symbioses (specialists) [@Putnam2012-om].
+
+While corals have been shown to change symbiotic partners during a bleaching event (Chen et al 2005, Jones et al 2008), there is often a quick return to pre-bleaching *Symbiodinium* communities after recovery (Thornhill 2005, LaJeunesse et al 2010), and persistence of stress-related changes to *Symbiodinium* community structure may require sustained environmental pressure (Baird et al 2007). 
