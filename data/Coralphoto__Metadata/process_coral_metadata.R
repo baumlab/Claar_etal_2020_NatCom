@@ -28,6 +28,7 @@ map.platy.forcat <- map.platy[,c(1,3:5,7:9,11)]
 metadata <- join_all(list(map.platy.forcat,meta.forcat),by='ref',match='all')
 names(metadata)
 rownames(metadata) <- metadata[,1]
+metadata<-subset(metadata,select=-c(SampleID))
 
 write.csv(metadata, file="/Users/Dani/Documents/Data_Analysis/KI_Platy/data/Coralphoto__Metadata/KI_Platy_metadata.csv")
 write.table(metadata, file="/Users/Dani/Documents/Data_Analysis/KI_Platy/data/Coralphoto__Metadata/KI_Platy_metadata.tsv", quote=FALSE, sep="\t", col.names = NA)
