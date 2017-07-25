@@ -29,3 +29,4 @@ metadata <- join_all(list(map.platy.forcat,meta.forcat),by='ref',match='all')
 names(metadata)
 
 write.csv(metadata, file="/Users/Dani/Documents/Data_Analysis/KI_Platy/data/Coralphoto__Metadata/KI_Platy_metadata.csv")
+write.table(metadata, file="/Users/Dani/Documents/Data_Analysis/KI_Platy/data/Coralphoto__Metadata/KI_Platy_metadata.tsv", quote=FALSE, sep="\t", col.names = TRUE)
