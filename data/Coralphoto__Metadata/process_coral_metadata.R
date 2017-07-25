@@ -3,7 +3,7 @@ meta$ref <- paste(meta$Year_Pre_Post,".tag.",meta$coral_tag, sep="")
 meta.forcat <- meta[,c(7,10:25,27)]
 
 map <- read.table("/Users/Dani/Documents/Data_Analysis/KI_Platy/data/mapping_file.txt",stringsAsFactors = FALSE)
-colnames(map) <- c("SampleID", "InputFileName", "coral_tag","SampleType", "Year", "TubeNumber", "Coral_Species","Site","Status","Year_Pre_Post")
+colnames(map) <- c("#SampleID", "InputFileName", "coral_tag","SampleType", "Year", "TubeNumber", "Coral_Species","Site","Status","Year_Pre_Post")
 
 fs2014 <- which(map$Year==2014)
 map$Year[fs2014] <- "KI2014"
@@ -29,4 +29,4 @@ metadata <- join_all(list(map.platy.forcat,meta.forcat),by='ref',match='all')
 names(metadata)
 
 write.csv(metadata, file="/Users/Dani/Documents/Data_Analysis/KI_Platy/data/Coralphoto__Metadata/KI_Platy_metadata.csv")
-write.table(metadata, file="/Users/Dani/Documents/Data_Analysis/KI_Platy/data/Coralphoto__Metadata/KI_Platy_metadata.tsv", quote=FALSE, sep="\t", col.names = TRUE)
+write.table(metadata, file="/Users/Dani/Documents/Data_Analysis/KI_Platy/data/Coralphoto__Metadata/KI_Platy_metadata.tsv", quote=FALSE, sep="\t", col.names = NA)
