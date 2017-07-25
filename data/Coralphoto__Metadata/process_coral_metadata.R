@@ -18,4 +18,14 @@ map$Year[fs2016a] <- "KI2016a"
 # map$ref <- paste(map$V5,"FSYM",map$V3,sep="")
 map.platy <- map
 
-write.csv(map.platy, file="/Users/Dani/Documents/Data_Analysis/KI_Platy/data/Coralphoto__Metadata/KI_Platy_metadata.csv")
+names(map.platy)[names(map.platy)=="Year"] <- "field_season"
+names(map.platy)[names(map.platy)=="Site"] <- "site"
+map.platy$ref <- paste(map.platy$Year_Pre_Post,".tag.",map.platy$coral_tag, sep="")
+duplicated(map.platy)
+map.platy.forcat <- map.platy[,c(1,3:5,7:9,11)]
+
+
+metadata <- join_all(list(map.platy.forcat,meta.forcat),by='ref',match='all')
+names(metadata)
+
+write.csv(metadata, file="/Users/Dani/Documents/Data_Analysis/KI_Platy/data/Coralphoto__Metadata/KI_Platy_metadata.csv")
