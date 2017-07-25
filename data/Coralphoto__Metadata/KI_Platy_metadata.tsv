@@ -1,293 +1,290 @@
-	#SampleID	coral_tag	SampleType	field_season	Coral_Species	site	Status	ref	Year_Pre_Post	colony_width1	colony_width2	colony_area	binary_tissue_loss	binary_disease	cyanobacteria_contact	binary_algal_contact	turf_contact	binary_macroalgae_contact	type_of_macroalgae	binary_CCA_contact	sediment_contact	binary_coral_contact	binary_bleaching	bleaching_proportion	notes_bleaching
-1	KI14FSYM004	4	coral	KI2014	Favites_pentagona	35	gone	2014.tag.4	2014	30.54	21.662	417.829	n	n	n	y	y	n	NONE	y	y	n	y	1	areas of the coral are paling, a few bleached spots, middle spots still dark (Favia)
-2	KI15aFSYM002	4	coral	KI2015a	Favites_pentagona	35	gone	2015Jan_Pre.tag.4	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-3	KI15aFSYM081	4	coral	KI2015a	Favites_pentagona	35	gone	2015Jan_Post.tag.4	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-4	KI15bFSYM002	4	coral	KI2015b	Favites_pentagona	35	gone	2015May.tag.4	2015May	39.676	28.848	721.407	n	n	n	n	n	n	NONE	y	y	y	y	1	a few small areas bleached 
-5	KI15cFSYM003	4	coral	KI2015c	Favites_pentagona	35	gone	2015July.tag.4	2015July	21.756	20.461	400.986	n	y	n	y	y	y	Peysson_red, Peysson_yellow	y	n	y	y	1	A few small patches
-6	KI14FSYM019	19	coral	KI2014	Platygyra_sp	38	UK	2014.tag.19	2014	18.055	15.778	206.726	n	n	n	y	y	n	NONE	n	y	n	y	2	a large portion of the coral is bleaching, some areas almost completely bleached, some areas just  the tops of ridges (Platygyra)
-7	KI14FSYM062	62	coral	KI2014	Platygyra_sp	8	alive	2014.tag.62	2014	20.296	19.056	295.796	n	n	n	y	y	n	NONE	y	n	y	y	1	there is a large patch where the tops of ridges are bleaching but not completely white (Platygyra) 
-8	KI15aFSYM116	62	coral	KI2015a	Platygyra_sp	8	alive	2015Jan_Post.tag.62	2015Jan_Post	20.762	18.507	301.936	n	n	n	y	y	n	NONE	n	y	y	n	NONE	
-9	KI15bFSYM167	62	coral	KI2015b	Platygyra_sp	8	alive	2015May.tag.62	2015May	26.558	24.144	469.616	n	n	n	y	y	n	NONE	y	y	y	y	1	bleaching around algal patch
-10	KI15cFSYM372	62	coral	KI2015c	Platygyra_sp	8	alive	2015July.tag.62	2015July	25.475	24.216	514.923	y	y	n	y	y	n	NONE	y	n	y	y	2	Large patches (harder to tell because of shadow)
-11	KI16aFSYM001	62	coral	KI2016a	Platygyra_sp	8	alive	2016March.tag.62	2016March	33.62	32.466	847.208	n	n	n	y	y	n	NONE	y	y	y	y	2	top of coral bleaching
-12	KI14FSYM099	99	coral	KI2014	Platygyra_sp	35	alive	2014.tag.99	2014	15.898	16.27	198.536	n	n	n	y	y	n	NONE	y	y	y	y	1	a few bleached spots on the top surface around algal spots 
-13	KI15aFSYM103	99	coral	KI2015a	Platygyra_sp	35	alive	2015Jan_Post.tag.99	2015Jan_Post	17.156	16.572	214.561	n	n	n	y	y	n	NONE	y	y	y	y	1	bleaching around algal patches; patches where ridges are starting to bleach 
-14	KI15bFSYM023	99	coral	KI2015b	Platygyra_sp	35	alive	2015May.tag.99	2015May	19.694	18.238	292.203	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-15	KI15cFSYM018	99	coral	KI2015c	Platygyra_sp	35	alive	2015July.tag.99	2015July	15.334	14.777	177.033	n	y	n	y	y	n	NONE	y	n	y	y	2	One large patch
-16	KI16aFSYM049	99	coral	KI2016a	Platygyra_sp	35	alive	2016March.tag.99	2016March	21.339	20.661	332.947	n	n	n	y	y	n	NONE	y	y	y	y	2	large areas bleached
-17	KI14FSYM148	148	coral	KI2014	Platygyra_sp	30	UK	2014.tag.148	2014	22.854	16.232	295.858	n	n	n	y	y	n	NONE	n	n	y	n	NONE	
-18	KI14FSYM157	157	coral	KI2014	Platygyra_sp	3	UK	2014.tag.157	2014	14.775	14.545	161.789	n	n	n	y	y	n	NONE	n	y	n	y	1	the top parts of some ridges are bleaching, small amounts of bleaching around algae patches on coral (Platygyra)
-19	KI15cFSYM161	157	coral	KI2015c	Platygyra_sp	3	UK	2015July.tag.157	2015July	18.832	17.49	278.21	n	n	n	y	y	n	NONE	y	n	y	y	3	Most of coral bleached but not very white
-20	KI14FSYM161	161	coral	KI2014	Platygyra_sp	3	UK	2014.tag.161	2014	17.433	16.82	217.694	n	n	n	y	y	n	NONE	y	y	n	y	1	large portion of coral is starting to pale, one almost white patch <5cm *double check bleaching
-21	KI15cFSYM159	161	coral	KI2015c	Platygyra_sp	3	UK	2015July.tag.161	2015July	21.292	18.43	302.198	n	y	y	y	y	n	NONE	y	n	y	y	3	Majority of the coral has some loss in colour
-22	KI14FSYM164	164	coral	KI2014	Platygyra_sp	3	UK	2014.tag.164	2014	28.558	24.345	520.248	n	n	n	y	y	y	Halimeda, Peysson_red	y	y	n	y	1	a few small patches where the ridges are bleaching (platygyra)
-23	KI14FSYM192	192	coral	KI2014	Favites_pentagona	38	dead	2014.tag.192	2014	54.585	42.036	1435.434	n	n	n	y	y	n	NONE	n	y	y	y	1	A few small bleached areas 
-24	KI15cFSYM200	192	coral	KI2015c	Favites_pentagona	38	dead	2015July.tag.192	2015July	39.947	33.126	841.945	n	n	n	y	y	n	NONE	y	y	y	y	3	entire coral is severely bleached, both outer and middle parts (Favia matthai) however entire coral is not completely white 
-25	KI14FSYM205	205	coral	KI2014	Favites_pentagona	38	alive	2014.tag.205	2014	23.372	22.122	318.553	n	n	n	y	y	n	NONE	y	y	y	y	1	a few bleached areas 
-26	KI15cFSYM209	205	coral	KI2015c	Favites_pentagona	38	alive	2015July.tag.205	2015July	24.932	22.317	321.291	n	n	n	y	y	n	NONE	y	y	y	y	2	entire coral is bleaching but not completely white, some areas are severely bleached   
-27	KI16aFSYM196	205	coral	KI2016a	Favites_pentagona	38	alive	2016March.tag.205	2016March	29.928	26.719	502.593	n	n	n	y	y	y	Peysson_red	y	y	y	y	2	~ half of area visible bleached
-28	KI14FSYM213	213	coral	KI2014	Favites_pentagona	38	UK	2014.tag.213	2014	26.807	12.778	263.936	n	n	n	y	y	n	NONE	y	n	n	y	1	a few small patches <5cm
-29	KI15cFSYM216	213	coral	KI2015c	Favites_pentagona	38	UK	2015July.tag.213	2015July	34.796	23.173	418.393	n	n	n	y	y	n	NONE	y	y	n	y	1	top surfaces  bleaching, rest of coral is lightly bleaching or not bleaching at all. 
-30	KI14FSYM223	223	coral	KI2014	Platygyra_sp	3	UK	2014.tag.223	2014	31.083	26.684	584.323	n	n	n	y	y	n	NONE	y	n	y	y	1	a few small bleached spots 
-31	KI15cFSYM171	223	coral	KI2015c	Platygyra_sp	3	UK	2015July.tag.223	2015July	29.02	28.088	594.321	n	n	n	y	y	n	NONE	y	y	y	y	1	coral is lighter in colour, a few small bleached spots 
-32	KI14FSYM231	231	coral	KI2014	Favites_pentagona	3	UK	2014.tag.231	2014	21.155	18.435	244.349	n	n	n	y	y	n	NONE	n	y	y	y	2	some larger areas bleached
-33	KI15cFSYM178	231	coral	KI2015c	Favites_pentagona	3	UK	2015July.tag.231	2015July	24.215	14.523	305.96	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-34	KI14FSYM234	234	coral	KI2014	Platygyra_sp	3	UK	2014.tag.234	2014	21.273	20.003	114.798	n	n	n	y	y	n	NONE	y	y	y	y	1	patchy bleaching on tops of ridges
-35	KI15cFSYM180	234	coral	KI2015c	Platygyra_sp	3	UK	2015July.tag.234	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-36	KI14FSYM242	242	coral	KI2014	Platygyra_sp	8	UK	2014.tag.242	2014	16.239	13.14	164.898	n	n	n	y	y	y	Halimeda	n	y	y	n	NONE	
-37	KI14FSYM245	245	coral	KI2014	Favites_pentagona	8	UK	2014.tag.245	2014	23.472	18.693	295.696	n	n	n	y	y	y	Caulerpa, Peysson_red	n	y	y	y	2	a few patches >5cm
-38	KI14FSYM248	248	coral	KI2014	Platygyra_sp	8	UK	2014.tag.248	2014	15.028	13.525	142.653	n	n	n	y	y	n	NONE	y	y	n	y	1	small area starting to bleach 
-39	KI14FSYM249	249	coral	KI2014	Favites_pentagona	8	UK	2014.tag.249	2014	14.228	12.228	114.908	n	n	n	y	y	n	NONE	y	y	n	y	1	a few small bleached spots 
-40	KI14FSYM253	253	coral	KI2014	Platygyra_sp	8	gone	2014.tag.253	2014	23.05	16.397	262.59	n	n	n	y	y	n	NONE	y	n	y	y	1	a few small spots
-41	KI15aFSYM113	253	coral	KI2015a	Platygyra_sp	8	gone	2015Jan_Post.tag.253	2015Jan_Post	27.21	20.28	109.027	n	n	n	y	y	n	NONE	y	y	y	y	1	small bleached patches on top of coral
-42	KI15bFSYM164	253	coral	KI2015b	Platygyra_sp	8	gone	2015May.tag.253	2015May	20.013	16.514	187.261	n	n	n	y	y	n	NONE	y	y	y	y	1	few small patches bleached
-43	KI15cFSYM365	253	coral	KI2015c	Platygyra_sp	8	gone	2015July.tag.253	2015July	27.708	21.005	374.508	y	y	n	y	y	n	NONE	y	n	y	y	1	Small very white spots
-44	KI14FSYM258	258	coral	KI2014	Platygyra_sp	27	UK	2014.tag.258	2014	12.72	10.597	112.834	n	n	n	y	y	n	NONE	n	y	y	y	2	large area on top of coral bleaching, > 5 cm
-45	KI14FSYM266	266	coral	KI2014	Platygyra_sp	27	UK	2014.tag.266	2014	9.953	7.647	62.733	n	n	n	y	y	n	NONE	n	y	n	y	3	much of coral bleached
-46	KI14FSYM271	271	coral	KI2014	Favites_pentagona	27	dead	2014.tag.271	2014	10.453	5.093	32.15	n	n	n	y	y	n	NONE	y	y	n	y	1	the tops of some of the ridges are bleaching (Platygyra)
-47	KI14FSYM271	271	coral	KI2014	Favites_pentagona	27	dead	2014.tag.271	2014	10.316	7.604	52	n	n	n	y	y	n	NONE	n	y	n	n	NONE	
-48	KI15aFSYM163	271	coral	KI2015a	Favites_pentagona	27	dead	2015Jan_Post.tag.271	2015Jan_Post	12.01	10.435	88.555	n	n	n	y	y	n	NONE	n	y	n	n	NONE	7.5cm scale was used 
-49	KI15bFSYM197	271	coral	KI2015b	Favites_pentagona	27	dead	2015May.tag.271	2015May	12.619	9.45	85.956	n	n	n	y	n	y	Halimeda	n	y	y	y	1	small spot on centre
-50	KI15cFSYM090	271	coral	KI2015c	Favites_pentagona	27	dead	2015July.tag.271	2015July	16.553	10.135	123.115	n	n	n	y	y	n	NONE	n	y	n	y	1	two main patches <5cm 
-51	KI14FSYM273	273	coral	KI2014	Favites_pentagona	14	gone	2014.tag.273	2014	29.898	18.999	377.746	n	n	n	y	y	n	NONE	y	y	y	n	NONE	no bleaching- lighter colours are within natural variation
-52	KI14FSYM278	278	coral	KI2014	Platygyra_sp	14	dead_or_gone	2014.tag.278	2014	29.689	24.829	441.862	n	n	n	y	y	n	NONE	y	y	y	y	1	a few small bleached areas 
-53	KI14FSYM285	285	coral	KI2014	Favites_pentagona	14	alive	2014.tag.285	2014	28.057	23.639	507.484	n	n	n	y	y	y	Halimeda, Peysson_red	y	y	y	n	NONE	
-54	KI16aFSYM107	285	coral	KI2016a	Favites_pentagona	14	alive	2016March.tag.285	2016March	31.682	30.395	371.012	n	n	n	y	y	n	NONE	y	y	n	n	NONE	
-55	KI14FSYM289	289	coral	KI2014	Platygyra_sp	14	alive	2014.tag.289	2014	15.527	14.673	148.141	n	n	n	y	y	n	NONE	n	y	y	y	1	left side starting to bleach
-56	KI16aFSYM108	289	coral	KI2016a	Platygyra_sp	14	alive	2016March.tag.289	2016March	16	14.863	157.824	n	n	n	y	y	n	NONE	y	y	n	y	1	small bleached patch to lower right 
-57	KI14FSYM298	298	coral	KI2014	Favites_pentagona	14	dead	2014.tag.298	2014	35.857	24.878	506.728	n	n	n	n	n	n	NONE	y	y	y	n	NONE	
-58	KI14FSYM299	299	coral	KI2014	Platygyra_sp	14	dead_or_gone	2014.tag.299	2014	14.866	11.638	144.122	n	n	n	y	y	n	NONE	y	y	y	y	2	bleaching patch > 5 cm
-59	KI14FSYM306	306	coral	KI2014	Platygyra_sp	14	dead_or_gone	2014.tag.306	2014	23.29	16.289	301.23	n	n	n	y	y	n	NONE	n	y	n	y	1	a few small patches where the tops of ridges are bleaching 
-60	KI14FSYM311	311	coral	KI2014	Platygyra_sp	34	alive	2014.tag.311	2014	43.45	34.454	1119.352	n	n	n	y	y	n	NONE	n	y	y	n	NONE	
-61	KI14FSYM328	328	coral	KI2014	Platygyra_sp	34	alive	2014.tag.328	2014	12.593	11.786	223.934	n	n	n	y	y	n	NONE	y	y	n	n	NONE	
-62	KI15bFSYM255	328	coral	KI2015b	Platygyra_sp	34	alive	2015May.tag.328	2015May	13.835	11.354	116.7	n	n	n	y	y	n	NONE	y	y	y	y	1	few small bleached spots
-63	KI15cFSYM488	328	coral	KI2015c	Platygyra_sp	34	alive	2015July.tag.328	2015July	17.347	16.209	208.612	n	n	n	y	y	n	NONE	n	y	n	y	3	entire coral is severeley bleached (completely white) except for the edges that contact the ground, which are normal colour
-64	KI16aFSYM116	328	coral	KI2016a	Platygyra_sp	34	alive	2016March.tag.328	2016March	14.025	12.206	76.608	n	n	n	y	y	n	NONE	n	y	n	n	NONE	bleaching?
-65	KI14FSYM334	334	coral	KI2014	Favites_pentagona	34	UK	2014.tag.334	2014	30.184	14.633	239.507	n	n	n	y	y	n	NONE	n	y	n	y	3	extensive bleaching
-66	KI14FSYM338	338	coral	KI2014	Platygyra_sp	34	UK	2014.tag.338	2014	47.589	38.187	1404.439	n	n	n	y	y	y	Halimeda	y	y	y	n	NONE	
-67	KI14FSYM341	341	coral	KI2014	Favites_pentagona	34	gone	2014.tag.341	2014	39.05	38.942	786.807	n	n	n	y	y	y	Halimeda	y	y	y	y	3	extensive bleaching
-68	KI15cFSYM494	341	coral	KI2015c	Favites_pentagona	34	gone	2015July.tag.341	2015July	65.449	50.248	1778.229	n	n	n	y	y	y	Halimeda	n	y	y	y	3	entire coral is bleaching, most areas are severley bleached (almost white), a few small patches still have colour
-69	KI15cFSYM509	341	coral	KI2015c	Favites_pentagona	34	gone	2015July.tag.341	2015July	65.449	50.248	1778.229	n	n	n	y	y	y	Halimeda	n	y	y	y	3	entire coral is bleaching, most areas are severley bleached (almost white), a few small patches still have colour
-70	KI14FSYM351	351	coral	KI2014	Platygyra_sp	34	UK	2014.tag.351	2014	17.32	14.919	187.783	n	n	n	y	y	y	Halimeda	n	y	y	y	2	
-71	KI14FSYM352	352	coral	KI2014	Favites_pentagona	34	UK	2014.tag.352	2014	20.375	17.847	218.894	n	n	n	y	y	n	NONE	n	y	n	y	NONE	
-72	KI14FSYM353	353	coral	KI2014	Platygyra_sp	34	gone	2014.tag.353	2014	17.514	13.932	185.342	n	n	n	y	y	n	NONE	y	y	n	n	NONE	
-73	KI15bFSYM263	353	coral	KI2015b	Platygyra_sp	34	gone	2015May.tag.353	2015May	13.763	12.476	124.129	n	n	n	y	y	n	NONE	y	n	n	n	NONE	
-74	KI15cFSYM496	353	coral	KI2015c	Platygyra_sp	34	gone	2015July.tag.353	2015July	17.616	15.801	217.646	n	n	n	y	y	n	NONE	y	y	n	y	2	entire coral is bleaching but not completely white, a few patches of severe bleaching
-75	KI14FSYM371	371	coral	KI2014	Platygyra_sp	25	UK	2014.tag.371	2014	17.583	16.304	217.764	n	y	n	y	y	y	Halimeda, Caulerpa	y	y	y	y	2	Much of coral slightly bleached, a few whiter and larger patches
-76	KI14FSYM373	373	coral	KI2014	Favites_pentagona	25	UK	2014.tag.373	2014	29.64	25.431	395.443	n	n	n	y	y	n	NONE	y	y	y	y	1	tops of mounds are bleaching, some paling in centre of coral, patches are <5cm 
-77	KI15cFSYM399	373	coral	KI2015c	Favites_pentagona	25	UK	2015July.tag.373	2015July	28.989	19.899	361.889	n	n	n	y	y	y	Halimeda, Peysson_red	y	n	y	n	NONE	
-78	KI14FSYM379	379	coral	KI2014	Platygyra_sp	25	UK	2014.tag.379	2014	13.947	11.191	108.839	n	n	n	y	y	y	Halimeda	y	y	n	y	1	a few patches <5cm where where the ridges are bleaching (Platygyra)
-79	KI15cFSYM404	379	coral	KI2015c	Platygyra_sp	25	UK	2015July.tag.379	2015July	18.846	14.525	218.027	n	n	n	y	y	y	Caulerpa, Peysson_red	y	n	y	y	2	Top very bleached
-80	KI14FSYM386	386	coral	KI2014	Favites_pentagona	30	alive	2014.tag.386	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-81	KI15aFSYM145	386	coral	KI2015a	Favites_pentagona	30	alive	2015Jan_Post.tag.386	2015Jan_Post	15.304	12.043	107.631	n	n	n	y	y	n	NONE	n	y	n	n	NONE	
-82	KI15bFSYM057	386	coral	KI2015b	Favites_pentagona	30	alive	2015May.tag.386	2015May	18.375	17.04	212.55	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-83	KI15cFSYM336	386	coral	KI2015c	Favites_pentagona	30	alive	2015July.tag.386	2015July	16.32	17.939	208.167	n	n	n	n	n	n	NONE	y	y	y	n	NONE	
-84	KI16aFSYM082	386	coral	KI2016a	Favites_pentagona	30	alive	2016March.tag.386	2016March	23.537	14.853	171.17	n	n	n	y	y	n	NONE	n	y	n	y	2	patches bleaching -  one patch seems over 5 cm
-85	KI14FSYM389	389	coral	KI2014	Platygyra_sp	30	UK	2014.tag.389	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-86	KI15bFSYM131	389	coral	KI2015b	Platygyra_sp	30	UK	2015May.tag.389	2015May	14.989	12.397	145.45	n	n	n	y	y	n	NONE	y	y	n	n	NONE	
-87	KI14FSYM400	400	coral	KI2014	Favites_pentagona	25	UK	2014.tag.400	2014	42.47	39.1	1138.323	n	n	n	y	y	n	NONE	y	y	y	y	3	extensive bleaching
-88	KI15cFSYM411	400	coral	KI2015c	Favites_pentagona	25	UK	2015July.tag.400	2015July	41.918	20.387	567.834	n	n	n	y	y	n	NONE	y	n	n	n	NONE	
-89	KI14FSYM402	402	coral	KI2014	Platygyra_sp	25	UK	2014.tag.402	2014	29.981	17.196	301.09	n	n	n	y	y	n	NONE	y	y	y	n	NONE 	
-90	KI15cFSYM415	402	coral	KI2015c	Platygyra_sp	25	UK	2015July.tag.402	2015July	31.983	21.843	344.151	n	n	n	y	y	n	NONE	y	y	y	y	2	one large patch (>5cm) and one small patch 
-91	KI14FSYM410	410	coral	KI2014	Platygyra_sp	25	UK	2014.tag.410	2014	25.965	23.755	413.118	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-92	KI14FSYM412	412	coral	KI2014	Favites_pentagona	25	UK	2014.tag.412	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-93	KI14FSYM435	435	coral	KI2014	Favites_pentagona	30	gone	2014.tag.435	2014	38.207	36.788	850.786	n	n	n	y	y	n	NONE	n	n	n	y	1	a few patches  less than 5cm on the top part of the coral 
-94	KI15bFSYM065	435	coral	KI2015b	Favites_pentagona	30	gone	2015May.tag.435	2015May	13.579	10.372	106.858	n	n	n	y	y	n	NONE	y	y	y	y	1	small bleached patches covering large portion of coral
-95	KI15cFSYM345	435	coral	KI2015c	Favites_pentagona	30	gone	2015July.tag.435	2015July	16.133	14.095	161.321	n	y	n	y	y	n	NONE	n	y	y	y	1	A few small patches
-96	KI14FSYM439	439	coral	KI2014	Favites_pentagona	30	alive	2014.tag.439	2014	31.186	26.503	535.478	n	n	n	y	y	y	Peysson_red	y	y	y	y	1	patches on the uppermost surfaces are bleaching, <5cm
-97	KI15bFSYM068	439	coral	KI2015b	Favites_pentagona	30	alive	2015May.tag.439	2015May	30.491	22.951	401.355	n	n	n	y	y	n	NONE	y	y	y	n	NONE	WRONG PHOTO
-98	KI15cFSYM350	439	coral	KI2015c	Favites_pentagona	30	alive	2015July.tag.439	2015July	26.136	24.684	598.016	n	n	n	y	y	n	NONE	n	y	y	n	NONE	
-99	KI16aFSYM086	439	coral	KI2016a	Favites_pentagona	30	alive	2016March.tag.439	2016March	38.949	33.088	874.3	n	n	n	y	y	n	NONE	n	y	y	y	2	much of coral bleaching in patches
-100	KI14FSYM442	442	coral	KI2014	Platygyra_sp	30	gone	2014.tag.442	2014	20.111	19.806	298.19	n	n	n	y	y	n	NONE	y	y	y	y	2	many small bleached patches, 1 larger patch > 5 cm
-101	KI15bFSYM069	442	coral	KI2015b	Platygyra_sp	30	gone	2015May.tag.442	2015May	32.314	13.891	269.395	n	n	n	y	y	y	Peysson_red	y	y	y	y	1	bleached patches near algal clumps * check measurement
-102	KI15cFSYM348	442	coral	KI2015c	Platygyra_sp	30	gone	2015July.tag.442	2015July	43.754	18.796	564.161	n	y	n	y	y	n	NONE	n	n	y	y	1	Many small patches
-103	KI14FSYM447	447	coral	KI2014	Platygyra_sp	27	UK	2014.tag.447	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-104	KI14FSYM449	449	coral	KI2014	Favites_pentagona	27	UK	2014.tag.449	2014	13.747	11.522	125.113	n	n	n	y	y	n	NONE	n	y	n	y	1	areas of the coral are paling, a few small bleached spots 
-105	KI14FSYM454	454	coral	KI2014	Favites_pentagona	27	UK	2014.tag.454	2014	17.157	16.183	206.402	n	n	n	y	y	n	NONE	n	y	n	n	NONE	areas are plaing 
-106	KI14FSYM455	455	coral	KI2014	Platygyra_sp	27	UK	2014.tag.455	2014	9.97	9.416	72.705	n	n	n	y	y	n	NONE	n	y	n	y	2	ridges are severely bleaching over most of coral, middle parts are still dark
-107	KI15aFSYM160	455	coral	KI2015a	Platygyra_sp	27	UK	2015Jan_Post.tag.455	2015Jan_Post	7.511	6.693	37.402	n	n	n	y	y	n	NONE	n	y	n	y	1	patches where ridges are severely bleaching, less than 5cm (picutre is a bit overexposed). 
-108	KI14FSYM461	461	coral	KI2014	Platygyra_sp	27	UK	2014.tag.461	2014	10.165	8.573	64.813	n	n	n	y	y	n	NONE	n	y	y	y	1	patchy bleaching where tops of ridges are bleaching
-109	KI14FSYM466	466	coral	KI2014	Platygyra_sp	27	dead	2014.tag.466	2014	9.216	7.113	161.831	n	n	n	y	y	y	peysson_brown	n	y	n	y	2	ridges are bleaching over most of coral (platygyra) 
-110	KI15aFSYM156	466	coral	KI2015a	Platygyra_sp	27	dead	2015Jan_Post.tag.466	2015Jan_Post	8.509	7.238	47.758	n	n	n	y	y	n	NONE	n	y	n	y	1	one patch where tops of ridges are severely bleaching or starting to bleach
-111	KI15bFSYM140	466	coral	KI2015b	Platygyra_sp	27	dead	2015May.tag.466	2015May	12.456	10.338	96.233	n	n	n	y	y	n	NONE	n	y	y	y	3	>80% of coral bleaching
-112	KI15cFSYM064	466	coral	KI2015c	Platygyra_sp	27	dead	2015July.tag.466	2015July	8.79	8.775	63.406	n	n	n	y	y	n	NONE	n	y	n	y	2	one pactch >5cm
-113	KI14FSYM470	470	coral	KI2014	Platygyra_sp	27	gone	2014.tag.470	2014	12.296	9.617	96.513	n	n	n	y	y	n	NONE	n	y	n	y	1	a few small patches where ridges are bleaching 
-114	KI15aFSYM150	470	coral	KI2015a	Platygyra_sp	27	gone	2015Jan_Post.tag.470	2015Jan_Post	11.822	8.726	87.804	n	n	n	y	y	n	NONE	n	y	n	y	1	patches where ridges are bleaching on top of coral 
-115	KI15bFSYM138	470	coral	KI2015b	Platygyra_sp	27	gone	2015May.tag.470	2015May	10.455	8.053	65.825	n	n	n	y	y	n	NONE	y	y	y	y	2	many small areas are bleached or starting to
-116	KI15cFSYM072	470	coral	KI2015c	Platygyra_sp	27	gone	2015July.tag.470	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-117	KI14FSYM473	473	coral	KI2014	Favites_pentagona	27	UK	2014.tag.473	2014	11.44	7.757	69.683	n	n	n	y	y	n	NONE	n	y	y	n	NONE	
-118	KI14FSYM479	479	coral	KI2014	Platygyra_sp	32	UK	2014.tag.479	2014	30.199	28.227	646.765	n	n	n	y	y	n	NONE	n	y	n	y	1	a few bleached patches
-119	KI14FSYM482	482	coral	KI2014	Favites_pentagona	32	alive	2014.tag.482	2014	21.915	20.317	353.06	n	n	n	n	n	n	NONE	n	y	n	y	2	most of coral is starting to bleach, one side of coral is more severe, middle parts still dark (F. pentagona)
-120	KI15bFSYM216	482	coral	KI2015b	Favites_pentagona	32	alive	2015May.tag.482	2015May	18.487	16.179	212.399	n	n	n	y	y	n	NONE	n	y	n	n	NONE	
-121	KI15cFSYM432	482	coral	KI2015c	Favites_pentagona	32	alive	2015July.tag.482	2015July	24.461	20.293	374.857	n	y	n	n	n	n	NONE	n	y	n	y	3	Most of coral bleached
-122	KI16aFSYM010	482	coral	KI2016a	Favites_pentagona	32	alive	2016March.tag.482	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-123	KI14FSYM486	486	coral	KI2014	Platygyra_sp	32	UK	2014.tag.486	2014	13.056	12.194	122.691	n	n	n	y	y	n	NONE	n	y	n	y	2	entire coral bleaching, sides of the ridges are still dark (Platygyra) 
-124	KI15bFSYM188	486	coral	KI2015b	Platygyra_sp	32	UK	2015May.tag.486	2015May	12.23	11.642	102.076	n	n	n	y	y	n	NONE	n	y	n	y	1	one bleached patch and most of coral is paling
-125	KI14FSYM487	487	coral	KI2014	Favites_pentagona	32	UK	2014.tag.487	2014	14.791	13.296	138.286	n	n	n	y	y	n	NONE	n	y	y	y	2	a large portion of the coral is bleaching/almost white, middle parts are still dark (F. pentagona) - IMG_4492 is zoomed in and you can see the coral is bleaching on the sides and it is not just light
-126	KI15bFSYM187	487	coral	KI2015b	Favites_pentagona	32	UK	2015May.tag.487	2015May	13.654	12.412	114.559	n	n	n	y	y	n	NONE	y	y	y	y	1	a few bleaching/paling ridges
-127	KI15cFSYM434	487	coral	KI2015c	Favites_pentagona	32	UK	2015July.tag.487	2015July	16.625	14.149	189.963	n	n	n	y	y	n	NONE	n	y	y	y	1	Few small lighter spots
-128	KI14FSYM492	492	coral	KI2014	Favites_pentagona	32	dead	2014.tag.492	2014	19.004	17.339	223.873	n	n	n	y	y	n	NONE	n	y	y	y	2	3 patches > 5 cm
-129	KI15bFSYM191	492	coral	KI2015b	Favites_pentagona	32	dead	2015May.tag.492	2015May	15.549	15.172	130.288	n	n	n	y	y	n	NONE	y	y	n	y	1	two smal bleach patches
-130	KI15cFSYM439	492	coral	KI2015c	Favites_pentagona	32	dead	2015July.tag.492	2015July	13.502	14.672	133.941	n	n	n	y	y	n	NONE	n	y	y	n	NONE	Scale 12 cm
-131	KI14FSYM504	504	coral	KI2014	Platygyra_sp	14	dead_or_gone	2014.tag.504	2014	15.146	14.936	167.603	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-132	KI15aFSYM032	583	coral	KI2015a	Favites_pentagona	15	UK	2015Jan_Pre.tag.583	2015Jan_Pre	21.622	11.772	175.303	n	n	n	y	y	n	NONE	y	n	n	n	NONE	
-133	KI15bFSYM080	583	coral	KI2015b	Favites_pentagona	15	UK	2015May.tag.583	2015May	31.399	16.13	358.156	n	n	n	y	y	n	NONE	y	n	y	y	2	much bleaching on the top of the coral, some of the sides are okay 
-134	KI15cFSYM101	583	coral	KI2015c	Favites_pentagona	15	UK	2015July.tag.583	2015July	30.495	16.96	340.379	n	n	n	y	y	n	NONE	y	y	y	y	3	entire coral severely bleached
-135	KI16aFSYM151	583	coral	KI2016a	Favites_pentagona	15	UK	2016March.tag.583	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-136	KI15aFSYM037	588	coral	KI2015a	Favites_pentagona	15	alive	2015Jan_Pre.tag.588	2015Jan_Pre	38.503	34.345	886.367	n	n	n	y	y	n	NONE	y	y	n	n	NONE	no bleaching? No picture
-137	KI15bFSYM084	588	coral	KI2015b	Favites_pentagona	15	alive	2015May.tag.588	2015May	28.7	26.776	520.621	n	n	n	y	y	n	NONE	y	y	y	y	1	some slightly lighter coloured patches
-138	KI15cFSYM104	588	coral	KI2015c	Favites_pentagona	15	alive	2015July.tag.588	2015July	25.876	22.314	335.485	n	n	n	y	y	n	NONE	y	y	n	y	1	a few small patches, some areas are lighter in colour  
-139	KI15cFSYM104	588	coral	KI2015c	Favites_pentagona	15	alive	2015July.tag.588	2015July	36.291	35.248	872.039	n	n	n	y	y	n	NONE	y	n	n	y	2	large patches of severe bleaching on the tops of mounds, many areas on the sides and bottom still have colour (F. pentagona)
-140	KI16aFSYM153	588	coral	KI2016a	Favites_pentagona	15	alive	2016March.tag.588	2016March	34.046	32.687	751.119	n	n	n	y	y	n	NONE	y	y	y	y	2	large patches of bleach and some algae growth
-141	KI15aFSYM041	592	coral	KI2015a	Favites_pentagona	15	alive	2015Jan_Pre.tag.592	2015Jan_Pre	33.952	31.805	676.056	n	n	n	y	y	n	NONE	y	y	y	y	1	patches of severe bleaching along tops of mounds and around an algal patch, less than 5cm
-142	KI15bFSYM088	592	coral	KI2015b	Favites_pentagona	15	alive	2015May.tag.592	2015May	32.451	29.2	656.975	n	n	n	y	y	n	NONE	y	n	y	y	1	starting to bleach a small amount at centre of coral
-143	KI15cFSYM112	592	coral	KI2015c	Favites_pentagona	15	alive	2015July.tag.592	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-144	KI16aFSYM155	592	coral	KI2016a	Favites_pentagona	15	alive	2016March.tag.592	2016March	35.55	34.325	751.7	n	n	n	y	y	n	NONE	y	y	y	y	3	completely bleached
-145	KI15aFSYM043	594	coral	KI2015a	Platygyra_sp	15	alive	2015Jan_Pre.tag.594	2015Jan_Pre	33.181	30.075	749.895	n	n	n	y	y	n	NONE	y	y	y	y	1	several small bleached patches, some severely bleached, others starting to bleach
-146	KI15cFSYM114	594	coral	KI2015c	Platygyra_sp	15	alive	2015July.tag.594	2015July	34.713	31.673	808.882	n	n	n	y	y	n	NONE	n	y	y	y	2	most of coral is bleaching, top portion of coral is severly bleached, some areas still have a bit of colour ~2/3-3/4 bleached
-147	KI16aFSYM158	594	coral	KI2016a	Platygyra_sp	15	alive	2016March.tag.594	2016March	25.892	22.888	521.106	n	n	n	y	y	n	NONE	y	y	y	y	3	algae growing but mostly bleached
-148	KI15aFSYM046	597	coral	KI2015a	Favites_pentagona	15	alive	2015Jan_Pre.tag.597	2015Jan_Pre	35.736	23.746	562.29	n	n	n	y	y	n	NONE	y	n	y	n	NONE	
-149	KI15bFSYM092	597	coral	KI2015b	Favites_pentagona	15	alive	2015May.tag.597	2015May	29.549	23.434	413.265	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-150	KI15cFSYM116	597	coral	KI2015c	Favites_pentagona	15	alive	2015July.tag.597	2015July	35.751	29.422	789.484	n	n	n	y	y	n	NONE	n	y	y	y	3	over 80% of coral severely bleached, but not completely white 
-151	KI16aFSYM159	597	coral	KI2016a	Favites_pentagona	15	alive	2016March.tag.597	2016March	31.351	19.271	404.609	n	n	n	y	y	n	NONE	y	y	y	y	3	completely bleached and overgrown
-152	KI15aFSYM057	605	coral	KI2015a	Favites_pentagona	15	gone	2015Jan_Pre.tag.605	2015Jan_Pre	28.125	26.01	519.247	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-153	KI15cFSYM125	605	coral	KI2015c	Favites_pentagona	15	gone	2015July.tag.605	2015July	39.117	32.086	783.556	n	n	n	y	y	n	NONE	y	y	n	y	2	large portion 1/3-2/3 is severely bleached, rest of coral is normal in colour
-154	KI15aFSYM052	612	coral	KI2015a	Platygyra_sp	15	alive	2015Jan_Pre.tag.612	2015Jan_Pre	19.156	18.672	269.652	n	n	n	y	y	n	NONE	y	y	n	n	NONE	bleaching? 
-155	KI15cFSYM126	612	coral	KI2015c	Platygyra_sp	15	alive	2015July.tag.612	2015July	24.696	18.39	376.403	n	n	n	y	y	n	NONE	n	y	n	y	1	one small patch <5cm
-156	KI16aFSYM164	612	coral	KI2016a	Platygyra_sp	15	alive	2016March.tag.612	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-157	KI15aFSYM067	618	coral	KI2015a	Platygyra_sp	15	alive	2015Jan_Pre.tag.618	2015Jan_Pre	30.028	28.432	598.108	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-158	KI15cFSYM129	618	coral	KI2015c	Platygyra_sp	15	alive	2015July.tag.618	2015July	37.719	34.759	921.111	n	n	n	y	y	n	NONE	n	y	y	y	3	entire coral is severely bleached
-159	KI16aFSYM160	618	coral	KI2016a	Platygyra_sp	15	alive	2016March.tag.618	2016March	28.747	27.236	612.9	n	n	n	y	y	n	NONE	y	y	y	y	2	many large bleached patches
-160	KI15aFSYM072	623	coral	KI2015a	Favites_pentagona	15	gone	2015Jan_Pre.tag.623	2015Jan_Pre	28.995	17.942	390.671	n	n	n	y	y	n	NONE	y	y	n	n	NONE	
-161	KI15cFSYM145	623	coral	KI2015c	Favites_pentagona	15	gone	2015July.tag.623	2015July	37.713	25.604	713.212	n	n	n	y	y	n	NONE	y	y	n	y	3	entire coral severely bleached 
-162	KI15aFSYM077	628	coral	KI2015a	Favites_pentagona	15	gone	2015Jan_Pre.tag.628	2015Jan_Pre	57.319	39.51	1416.184	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-163	KI15cFSYM142	628	coral	KI2015c	Favites_pentagona	15	gone	2015July.tag.628	2015July	50.652	46.266	1554.789	n	n	n	y	y	n	NONE	y	y	y	y	2	large portion of coral is bleached but <80%
-164	KI15cFSYM144	631	coral	KI2015c	Favites_pentagona	15	dead	2015July.tag.631	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-165	KI15aFSYM097	637	coral	KI2015a	Platygyra_sp	35	alive	2015Jan_Post.tag.637	2015Jan_Post	10.094	9.446	73.227	n	n	n	y	y	n	NONE	y	y	n	y	1	five small bleached spots around algae patches
-166	KI15bFSYM020	637	coral	KI2015b	Platygyra_sp	35	alive	2015May.tag.637	2015May	10.713	8.647	74.676	n	n	n	y	y	n	NONE	n	y	n	y	2	large area bleached
-167	KI16aFSYM047	637	coral	KI2016a	Platygyra_sp	35	alive	2016March.tag.637	2016March	10.16	9.188	69.53	n	n	n	y	y	n	NONE	n	y	y	y	3	large area bleach and much starting to bleach
-168	KI15bFSYM102	656	coral	KI2015b	Favites_pentagona	19	UK	2015May.tag.656	2015May	30.804	22.799	537.956	n	n	n	y	y	n	NONE	y	n	y	y	2	many patches starting to bleach
-169	KI15cFSYM025	656	coral	KI2015c	Favites_pentagona	19	UK	2015July.tag.656	2015July	24.047	20.671	473.454	n	n	n	y	y	n	NONE	y	n	y	y	3	Most of coral bleached
-170	KI15bFSYM147	685	coral	KI2015b	Favites_pentagona	27	UK	2015May.tag.685	2015May	10.714	8.558	68.43	n	n	n	y	y	n	NONE	n	y	y	y	2	patch in centre >5cm and other areas starting to bleach
-171	KI15bFSYM179	696	coral	KI2015b	Platygyra_sp	8	UK	2015May.tag.696	2015May	13.598	12.658	123.536	n	n	n	y	y	n	NONE	y	y	y	y	1	bleaching around algal patches *wrong photo
-172	KI15cFSYM385	696	coral	KI2015c	Platygyra_sp	8	UK	2015July.tag.696	2015July	15.811	15.239	179.918	n	n	n	y	y	n	NONE	n	y	n	y	2	bleaching over most of coral <80% 
-173	KI16aFSYM004	696	coral	KI2016a	Platygyra_sp	8	UK	2016March.tag.696	2016March	16.056	14.863	173.108	n	n	n	y	y	n	NONE	y	y	y	y	1	some areas starting to bleach, algae
-174	KI15bFSYM184	719	coral	KI2015b	Favites_pentagona	8	dead	2015May.tag.719	2015May	26.218	18.039	273.358	n	n	n	y	y	n	NONE	y	y	y	y	1	two bleached patches <5cm
-175	KI15cFSYM373	719	coral	KI2015c	Favites_pentagona	8	dead	2015July.tag.719	2015July	34.457	23.061	641.893	n	n	n	y	y	y	Halimeda	n	y	y	y	1	Small patches
-176	KI15bFSYM200	722	coral	KI2015b	Favites_pentagona	27	gone	2015May.tag.722	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-177	KI15cFSYM077	722	coral	KI2015c	Favites_pentagona	27	gone	2015July.tag.722	2015July	27.538	15.931	256.864	n	n	n	y 	y	n	NONE	n	y	n	y	2	majority of coral is bleaching, middle parts still dark
-178	KI15bFSYM204	726	coral	KI2015b	Favites_pentagona	27	gone	2015May.tag.726	2015May	11.944	9.982	80.036	n	n	n	y	y	n	NONE	n	y	y	n	NONE	
-179	KI15cFSYM082	726	coral	KI2015c	Favites_pentagona	27	gone	2015July.tag.726	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-180	KI15bFSYM205	727	coral	KI2015b	Platygyra_sp	27	gone	2015May.tag.727	2015May	18.879	13.867	195.383	n	n	n	y	y	n	NONE	y	y	n	y	1	several small bleached spots
-181	KI15cFSYM083	727	coral	KI2015c	Platygyra_sp	27	gone	2015July.tag.727	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-182	KI15bFSYM207	729	coral	KI2015b	Favites_pentagona	27	alive	2015May.tag.729	2015May	14.907	13.14	143.309	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-183	KI15cFSYM094	729	coral	KI2015c	Favites_pentagona	27	alive	2015July.tag.729	2015July	15.506	14.975	181.117	n	n	n	n	y	n	NONE	n	y	n	y	1	portions of coral are starting to bleach, middle parts are not 
-184	KI16aFSYM066	729	coral	KI2016a	Favites_pentagona	27	alive	2016March.tag.729	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-185	KI15bFSYM213	735	coral	KI2015b	Platygyra_sp	27	gone	2015May.tag.735	2015May	12.547	9.346	113.264	n	n	n	y	y	n	NONE	n	y	n	y	NONE	
-186	KI15cFSYM065	735	coral	KI2015c	Platygyra_sp	27	gone	2015July.tag.735	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-187	KI15bFSYM214	736	coral	KI2015b	Favites_pentagona	27	gone	2015May.tag.736	2015May	11.902	10.601	99.513	n	n	n	y	y	n	NONE	n	y	n	y	1	few small patches bleached
-188	KI15cFSYM063	736	coral	KI2015c	Favites_pentagona	27	gone	2015July.tag.736	2015July	13.827	13.799	158.73	n	n	n	n	n	n	NONE	n	y	n	y	1	Entire coral is starting to bleach, middle parts are still dark (Favia matthai)
-189	KI15bFSYM219	742	coral	KI2015b	Platygyra_sp	32	dead	2015May.tag.742	2015May	10.798	10.382	85.011	n	n	n	y	y	n	NONE	n	y	y	n	NONE	
-190	KI15cFSYM436	742	coral	KI2015c	Platygyra_sp	32	dead	2015July.tag.742	2015July	19.867	19.87	317.871	n	n	n	y	y	n	NONE	n	y	n	n	NONE	
-191	KI15bFSYM231	754	coral	KI2015b	Platygyra_sp	32	alive	2015May.tag.754	2015May	15.038	14.335	164.541	n	n	n	y	y	n	NONE	y	y	n	y	1	a few blaeched spots around algal patches 
-192	KI15cFSYM468	754	coral	KI2015c	Platygyra_sp	32	alive	2015July.tag.754	2015July	16.384	12.883	178.142	n	n	n	y	y	n	NONE	n	y	n	y	1	a few spots <5cm 
-193	KI15bFSYM239	762	coral	KI2015b	Platygyra_sp	32	dead	2015May.tag.762	2015May	10.758	9.336	81.041	n	n	m	y	y	n	NONE	n	y	y	n	NONE	
-194	KI15cFSYM474	762	coral	KI2015c	Platygyra_sp	32	dead	2015July.tag.762	2015July	13.594	13.039	143.675	n	n	n	y	y	n	NONE	n	y	n	y	1	two main patches <5cm 
-195	KI15bFSYM243	766	coral	KI2015b	Platygyra_sp	32	dead	2015May.tag.766	2015May	16.615	16.555	205.054	n	n	n	y	y	n	NONE	n	y	y	y	2	centre of coral bleaching
-196	KI15cFSYM472	766	coral	KI2015c	Platygyra_sp	32	dead	2015July.tag.766	2015July	23.427	21.575	384.659	n	n	n	y	y	n	NONE	n	y	n	y	1	one prominent spot <5cm, a few lighter areas 
-197	KI15bFSYM245	768	coral	KI2015b	Platygyra_sp	32	dead	2015May.tag.768	2015May	13.079	12.948	122.799	n	n	n	y	y	n	NONE	n	y	n	y	1	a few small spots
-198	KI15cFSYM460	768	coral	KI2015c	Platygyra_sp	32	dead	2015July.tag.768	2015July	16.501	14.93	204.927	n	n	n	n	n	n	NONE	n	y	n	y	1	several patches <5cm
-199	KI15bFSYM247	770	coral	KI2015b	Favites_pentagona	32	alive	2015May.tag.770	2015May	10.328	9.758	87.637	n	n	n	y	y	n	NONE	y	y	y	y	1	a couple spots starting to bleach
-200	KI15cFSYM461	770	coral	KI2015c	Favites_pentagona	32	alive	2015July.tag.770	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-201	KI16aFSYM013	770	coral	KI2016a	Favites_pentagona	32	alive	2016March.tag.770	2016March	10.553	7.779	60.421	n	n	y	y	y	n	NONE	y	y	n	y	1	small patches starting to bleach 
-202	KI15bFSYM249	772	coral	KI2015b	Favites_pentagona	32	dead	2015May.tag.772	2015May	17.667	15.592	189.852	n	n	n	y	y	n	NONE	y	y	n	y	1	a couple areas on top starting to bleach
-203	KI15cFSYM448	772	coral	KI2015c	Favites_pentagona	32	dead	2015July.tag.772	2015July	26.505	20.269	353.405	n	n	n	y	y	n	NONE	y	y	n	y	2	most of corel s lighter in color, some larger patches of more obious bleaching*
-204	KI15bFSYM277	781	coral	KI2015b	Favites_pentagona	34	UK	2015May.tag.781	2015May	32.91	19.768	345.362	n	n	n	y	y	n	NONE	y	y	y	y	1	a few small bleached spots, one around algal patch 
-205	KI15cFSYM499	781	coral	KI2015c	Favites_pentagona	34	UK	2015July.tag.781	2015July	21.283	15.039	247.929	n	n	n	y	y	n	NONE	y	y	n	y	3	 entire coral is severely bleaching (almost completely white), a few patches have still retained some colour 
-206	KI15bFSYM279	783	coral	KI2015b	Platygyra_sp	34	alive	2015May.tag.783	2015May	20.063	13.923	190.304	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-207	KI16aFSYM118	783	coral	KI2016a	Platygyra_sp	34	alive	2016March.tag.783	2016March	20.63	16.079	226.487	n	n	n	y	y	n	NONE	y	y	n	y	1	small patches starting to bleach
-208	KI15bFSYM282	786	coral	KI2015b	Favites_pentagona	34	alive	2015May.tag.786	2015May	30.358	15.603	278.52	n	n	n	y	y	n	NONE	y	y	y	n	NONE	* photo very blurry
-209	KI15cFSYM502	786	coral	KI2015c	Favites_pentagona	34	alive	2015July.tag.786	2015July	41.113	21.744	635.324	n	n	n	y	y	n	NONE	y	y	y	y	2	a large portion of the coral Is severely bleaching (tops of lumps/parts closer to surface), some areas still have a bit of colour. 
-210	KI16aFSYM119	786	coral	KI2016a	Favites_pentagona	34	alive	2016March.tag.786	2016March	24.274	21.711	355.033	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-211	KI15bFSYM284	788	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag.788	2015May	16.353	12.765	156.354	n	n	n	y	y	n	NONE	y	y	y	y	1	a few small bleached spots 
-212	KI15cFSYM253	788	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag.788	2015July	33.819	27.862	858.226	n	n	n	y	y	n	NONE	n	y	n	y	2	widespread but not completely bleached
-213	KI16aFSYM088	788	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag.788	2016March	34.442	34.224	883.711	n	n	n	y	y	n	NONE	y	y	y	y	3	most of coral bleached or starting to bleach
-214	KI15bFSYM288	792	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag.792	2015May	18.074	17.316	246.693	n	n	n	n	n	n	NONE	y	y	y	y	1	some small areas
-215	KI15cFSYM254	792	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag.792	2015July	33.266	29.339	824.397	n	n	n	y	y	n	NONE	y	y	y	y	2	large proportion of coral bleached but not severe
-216	KI16aFSYM089	792	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag.792	2016March	32.789	31.958	760.42	n	n	n	y	y	y	Halimeda	y	y	n	y	1	small bleached patches
-217	KI15bFSYM293	797	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag.797	2015May	22.923	20.339	325.753	n	n	n	y	y	n	NONE	y	y	n	y	1	small bleached patch towards bottom of coral
-218	KI15cFSYM261	797	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag.797	2015July	19.946	17.076	397.059	n	n	n	y	y	n	NONE	n	y	n	y	1	most of coral is lighter in colour
-219	KI16aFSYM091	797	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag.797	2016March	29.133	28.132	626.296	n	n	n	y	y	n	NONE	n	y	y	y	3	coral bleached and overgrown with turf in centre
-220	KI15bFSYM296	800	coral	KI2015b	Favites_pentagona	5	gone	2015May.tag.800	2015May	17.723	15.674	168.539	n	n	n	y	y	h	NONE	y	y	y	y	1	a few bleached spots smaller than 5cm 
-221	KI15cFSYM265	800	coral	KI2015c	Favites_pentagona	5	gone	2015July.tag.800	2015July	24.531	20.465	343.377	n	n	n	y	y	y	Halimeda	y	y	n	y	2	~2/3 of coral is severely bleaching, top surface is almost completely bleached
-222	KI15bFSYM303	807	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag.807	2015May	51.946	34.705	1375.952	n	n	n	y	y	y	Halimeda	y	y	n	n	NONE	
-223	KI15cFSYM273	807	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag.807	2015July	70.995	55.266	2960.407	n	n	n	y	y	n	NONE	y	y	y	y	2	portions of coral are lighter, a few small bleached spots 
-224	KI16aFSYM104	807	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag.807	2016March	76.548	54.002	2953.651	n	n	n	y	y	y	Halimeda, Peysson_brown?	y	y	n	y	1	small patches starting to bleach
-225	KI15bFSYM306	810	coral	KI2015b	Favites_pentagona	5	dead	2015May.tag.810	2015May	23.186	21.153	281.824	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-226	KI15cFSYM275	810	coral	KI2015c	Favites_pentagona	5	dead	2015July.tag.810	2015July	23.163	18.597	358.517	n	n	n	y	y	n	NONE	y	n	y	y	2	General paling of most of the colony
-227	KI15bFSYM309	813	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag.813	2015May	16.361	15.124	196.08	n	n	n	y	y	n	NONE	y	y	n	n	NONE	
-228	KI15cFSYM277	813	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag.813	2015July	18.269	15.33	222.845	n	n	n	y	y	n	NONE	y	n	n	n	NONE	
-229	KI16aFSYM095	813	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag.813	2016March	18.179	15.13	22.988	n	n	n	y	y	n	NONE	y	y	y	y	3	most of coral bleached or starting to bleach
-230	KI15bFSYM316	820	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag.820	2015May	29.031	26.736	605.214	n	n	n	y	y	y	Halimeda	y	y	y	y	1	a few small bleached patches
-231	KI15cFSYM278	820	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag.820	2015July	37.164	31.562	924.473	n	n	n	y	y	y	Halimeda, Peysson_red	y	n	y	y	2	Variable, patchy bleaching: some spots completely some just lighter in colour
-232	KI16aFSYM096	820	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag.820	2016March	41.762	37.858	1181.053	n	n	n	y	y	y	Halimeda	n	y	y	y	1	a few small spots
-233	KI15bFSYM320	824	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag.824	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-234	KI15cFSYM283	824	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag.824	2015July	15.91	15.052	190.021	n	n	n	y	y	n	NONE	n	n	y	y	1	A few lighter spots, algae growing in sampled area
-235	KI16aFSYM101	824	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag.824	2016March	22.168	20.556	338.759	n	n	n	y	y	n	NONE	y	y	y	y	1	a few small spots
-236	KI16aFSYM101	824	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag.824	2016March	23.146	21.582	370.455	n	n	n	y	y	n	NONE	y	y	y	y	1	a few small areas bleached and larger areas starting
-237	KI15bFSYM340	844	coral	KI2015b	Favites_pentagona	34	alive	2015May.tag.844	2015May	31.199	26.718	452.334	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-238	KI15cFSYM519	844	coral	KI2015c	Favites_pentagona	34	alive	2015July.tag.844	2015July	48.027	36.05	1105.266	n	n	n	y	y	n	NONE	y	y	y	y	2	two patches >5cm, most of coral is lighter in colour, portions of coral are severely bleaching
-239	KI16aFSYM123	844	coral	KI2016a	Favites_pentagona	34	alive	2016March.tag.844	2016March	33.62	26.238	345.466	n	n	n	y	y	n	NONE	y	y	n	y	1	small patches starting to bleach towards the right of the coral
-240	KI15bFSYM346	850	coral	KI2015b	Platygyra_sp	34	alive	2015May.tag.850	2015May	15.29	14.812	174.219	n	n	n	y	y	n	NONE	y	y	n	y	1	one side tops of ridges are bleaching 
-241	KI15cFSYM506	850	coral	KI2015c	Platygyra_sp	34	alive	2015July.tag.850	2015July	16.807	15.759	213.15	n	n	n	y	y	y	Caulerpa	n	y	n	y	2	one large, completely bleached patch, rest of coral is lighter in colour 
-242	KI16aFSYM120	850	coral	KI2016a	Platygyra_sp	34	alive	2016March.tag.850	2016March	14.08	13.499	148.162	n	n	n	y	y	n	NONE	n	y	n	y	1	small patches starting to bleach, some near algal colonies; used 5 point scale
-243	KI15bFSYM352	856	coral	KI2015b	Favites_pentagona	34	dead	2015May.tag.856	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-244	KI15cFSYM503	856	coral	KI2015c	Favites_pentagona	34	dead	2015July.tag.856	2015July	18.688	15.504	188.387	n	n	n	y	y	n	NONE	y	y	n	y	1	entire coral is starting to bleach, a few compleely bleached patches 
-245	KI15bFSYM353	857	coral	KI2015b	Platygyra_sp	34	alive	2015May.tag.857	2015May	25.307	23.841	445.9	n	n	n	y	y	n	NONE	y	y	y	y	1	a few small bleached patches
-246	KI15cFSYM504	857	coral	KI2015c	Platygyra_sp	34	alive	2015July.tag.857	2015July	31.555	30.172	680.516	n	n	n	y	y	n	NONE	y	y	n	y	3	over 80% of coral is completely, severely bleached 
-247	KI16aFSYM113	857	coral	KI2016a	Platygyra_sp	34	alive	2016March.tag.857	2016March	27.438	25.383	241.341	n	n	n	y	y	n	NONE	n	y	n	n	NONE	
-248	KI16aFSYM018	900	coral	KI2016a	Platygyra_sp	32	alive	2016March.tag.900	2016March	12.078	11.754	111.355	n	n	n	y	y	n	NONE	n	y	n	n	NONE	
-249	KI16aFSYM020	902	coral	KI2016a	Favites_pentagona	32	alive	2016March.tag.902	2016March	16.328	15.525	159.812	n	n	n	y	y	n	NONE	n	y	n	y	1	small patches starting to bleach
-250	KI16aFSYM024	906	coral	KI2016a	Platygyra_sp	8	alive	2016March.tag.906	2016March	34.148	31.906	707.208	n	n	n	y	y	n	NONE	n	y	y	n	NONE	paling in a few areas
-251	KI16aFSYM027	909	coral	KI2016a	Platygyra_sp	8	alive	2016March.tag.909	2016March	17.874	14.61	197.765	n	n	n	y	y	n	NONE	n	y	y	y	1	some areas starting to bleach
-252	KI16aFSYM029	911	coral	KI2016a	Favites_pentagona	8	alive	2016March.tag.911	2016March	34.865	28.16	405.905	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-253	KI16aFSYM033	914	coral	KI2016a	Platygyra_sp	8	alive	2016March.tag.914	2016March	11.852	9.784	82.018	n	n	n	y	y	y	Halimeda	n	y	y	n	NONE	
-254	KI16aFSYM038	919	coral	KI2016a	Platygyra_sp	8	alive	2016March.tag.919	2016March	15.532	15.532	175.602	n	n	n	y	y	y	Halimeda	n	y	y	y	1	a few small areas 
-255	KI16aFSYM054	925	coral	KI2016a	Platygyra_sp	35	alive	2016March.tag.925	2016March	30.586	28.875	692.604	n	n	n	y	y	n	NONE	n	y	y	y	2	much of coral starting to bleach
-256	KI16aFSYM057	928	coral	KI2016a	Platygyra_sp	35	alive	2016March.tag.928	2016March	40.635	29.205	953.444	n	n	n	y	y	n	NONE	n	y	y	y	1	large patches starting to bleach, measurements not accurate as image cut off
-257	KI16aFSYM058	929	coral	KI2016a	Favites_pentagona	35	alive	2016March.tag.929	2016March	16.075	14.284	139.719	n	n	n	y	y	n	NONE	n	y	y	y	1	small spots bleached
-258	KI16aFSYM062	933	coral	KI2016a	Platygyra_sp	35	alive	2016March.tag.933	2016March	19.4	18.076	267.529	n	n	n	y	n	n	NONE	n	y	n	n	NONE	
-259	KI16aFSYM069	936	coral	KI2016a	Platygyra_sp	27	alive	2016March.tag.936	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-260	KI16aFSYM070	937	coral	KI2016a	Favites_pentagona	27	alive	2016March.tag.937	2016March	14.899	11.838	137.676	n	n	n	y	y	n	NONE	y	y	n	y	1	few small patches starting to bleach
-261	KI16aFSYM072	939	coral	KI2016a	Platygyra_sp	27	alive	2016March.tag.939	2016March	8.554	8.043	51.086	n	n	n	y	y	n	NONE	n	y	n	y	2	tops of ridges are bleaching over the entire coral but not completely bleached
-262	KI16aFSYM074	941	coral	KI2016a	Platygyra_sp	27	alive	2016March.tag.941	2016March	11.083	10.094	85.901	n	n	n	y	y	n	NONE	n	y	n	y	1	small bleached patches 
-263	KI16aFSYM217	1005	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag.1005	2016March	73.436	57.985	2284.126	n	n	n	y	y	n	NONE	y	y	n	y	1	two bleached patches around algae
-264	KI16aFSYM220	1008	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag.1008	2016March	23.566	20	310.168	n	n	n	y	y	n	NONE	n	y	n	y	1	small bleached patches
-265	KI16aFSYM221	1009	coral	KI2016a	Favites_pentagona	37	alive	2016March.tag.1009	2016March	18.948	14.284	166.11	n	n	n	y	y	y	Halimeda	y	n	n	y	1	small bleached patches on top of the branches
-266	KI16aFSYM223	1011	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag.1011	2016March	14.988	14.031	157.611	n	n	n	y	y	n	NONE	y	y	n	n	NONE	
-267	KI16aFSYM225	1013	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag.1013	2016March	21.77	21.769	322.18	n	n	n	y	y	n	NONE	y	y	n	n	NONE	
-268	KI16aFSYM229	1017	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag.1017	2016March	23.509	20.259	361.432	n	n	n	y	y	n	NONE	n	y	n	y	1	small patches starting to bleach
-269	KI16aFSYM212	1020	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag.1020	2016March	29.415	26.859	569.436	n	n	n	y	y	n	NONE	y	y	y	y	1	small patches starting to bleach
-270	KI16aFSYM214	1022	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag.1022	2016March	15.489	15.193	169.875	n	n	n	y	y	n	NONE	n	y	n	y	1	small patches starting to bleach
-271	KI16aFSYM215	1023	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag.1023	2016March	20.376	16.961	239.14	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-272	KI16aFSYM231	1024	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag.1024	2016March	22.456	10.614	164.933	n	n	n	y	y	n	NONE	n	y	y	n	NONE	
-273	KI16aFSYM235	1028	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag.1028	2016March	25.916	21.431	419.751	n	n	n	y	y	n	NONE	n	y	n	y	1	small patches starting to bleach
-274	KI16aFSYM237	1030	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag.1030	2016March	27.278	26.429	506.901	n	n	n	y	y	n	NONE	y	y	n	n	NONE	
-275	KI16aFSYM238	1031	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag.1031	2016March	21.735	20.503	331.353	n	n	n	y	y	n	NONE	y	y	n	y	1	small bleached patches seen
-276	KI16aFSYM239	1032	coral	KI2016a	Favites_pentagona	37	alive	2016March.tag.1032	2016March	22.724	19.862	274.698	n	n	n	y	y	y	Halimeda	n	y	n	y	1	small bleached patches seen
-277	KI16aFSYM256	1033	coral	KI2016a	Favites_pentagona	40	alive	2016March.tag.1033	2016March	37.231	24.742	694.17	n	n	n	y	y	n	NONE	n	y	n	y	1	small patches starting to bleach
-278	KI16aFSYM259	1034	coral	KI2016a	Favites_pentagona	40	alive	2016March.tag.1034	2016March	43.197	40.159	1099.841	n	n	n	y	y	n	NONE	y	y	n	n	NONE	 bleaching?
-279	KI16aFSYM260	1035	coral	KI2016a	Platygyra_sp	40	alive	2016March.tag.1035	2016March	25.587	21.36	436.987	n	n	n	y	y	n	NONE	n	y	n	y	1	small patches starting to bleach
-280	KI16aFSYM261	1036	coral	KI2016a	Platygyra_sp	40	alive	2016March.tag.1036	2016March	20.556	17.106	275.323	n	n	n	y	y	n	NONE	n	y	n	y	1	small patches starting to bleach
-281	KI16aFSYM262	1037	coral	KI2016a	Favites_pentagona	40	alive	2016March.tag.1037	2016March	28.763	20.685	432.12	n	n	n	y	y	n	NONE	y	y	n	y	1	small bleaching patches seen
-282	KI16aFSYM264	1040	coral	KI2016a	Platygyra_sp	40	alive	2016March.tag.1040	2016March	26.573	23.026	455.404	n	n	n	y	y	n	NONE	y	y	n	y	1	small bleached patches seen
-283	KI16aFSYM265	1049	coral	KI2016a	Platygyra_sp	40	alive	2016March.tag.1049	2016March	22.714	19.618	314.902	n	n	n	y	y	n	NONE	y	y	n	y	1	many small bleached patches
-284	KI16aFSYM266	1050	coral	KI2016a	Favites_pentagona	40	alive	2016March.tag.1050	2016March	21.516	18.781	252.892	n	n	n	y	y	n	NONE	n	y	n	y	1	samll bleaching patches
-285	KI16aFSYM272	1055	coral	KI2016a	Platygyra_sp	40	alive	2016March.tag.1055	2016March	18.85	17.213	235.31	n	n	n	y	y	n	NONE	n	y	n	y	1	small bleached patches seen
-286	KI16aFSYM273	1056	coral	KI2016a	Favites_pentagona	40	alive	2016March.tag.1056	2016March	27.769	16.177	290.413	n	n	n	y	y	n	NONE	y	y	y	n	NONE	
-287	KI15cFSYM428	410_893	coral	KI2015c	Platygyra_sp	25	UK	2015July.tag.410_893	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-288	KI15cFSYM427	412_892	coral	KI2015c	Favites_pentagona	25	UK	2015July.tag.412_892	2015July	NONE	NONE	NONE	NONE	NONE	NONE	NONE	NONE	NONE	NONE	NONE	NONE	NONE	NONE	NONE	* NO PHOTO 
-289	KI14FSYM497	497_745	coral	KI2014	Favites_pentagona	32	alive	2014.tag.497_745	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-290	KI15bFSYM194	497_745	coral	KI2015b	Favites_pentagona	32	alive	2015May.tag.497_745	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-291	KI16aFSYM006	497_745	coral	KI2016a	Favites_pentagona	32	alive	2016March.tag.497_745	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-292	KI16aFSYM017	754_899	coral	KI2016a	Platygyra_sp	32	alive	2016March.tag.754_899	2016March	14.721	9.695	58.545	n	n	n	y	y	n	NONE	n	y	n	y	1	one bleached patch
+	SampleID	coral_tag	SampleType	field_season	Coral_Species	site	Status	ref	Year_Pre_Post	colony_width1	colony_width2	colony_area	binary_tissue_loss	binary_disease	cyanobacteria_contact	binary_algal_contact	turf_contact	binary_macroalgae_contact	type_of_macroalgae	binary_CCA_contact	sediment_contact	binary_coral_contact	binary_bleaching	bleaching_proportion	notes_bleaching
+KI14FSYM004	KI14FSYM004	4	coral	KI2014	Favites_pentagona	35	gone	2014.tag4	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM002	KI15aFSYM002	4	coral	KI2015a	Favites_pentagona	35	gone	2015Jan_Pre.tag4	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM081	KI15aFSYM081	4	coral	KI2015a	Favites_pentagona	35	gone	2015Jan_Post.tag4	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM002	KI15bFSYM002	4	coral	KI2015b	Favites_pentagona	35	gone	2015May.tag4	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM003	KI15cFSYM003	4	coral	KI2015c	Favites_pentagona	35	gone	2015July.tag4	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM019	KI14FSYM019	19	coral	KI2014	Platygyra_sp	38	UK	2014.tag19	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM062	KI14FSYM062	62	coral	KI2014	Platygyra_sp	8	alive	2014.tag62	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM116	KI15aFSYM116	62	coral	KI2015a	Platygyra_sp	8	alive	2015Jan_Post.tag62	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM167	KI15bFSYM167	62	coral	KI2015b	Platygyra_sp	8	alive	2015May.tag62	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM372	KI15cFSYM372	62	coral	KI2015c	Platygyra_sp	8	alive	2015July.tag62	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM001	KI16aFSYM001	62	coral	KI2016a	Platygyra_sp	8	alive	2016March.tag62	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM099	KI14FSYM099	99	coral	KI2014	Platygyra_sp	35	alive	2014.tag99	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM103	KI15aFSYM103	99	coral	KI2015a	Platygyra_sp	35	alive	2015Jan_Post.tag99	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM023	KI15bFSYM023	99	coral	KI2015b	Platygyra_sp	35	alive	2015May.tag99	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM018	KI15cFSYM018	99	coral	KI2015c	Platygyra_sp	35	alive	2015July.tag99	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM049	KI16aFSYM049	99	coral	KI2016a	Platygyra_sp	35	alive	2016March.tag99	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM148	KI14FSYM148	148	coral	KI2014	Platygyra_sp	30	UK	2014.tag148	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM157	KI14FSYM157	157	coral	KI2014	Platygyra_sp	3	UK	2014.tag157	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM161	KI15cFSYM161	157	coral	KI2015c	Platygyra_sp	3	UK	2015July.tag157	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM161	KI14FSYM161	161	coral	KI2014	Platygyra_sp	3	UK	2014.tag161	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM159	KI15cFSYM159	161	coral	KI2015c	Platygyra_sp	3	UK	2015July.tag161	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM164	KI14FSYM164	164	coral	KI2014	Platygyra_sp	3	UK	2014.tag164	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM192	KI14FSYM192	192	coral	KI2014	Favites_pentagona	38	dead	2014.tag192	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM200	KI15cFSYM200	192	coral	KI2015c	Favites_pentagona	38	dead	2015July.tag192	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM205	KI14FSYM205	205	coral	KI2014	Favites_pentagona	38	alive	2014.tag205	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM209	KI15cFSYM209	205	coral	KI2015c	Favites_pentagona	38	alive	2015July.tag205	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM196	KI16aFSYM196	205	coral	KI2016a	Favites_pentagona	38	alive	2016March.tag205	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM213	KI14FSYM213	213	coral	KI2014	Favites_pentagona	38	UK	2014.tag213	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM216	KI15cFSYM216	213	coral	KI2015c	Favites_pentagona	38	UK	2015July.tag213	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM223	KI14FSYM223	223	coral	KI2014	Platygyra_sp	3	UK	2014.tag223	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM171	KI15cFSYM171	223	coral	KI2015c	Platygyra_sp	3	UK	2015July.tag223	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM231	KI14FSYM231	231	coral	KI2014	Favites_pentagona	3	UK	2014.tag231	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM178	KI15cFSYM178	231	coral	KI2015c	Favites_pentagona	3	UK	2015July.tag231	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM234	KI14FSYM234	234	coral	KI2014	Platygyra_sp	3	UK	2014.tag234	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM180	KI15cFSYM180	234	coral	KI2015c	Platygyra_sp	3	UK	2015July.tag234	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM242	KI14FSYM242	242	coral	KI2014	Platygyra_sp	8	UK	2014.tag242	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM245	KI14FSYM245	245	coral	KI2014	Favites_pentagona	8	UK	2014.tag245	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM248	KI14FSYM248	248	coral	KI2014	Platygyra_sp	8	UK	2014.tag248	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM249	KI14FSYM249	249	coral	KI2014	Favites_pentagona	8	UK	2014.tag249	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM253	KI14FSYM253	253	coral	KI2014	Platygyra_sp	8	gone	2014.tag253	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM113	KI15aFSYM113	253	coral	KI2015a	Platygyra_sp	8	gone	2015Jan_Post.tag253	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM164	KI15bFSYM164	253	coral	KI2015b	Platygyra_sp	8	gone	2015May.tag253	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM365	KI15cFSYM365	253	coral	KI2015c	Platygyra_sp	8	gone	2015July.tag253	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM258	KI14FSYM258	258	coral	KI2014	Platygyra_sp	27	UK	2014.tag258	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM266	KI14FSYM266	266	coral	KI2014	Platygyra_sp	27	UK	2014.tag266	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM271	KI14FSYM271	271	coral	KI2014	Favites_pentagona	27	dead	2014.tag271	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM163	KI15aFSYM163	271	coral	KI2015a	Favites_pentagona	27	dead	2015Jan_Post.tag271	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM197	KI15bFSYM197	271	coral	KI2015b	Favites_pentagona	27	dead	2015May.tag271	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM090	KI15cFSYM090	271	coral	KI2015c	Favites_pentagona	27	dead	2015July.tag271	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM273	KI14FSYM273	273	coral	KI2014	Favites_pentagona	14	gone	2014.tag273	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM278	KI14FSYM278	278	coral	KI2014	Platygyra_sp	14	dead_or_gone	2014.tag278	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM285	KI14FSYM285	285	coral	KI2014	Favites_pentagona	14	alive	2014.tag285	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM107	KI16aFSYM107	285	coral	KI2016a	Favites_pentagona	14	alive	2016March.tag285	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM289	KI14FSYM289	289	coral	KI2014	Platygyra_sp	14	alive	2014.tag289	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM108	KI16aFSYM108	289	coral	KI2016a	Platygyra_sp	14	alive	2016March.tag289	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM298	KI14FSYM298	298	coral	KI2014	Favites_pentagona	14	dead	2014.tag298	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM299	KI14FSYM299	299	coral	KI2014	Platygyra_sp	14	dead_or_gone	2014.tag299	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM306	KI14FSYM306	306	coral	KI2014	Platygyra_sp	14	dead_or_gone	2014.tag306	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM311	KI14FSYM311	311	coral	KI2014	Platygyra_sp	34	alive	2014.tag311	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM328	KI14FSYM328	328	coral	KI2014	Platygyra_sp	34	alive	2014.tag328	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM255	KI15bFSYM255	328	coral	KI2015b	Platygyra_sp	34	alive	2015May.tag328	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM488	KI15cFSYM488	328	coral	KI2015c	Platygyra_sp	34	alive	2015July.tag328	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM116	KI16aFSYM116	328	coral	KI2016a	Platygyra_sp	34	alive	2016March.tag328	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM334	KI14FSYM334	334	coral	KI2014	Favites_pentagona	34	UK	2014.tag334	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM338	KI14FSYM338	338	coral	KI2014	Platygyra_sp	34	UK	2014.tag338	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM341	KI14FSYM341	341	coral	KI2014	Favites_pentagona	34	gone	2014.tag341	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM494	KI15cFSYM494	341	coral	KI2015c	Favites_pentagona	34	gone	2015July.tag341	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM509	KI15cFSYM509	341	coral	KI2015c	Favites_pentagona	34	gone	2015July.tag341	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM351	KI14FSYM351	351	coral	KI2014	Platygyra_sp	34	UK	2014.tag351	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM352	KI14FSYM352	352	coral	KI2014	Favites_pentagona	34	UK	2014.tag352	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM353	KI14FSYM353	353	coral	KI2014	Platygyra_sp	34	gone	2014.tag353	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM263	KI15bFSYM263	353	coral	KI2015b	Platygyra_sp	34	gone	2015May.tag353	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM496	KI15cFSYM496	353	coral	KI2015c	Platygyra_sp	34	gone	2015July.tag353	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM371	KI14FSYM371	371	coral	KI2014	Platygyra_sp	25	UK	2014.tag371	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM373	KI14FSYM373	373	coral	KI2014	Favites_pentagona	25	UK	2014.tag373	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM399	KI15cFSYM399	373	coral	KI2015c	Favites_pentagona	25	UK	2015July.tag373	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM379	KI14FSYM379	379	coral	KI2014	Platygyra_sp	25	UK	2014.tag379	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM404	KI15cFSYM404	379	coral	KI2015c	Platygyra_sp	25	UK	2015July.tag379	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM386	KI14FSYM386	386	coral	KI2014	Favites_pentagona	30	alive	2014.tag386	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM145	KI15aFSYM145	386	coral	KI2015a	Favites_pentagona	30	alive	2015Jan_Post.tag386	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM057	KI15bFSYM057	386	coral	KI2015b	Favites_pentagona	30	alive	2015May.tag386	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM336	KI15cFSYM336	386	coral	KI2015c	Favites_pentagona	30	alive	2015July.tag386	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM082	KI16aFSYM082	386	coral	KI2016a	Favites_pentagona	30	alive	2016March.tag386	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM389	KI14FSYM389	389	coral	KI2014	Platygyra_sp	30	UK	2014.tag389	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM131	KI15bFSYM131	389	coral	KI2015b	Platygyra_sp	30	UK	2015May.tag389	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM400	KI14FSYM400	400	coral	KI2014	Favites_pentagona	25	UK	2014.tag400	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM411	KI15cFSYM411	400	coral	KI2015c	Favites_pentagona	25	UK	2015July.tag400	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM402	KI14FSYM402	402	coral	KI2014	Platygyra_sp	25	UK	2014.tag402	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM415	KI15cFSYM415	402	coral	KI2015c	Platygyra_sp	25	UK	2015July.tag402	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM410	KI14FSYM410	410	coral	KI2014	Platygyra_sp	25	UK	2014.tag410	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM412	KI14FSYM412	412	coral	KI2014	Favites_pentagona	25	UK	2014.tag412	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM435	KI14FSYM435	435	coral	KI2014	Favites_pentagona	30	gone	2014.tag435	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM065	KI15bFSYM065	435	coral	KI2015b	Favites_pentagona	30	gone	2015May.tag435	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM345	KI15cFSYM345	435	coral	KI2015c	Favites_pentagona	30	gone	2015July.tag435	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM439	KI14FSYM439	439	coral	KI2014	Favites_pentagona	30	alive	2014.tag439	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM068	KI15bFSYM068	439	coral	KI2015b	Favites_pentagona	30	alive	2015May.tag439	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM350	KI15cFSYM350	439	coral	KI2015c	Favites_pentagona	30	alive	2015July.tag439	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM086	KI16aFSYM086	439	coral	KI2016a	Favites_pentagona	30	alive	2016March.tag439	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM442	KI14FSYM442	442	coral	KI2014	Platygyra_sp	30	gone	2014.tag442	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM069	KI15bFSYM069	442	coral	KI2015b	Platygyra_sp	30	gone	2015May.tag442	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM348	KI15cFSYM348	442	coral	KI2015c	Platygyra_sp	30	gone	2015July.tag442	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM447	KI14FSYM447	447	coral	KI2014	Platygyra_sp	27	UK	2014.tag447	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM449	KI14FSYM449	449	coral	KI2014	Favites_pentagona	27	UK	2014.tag449	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM454	KI14FSYM454	454	coral	KI2014	Favites_pentagona	27	UK	2014.tag454	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM455	KI14FSYM455	455	coral	KI2014	Platygyra_sp	27	UK	2014.tag455	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM160	KI15aFSYM160	455	coral	KI2015a	Platygyra_sp	27	UK	2015Jan_Post.tag455	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM461	KI14FSYM461	461	coral	KI2014	Platygyra_sp	27	UK	2014.tag461	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM466	KI14FSYM466	466	coral	KI2014	Platygyra_sp	27	dead	2014.tag466	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM156	KI15aFSYM156	466	coral	KI2015a	Platygyra_sp	27	dead	2015Jan_Post.tag466	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM140	KI15bFSYM140	466	coral	KI2015b	Platygyra_sp	27	dead	2015May.tag466	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM064	KI15cFSYM064	466	coral	KI2015c	Platygyra_sp	27	dead	2015July.tag466	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM470	KI14FSYM470	470	coral	KI2014	Platygyra_sp	27	gone	2014.tag470	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM150	KI15aFSYM150	470	coral	KI2015a	Platygyra_sp	27	gone	2015Jan_Post.tag470	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM138	KI15bFSYM138	470	coral	KI2015b	Platygyra_sp	27	gone	2015May.tag470	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM072	KI15cFSYM072	470	coral	KI2015c	Platygyra_sp	27	gone	2015July.tag470	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM473	KI14FSYM473	473	coral	KI2014	Favites_pentagona	27	UK	2014.tag473	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM479	KI14FSYM479	479	coral	KI2014	Platygyra_sp	32	UK	2014.tag479	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM482	KI14FSYM482	482	coral	KI2014	Favites_pentagona	32	alive	2014.tag482	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM216	KI15bFSYM216	482	coral	KI2015b	Favites_pentagona	32	alive	2015May.tag482	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM432	KI15cFSYM432	482	coral	KI2015c	Favites_pentagona	32	alive	2015July.tag482	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM010	KI16aFSYM010	482	coral	KI2016a	Favites_pentagona	32	alive	2016March.tag482	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM486	KI14FSYM486	486	coral	KI2014	Platygyra_sp	32	UK	2014.tag486	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM188	KI15bFSYM188	486	coral	KI2015b	Platygyra_sp	32	UK	2015May.tag486	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM487	KI14FSYM487	487	coral	KI2014	Favites_pentagona	32	UK	2014.tag487	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM187	KI15bFSYM187	487	coral	KI2015b	Favites_pentagona	32	UK	2015May.tag487	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM434	KI15cFSYM434	487	coral	KI2015c	Favites_pentagona	32	UK	2015July.tag487	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM492	KI14FSYM492	492	coral	KI2014	Favites_pentagona	32	dead	2014.tag492	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM191	KI15bFSYM191	492	coral	KI2015b	Favites_pentagona	32	dead	2015May.tag492	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM439	KI15cFSYM439	492	coral	KI2015c	Favites_pentagona	32	dead	2015July.tag492	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM504	KI14FSYM504	504	coral	KI2014	Platygyra_sp	14	dead_or_gone	2014.tag504	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM032	KI15aFSYM032	583	coral	KI2015a	Favites_pentagona	15	UK	2015Jan_Pre.tag583	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM080	KI15bFSYM080	583	coral	KI2015b	Favites_pentagona	15	UK	2015May.tag583	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM101	KI15cFSYM101	583	coral	KI2015c	Favites_pentagona	15	UK	2015July.tag583	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM151	KI16aFSYM151	583	coral	KI2016a	Favites_pentagona	15	UK	2016March.tag583	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM037	KI15aFSYM037	588	coral	KI2015a	Favites_pentagona	15	alive	2015Jan_Pre.tag588	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM084	KI15bFSYM084	588	coral	KI2015b	Favites_pentagona	15	alive	2015May.tag588	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM104	KI15cFSYM104	588	coral	KI2015c	Favites_pentagona	15	alive	2015July.tag588	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM153	KI16aFSYM153	588	coral	KI2016a	Favites_pentagona	15	alive	2016March.tag588	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM041	KI15aFSYM041	592	coral	KI2015a	Favites_pentagona	15	alive	2015Jan_Pre.tag592	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM088	KI15bFSYM088	592	coral	KI2015b	Favites_pentagona	15	alive	2015May.tag592	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM112	KI15cFSYM112	592	coral	KI2015c	Favites_pentagona	15	alive	2015July.tag592	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM155	KI16aFSYM155	592	coral	KI2016a	Favites_pentagona	15	alive	2016March.tag592	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM043	KI15aFSYM043	594	coral	KI2015a	Platygyra_sp	15	alive	2015Jan_Pre.tag594	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM114	KI15cFSYM114	594	coral	KI2015c	Platygyra_sp	15	alive	2015July.tag594	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM158	KI16aFSYM158	594	coral	KI2016a	Platygyra_sp	15	alive	2016March.tag594	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM046	KI15aFSYM046	597	coral	KI2015a	Favites_pentagona	15	alive	2015Jan_Pre.tag597	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM092	KI15bFSYM092	597	coral	KI2015b	Favites_pentagona	15	alive	2015May.tag597	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM116	KI15cFSYM116	597	coral	KI2015c	Favites_pentagona	15	alive	2015July.tag597	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM159	KI16aFSYM159	597	coral	KI2016a	Favites_pentagona	15	alive	2016March.tag597	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM057	KI15aFSYM057	605	coral	KI2015a	Favites_pentagona	15	gone	2015Jan_Pre.tag605	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM125	KI15cFSYM125	605	coral	KI2015c	Favites_pentagona	15	gone	2015July.tag605	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM052	KI15aFSYM052	612	coral	KI2015a	Platygyra_sp	15	alive	2015Jan_Pre.tag612	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM126	KI15cFSYM126	612	coral	KI2015c	Platygyra_sp	15	alive	2015July.tag612	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM164	KI16aFSYM164	612	coral	KI2016a	Platygyra_sp	15	alive	2016March.tag612	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM067	KI15aFSYM067	618	coral	KI2015a	Platygyra_sp	15	alive	2015Jan_Pre.tag618	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM129	KI15cFSYM129	618	coral	KI2015c	Platygyra_sp	15	alive	2015July.tag618	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM160	KI16aFSYM160	618	coral	KI2016a	Platygyra_sp	15	alive	2016March.tag618	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM072	KI15aFSYM072	623	coral	KI2015a	Favites_pentagona	15	gone	2015Jan_Pre.tag623	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM145	KI15cFSYM145	623	coral	KI2015c	Favites_pentagona	15	gone	2015July.tag623	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM077	KI15aFSYM077	628	coral	KI2015a	Favites_pentagona	15	gone	2015Jan_Pre.tag628	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM142	KI15cFSYM142	628	coral	KI2015c	Favites_pentagona	15	gone	2015July.tag628	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM144	KI15cFSYM144	631	coral	KI2015c	Favites_pentagona	15	dead	2015July.tag631	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15aFSYM097	KI15aFSYM097	637	coral	KI2015a	Platygyra_sp	35	alive	2015Jan_Post.tag637	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM020	KI15bFSYM020	637	coral	KI2015b	Platygyra_sp	35	alive	2015May.tag637	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM047	KI16aFSYM047	637	coral	KI2016a	Platygyra_sp	35	alive	2016March.tag637	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM102	KI15bFSYM102	656	coral	KI2015b	Favites_pentagona	19	UK	2015May.tag656	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM025	KI15cFSYM025	656	coral	KI2015c	Favites_pentagona	19	UK	2015July.tag656	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM147	KI15bFSYM147	685	coral	KI2015b	Favites_pentagona	27	UK	2015May.tag685	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM179	KI15bFSYM179	696	coral	KI2015b	Platygyra_sp	8	UK	2015May.tag696	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM385	KI15cFSYM385	696	coral	KI2015c	Platygyra_sp	8	UK	2015July.tag696	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM004	KI16aFSYM004	696	coral	KI2016a	Platygyra_sp	8	UK	2016March.tag696	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM184	KI15bFSYM184	719	coral	KI2015b	Favites_pentagona	8	dead	2015May.tag719	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM373	KI15cFSYM373	719	coral	KI2015c	Favites_pentagona	8	dead	2015July.tag719	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM200	KI15bFSYM200	722	coral	KI2015b	Favites_pentagona	27	gone	2015May.tag722	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM077	KI15cFSYM077	722	coral	KI2015c	Favites_pentagona	27	gone	2015July.tag722	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM204	KI15bFSYM204	726	coral	KI2015b	Favites_pentagona	27	gone	2015May.tag726	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM082	KI15cFSYM082	726	coral	KI2015c	Favites_pentagona	27	gone	2015July.tag726	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM205	KI15bFSYM205	727	coral	KI2015b	Platygyra_sp	27	gone	2015May.tag727	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM083	KI15cFSYM083	727	coral	KI2015c	Platygyra_sp	27	gone	2015July.tag727	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM207	KI15bFSYM207	729	coral	KI2015b	Favites_pentagona	27	alive	2015May.tag729	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM094	KI15cFSYM094	729	coral	KI2015c	Favites_pentagona	27	alive	2015July.tag729	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM066	KI16aFSYM066	729	coral	KI2016a	Favites_pentagona	27	alive	2016March.tag729	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM213	KI15bFSYM213	735	coral	KI2015b	Platygyra_sp	27	gone	2015May.tag735	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM065	KI15cFSYM065	735	coral	KI2015c	Platygyra_sp	27	gone	2015July.tag735	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM214	KI15bFSYM214	736	coral	KI2015b	Favites_pentagona	27	gone	2015May.tag736	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM063	KI15cFSYM063	736	coral	KI2015c	Favites_pentagona	27	gone	2015July.tag736	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM219	KI15bFSYM219	742	coral	KI2015b	Platygyra_sp	32	dead	2015May.tag742	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM436	KI15cFSYM436	742	coral	KI2015c	Platygyra_sp	32	dead	2015July.tag742	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM231	KI15bFSYM231	754	coral	KI2015b	Platygyra_sp	32	alive	2015May.tag754	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM468	KI15cFSYM468	754	coral	KI2015c	Platygyra_sp	32	alive	2015July.tag754	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM239	KI15bFSYM239	762	coral	KI2015b	Platygyra_sp	32	dead	2015May.tag762	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM474	KI15cFSYM474	762	coral	KI2015c	Platygyra_sp	32	dead	2015July.tag762	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM243	KI15bFSYM243	766	coral	KI2015b	Platygyra_sp	32	dead	2015May.tag766	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM472	KI15cFSYM472	766	coral	KI2015c	Platygyra_sp	32	dead	2015July.tag766	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM245	KI15bFSYM245	768	coral	KI2015b	Platygyra_sp	32	dead	2015May.tag768	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM460	KI15cFSYM460	768	coral	KI2015c	Platygyra_sp	32	dead	2015July.tag768	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM247	KI15bFSYM247	770	coral	KI2015b	Favites_pentagona	32	alive	2015May.tag770	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM461	KI15cFSYM461	770	coral	KI2015c	Favites_pentagona	32	alive	2015July.tag770	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM013	KI16aFSYM013	770	coral	KI2016a	Favites_pentagona	32	alive	2016March.tag770	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM249	KI15bFSYM249	772	coral	KI2015b	Favites_pentagona	32	dead	2015May.tag772	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM448	KI15cFSYM448	772	coral	KI2015c	Favites_pentagona	32	dead	2015July.tag772	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM277	KI15bFSYM277	781	coral	KI2015b	Favites_pentagona	34	UK	2015May.tag781	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM499	KI15cFSYM499	781	coral	KI2015c	Favites_pentagona	34	UK	2015July.tag781	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM279	KI15bFSYM279	783	coral	KI2015b	Platygyra_sp	34	alive	2015May.tag783	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM118	KI16aFSYM118	783	coral	KI2016a	Platygyra_sp	34	alive	2016March.tag783	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM282	KI15bFSYM282	786	coral	KI2015b	Favites_pentagona	34	alive	2015May.tag786	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM502	KI15cFSYM502	786	coral	KI2015c	Favites_pentagona	34	alive	2015July.tag786	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM119	KI16aFSYM119	786	coral	KI2016a	Favites_pentagona	34	alive	2016March.tag786	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM284	KI15bFSYM284	788	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag788	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM253	KI15cFSYM253	788	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag788	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM088	KI16aFSYM088	788	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag788	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM288	KI15bFSYM288	792	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag792	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM254	KI15cFSYM254	792	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag792	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM089	KI16aFSYM089	792	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag792	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM293	KI15bFSYM293	797	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag797	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM261	KI15cFSYM261	797	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag797	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM091	KI16aFSYM091	797	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag797	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM296	KI15bFSYM296	800	coral	KI2015b	Favites_pentagona	5	gone	2015May.tag800	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM265	KI15cFSYM265	800	coral	KI2015c	Favites_pentagona	5	gone	2015July.tag800	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM303	KI15bFSYM303	807	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag807	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM273	KI15cFSYM273	807	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag807	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM104	KI16aFSYM104	807	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag807	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM306	KI15bFSYM306	810	coral	KI2015b	Favites_pentagona	5	dead	2015May.tag810	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM275	KI15cFSYM275	810	coral	KI2015c	Favites_pentagona	5	dead	2015July.tag810	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM309	KI15bFSYM309	813	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag813	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM277	KI15cFSYM277	813	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag813	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM095	KI16aFSYM095	813	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag813	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM316	KI15bFSYM316	820	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag820	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM278	KI15cFSYM278	820	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag820	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM096	KI16aFSYM096	820	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag820	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM320	KI15bFSYM320	824	coral	KI2015b	Platygyra_sp	5	alive	2015May.tag824	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM283	KI15cFSYM283	824	coral	KI2015c	Platygyra_sp	5	alive	2015July.tag824	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM101	KI16aFSYM101	824	coral	KI2016a	Platygyra_sp	5	alive	2016March.tag824	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM340	KI15bFSYM340	844	coral	KI2015b	Favites_pentagona	34	alive	2015May.tag844	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM519	KI15cFSYM519	844	coral	KI2015c	Favites_pentagona	34	alive	2015July.tag844	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM123	KI16aFSYM123	844	coral	KI2016a	Favites_pentagona	34	alive	2016March.tag844	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM346	KI15bFSYM346	850	coral	KI2015b	Platygyra_sp	34	alive	2015May.tag850	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM506	KI15cFSYM506	850	coral	KI2015c	Platygyra_sp	34	alive	2015July.tag850	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM120	KI16aFSYM120	850	coral	KI2016a	Platygyra_sp	34	alive	2016March.tag850	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM352	KI15bFSYM352	856	coral	KI2015b	Favites_pentagona	34	dead	2015May.tag856	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM503	KI15cFSYM503	856	coral	KI2015c	Favites_pentagona	34	dead	2015July.tag856	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM353	KI15bFSYM353	857	coral	KI2015b	Platygyra_sp	34	alive	2015May.tag857	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM504	KI15cFSYM504	857	coral	KI2015c	Platygyra_sp	34	alive	2015July.tag857	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM113	KI16aFSYM113	857	coral	KI2016a	Platygyra_sp	34	alive	2016March.tag857	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM018	KI16aFSYM018	900	coral	KI2016a	Platygyra_sp	32	alive	2016March.tag900	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM020	KI16aFSYM020	902	coral	KI2016a	Favites_pentagona	32	alive	2016March.tag902	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM024	KI16aFSYM024	906	coral	KI2016a	Platygyra_sp	8	alive	2016March.tag906	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM027	KI16aFSYM027	909	coral	KI2016a	Platygyra_sp	8	alive	2016March.tag909	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM029	KI16aFSYM029	911	coral	KI2016a	Favites_pentagona	8	alive	2016March.tag911	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM033	KI16aFSYM033	914	coral	KI2016a	Platygyra_sp	8	alive	2016March.tag914	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM038	KI16aFSYM038	919	coral	KI2016a	Platygyra_sp	8	alive	2016March.tag919	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM054	KI16aFSYM054	925	coral	KI2016a	Platygyra_sp	35	alive	2016March.tag925	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM057	KI16aFSYM057	928	coral	KI2016a	Platygyra_sp	35	alive	2016March.tag928	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM058	KI16aFSYM058	929	coral	KI2016a	Favites_pentagona	35	alive	2016March.tag929	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM062	KI16aFSYM062	933	coral	KI2016a	Platygyra_sp	35	alive	2016March.tag933	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM069	KI16aFSYM069	936	coral	KI2016a	Platygyra_sp	27	alive	2016March.tag936	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM070	KI16aFSYM070	937	coral	KI2016a	Favites_pentagona	27	alive	2016March.tag937	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM072	KI16aFSYM072	939	coral	KI2016a	Platygyra_sp	27	alive	2016March.tag939	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM074	KI16aFSYM074	941	coral	KI2016a	Platygyra_sp	27	alive	2016March.tag941	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM217	KI16aFSYM217	1005	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag1005	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM220	KI16aFSYM220	1008	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag1008	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM221	KI16aFSYM221	1009	coral	KI2016a	Favites_pentagona	37	alive	2016March.tag1009	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM223	KI16aFSYM223	1011	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag1011	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM225	KI16aFSYM225	1013	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag1013	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM229	KI16aFSYM229	1017	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag1017	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM212	KI16aFSYM212	1020	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag1020	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM214	KI16aFSYM214	1022	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag1022	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM215	KI16aFSYM215	1023	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag1023	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM231	KI16aFSYM231	1024	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag1024	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM235	KI16aFSYM235	1028	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag1028	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM237	KI16aFSYM237	1030	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag1030	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM238	KI16aFSYM238	1031	coral	KI2016a	Platygyra_sp	37	alive	2016March.tag1031	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM239	KI16aFSYM239	1032	coral	KI2016a	Favites_pentagona	37	alive	2016March.tag1032	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM256	KI16aFSYM256	1033	coral	KI2016a	Favites_pentagona	40	alive	2016March.tag1033	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM259	KI16aFSYM259	1034	coral	KI2016a	Favites_pentagona	40	alive	2016March.tag1034	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM260	KI16aFSYM260	1035	coral	KI2016a	Platygyra_sp	40	alive	2016March.tag1035	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM261	KI16aFSYM261	1036	coral	KI2016a	Platygyra_sp	40	alive	2016March.tag1036	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM262	KI16aFSYM262	1037	coral	KI2016a	Favites_pentagona	40	alive	2016March.tag1037	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM264	KI16aFSYM264	1040	coral	KI2016a	Platygyra_sp	40	alive	2016March.tag1040	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM265	KI16aFSYM265	1049	coral	KI2016a	Platygyra_sp	40	alive	2016March.tag1049	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM266	KI16aFSYM266	1050	coral	KI2016a	Favites_pentagona	40	alive	2016March.tag1050	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM272	KI16aFSYM272	1055	coral	KI2016a	Platygyra_sp	40	alive	2016March.tag1055	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM273	KI16aFSYM273	1056	coral	KI2016a	Favites_pentagona	40	alive	2016March.tag1056	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM428	KI15cFSYM428	410_893	coral	KI2015c	Platygyra_sp	25	UK	2015July.tag410_893	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15cFSYM427	KI15cFSYM427	412_892	coral	KI2015c	Favites_pentagona	25	UK	2015July.tag412_892	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI14FSYM497	KI14FSYM497	497_745	coral	KI2014	Favites_pentagona	32	alive	2014.tag497_745	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI15bFSYM194	KI15bFSYM194	497_745	coral	KI2015b	Favites_pentagona	32	alive	2015May.tag497_745	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM006	KI16aFSYM006	497_745	coral	KI2016a	Favites_pentagona	32	alive	2016March.tag497_745	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+KI16aFSYM017	KI16aFSYM017	754_899	coral	KI2016a	Platygyra_sp	32	alive	2016March.tag754_899	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
