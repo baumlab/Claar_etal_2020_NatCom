@@ -9,3 +9,10 @@ OTUSummary - figure output from KI_Platy_analysis_OTUSummary.Rmd, use with cauti
 FILES  
   
 Figure1.R - Rscript for manuscript figure #1, showing DHW accummulation over time with images of coral99. Note that this is a slow script. I used a jpeg script from online, and full sized images, and could probably optimize this process a bit. 
+
+Figure1.tiff
+
+cmap_enso.csv - color bar for Figure 1 temperatures
+
+Platy_figures.jpg - written notes planning figures
+Platy_outline.jpg - written notes planning outline

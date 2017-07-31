@@ -6,6 +6,7 @@ Sequencing Runs: First two runs completed by Amy at HIMB 1) "Platy" run, 2) "Com
 Data Subset: Included only coral data from these runs (water and sediment data are currently in KI_seqs repo)  
   
 Initial data processing: SymITS2 repo (https://github.com/jrcunning/SymITS2)  
+Jupyter Notebook: KI_Platy_Bioinf_Workflow.ipynb
   
 Basic Analysis Scripts:  
  1) KI_Platy_analysis_PhyloseqCleanup.R  
@@ -28,13 +29,4 @@ Basic Analysis Scripts:
        - Define and list core, common, and rare symbiont names, create barplot  
        - Calculates abundance and prevalence for all OTUs, and create scatter plot  
     Saves as C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_seqs_f_coral_grouped_OTUSummary.RData and knits to html for easier viewing.
- 3) KI_Platy_analysis_DiversityModels.Rmd  
-    In Progress  
- 4) KI_Platy_analysis_PlotExploration  
-    In Progress  
- 5) KI_Platy_SupervisedLearning  
-    In Progress  
- 6) KI_Platy_ViolinPlots_Clades  
-    In Progress  
- 7)  
 
