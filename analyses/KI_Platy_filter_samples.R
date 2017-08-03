@@ -14,31 +14,28 @@ rm(list=ls())
 # Loading the full sequence database - from the first two MiSeq Runs
 load("C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/otus_97_bysample/KI_seqs_f.RData")
 
-phy.f.coral.now <- subset_samples(phy.f,Coral_Species=="Platygyra_sp"|Coral_Species=="Favites_pentagona", prune=TRUE)
-taxa <- taxa_sums(phy.f.coral.now)[which(taxa_sums(phy.f.coral.now) > 0)]
-# Remove taxa below threshold count
-phy.f.coral.now <- prune_taxa(names(taxa), phy.f.coral.now)
+phy.f.coral <- phy.f
 
 # Filter OTUs by minimum count
 # Set threshold count
 n <- 10
 # Identify OTUs below threshold count
-taxa <- taxa_sums(phy.f.coral.now)[which(taxa_sums(phy.f.coral.now) >= n)]
+taxa <- taxa_sums(phy.f.coral)[which(taxa_sums(phy.f.coral) >= n)]
 # Remove taxa below threshold count
-phy.f.coral.now <- prune_taxa(names(taxa), phy.f.coral.now)
+phy.f.coral <- prune_taxa(names(taxa), phy.f.coral)
 
 # Filter samples by minimum count
 # Set threshold number of reads
 sn <- 200
 # Remove samples with fewer reads than threshold
-phy.f.coral.now <- prune_samples(sample_sums(phy.f.coral.now)>=sn, phy.f.coral.now)
+phy.f.coral <- prune_samples(sample_sums(phy.f.coral)>=sn, phy.f.coral)
 
 
 # Filter OTUs by minimum count again in case any dropped below threshold after filtering samples
 # Identify OTUs below threshold count
-taxa <- taxa_sums(phy.f.coral.now)[which(taxa_sums(phy.f.coral.now) >= n)]
+taxa <- taxa_sums(phy.f.coral)[which(taxa_sums(phy.f.coral) >= n)]
 # Remove taxa below threshold count
-phy97.f <- prune_taxa(names(taxa), phy.f.coral.now)
+phy97.f <- prune_taxa(names(taxa), phy.f.coral)
 
 # Characterize sites by disturbance level
 VeryHigh <- c(33,40,32,31,27,30,26)
@@ -108,26 +105,26 @@ write.delim(data.frame(otu_table(phy97.f.c)), "C:/Users/Dani/Documents/Data_Anal
 
 #https://rdrr.io/rforge/seqinr/man/dist.alignment.html
 #returns sqrt of pairwise genetic distance, then squared the matrices
-A.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/A_tree_seqs_aligned_clean.fasta", format= "fasta")
+A.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/A_tree_seqs_aligned_clean.fasta", format= "fasta")
 
 A.dis <- (as.matrix(dist.alignment(A.seqs, matrix = "identity" )))^2
-write.csv(A.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/A.dis.matx.csv")
+write.csv(A.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/A.dis.matx.csv")
 
-C.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/C_tree_seqs_aligned_clean.fasta", format= "fasta")
+C.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/C_tree_seqs_aligned_clean.fasta", format= "fasta")
 C.dis <- (as.matrix(dist.alignment(C.seqs, matrix = "identity" )))^2
-write.csv(C.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/C.dis.matx.csv")
+write.csv(C.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/C.dis.matx.csv")
 
-D.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/D_tree_seqs_aligned_clean.fasta", format= "fasta")
+D.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/D_tree_seqs_aligned_clean.fasta", format= "fasta")
 D.dis <- (as.matrix(dist.alignment(D.seqs, matrix = "identity" )))^2
-write.csv(D.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/D.dis.matx.csv")
+write.csv(D.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/D.dis.matx.csv")
 
-F.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/F_tree_seqs_aligned_clean.fasta", format= "fasta")
+F.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/F_tree_seqs_aligned_clean.fasta", format= "fasta")
 F.dis <- (as.matrix(dist.alignment(F.seqs, matrix = "identity" )))^2
-write.csv(F.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/F.dis.matx.csv")
+write.csv(F.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/F.dis.matx.csv")
 
-G.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/G_tree_seqs_aligned_clean.fasta", format= "fasta")
+G.seqs <- read.alignment(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/G_tree_seqs_aligned_clean.fasta", format= "fasta")
 G.dis <- (as.matrix(dist.alignment(G.seqs, matrix = "identity" )))^2
-write.csv(G.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/G.dis.matx.csv")
+write.csv(G.dis, file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/G.dis.matx.csv")
 
 #give clade distances using average 28s distance from Pochon and Gates 2010
 A_C <- matrix(0.1960, ncol=ncol(A.dis), nrow=nrow(C.dis), dimnames=list(rownames(C.dis), colnames(A.dis)))
@@ -157,7 +154,7 @@ uber.tree <- phangorn::upgma(ubermatrix)
 plot(uber.tree, main="UPGMA")
 
 #write tree to file
-write.tree(uber.tree, file="C:/Users/Dani/Documents/Data_Analysis/KI_seqs/data/uber.tre")
+write.tree(uber.tree, file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/uber.tre")
 
 #use tree and OTU table for calculating beta_diversity.py
 #http://qiime.org/scripts/beta_diversity.html
