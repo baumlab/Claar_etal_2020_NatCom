@@ -23,7 +23,7 @@ library(cowplot)
 
 rm(list=ls())
 
-load("C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/KI_seqs_f_coral_grouped.RData")
+load("data/KI_seqs_f_coral_grouped.RData")
 
 # Look at tax_table
 tax_table(phy97.f.c)
@@ -87,20 +87,14 @@ favites.ntaxa <- ntaxa(phy97.f.c.fpenta)
 # Number of Clades:
 favites.nclades <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.fpenta))[9])$clade))))))
 favites.clades <- levels(unique((data.frame(tax_table(phy97.f.c.fpenta))[9])$clade))
-# FAVIA  
-# Number of OTUs:
-favia.ntaxa <- ntaxa(phy97.f.c.faviaall)
-# Number of Clades:
-favia.nclades <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.faviaall))[9])$clade))))))
-favia.clades <- levels(unique((data.frame(tax_table(phy97.f.c.faviaall))[9])$clade))
 ```
 
 # Plot OTU and clade diversity by species
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Make a data frame including the number of OTUs
-df <- data.frame(Platygyra=platy.ntaxa,Favia=favia.ntaxa,Favites=favites.ntaxa)
+df <- data.frame(Platygyra=platy.ntaxa,Favites=favites.ntaxa)
 # Add the number of clades to the data frame
-df[2,] <- c(platy.nclades,favia.nclades,favites.nclades)
+df[2,] <- c(platy.nclades,favites.nclades)
 # Set the row names
 rownames(df) <- c("OTUs","Clades")
 # Transpose the data frame
@@ -109,13 +103,13 @@ df <- t(df)
 df
 
 # Create and print a barplot of these data
-barplot(df, names.arg=c("OTUs","Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan"),ylim = c(0,max(df)))
+barplot(df, names.arg=c("OTUs","Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","darkcyan"),ylim = c(0,max(df)))
 
 # Create a pdf of this plot and save in the 'figures' folder
 # Open a new pdf file
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Diversity_by_Species.pdf")
+pdf(file="../figures/OTUSummary/Diversity_by_Species.pdf")
 # Make the plot
-barplot(df, names.arg=c("OTUs","Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","lightblue","darkcyan"),ylim = c(0,max(df)))
+barplot(df, names.arg=c("OTUs","Clades"), beside=TRUE, legend=rownames(df), col=c("deepskyblue4","darkcyan"),ylim = c(0,max(df)))
 # Close the pdf file
 dev.off()
 
@@ -149,20 +143,13 @@ p2 <- plot_bar(phy97.f.c.fpenta.p,fill="hit",title="Favites pentagona")
 #   "yellow", # Clade F
 #   "purple")) # Clade G
 
-# # Number of samples - FAVIA MATTHAI
-# sum(sample_data(phy97.f.c.coral)$Coral_Species=="Favia_matthai")
-# # Number of tagged colonies - FAVIA MATTHAI
-# unique(sample_data(phy97.f.c.faviam)$CoralTag)
-# #  FAVIA MATTHAI
-# p3 <- plot_bar(phy97.f.c.faviam.p,fill="hit", title="Favia matthai")
-
 # Write new figure to pdf
-jpeg(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Combined_Barplot.jpg",height=9, width=14,units = "in", res=300)
+jpeg(file="../figures/OTUSummary/Combined_Barplot.jpg",height=9, width=14,units = "in", res=300)
 # Plot Platygyra and Favites pentagona with a shared legend
 grid_arrange_shared_legend(p1, p2, ncol = 1, nrow = 2)
 dev.off()
 
-jpeg(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Combined_Barplot_byclade.jpg",height=9, width=14,units="in",res=300)
+jpeg(file="../figures/OTUSummary/Combined_Barplot_byclade.jpg",height=9, width=14,units="in",res=300)
 p4 <- plot_bar(phy97.f.c.platy.p,fill="clade",title = "Platygyra")
 p5 <- plot_bar(phy97.f.c.fpenta.p,fill="clade",title="Favites pentagona")
 grid_arrange_shared_legend(p4, p5, ncol = 1, nrow = 2)
@@ -186,7 +173,7 @@ Next, we look at the number of *Symbiodinium* types (OTUs) and clades in coral a
 
 <!-- Calculate OTU and clade diversity by site -->
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
-for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
+for (i in unique(data.frame(sample_data(phy97.f.c.coral))$site)){
   nam <- paste("site",i,".coral.ntaxa",sep="")
   nam2 <- paste("site",i,".coral.nclades",sep="")
   nam3 <- paste("site",i,".coral.clades",sep="")
@@ -202,7 +189,7 @@ for (i in unique(data.frame(sample_data(phy97.f.c.coral))$Site)){
   assign(nam4,d)
 }
 
-for (i in unique(data.frame(sample_data(phy97.f.c.platy))$Site)){
+for (i in unique(data.frame(sample_data(phy97.f.c.platy))$site)){
   nam <- paste("site",i,".platy.ntaxa",sep="")
   nam2 <- paste("site",i,".platy.nclades",sep="")
   nam3 <- paste("site",i,".platy.clades",sep="")
@@ -218,7 +205,7 @@ for (i in unique(data.frame(sample_data(phy97.f.c.platy))$Site)){
   assign(nam4,d)
 }
 
-for (i in unique(data.frame(sample_data(phy97.f.c.fpenta))$Site)){
+for (i in unique(data.frame(sample_data(phy97.f.c.fpenta))$site)){
   nam <- paste("site",i,".fpenta.ntaxa",sep="")
   nam2 <- paste("site",i,".fpenta.nclades",sep="")
   nam3 <- paste("site",i,".fpenta.clades",sep="")
@@ -384,38 +371,46 @@ To understand how *Symbiodinium* diversity changes among field seasons, clade di
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # 2014  
 # Number of OTUs:
-s2014.ntaxa <- ntaxa(phy97.f.c.coral.2014)
+KI2014.ntaxa <- ntaxa(phy97.f.c.coral.KI2014)
 # Number of Clades:
-s2014.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.2014))[9])$clade))))))
-s2014.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.2014))[9])$clade))
+KI2014.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.KI2014))[9])$clade))))))
+KI2014.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.KI2014))[9])$clade))
 
 # 2015 Jan
+# Make sure to get rid of empty taxa
+phy97.f.c.coral.KI2015a = prune_taxa(taxa_sums(phy97.f.c.coral.KI2015a) > 0, phy97.f.c.coral.KI2015a) 
 # Number of OTUs:
-s2015Jan.ntaxa <- ntaxa(phy97.f.c.coral.2015Jan)
+KI2015a.ntaxa <- ntaxa(phy97.f.c.coral.KI2015a)
 # Number of Clades:
-s2015Jan.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.2015Jan))[9])$clade))))))
-s2015Jan.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.2015Jan))[9])$clade))
+KI2015a.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.KI2015a))[9])$clade))))))
+KI2015a.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.KI2015a))[9])$clade))
 
 # 2015 May
+# Make sure to get rid of empty taxa
+phy97.f.c.coral.KI2015b = prune_taxa(taxa_sums(phy97.f.c.coral.KI2015b) > 0, phy97.f.c.coral.KI2015b) 
 # Number of OTUs:
-s2015May.ntaxa <- ntaxa(phy97.f.c.coral.2015May)
+KI2015b.ntaxa <- ntaxa(phy97.f.c.coral.KI2015b)
 # Number of Clades:
-s2015May.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.2015May))[9])$clade))))))
-s2015May.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.2015May))[9])$clade))
+KI2015b.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.KI2015b))[9])$clade))))))
+KI2015May.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.KI2015b))[9])$clade))
 
 # 2015 July
+# Make sure to get rid of empty taxa
+phy97.f.c.coral.KI2015c = prune_taxa(taxa_sums(phy97.f.c.coral.KI2015c) > 0, phy97.f.c.coral.KI2015c) 
 # Number of OTUs:
-s2015July.ntaxa <- ntaxa(phy97.f.c.coral.2015July)
+KI2015c.ntaxa <- ntaxa(phy97.f.c.coral.KI2015c)
 # Number of Clades:
-s2015July.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.2015July))[9])$clade))))))
-s2015July.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.2015July))[9])$clade))
+KI2015c.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.KI2015c))[9])$clade))))))
+KI2015c.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.KI2015c))[9])$clade))
 
 # 2016 March
+# Make sure to get rid of empty taxa
+phy97.f.c.coral.KI2016a = prune_taxa(taxa_sums(phy97.f.c.coral.KI2016a) > 0, phy97.f.c.coral.KI2016a) 
 # Number of OTUs:
-s2016March.ntaxa <- ntaxa(phy97.f.c.coral.2016March)
+KI2016a.ntaxa <- ntaxa(phy97.f.c.coral.KI2016a)
 # Number of Clades:
-s2016March.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.2016March))[9])$clade))))))
-s2016March.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.2016March))[9])$clade))
+KI2016a.nclades  <- sum(table(unlist(sort((unique((data.frame(tax_table(phy97.f.c.coral.KI2016a))[9])$clade))))))
+KI2016a.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.KI2016a))[9])$clade))
 ```
 
 # OTU and Clade Diversity by Field Season
@@ -423,8 +418,8 @@ s2016March.clades <- levels(unique((data.frame(tax_table(phy97.f.c.coral.2016Mar
 mycols <- c("lightblue2", "lightblue2", "lightblue2", "orange", "red")
 palette(mycols)
 # Make a data frame for plotting OTU and clade diversity by Field Season
-df3 <- data.frame(s2014=s2014.ntaxa,s2015Jan=s2015Jan.ntaxa,s2015May=s2015May.ntaxa,s2015July=s2015July.ntaxa,s2016March=s2016March.ntaxa)
-df3[2,] <- c(s2014=s2014.nclades,s2015Jan=s2015Jan.nclades,s2015May=s2015May.nclades,s2015July=s2015July.nclades,s2016March=s2016March.nclades)
+df3 <- data.frame(KI2014=KI2014.ntaxa,KI2015a=KI2015a.ntaxa,KI2015b=KI2015b.ntaxa,KI2015c=KI2015c.ntaxa,KI2016a=KI2016a.ntaxa)
+df3[2,] <- c(KI2014=KI2014.nclades,KI2015a=KI2015a.nclades,KI2015b=KI2015b.nclades,KI2015c=KI2015c.nclades,KI2016a=KI2016a.nclades)
 rownames(df3) <- c("OTUs","Clades")
 df3 <- t(df3)
 # Print the data frame
@@ -432,17 +427,20 @@ df3
 
 # Make the plot in the RMD document
 par(xpd=TRUE)
-barplot(df3, names.arg=c("OTUs","Clades"), beside=TRUE, col=mycols,ylim = c(0,max(df3)), main="Symbiodinium Alpha Diversity - by Field Season")
+barplot(df3, names.arg=c("OTUs","Clades"), beside=TRUE, col=mycols,ylim = (c(0,max(df3)+5)), main="Symbiodinium Alpha Diversity - by Field Season")
 legend("topright", legend=rownames(df3), fill=mycols, cex=0.7)
 
 ```
 
 
-The overall number of OTUs and clades observed during each field season were equal, showing stable diversity at the ecosystem (or meta-community) level.
-
 # Plot unique Symbiont types by coral taxa
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Platygyra
+# Make sure to get rid of empty taxa
+phy97.f.c.platy = prune_taxa(taxa_sums(phy97.f.c.platy) > 0, phy97.f.c.platy) 
+phy97.f.c.platy.AD.before = prune_taxa(taxa_sums(phy97.f.c.platy.AD.before) > 0, phy97.f.c.platy.AD.before) 
+phy97.f.c.platy.AD.da = prune_taxa(taxa_sums(phy97.f.c.platy.AD.da) > 0, phy97.f.c.platy.AD.da) 
+
 # Number of Symbiodinium Types:
 platy.ntaxa <- length(unique(data.frame(tax_table(phy97.f.c.platy))$hit))
 platy.ntaxa.before <- length(unique(data.frame(tax_table(phy97.f.c.platy.AD.before))$hit))
@@ -455,6 +453,11 @@ platy.ntaxa.before
 platy.ntaxa.durAft
 
 # Favites pentagona
+# Make sure to get rid of empty taxa
+phy97.f.c.fpenta = prune_taxa(taxa_sums(phy97.f.c.fpenta) > 0, phy97.f.c.fpenta) 
+phy97.f.c.fpenta.AD.before = prune_taxa(taxa_sums(phy97.f.c.fpenta.AD.before) > 0, phy97.f.c.fpenta.AD.before) 
+phy97.f.c.fpenta.AD.da = prune_taxa(taxa_sums(phy97.f.c.fpenta.AD.da) > 0, phy97.f.c.fpenta.AD.da) 
+
 # Number of Symbiodinium Types:
 fpenta.ntaxa <- length(unique(data.frame(tax_table(phy97.f.c.fpenta))$hit))
 fpenta.ntaxa.before <- length(unique(data.frame(tax_table(phy97.f.c.fpenta.AD.before))$hit))
@@ -468,8 +471,8 @@ fpenta.ntaxa.durAft
 
 df4 <- t(data.frame("Platy all"= platy.ntaxa, "Platy before"=platy.ntaxa.before, "Platy during/after"=platy.ntaxa.durAft,"FPenta all"=fpenta.ntaxa,"Fpenta before"= fpenta.ntaxa.before, "FPenta during/after"=fpenta.ntaxa.durAft))
 # Make the plot in the RMD document
-par(xpd=TRUE,mar=c(3,3,3,11))
-barplot(df4, names.arg=c("Platy all","Platy before", "Platy during/after","FPenta all", "Fpenta before","FPenta during/after"), beside=TRUE, col=c("deepskyblue4","deepskyblue4","deepskyblue4","lightblue","lightblue","lightblue"), ylim = c(0,max(df4)))
+par(xpd=TRUE,mar=c(6,3,3,11))
+barplot(df4, names.arg=c("Platy all","Platy before", "Platy during/after","FPenta all", "Fpenta before","FPenta during/after"), beside=TRUE, col=c("deepskyblue4","deepskyblue4","deepskyblue4","lightblue","lightblue","lightblue"), ylim = c(0,max(df4)), cex.names=0.6, las=3)
 legend(7.1,20, legend=rownames(df4), fill=c("deepskyblue4","deepskyblue4","deepskyblue4","lightblue","lightblue","lightblue"), cex=0.7)
 
 ```
@@ -478,111 +481,6 @@ legend(7.1,20, legend=rownames(df4), fill=c("deepskyblue4","deepskyblue4","deeps
 
 Background *Symbiodinium* types are those which have <0.01% abundance, and Principal *Symbiodinium* types are those which ahve >0.01% abunance (per Quigley et al 2017).  
   
-Looking at coral samples only:  
-<!-- Principal and Background Types - Corals -->
-```{r, include=TRUE, echo=FALSE, cache=TRUE}
-# Define the principal coral types
-principal.coral.A <- sum(data.frame(tax_table(principal.coral))$clade=="A")
-principal.coral.C <- sum(data.frame(tax_table(principal.coral))$clade=="C")
-principal.coral.D <- sum(data.frame(tax_table(principal.coral))$clade=="D")
-principal.coral.F <- sum(data.frame(tax_table(principal.coral))$clade=="F")
-principal.coral.G <- sum(data.frame(tax_table(principal.coral))$clade=="G")
-principal.coral.I <- sum(data.frame(tax_table(principal.coral))$clade=="I")
-
-# Print Principal coral types
-print("PRINCIPAL CORAL TYPES")
-
-# Define principal coral clades
-principal.coral.clades <- c(A=principal.coral.A,C=principal.coral.C,D=principal.coral.D,F=principal.coral.F,G=principal.coral.G,I=principal.coral.I)
-
-# List and print principal coral types
-principal.coral.types <- data.frame(tax_table(principal.coral))$hit
-principal.coral.types
-
-# Define Background Types
-background.coral.A <- sum(data.frame(tax_table(background.coral))$clade=="A")
-background.coral.C <- sum(data.frame(tax_table(background.coral))$clade=="C")
-background.coral.D <- sum(data.frame(tax_table(background.coral))$clade=="D")
-background.coral.F <- sum(data.frame(tax_table(background.coral))$clade=="F")
-background.coral.G <- sum(data.frame(tax_table(background.coral))$clade=="G")
-background.coral.I <- sum(data.frame(tax_table(background.coral))$clade=="I")
-
-# Print "Background Coral Types"
-print("BACKGROUND CORAL TYPES")
-
-# Define Background Clades
-background.coral.clades <- c(A=background.coral.A,C=background.coral.C,D=background.coral.D,F=background.coral.F,G=background.coral.G,I=background.coral.I)
-
-# List and print background types
-background.coral.types <- data.frame(tax_table(background.coral))$hit
-background.coral.types
-
-# Create data frame of background and principal coral clades
-principal.coral.background.coral.clades <- rbind(principal.coral.clades,background.coral.clades)
-t.principal.coral.background.coral.clades <- t(principal.coral.background.coral.clades)
-colnames(t.principal.coral.background.coral.clades) <- c("Principal.coral Types", "Background.coral Types")
-
-# Plot background and principal coral clades
-barplot(t.principal.coral.background.coral.clades,col=rainbow(6),beside=TRUE, ylim=c(0,max(t.principal.coral.background.coral.clades)), main="Coral only")
-legend("topleft", legend=rownames(t.principal.coral.background.coral.clades), fill=rainbow(6))
-
-# Make pdf of background and principal coral clades
-pdf(file="C:/Users/Dani/Documents/Data_Analysis/KI_Platy/figures/OTUSummary/Background.coral_Pricipal_Clades.pdf", width=10, height=7)
-par(xpd=TRUE)
-barplot(t.principal.coral.background.coral.clades,col=rainbow(6),beside=TRUE, ylim=c(0,max(t.principal.coral.background.coral.clades)), main="Coral only")
-legend("topleft", legend=rownames(t.principal.coral.background.coral.clades), fill=rainbow(6))
-dev.off()
-```
-  
-
-# Core vs. Common vs. Rare
-```{r, include=TRUE, echo=FALSE, cache=TRUE}
-# Extract OTU names from Coral core, common, and rare types
-names.coral.core <- names(coral.core)
-names.coral.common <- names(coral.common)
-names.coral.rare <- names(coral.rare)
-```
-  
-# Print hits for core, common, and rare in coral
-```{r, include=TRUE, echo=FALSE, cache=TRUE}
-if (!is.null(names.coral.core)) {
-  coral.core.hits <- data.frame()
-  for (i in names.coral.core){
-    coral.core.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.coral)))[i,]$hit)
-  }
-  colnames(coral.core.hits) <- "hits"
-  print("coral.core.hits")
-  coral.core.hits
-} else {
-  print("There were no core hits (for coral)")
-}
-
-if (!is.null(names.coral.common)) {
-  coral.common.hits <- data.frame()
-  for (i in names.coral.common){
-    coral.common.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.coral)))[i,]$hit)
-  }
-  colnames(coral.common.hits) <- "hits"
-  print("coral.common.hits")
-  coral.common.hits
-} else {
-  print("There were no common hits (for coral)")
-}
-
-if (!is.null(names.coral.rare)) {
-  coral.rare.hits <- data.frame()
-  for (i in names.coral.rare){
-    coral.rare.hits[i,1] <- paste((data.frame(tax_table(phy97.f.c.coral)))[i,]$hit)
-  }
-  colnames(coral.rare.hits) <- "hits"
-  print("coral.rare.hits")
-  coral.rare.hits
-} else {
-  print("There were no rare hits (for coral)")
-}
-
-```
-
 # Abundance vs. Prevalence
 
 <!-- Abundance vs. prevalence - Coral -->
@@ -601,7 +499,7 @@ plot(phy97.f.c.coral.AbundPrev[,1:2],xlab="Log OTU Abundance",ylab="OTU Prevalen
 
 # Rank Abundance Curves - all timepoints
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
-par(mar=c(12,5,1,1),xaxs="i",yaxs="i",mfrow=c(1,3))
+par(mar=c(15,5,1,1),xaxs="i",yaxs="i",mfrow=c(1,3))
 N=15
 
 # All corals
@@ -610,8 +508,9 @@ rac.temp$otu<-rownames(rac.temp)
 colnames(rac.temp)[1] <- "Abundance"
 rac <- merge(rac.temp, data.frame(tax_table(phy97.f.c.coral)), by="otu")
 rac <- rac[order(-rac$Abundance),]
+rac$hit <- gsub("_*", "", rac$hit)
 
-barplot(rac$Abundance[1:N], las=2, names.arg=rac$hit[1:N],space=0,col=rac$clade,main="All Corals")
+barplot(rac$Abundance[1:N], las=2, names.arg=rac$hit[1:N],space=0,col=rac$clade,main="All Corals", cex.names = 0.6)
 
 # Platygyra
 rac.platy.temp <- data.frame(sort(taxa_sums(phy97.f.c.platy)))
@@ -619,8 +518,9 @@ rac.platy.temp$otu<-rownames(rac.platy.temp)
 colnames(rac.platy.temp)[1] <- "Abundance"
 rac.platy <- merge(rac.platy.temp, data.frame(tax_table(phy97.f.c.platy)), by="otu")
 rac.platy <- rac.platy[order(-rac.platy$Abundance),]
+rac.platy$hit <- gsub("_*", "", rac.platy$hit)
 
-barplot(rac.platy$Abundance[1:N], las=2, names.arg=rac.platy$hit[1:N],space=0,col=rac.platy$clade,main="Platygyra")
+barplot(rac.platy$Abundance[1:N], las=2, names.arg=rac.platy$hit[1:N],space=0,col=rac.platy$clade,main="Platygyra",cex.names=0.6)
 
 # FPenta
 rac.fpenta.temp <- data.frame(sort(taxa_sums(phy97.f.c.fpenta)))
@@ -628,13 +528,14 @@ rac.fpenta.temp$otu<-rownames(rac.fpenta.temp)
 colnames(rac.fpenta.temp)[1] <- "Abundance"
 rac.fpenta <- merge(rac.fpenta.temp, data.frame(tax_table(phy97.f.c.fpenta)), by="otu")
 rac.fpenta <- rac.fpenta[order(-rac.fpenta$Abundance),]
+rac.fpenta$hit <- gsub("_*", "", rac.fpenta$hit)
 
-barplot(rac.fpenta$Abundance[1:N], las=2, names.arg=rac.fpenta$hit[1:N],space=0,col=rac.fpenta$clade,main="Favites pentagona")
+barplot(rac.fpenta$Abundance[1:N], las=2, names.arg=rac.fpenta$hit[1:N],space=0,col=rac.fpenta$clade,main="Favites pentagona",cex.names=0.6)
 ```
 
 # Rank Abundance Curves - before and after (alive/dead corals only)
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
-par(mar=c(12,5,1,1),xaxs="i",yaxs="i",mfrow=c(1,3))
+par(mar=c(15,5,1,1),xaxs="i",yaxs="i",mfrow=c(1,3))
 N=15
 
 # All corals: before
@@ -643,8 +544,9 @@ rac.before.temp$otu<-rownames(rac.before.temp)
 colnames(rac.before.temp)[1] <- "Abundance"
 rac.before <- merge(rac.before.temp, data.frame(tax_table(phy97.f.c.coral.AD.before)), by="otu")
 rac.before <- rac.before[order(-rac.before$Abundance),]
+rac.before$hit <- gsub("_*", "", rac.before$hit)
 
-barplot(rac.before$Abundance[1:N], las=2, names.arg=rac.before$hit[1:N],space=0,col=rac.before$clade,main="All Corals: before")
+barplot(rac.before$Abundance[1:N], las=2, names.arg=rac.before$hit[1:N],space=0,col=rac.before$clade,main="All Corals: before", cex.names=0.6)
 
 # Platygyra: before
 rac.before.platy.temp <- data.frame(sort(taxa_sums(phy97.f.c.platy.AD.before)))
@@ -652,8 +554,9 @@ rac.before.platy.temp$otu<-rownames(rac.before.platy.temp)
 colnames(rac.before.platy.temp)[1] <- "Abundance"
 rac.before.platy <- merge(rac.before.platy.temp, data.frame(tax_table(phy97.f.c.platy.AD.before)), by="otu")
 rac.before.platy <- rac.before.platy[order(-rac.before.platy$Abundance),]
+rac.before.platy$hit <- gsub("_*", "", rac.before.platy$hit)
 
-barplot(rac.before.platy$Abundance[1:N], las=2, names.arg=rac.before.platy$hit[1:N],space=0,col=rac.before.platy$clade,main="Platygyra: before")
+barplot(rac.before.platy$Abundance[1:N], las=2, names.arg=rac.before.platy$hit[1:N],space=0,col=rac.before.platy$clade,main="Platygyra: before", cex.names=0.6)
 
 # FPenta: before
 rac.before.fpenta.temp <- data.frame(sort(taxa_sums(phy97.f.c.fpenta.AD.before)))
@@ -661,8 +564,9 @@ rac.before.fpenta.temp$otu<-rownames(rac.before.fpenta.temp)
 colnames(rac.before.fpenta.temp)[1] <- "Abundance"
 rac.before.fpenta <- merge(rac.before.fpenta.temp, data.frame(tax_table(phy97.f.c.fpenta.AD.before)), by="otu")
 rac.before.fpenta <- rac.before.fpenta[order(-rac.before.fpenta$Abundance),]
+rac.before.fpenta$hit <- gsub("_*", "", rac.before.fpenta$hit)
 
-barplot(rac.before.fpenta$Abundance[1:N], las=2, names.arg=rac.before.fpenta$hit[1:N],space=0,col=rac.before.fpenta$clade,main="Favites pentagona: before")
+barplot(rac.before.fpenta$Abundance[1:N], las=2, names.arg=rac.before.fpenta$hit[1:N],space=0,col=rac.before.fpenta$clade,main="Favites pentagona: before",cex.names=0.6)
 
 # All corals: during/after
 rac.da.temp <- data.frame(sort(taxa_sums(phy97.f.c.coral.AD.da)))
@@ -670,8 +574,9 @@ rac.da.temp$otu<-rownames(rac.da.temp)
 colnames(rac.da.temp)[1] <- "Abundance"
 rac.da <- merge(rac.da.temp, data.frame(tax_table(phy97.f.c.coral.AD.da)), by="otu")
 rac.da <- rac.da[order(-rac.da$Abundance),]
+rac.da$hit <- gsub("_*", "", rac.da$hit)
 
-barplot(rac.da$Abundance[1:N], las=2, names.arg=rac.da$hit[1:N],space=0,col=rac.da$clade,main="All Corals: During/After")
+barplot(rac.da$Abundance[1:N], las=2, names.arg=rac.da$hit[1:N],space=0,col=rac.da$clade,main="All Corals: During/After",cex.names=0.6)
 
 # Platygyra: during/after
 rac.da.platy.temp <- data.frame(sort(taxa_sums(phy97.f.c.platy.AD.da)))
@@ -679,8 +584,9 @@ rac.da.platy.temp$otu<-rownames(rac.da.platy.temp)
 colnames(rac.da.platy.temp)[1] <- "Abundance"
 rac.da.platy <- merge(rac.da.platy.temp, data.frame(tax_table(phy97.f.c.platy.AD.da)), by="otu")
 rac.da.platy <- rac.da.platy[order(-rac.da.platy$Abundance),]
+rac.da.platy$hit <- gsub("_*", "", rac.da.platy$hit)
 
-barplot(rac.da.platy$Abundance[1:N], las=2, names.arg=rac.da.platy$hit[1:N],space=0,col=rac.da.platy$clade,main="Platygyra: during/after")
+barplot(rac.da.platy$Abundance[1:N], las=2, names.arg=rac.da.platy$hit[1:N],space=0,col=rac.da.platy$clade,main="Platygyra: during/after",cex.names=0.6)
 
 # FPenta: during/after
 rac.da.fpenta.temp <- data.frame(sort(taxa_sums(phy97.f.c.fpenta.AD.da)))
@@ -688,13 +594,14 @@ rac.da.fpenta.temp$otu<-rownames(rac.da.fpenta.temp)
 colnames(rac.da.fpenta.temp)[1] <- "Abundance"
 rac.da.fpenta <- merge(rac.da.fpenta.temp, data.frame(tax_table(phy97.f.c.fpenta.AD.da)), by="otu")
 rac.da.fpenta <- rac.da.fpenta[order(-rac.da.fpenta$Abundance),]
+rac.da.fpenta$hit <- gsub("_*", "", rac.da.fpenta$hit)
 
-barplot(rac.da.fpenta$Abundance[1:N], las=2, names.arg=rac.da.fpenta$hit[1:N],space=0,col=rac.da.fpenta$clade,main="Favites pentagona: during/after")
+barplot(rac.da.fpenta$Abundance[1:N], las=2, names.arg=rac.da.fpenta$hit[1:N],space=0,col=rac.da.fpenta$clade,main="Favites pentagona: during/after", cex.names=0.6)
 
 ```
 
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Save grouped data as RData file
-save.image(file = "C:/Users/Dani/Documents/Data_Analysis/KI_Platy/data/otus_97/KI_seqs_f_coral_grouped_OTUSummary.RData")
+save.image(file = "KI_seqs_f_coral_grouped_OTUSummary.RData")
 ```
 
