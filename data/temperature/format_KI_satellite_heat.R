@@ -26,4 +26,4 @@ matlab2POS = function(x, timez = "UTC") {
 KI_satellite_heat$time <- matlab2POS(KI_satellite_heat$mtime)
 KI_satellite_heat$time <- as.Date(KI_satellite_heat$time, '%m/%d/%Y',tz="UTC")
 
-save(KI_satellite_heat,file="data/KI_satellite_heat.RData")
+save(KI_satellite_heat,file="data/temperature/KI_satellite_heat.RData")
