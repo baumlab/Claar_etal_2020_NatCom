@@ -2,6 +2,8 @@
   
 FILES  
   
+Backup of Claar_etal_2017_Nature_ms_Draft - backup ms
+
 Claar_et_al_2016_Platy.Rmd - RMarkdown manuscript document. This is the current working version of the manuscript.  
   
 Claar_et_al_2016_Platy.pdf - pdf document knit from Claar_et_al_2016_Platy.Rmd **Check "Date modified" to see if this is up to date with the most recent RMarkdown file.  
@@ -10,6 +12,8 @@ Claar_et_al_2016_Platy.html - html document knit from Claar_et_al_2016_Platy.Rmd
   
 Claar_et_al_2016_Platy.tex - tex document created during knit of Claar_et_al_2016_Platy.Rmd **Check "Date modified" to see if this is up to date with the most recent RMarkdown file.  
   
+ Claar_etal_2017_Nature_ms_Draft.docx - Switched over to using Word for easier track changes
+
 KIPlaty_extra_text.Rmd - RMarkdown file with extra  text removed from the manuscript.  
   
 knitcitations.bib - complete Bibtex file of all references included in knitted versions of Claar_et_al_2016_Platy.Rmd **Check "Date modified" to see if this is up to date with the most recent RMarkdown file.  
@@ -20,4 +24,11 @@ nature.csl - Citation Style Language formatting for Nature. Copied from CSL "sty
   
 Nature_Manuscript_formatting.pdf - Nature's instructions to authors.  
   
+Paperpile.bib - Bibtex file exported from Danielle's Paperpile library
+
 PapersLibrary_Bibtex.bib - giant Bibtex file with all references in my library. This file is sourced during knit to select papers utilized in the manuscript.  
+
+PlatyMS_workplan - ongoing plan for tentative deadlines
+
+FOLDERS
+NatureLetterExamples - example Nature papers for formatting and style
