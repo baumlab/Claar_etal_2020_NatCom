@@ -352,7 +352,7 @@ phy97.f.c.coral.AD.after.HM <- subset_taxa(phy97.f.c.coral.AD.after.HM, taxa_sum
 phy97.f.c.coral.AD.after.HVH <- subset_samples(phy97.f.c.coral.AD.after, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 phy97.f.c.coral.AD.after.HVH <- subset_taxa(phy97.f.c.coral.AD.after.HVH, taxa_sums(phy97.f.c.coral.AD.after.HVH) > 0, prune=TRUE)
 
-rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,Low,LowMed,High,HighMed)
+rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,Low,LowMed,High,HighMed,phy.f.coral)
 
 # Save grouped data as RData file
 save(list = ls(all.names = TRUE), file = "data/KI_seqs_f_coral_grouped.RData")
