@@ -116,6 +116,7 @@ otu_tax_allcoral <- join_all(list(otu_allcoral, tax_allcoral),by = "otu", type="
 otu_tax_allcoral <- otu_tax_allcoral[,c(1:263,270:271)]
 # Aggregate by clade (i.e. collapse all types down to clade)
 allcoral_clades <- aggregate(otu_tax_allcoral[,1:262], by=list(Clade=otu_tax_allcoral$clade), FUN=sum)
+allcoral_clades_bysample <- allcoral_clades
 # Rename columns
 colnames(allcoral_clades)<- gsub("KI14.*","KI2014",colnames(allcoral_clades))
 colnames(allcoral_clades)<- gsub("KI15a.*","KI2015a",colnames(allcoral_clades))
@@ -191,13 +192,3 @@ mtext(side=2,"Per cent of sequences",line=1.5)
 
 # Close graphical device
 dev.off()
-
-# Continue here if using separate barplot
-# # Start plot with points for coral99
-# bar <- data.frame(A=coral99_A$Proportion,C=coral99_C$Proportion,coral99_D)
-# colnames(bar) <- c("A","C","D")
-# bar <- t(bar[,1:3])
-# barplot(bar,ylim=c(0,100),xlim=c(0.5,14),col=c(clade.colors["A"],clade.colors["C"],clade.colors["D"]),pch=1, ylab=NA,xlab=NA,space = c(0.3,2.1,1.5,1,4.6), cex.names = 0.75,xaxt='n',yaxt='n',yaxs='i')
-# axis(2,c(0,20,40,60,80,100),las=2,outer=FALSE,tck=.02,hadj=0.3)
-# axis(1,labels=FALSE,tck=0)
-# dev.off()
