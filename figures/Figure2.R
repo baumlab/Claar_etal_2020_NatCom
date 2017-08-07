@@ -146,9 +146,10 @@ rownames(allcoral_clades) <- dates
 allcoral_clades<-data.frame(cbind(allcoral_clades,pdate=as.POSIXct(Pdates)))
 
 # Open a tiff image
-tiff(file="figures/Figure2.tiff",width = 6, height = 4,units="in",res=300)
+tiff(file="figures/Figure2.tiff",width = 6, height = 6,units="in",res=300)
 
-par(mar=c(2.5,4,1,1))
+par(mar=c(2.5,4,1,1),mfrow=c(2,1))
+layout(matrix(c(1,2), nrow=2, ncol=1, byrow = TRUE), heights=c(0.5,0.25))
 # Start plot with points for percent Clade A
 plot(allcoral_clades$pdate,allcoral_clades$A,ylim=c(0,100),col=clade.colors["A"],pch=19,xlab=NA,ylab=NA,xaxt='n',yaxt='n',bty='l',yaxs='i')
 # Add lines connecting points
@@ -176,4 +177,12 @@ mtext(side=2,"Per cent of sequences",line=1.5)
 # KI_heat <- KI_heat[which(KI_heat$time<as.POSIXct(allcoral_clades$pdate[5], origin="1970-01-01")),]
 # KI_heat <- KI_heat[which(KI_heat$time>as.POSIXct(allcoral_clades$pdate[1], origin="1970-01-01")),]
 # lines(KI_heat$time,((KI_heat$dhw)/(max(KI_heat$dhw)))*100,col="gray")
+
+# Start plot with points for coral99
+bar <- data.frame(A=coral99_A$Proportion,C=coral99_C$Proportion,coral99_D)
+colnames(bar) <- c("A","C","D")
+bar <- t(bar[,1:3])
+barplot(bar,ylim=c(0,100),xlim=c(0.5,14),col=c(clade.colors["A"],clade.colors["C"],clade.colors["D"]),pch=1, ylab=NA,xlab=NA,space = c(0.3,2.1,1.5,1,4.6), cex.names = 0.75,xaxt='n',yaxt='n',yaxs='i')
+axis(2,c(0,20,40,60,80,100),las=2,outer=FALSE,tck=.02,hadj=0.3)
+axis(1,labels=FALSE,tck=0)
 dev.off()
