@@ -123,6 +123,14 @@ colnames(allcoral_clades)<- gsub("KI15a.*","KI2015a",colnames(allcoral_clades))
 colnames(allcoral_clades)<- gsub("KI15b.*","KI2015b",colnames(allcoral_clades))
 colnames(allcoral_clades)<- gsub("KI15c.*","KI2015c",colnames(allcoral_clades))
 colnames(allcoral_clades)<- gsub("KI16a.*","KI2016a",colnames(allcoral_clades))
+
+allcoral_clades_byfieldseason <- allcoral_clades
+nsamles_2014 <- length(grep(x = colnames(allcoral_clades_byfieldseason), pattern = "KI2014"))
+nsamles_2015a <- length(grep(x = colnames(allcoral_clades_byfieldseason), pattern = "KI2015a"))
+nsamles_2015b <- length(grep(x = colnames(allcoral_clades_byfieldseason), pattern = "KI2015b"))
+nsamles_2015c <- length(grep(x = colnames(allcoral_clades_byfieldseason), pattern = "KI2015c"))
+nsamles_2016a <- length(grep(x = colnames(allcoral_clades_byfieldseason), pattern = "KI2016a"))
+
 # Make clades into rownames
 rownames(allcoral_clades) <- allcoral_clades$Clade
 # For each field season, create a corrected proportion for each clade
@@ -163,7 +171,7 @@ points(allcoral_clades$pdate,allcoral_clades$D,col=clade.colors["D"],pch=19)
 # Add lines for Clade D
 lines(allcoral_clades$pdate,allcoral_clades$D,col=clade.colors["D"],lwd=3,lty=1)
 # Add points for Clade G
-points(allcoral_clades$pdate,allcoral_clades$G,col=clade.colors["G"],pch=19)
+points(allcoral_clades$pdate,allcoral_clades$G,col=clade.colors["G"],pch=17)
 # Add lines for Clade G
 lines(allcoral_clades$pdate,allcoral_clades$G,col=clade.colors["G"],lwd=3,lty=1)
 # Add lines for coral 99 Clade C
@@ -177,14 +185,14 @@ points(coral99_D$pdate,coral99_D$Proportion,pch=19,col=clade.colors["D"])
 # Add lines for coral 99 Clade A
 lines(coral99_A$pdate,coral99_A$Proportion,lty=3,col="gray",lwd=2)
 # Add points for coral 99 Clade A
-points(coral99_A$pdate,coral99_A$Proportion,pch=18,col=clade.colors["A"])
+points(coral99_A$pdate,coral99_A$Proportion,pch=15,col=clade.colors["A"])
 # Add a timeline xaxis so that field seasons are spaced appropriately
 axis(2,c(10,20,30,40,50,60,70,80,90,100),las=2,outer=FALSE,tck=.02,hadj=0.3)
 axis.POSIXct(side=1,as.POSIXct(allcoral_clades$pdate, origin="1970-01-01"),cex.axis=0.93,tck=0.05,lwd.ticks=2,labels=FALSE)
 axis.POSIXct(side=1,at=seq(KI_heat$time[1],KI_heat$time[240],by="month"),KI_heat$time,tck=0.03,cex.axis=0.8,labels=c("","","Oct","","","","","","Apr","","","Jul","","","Oct","","","","","","Apr","","","Jul","","","Oct",""),lwd.ticks=1.5,padj=-1.8)
 axis.POSIXct(side=1,as.POSIXct(allcoral_clades$pdate, origin="1970-01-01"),cex.axis=0.93,tck=0,padj=-1.5)
 #Add legend
-legend(as.POSIXct("2015-09-30 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S"),100,c("A","C","D","G"), col=c(clade.colors["A"],clade.colors["C"],clade.colors["D"],clade.colors["G"]),lty=1,bty='n',lwd=3)
+legend(as.POSIXct("2015-09-30 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S"),100,c("A","C","D","G"), col=c(clade.colors["A"],clade.colors["C"],clade.colors["D"],clade.colors["G"]),lty=1,bty='n',lwd=3,pch=c(15,18,19,17),pt.cex = c(1,1.4,1,1))
 # Add x-axis label
 mtext(side=1,"Date",line=1.2)
 # Add y-axis label
