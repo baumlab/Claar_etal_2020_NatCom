@@ -153,27 +153,27 @@ par(mar=c(2.5,3,1,1))
 # Start plot with points for percent Clade A
 plot(allcoral_clades$pdate,allcoral_clades$A,ylim=c(0,105),col=clade.colors["A"],pch=19,xlab=NA,ylab=NA,xaxt='n',yaxt='n',bty='l',yaxs='i')
 # Add lines connecting points
-lines(allcoral_clades$pdate,allcoral_clades$A,col=clade.colors["A"],lwd=3,lty=3)
+lines(allcoral_clades$pdate,allcoral_clades$A,col=clade.colors["A"],lwd=3,lty=1)
 # Add points for Clade C
-points(allcoral_clades$pdate,allcoral_clades$C,col=clade.colors["C"],pch=19)
+points(allcoral_clades$pdate,allcoral_clades$C,col=clade.colors["C"],pch=18,cex=1.4)
 # Add lines for Clade C
-lines(allcoral_clades$pdate,allcoral_clades$C,col=clade.colors["C"],lwd=3,lty=3)
+lines(allcoral_clades$pdate,allcoral_clades$C,col=clade.colors["C"],lwd=3,lty=1)
 # Add points for Clade D
 points(allcoral_clades$pdate,allcoral_clades$D,col=clade.colors["D"],pch=19)
 # Add lines for Clade D
-lines(allcoral_clades$pdate,allcoral_clades$D,col=clade.colors["D"],lwd=3,lty=3)
+lines(allcoral_clades$pdate,allcoral_clades$D,col=clade.colors["D"],lwd=3,lty=1)
 # Add points for Clade G
 points(allcoral_clades$pdate,allcoral_clades$G,col=clade.colors["G"],pch=19)
 # Add lines for Clade G
-lines(allcoral_clades$pdate,allcoral_clades$G,col=clade.colors["G"],lwd=3,lty=3)
+lines(allcoral_clades$pdate,allcoral_clades$G,col=clade.colors["G"],lwd=3,lty=1)
 # Add lines for coral 99 Clade C
 lines(coral99_C$pdate,coral99_C$Proportion,lty=3,col="gray",lwd=2)
 # Add points for coral 99 Clade C
-points(coral99_C$pdate,coral99_C$Proportion,pch=18,col=clade.colors["C"])
+points(coral99_C$pdate,coral99_C$Proportion,pch=18,col=clade.colors["C"],cex=1.4)
 # Add lines for coral 99 Clade D
 lines(coral99_D$pdate,coral99_D$Proportion,lty=3,col="gray",lwd=2)
 # Add points for coral 99 Clade D
-points(coral99_D$pdate,coral99_D$Proportion,pch=18,col=clade.colors["D"])
+points(coral99_D$pdate,coral99_D$Proportion,pch=19,col=clade.colors["D"])
 # Add lines for coral 99 Clade A
 lines(coral99_A$pdate,coral99_A$Proportion,lty=3,col="gray",lwd=2)
 # Add points for coral 99 Clade A
@@ -184,7 +184,7 @@ axis.POSIXct(side=1,as.POSIXct(allcoral_clades$pdate, origin="1970-01-01"),cex.a
 axis.POSIXct(side=1,at=seq(KI_heat$time[1],KI_heat$time[240],by="month"),KI_heat$time,tck=0.03,cex.axis=0.8,labels=c("","","Oct","","","","","","Apr","","","Jul","","","Oct","","","","","","Apr","","","Jul","","","Oct",""),lwd.ticks=1.5,padj=-1.8)
 axis.POSIXct(side=1,as.POSIXct(allcoral_clades$pdate, origin="1970-01-01"),cex.axis=0.93,tck=0,padj=-1.5)
 #Add legend
-legend(as.POSIXct("2015-09-30 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S"),100,c("A","C","D","G"), col=c(clade.colors["A"],clade.colors["C"],clade.colors["D"],clade.colors["G"]),lty=3,bty='n',lwd=3)
+legend(as.POSIXct("2015-09-30 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S"),100,c("A","C","D","G"), col=c(clade.colors["A"],clade.colors["C"],clade.colors["D"],clade.colors["G"]),lty=1,bty='n',lwd=3)
 # Add x-axis label
 mtext(side=1,"Date",line=1.2)
 # Add y-axis label
