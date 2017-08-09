@@ -16,7 +16,7 @@ phy.f.coral <- phy.f
 
 # Filter OTUs by minimum count
 # Set threshold count
-n <- 10
+n <- 5
 # Identify OTUs below threshold count
 taxa <- taxa_sums(phy.f.coral)[which(taxa_sums(phy.f.coral) >= n)]
 # Remove taxa below threshold count
@@ -28,12 +28,12 @@ sn <- 200
 # Remove samples with fewer reads than threshold
 phy.f.coral <- prune_samples(sample_sums(phy.f.coral)>=sn, phy.f.coral)
 
-
-# Filter OTUs by minimum count again in case any dropped below threshold after filtering samples
-# Identify OTUs below threshold count
-taxa <- taxa_sums(phy.f.coral)[which(taxa_sums(phy.f.coral) >= n)]
-# Remove taxa below threshold count
-phy.f.coral <- prune_taxa(names(taxa), phy.f.coral)
+# I decided not to do this, because if they were present in > the threshold before, they are most likely 'real' otus. Although the samples that they were in didn't sequence very well, that doesn't necessarily mean that they are incorrect. 
+# # Filter OTUs by minimum count again in case any dropped below threshold after filtering samples
+# # Identify OTUs below threshold count
+# taxa <- taxa_sums(phy.f.coral)[which(taxa_sums(phy.f.coral) >= n)]
+# # Remove taxa below threshold count
+# phy.f.coral <- prune_taxa(names(taxa), phy.f.coral)
 
 # Characterize sites by disturbance level
 VeryHigh <- c(33,40,32,31,27,30,26)
