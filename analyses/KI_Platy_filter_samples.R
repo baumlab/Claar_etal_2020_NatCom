@@ -370,6 +370,10 @@ phy97.f.c.coral.after.HVH <- subset_samples(phy97.f.c.coral.after, Dist=="High" 
 # phy97.f.c.coral.AD.after.HVH <- subset_samples(phy97.f.c.coral.AD.after, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 # phy97.f.c.coral.AD.after.HVH <- subset_taxa(phy97.f.c.coral.AD.after.HVH, taxa_sums(phy97.f.c.coral.AD.after.HVH) > 0, prune=TRUE)
 
+# Calculate number of sequences in phy97.f.c
+total_seqs <- sum(taxa_sums(phy97.f.c))
+
+# Cleanup 
 rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,Low,LowMed,High,HighMed,phy.f.coral)
 
 # Save grouped data as RData file
