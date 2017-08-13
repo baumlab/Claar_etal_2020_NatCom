@@ -162,6 +162,10 @@ par(mar=c(2.5,3,1,1))
 plot(allcoral_clades$pdate,allcoral_clades$A,ylim=c(0,105),col=clade.colors["A"],pch=19,xlab=NA,ylab=NA,xaxt='n',yaxt='n',bty='l',yaxs='i')
 # Add lines connecting points
 lines(allcoral_clades$pdate,allcoral_clades$A,col=clade.colors["A"],lwd=3,lty=1)
+# Add points for Clade G
+points(allcoral_clades$pdate,allcoral_clades$G,col=clade.colors["G"],pch=17)
+# Add lines for Clade G
+lines(allcoral_clades$pdate,allcoral_clades$G,col=clade.colors["G"],lwd=3,lty=1)
 # Add points for Clade C
 points(allcoral_clades$pdate,allcoral_clades$C,col=clade.colors["C"],pch=18,cex=1.4)
 # Add lines for Clade C
@@ -170,10 +174,10 @@ lines(allcoral_clades$pdate,allcoral_clades$C,col=clade.colors["C"],lwd=3,lty=1)
 points(allcoral_clades$pdate,allcoral_clades$D,col=clade.colors["D"],pch=19)
 # Add lines for Clade D
 lines(allcoral_clades$pdate,allcoral_clades$D,col=clade.colors["D"],lwd=3,lty=1)
-# Add points for Clade G
-points(allcoral_clades$pdate,allcoral_clades$G,col=clade.colors["G"],pch=17)
-# Add lines for Clade G
-lines(allcoral_clades$pdate,allcoral_clades$G,col=clade.colors["G"],lwd=3,lty=1)
+# Add lines for coral 99 Clade A
+lines(coral99_A$pdate,coral99_A$Proportion,lty=3,col="gray",lwd=2)
+# Add points for coral 99 Clade A
+points(coral99_A$pdate,coral99_A$Proportion,pch=15,col=clade.colors["A"])
 # Add lines for coral 99 Clade C
 lines(coral99_C$pdate,coral99_C$Proportion,lty=3,col="gray",lwd=2)
 # Add points for coral 99 Clade C
@@ -182,10 +186,6 @@ points(coral99_C$pdate,coral99_C$Proportion,pch=18,col=clade.colors["C"],cex=1.4
 lines(coral99_D$pdate,coral99_D$Proportion,lty=3,col="gray",lwd=2)
 # Add points for coral 99 Clade D
 points(coral99_D$pdate,coral99_D$Proportion,pch=19,col=clade.colors["D"])
-# Add lines for coral 99 Clade A
-lines(coral99_A$pdate,coral99_A$Proportion,lty=3,col="gray",lwd=2)
-# Add points for coral 99 Clade A
-points(coral99_A$pdate,coral99_A$Proportion,pch=15,col=clade.colors["A"])
 # Add a timeline xaxis so that field seasons are spaced appropriately
 axis(2,c(10,20,30,40,50,60,70,80,90,100),las=2,outer=FALSE,tck=.02,hadj=0.3)
 axis.POSIXct(side=1,as.POSIXct(allcoral_clades$pdate, origin="1970-01-01"),cex.axis=0.93,tck=0.05,lwd.ticks=2,labels=FALSE)
