@@ -16,7 +16,7 @@ phy.f.coral <- phy.f
 
 # Filter OTUs by minimum count
 # Set threshold count
-n <- 10
+n <- 5
 # Identify OTUs below threshold count
 taxa <- taxa_sums(phy.f.coral)[which(taxa_sums(phy.f.coral) >= n)]
 # Remove taxa below threshold count
@@ -28,12 +28,12 @@ sn <- 200
 # Remove samples with fewer reads than threshold
 phy.f.coral <- prune_samples(sample_sums(phy.f.coral)>=sn, phy.f.coral)
 
-
-# Filter OTUs by minimum count again in case any dropped below threshold after filtering samples
-# Identify OTUs below threshold count
-taxa <- taxa_sums(phy.f.coral)[which(taxa_sums(phy.f.coral) >= n)]
-# Remove taxa below threshold count
-phy.f.coral <- prune_taxa(names(taxa), phy.f.coral)
+# I decided not to do this, because if they were present in > the threshold before, they are most likely 'real' otus. Although the samples that they were in didn't sequence very well, that doesn't necessarily mean that they are incorrect. 
+# # Filter OTUs by minimum count again in case any dropped below threshold after filtering samples
+# # Identify OTUs below threshold count
+# taxa <- taxa_sums(phy.f.coral)[which(taxa_sums(phy.f.coral) >= n)]
+# # Remove taxa below threshold count
+# phy.f.coral <- prune_taxa(names(taxa), phy.f.coral)
 
 # Characterize sites by disturbance level
 VeryHigh <- c(33,40,32,31,27,30,26)
@@ -333,26 +333,48 @@ phy97.f.c.platy.AD.after.HM <- subset_taxa(phy97.f.c.platy.AD.after.HM, taxa_sum
 phy97.f.c.platy.AD.after.HVH <- subset_samples(phy97.f.c.platy.AD.after, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 phy97.f.c.platy.AD.after.HVH <- subset_taxa(phy97.f.c.platy.AD.after.HVH, taxa_sums(phy97.f.c.platy.AD.after.HVH) > 0, prune=TRUE)
 
-phy97.f.c.coral.AD.before.LVL <- subset_samples(phy97.f.c.coral.AD.before, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
-phy97.f.c.coral.AD.before.LVL <- subset_taxa(phy97.f.c.coral.AD.before.LVL, taxa_sums(phy97.f.c.coral.AD.before.LVL) > 0, prune=TRUE)
-phy97.f.c.coral.AD.before.HM <- subset_samples(phy97.f.c.coral.AD.before, Dist=="HighMed", prune=TRUE)
-phy97.f.c.coral.AD.before.HM <- subset_taxa(phy97.f.c.coral.AD.before.HM, taxa_sums(phy97.f.c.coral.AD.before.HM) > 0, prune=TRUE)
-phy97.f.c.coral.AD.before.HVH <- subset_samples(phy97.f.c.coral.AD.before, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
-phy97.f.c.coral.AD.before.HVH <- subset_taxa(phy97.f.c.coral.AD.before.HVH, taxa_sums(phy97.f.c.coral.AD.before.HVH) > 0, prune=TRUE)
-phy97.f.c.coral.AD.during.LVL <- subset_samples(phy97.f.c.coral.AD.during, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
-phy97.f.c.coral.AD.during.LVL <- subset_taxa(phy97.f.c.coral.AD.during.LVL, taxa_sums(phy97.f.c.coral.AD.during.LVL) > 0, prune=TRUE)
-phy97.f.c.coral.AD.during.HM <- subset_samples(phy97.f.c.coral.AD.during, Dist=="HighMed", prune=TRUE)
-phy97.f.c.coral.AD.during.HM <- subset_taxa(phy97.f.c.coral.AD.during.HM, taxa_sums(phy97.f.c.coral.AD.during.HM) > 0, prune=TRUE)
-phy97.f.c.coral.AD.during.HVH <- subset_samples(phy97.f.c.coral.AD.during, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
-phy97.f.c.coral.AD.during.HVH <- subset_taxa(phy97.f.c.coral.AD.during.HVH, taxa_sums(phy97.f.c.coral.AD.during.HVH) > 0, prune=TRUE)
-phy97.f.c.coral.AD.after.LVL <- subset_samples(phy97.f.c.coral.AD.after, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
-phy97.f.c.coral.AD.after.LVL <- subset_taxa(phy97.f.c.coral.AD.after.LVL, taxa_sums(phy97.f.c.coral.AD.after.LVL) > 0, prune=TRUE)
-phy97.f.c.coral.AD.after.HM <- subset_samples(phy97.f.c.coral.AD.after, Dist=="HighMed", prune=TRUE)
-phy97.f.c.coral.AD.after.HM <- subset_taxa(phy97.f.c.coral.AD.after.HM, taxa_sums(phy97.f.c.coral.AD.after.HM) > 0, prune=TRUE)
-phy97.f.c.coral.AD.after.HVH <- subset_samples(phy97.f.c.coral.AD.after, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
-phy97.f.c.coral.AD.after.HVH <- subset_taxa(phy97.f.c.coral.AD.after.HVH, taxa_sums(phy97.f.c.coral.AD.after.HVH) > 0, prune=TRUE)
+# phy97.f.c.coral.AD.before.p <- transform_sample_counts(phy97.f.c.coral.AD.before, function(x) x/sum(x))
+# phy97.f.c.coral.AD.during.p <- transform_sample_counts(phy97.f.c.coral.AD.during, function(x) x/sum(x))
+# phy97.f.c.coral.AD.after.p <- transform_sample_counts(phy97.f.c.coral.AD.after, function(x) x/sum(x))
+# phy97.f.c.coral.p <- transform_sample_counts(phy97.f.c.coral, function(x) x/sum(x))
+phy97.f.c.coral.before <- subset_samples(phy97.f.c.coral, field_season=="KI2014"|field_season=="KI2015a"|field_season=="KI2015b", prune=TRUE)
+phy97.f.c.coral.before.LVL <- subset_samples(phy97.f.c.coral.before, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
+phy97.f.c.coral.before.HM <- subset_samples(phy97.f.c.coral.before, Dist=="HighMed", prune=TRUE)
+phy97.f.c.coral.before.HVH <- subset_samples(phy97.f.c.coral.before, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 
-rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,Low,LowMed,High,HighMed)
+phy97.f.c.coral.during <- subset_samples(phy97.f.c.coral, field_season=="KI2015c", prune=TRUE)
+phy97.f.c.coral.during.LVL <- subset_samples(phy97.f.c.coral.during, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
+phy97.f.c.coral.during.HM <- subset_samples(phy97.f.c.coral.during, Dist=="HighMed", prune=TRUE)
+phy97.f.c.coral.during.HVH <- subset_samples(phy97.f.c.coral.during, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
+
+phy97.f.c.coral.after <- subset_samples(phy97.f.c.coral, field_season=="KI2016a", prune=TRUE)
+phy97.f.c.coral.after.LVL <- subset_samples(phy97.f.c.coral.after, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
+phy97.f.c.coral.after.HM <- subset_samples(phy97.f.c.coral.after, Dist=="HighMed", prune=TRUE)
+phy97.f.c.coral.after.HVH <- subset_samples(phy97.f.c.coral.after, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
+
+# phy97.f.c.coral.AD.before.LVL <- subset_taxa(phy97.f.c.coral.AD.before.LVL, taxa_sums(phy97.f.c.coral.AD.before.LVL) > 0, prune=TRUE)
+# phy97.f.c.coral.AD.before.HM <- subset_samples(phy97.f.c.coral.AD.before, Dist=="HighMed", prune=TRUE)
+# phy97.f.c.coral.AD.before.HM <- subset_taxa(phy97.f.c.coral.AD.before.HM, taxa_sums(phy97.f.c.coral.AD.before.HM) > 0, prune=TRUE)
+# phy97.f.c.coral.AD.before.HVH <- subset_samples(phy97.f.c.coral.AD.before, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
+# phy97.f.c.coral.AD.before.HVH <- subset_taxa(phy97.f.c.coral.AD.before.HVH, taxa_sums(phy97.f.c.coral.AD.before.HVH) > 0, prune=TRUE)
+# phy97.f.c.coral.AD.during.LVL <- subset_samples(phy97.f.c.coral.AD.during, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
+# phy97.f.c.coral.AD.during.LVL <- subset_taxa(phy97.f.c.coral.AD.during.LVL, taxa_sums(phy97.f.c.coral.AD.during.LVL) > 0, prune=TRUE)
+# phy97.f.c.coral.AD.during.HM <- subset_samples(phy97.f.c.coral.AD.during, Dist=="HighMed", prune=TRUE)
+# phy97.f.c.coral.AD.during.HM <- subset_taxa(phy97.f.c.coral.AD.during.HM, taxa_sums(phy97.f.c.coral.AD.during.HM) > 0, prune=TRUE)
+# phy97.f.c.coral.AD.during.HVH <- subset_samples(phy97.f.c.coral.AD.during, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
+# phy97.f.c.coral.AD.during.HVH <- subset_taxa(phy97.f.c.coral.AD.during.HVH, taxa_sums(phy97.f.c.coral.AD.during.HVH) > 0, prune=TRUE)
+# phy97.f.c.coral.AD.after.LVL <- subset_samples(phy97.f.c.coral.AD.after, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
+# phy97.f.c.coral.AD.after.LVL <- subset_taxa(phy97.f.c.coral.AD.after.LVL, taxa_sums(phy97.f.c.coral.AD.after.LVL) > 0, prune=TRUE)
+# phy97.f.c.coral.AD.after.HM <- subset_samples(phy97.f.c.coral.AD.after, Dist=="HighMed", prune=TRUE)
+# phy97.f.c.coral.AD.after.HM <- subset_taxa(phy97.f.c.coral.AD.after.HM, taxa_sums(phy97.f.c.coral.AD.after.HM) > 0, prune=TRUE)
+# phy97.f.c.coral.AD.after.HVH <- subset_samples(phy97.f.c.coral.AD.after, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
+# phy97.f.c.coral.AD.after.HVH <- subset_taxa(phy97.f.c.coral.AD.after.HVH, taxa_sums(phy97.f.c.coral.AD.after.HVH) > 0, prune=TRUE)
+
+# Calculate number of sequences in phy97.f.c
+total_seqs <- sum(taxa_sums(phy97.f.c))
+
+# Cleanup 
+rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,Low,LowMed,High,HighMed,phy.f.coral)
 
 # Save grouped data as RData file
 save(list = ls(all.names = TRUE), file = "data/KI_seqs_f_coral_grouped.RData")

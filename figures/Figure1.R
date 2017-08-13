@@ -8,8 +8,8 @@ rm(list=ls())
 library(imager)
 
 # Load in Data
-load("../data/KI_SB_temp_DHW.RData")
-load("../data/KI_satellite_heat.RData")
+load("../data/temperature/KI_SB_temp_DHW.RData")
+load("../data/temperature/KI_satellite_heat.RData")
 
 
 tiff(file="../figures/Figure1.tiff",width = 8, height = 4,units="in",res=300)
