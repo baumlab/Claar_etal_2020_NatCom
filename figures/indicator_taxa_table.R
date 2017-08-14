@@ -5,7 +5,7 @@ dev.off()
 rm(list=ls())
 
 # Load necessary packages
-library(imager)
+library(indicspecies)
 
 # Load in data
 load("data/KI_seqs_f_coral_grouped.RData")
@@ -14,6 +14,7 @@ load("data/KI_seqs_f_coral_grouped.RData")
 abund_all <- as.data.frame(t(data.frame(otu_table(phy97.f.c.coral.AD))))
 DA_all <- as.numeric(data.frame(sample_data(phy97.f.c.coral.AD))$Status)
 # Group 1 is alive
+indval_all2 = indicators(abund_all, DA_all, group=1)
 
 indval_all = multipatt(abund_all, DA_all, control = how(nperm=999))
 summary(indval_all)
