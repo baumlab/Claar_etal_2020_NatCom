@@ -14,7 +14,6 @@ load("data/KI_seqs_f_coral_grouped.RData")
 abund_all <- as.data.frame(t(data.frame(otu_table(phy97.f.c.coral.AD))))
 DA_all <- as.numeric(data.frame(sample_data(phy97.f.c.coral.AD))$Status)
 # Group 1 is alive
-indval_all2 = indicators(abund_all, DA_all, group=1)
 
 indval_all = multipatt(abund_all, DA_all, control = how(nperm=999))
 summary(indval_all)
@@ -161,3 +160,5 @@ indic_platy.during.2_ID
 
 indic_platy.1_ID
 indic_platy.2_ID
+
+save(indic_fpenta.before.1_ID, indic_fpenta.before.2_ID,indic_fpenta.during.1_ID,indic_fpenta.during.2_ID,indic_fpenta.1_ID,indic_fpenta.2_ID,indic_platy.before.1_ID,indic_platy.before.2_ID,indic_platy.during.1_ID,indic_platy.during.2_ID,indic_platy.1_ID,indic_platy.2_ID, file="data/indicator_species.RData")
