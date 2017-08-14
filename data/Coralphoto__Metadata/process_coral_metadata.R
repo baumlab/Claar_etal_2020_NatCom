@@ -1,11 +1,11 @@
 library(plyr)
 
-meta <- read.csv("/Users/Dani/Documents/Data_Analysis/KI_Platy/data/Coralphoto__Metadata/KI_Coralphoto_Metadata_Jan_to_Apr_2017_23March.csv",header=T)
+meta <- read.csv("data/Coralphoto__Metadata/KI_Coralphoto_Metadata_Jan_to_Apr_2017_23March.csv",header=T)
 meta$Year_Pre_Post <- paste(meta$field_season,meta$before.after, sep="")
 meta$ref <- paste(meta$Year_Pre_Post,".tag",meta$coral_tag, sep="")
 meta.forcat <- meta[,c(1:25)]
 
-map <- read.table("/Users/Dani/Documents/Data_Analysis/KI_Platy/data/mapping_file.txt",stringsAsFactors = FALSE)
+map <- read.table("data/mapping_file.txt",stringsAsFactors = FALSE)
 colnames(map) <- c("SampleID", "InputFileName", "coral_tag","SampleType", "Year", "TubeNumber", "Coral_Species","Site","Status","Year_Pre_Post")
 
 fs2014 <- which(map$Year==2014)
@@ -39,7 +39,7 @@ map.platy.forcat <- map.platy[,c(1,3:5,7:9,11)]
 metadata <- join_all(list(map.platy.forcat,meta.forcat),by='ref',match='first')
 names(metadata)
 rownames(metadata) <- metadata[,1] # Make rownames from SampleID
-metadata<-subset(metadata,select=-c(SampleID)) # Remove SampleID column
+# metadata<-subset(metadata,select=-c(SampleID)) # Remove SampleID column
 
-write.csv(metadata, file="/Users/Dani/Documents/Data_Analysis/KI_Platy/data/Coralphoto__Metadata/KI_Platy_metadata.csv")
-write.table(metadata, file="/Users/Dani/Documents/Data_Analysis/KI_Platy/data/Coralphoto__Metadata/KI_Platy_metadata.tsv", quote=FALSE, sep="\t", col.names = NA)
+write.csv(metadata, file="data/Coralphoto__Metadata/KI_Platy_metadata.csv")
+write.table(metadata, file="data/Coralphoto__Metadata/KI_Platy_metadata.tsv", quote=FALSE, sep="\t", col.names = NA)
