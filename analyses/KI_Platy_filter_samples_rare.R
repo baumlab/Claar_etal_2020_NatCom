@@ -97,32 +97,32 @@ tax_table(phy97.f.rare.c)[,9] <- gsub("^G.*", "G", tax_table(phy97.f.rare.c)[,9]
 tax_table(phy97.f.rare.c)[,9] <- gsub("^I.*", "I", tax_table(phy97.f.rare.c)[,9])
 
 # Write tax table for phylogenetically-informed diversity
-write.table(data.frame(tax_table(phy97.f.rare.c)), "data/tax_table.txt", row.names=T, quote=F)
+write.table(data.frame(tax_table(phy97.f.rare.c)), "data/tax_table_rare.txt", row.names=T, quote=F)
 # Write otu table for phylogenetically-informed diversity
-write.delim(data.frame(otu_table(phy97.f.rare.c)), "data/otu_table.tsv", quote = FALSE, row.names = T, sep = "\t")
+write.delim(data.frame(otu_table(phy97.f.rare.c)), "data/otu_table_rare.tsv", quote = FALSE, row.names = T, sep = "\t")
 
 #https://rdrr.io/rforge/seqinr/man/dist.alignment.html
 #returns sqrt of pairwise genetic distance, then squared the matrices
-A.seqs <- read.alignment(file = "data/Bioinf/tree/A_tree_seqs_aligned_clean.fasta", format= "fasta")
+A.seqs <- read.alignment(file = "data/Bioinf/tree/rare/A_tree_seqs_aligned_rare_clean.fasta", format= "fasta")
 
 A.dis <- (as.matrix(dist.alignment(A.seqs, matrix = "identity" )))^2
-write.csv(A.dis, file="data/Bioinf/tree/A.dis.matx.csv")
+write.csv(A.dis, file="data/Bioinf/tree/rare/A.dis.matx.rare.csv")
 
-C.seqs <- read.alignment(file = "data/Bioinf/tree/C_tree_seqs_aligned_clean.fasta", format= "fasta")
+C.seqs <- read.alignment(file = "data/Bioinf/tree/rare/C_tree_seqs_aligned_rare_clean.fasta", format= "fasta")
 C.dis <- (as.matrix(dist.alignment(C.seqs, matrix = "identity" )))^2
-write.csv(C.dis, file="data/Bioinf/tree/C.dis.matx.csv")
+write.csv(C.dis, file="data/Bioinf/tree/rare/C.dis.matx.rare.csv")
 
-D.seqs <- read.alignment(file = "data/Bioinf/tree/D_tree_seqs_aligned_clean.fasta", format= "fasta")
+D.seqs <- read.alignment(file = "data/Bioinf/tree/rare/D_tree_seqs_aligned_rare_clean.fasta", format= "fasta")
 D.dis <- (as.matrix(dist.alignment(D.seqs, matrix = "identity" )))^2
-write.csv(D.dis, file="data/Bioinf/tree/D.dis.matx.csv")
+write.csv(D.dis, file="data/Bioinf/tree/rare/D.dis.matx.rare.csv")
 
-# F.seqs <- read.alignment(file = "data/Bioinf/tree/F_tree_seqs_aligned_clean.fasta", format= "fasta")
+# F.seqs <- read.alignment(file = "data/Bioinf/tree/rare/F_tree_seqs_aligned_rare_clean.fasta", format= "fasta")
 # F.dis <- (as.matrix(dist.alignment(F.seqs, matrix = "identity" )))^2
-# write.csv(F.dis, file="data/Bioinf/tree/F.dis.matx.csv")
+# write.csv(F.dis, file="data/Bioinf/tree/rare/F.dis.matx.rare.csv")
 
-G.seqs <- read.alignment(file = "data/Bioinf/tree/G_tree_seqs_aligned_clean.fasta", format= "fasta")
+G.seqs <- read.alignment(file = "data/Bioinf/tree/rare/G_tree_seqs_aligned_rare_clean.fasta", format= "fasta")
 G.dis <- (as.matrix(dist.alignment(G.seqs, matrix = "identity" )))^2
-write.csv(G.dis, file="data/Bioinf/tree/G.dis.matx.csv")
+write.csv(G.dis, file="data/Bioinf/tree/rare/G.dis.matx.rare.csv")
 
 #give clade distances using average 28s distance from Pochon and Gates 2010
 A_C <- matrix(0.1960, ncol=ncol(A.dis), nrow=nrow(C.dis), dimnames=list(rownames(C.dis), colnames(A.dis)))
@@ -151,7 +151,7 @@ uber.tree <- phangorn::upgma(ubermatrix)
 plot(uber.tree, main="UPGMA")
 
 #write tree to file
-write.tree(uber.tree, file="data/Bioinf/tree/uber.tre")
+write.tree(uber.tree, file="data/Bioinf/tree/rare/uber.tre")
 
 #use tree and OTU table for calculating beta_diversity.py
 #http://qiime.org/scripts/beta_diversity.html
