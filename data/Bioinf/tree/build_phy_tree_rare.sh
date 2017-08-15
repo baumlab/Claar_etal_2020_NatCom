@@ -52,12 +52,12 @@ align_seqs.py -i data/Bioinf/tree/rare/G_tree_seqs_rare.fasta -m muscle -o data/
 # align_seqs.py -i data/Bioinf/tree/rare/I_tree_seqs_rare.fasta -m muscle -o data/Bioinf/tree/rare/
 
 #remove extra header info from alignments
-sed 's/ .*//' data/Bioinf/tree/rare/A_tree_seqs_aligned_rare.fasta > data/Bioinf/tree/rare/A_tree_seqs_aligned_rare_clean.fasta
-# sed 's/ .*//' data/Bioinf/tree/rare/B_tree_seqs_aligned_rare.fasta > data/Bioinf/tree/rare/B_tree_seqs_aligned_rare_clean.fasta
-sed 's/ .*//' data/Bioinf/tree/rare/C_tree_seqs_aligned_rare.fasta > data/Bioinf/tree/rare/C_tree_seqs_aligned_rare_clean.fasta
-sed 's/ .*//' data/Bioinf/tree/rare/D_tree_seqs_aligned_rare.fasta > data/Bioinf/tree/rare/D_tree_seqs_aligned_rare_clean.fasta
-# sed 's/ .*//' data/Bioinf/tree/rare/E_tree_seqs_aligned_rare.fasta > data/Bioinf/tree/rare/E_tree_seqs_aligned_rare_clean.fasta
-# sed 's/ .*//' data/Bioinf/tree/rare/F_tree_seqs_aligned_rare.fasta > data/Bioinf/tree/rare/F_tree_seqs_aligned_rare_clean.fasta
-sed 's/ .*//' data/Bioinf/tree/rare/G_tree_seqs_aligned_rare.fasta > data/Bioinf/tree/rare/G_tree_seqs_aligned_rare_clean.fasta
-# sed 's/ .*//' data/Bioinf/tree/rare/H_tree_seqs_aligned_rare.fasta > data/Bioinf/tree/rare/H_tree_seqs_aligned_rare_clean.fasta
-# sed 's/ .*//' data/Bioinf/tree/rare/I_tree_seqs_aligned_rare.fasta > data/Bioinf/tree/rare/I_tree_seqs_aligned_rare_clean.fasta
+sed 's/ .*//' data/Bioinf/tree/rare/A_tree_seqs_rare_aligned.fasta > data/Bioinf/tree/rare/A_tree_seqs_rare_aligned_clean.fasta
+# sed 's/ .*//' data/Bioinf/tree/rare/B_tree_seqs_rare_aligned.fasta > data/Bioinf/tree/rare/B_tree_seqs_rare_aligned_clean.fasta
+sed 's/ .*//' data/Bioinf/tree/rare/C_tree_seqs_rare_aligned.fasta > data/Bioinf/tree/rare/C_tree_seqs_rare_aligned_clean.fasta
+sed 's/ .*//' data/Bioinf/tree/rare/D_tree_seqs_rare_aligned.fasta > data/Bioinf/tree/rare/D_tree_seqs_rare_aligned_clean.fasta
+# sed 's/ .*//' data/Bioinf/tree/rare/E_tree_seqs_rare_aligned.fasta > data/Bioinf/tree/rare/E_tree_seqs_rare_aligned_clean.fasta
+# sed 's/ .*//' data/Bioinf/tree/rare/F_tree_seqs_rare_aligned.fasta > data/Bioinf/tree/rare/F_tree_seqs_rare_aligned_clean.fasta
+sed 's/ .*//' data/Bioinf/tree/rare/G_tree_seqs_rare_aligned.fasta > data/Bioinf/tree/rare/G_tree_seqs_rare_aligned_clean.fasta
+# sed 's/ .*//' data/Bioinf/tree/rare/H_tree_seqs_rare_aligned.fasta > data/Bioinf/tree/rare/H_tree_seqs_rare_aligned_clean.fasta
+# sed 's/ .*//' data/Bioinf/tree/rare/I_tree_seqs_rare_aligned.fasta > data/Bioinf/tree/rare/I_tree_seqs_rare_aligned_clean.fasta

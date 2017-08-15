@@ -35,6 +35,10 @@ phy.f.rare.coral <- prune_samples(sample_sums(phy.f.rare.coral)>=sn, phy.f.rare.
 # # Remove taxa below threshold count
 # phy.f.rare.coral <- prune_taxa(names(taxa), phy.f.rare.coral)
 
+# Fix field season (Jan 2015 still has _Pre and _Post)
+sample_data(phy.f.rare.coral)$field_season <- gsub("_Pre","",data.frame(sample_data(phy.f.rare.coral))$field_season)
+sample_data(phy.f.rare.coral)$field_season <- gsub("_Post","",data.frame(sample_data(phy.f.rare.coral))$field_season)
+
 # Characterize sites by disturbance level
 VeryHigh <- c(33,40,32,31,27,30,26)
 High <- c(25,3,38,24)
@@ -103,24 +107,24 @@ write.delim(data.frame(otu_table(phy97.f.rare.c)), "data/otu_table_rare.tsv", qu
 
 #https://rdrr.io/rforge/seqinr/man/dist.alignment.html
 #returns sqrt of pairwise genetic distance, then squared the matrices
-A.seqs <- read.alignment(file = "data/Bioinf/tree/rare/A_tree_seqs_aligned_rare_clean.fasta", format= "fasta")
+A.seqs <- read.alignment(file = "data/Bioinf/tree/rare/A_tree_seqs_rare_aligned_clean.fasta", format= "fasta")
 
 A.dis <- (as.matrix(dist.alignment(A.seqs, matrix = "identity" )))^2
 write.csv(A.dis, file="data/Bioinf/tree/rare/A.dis.matx.rare.csv")
 
-C.seqs <- read.alignment(file = "data/Bioinf/tree/rare/C_tree_seqs_aligned_rare_clean.fasta", format= "fasta")
+C.seqs <- read.alignment(file = "data/Bioinf/tree/rare/C_tree_seqs_rare_aligned_clean.fasta", format= "fasta")
 C.dis <- (as.matrix(dist.alignment(C.seqs, matrix = "identity" )))^2
 write.csv(C.dis, file="data/Bioinf/tree/rare/C.dis.matx.rare.csv")
 
-D.seqs <- read.alignment(file = "data/Bioinf/tree/rare/D_tree_seqs_aligned_rare_clean.fasta", format= "fasta")
+D.seqs <- read.alignment(file = "data/Bioinf/tree/rare/D_tree_seqs_rare_aligned_clean.fasta", format= "fasta")
 D.dis <- (as.matrix(dist.alignment(D.seqs, matrix = "identity" )))^2
 write.csv(D.dis, file="data/Bioinf/tree/rare/D.dis.matx.rare.csv")
 
-# F.seqs <- read.alignment(file = "data/Bioinf/tree/rare/F_tree_seqs_aligned_rare_clean.fasta", format= "fasta")
+# F.seqs <- read.alignment(file = "data/Bioinf/tree/rare/F_tree_seqs_rare_aligned_clean.fasta", format= "fasta")
 # F.dis <- (as.matrix(dist.alignment(F.seqs, matrix = "identity" )))^2
 # write.csv(F.dis, file="data/Bioinf/tree/rare/F.dis.matx.rare.csv")
 
-G.seqs <- read.alignment(file = "data/Bioinf/tree/rare/G_tree_seqs_aligned_rare_clean.fasta", format= "fasta")
+G.seqs <- read.alignment(file = "data/Bioinf/tree/rare/G_tree_seqs_rare_aligned_clean.fasta", format= "fasta")
 G.dis <- (as.matrix(dist.alignment(G.seqs, matrix = "identity" )))^2
 write.csv(G.dis, file="data/Bioinf/tree/rare/G.dis.matx.rare.csv")
 
