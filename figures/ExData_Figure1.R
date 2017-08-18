@@ -18,7 +18,7 @@ layout(matrix(c(1,2,3,4,5,6,7,8,9), nrow=3, ncol=3, byrow = TRUE), heights=c(1,1
 # Plot image panels using function created above
 img_coral588_site15_July16 <- load.image('../figures/Extended Data/coral588_site15_IMG_17462_July16.jpg')
 img_coral588_site15_March16 <- load.image('../figures/Extended Data/coral588_site15_IMG_0659_March16.jpg')
-img_coral588_site15_XX <- load.image('')
+img_Coral588_Site15_Nov16 <- load.image('../figures/Extended Data/Coral588_Site15_Nov16_JB_IMG_1034.jpg')
 img_coral850_site34_July15 <- load.image('../figures/Extended Data/coral850_site34_IMG_5320_July15.jpg')
 img_coral850_site34_March16 <- load.image('../figures/Extended Data/coral850_site34_IMG_0327_March16.jpg')
 img_coral850_site34_XX <- load.image('')
