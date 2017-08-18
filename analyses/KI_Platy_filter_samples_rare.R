@@ -35,10 +35,6 @@ phy.f.rare.coral <- prune_samples(sample_sums(phy.f.rare.coral)>=sn, phy.f.rare.
 # # Remove taxa below threshold count
 # phy.f.rare.coral <- prune_taxa(names(taxa), phy.f.rare.coral)
 
-# Fix field season (Jan 2015 still has _Pre and _Post)
-sample_data(phy.f.rare.coral)$field_season <- gsub("_Pre","",data.frame(sample_data(phy.f.rare.coral))$field_season)
-sample_data(phy.f.rare.coral)$field_season <- gsub("_Post","",data.frame(sample_data(phy.f.rare.coral))$field_season)
-
 # Characterize sites by disturbance level
 VeryHigh <- c(33,40,32,31,27,30,26)
 High <- c(25,3,38,24)
@@ -84,6 +80,10 @@ levels(sample_data(phy.f.rare.coral)$Dist) <- c("VeryHigh","High","HighMed","Low
 
 # Assign new name for clarity
 phy97.f.rare.c <- phy.f.rare.coral
+
+# Fix field season (Jan 2015 still has _Pre and _Post)
+sample_data(phy97.f.rare.c)$field_season <- gsub("KI2015a_Pre","KI2015a",data.frame(sample_data(phy97.f.rare.c))$field_season)
+sample_data(phy97.f.rare.c)$field_season <- gsub("KI2015a_Post","KI2015a",data.frame(sample_data(phy97.f.rare.c))$field_season)
 
 # Make a tax_table column for "clade"
 # Rename rank_names (aka column names in phy97.f.rare.c)
