@@ -21,7 +21,7 @@ img_coral588_site15_March16 <- load.image('../figures/Extended Data/coral588_sit
 img_Coral588_Site15_Nov16 <- load.image('../figures/Extended Data/Coral588_Site15_Nov16_JB_IMG_1034.jpg')
 img_coral850_site34_July15 <- load.image('../figures/Extended Data/coral850_site34_IMG_5320_July15.jpg')
 img_coral850_site34_March16 <- load.image('../figures/Extended Data/coral850_site34_IMG_0327_March16.jpg')
-img_coral850_site34_XX <- load.image('')
+img_Coral850_Site34_Nov16 <- load.image('../figures/Extended Data/Coral850_Site34_Nov16_JB_IMG_9511.jpg')
 img_coral741_site32_July15 <- load.image('../figures/Extended Data/coral741_site32_IMG_7412_July15.jpg')
 img_coral741_site32_March16 <- load.image('../figures/Extended Data/coral741_site32_IMG_0030_March16.jpg')
 img_coral741_site32_XX <- load.image('')
