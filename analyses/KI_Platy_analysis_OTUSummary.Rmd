@@ -601,6 +601,41 @@ barplot(rac.da.fpenta$Abundance[1:N], las=2, names.arg=rac.da.fpenta$hit[1:N],sp
 ```
 
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
+# To very easily summarize by taxa
+# For example, for making histograms by clade
+# Code from https://github.com/joey711/phyloseq/issues/418 thanks to https://github.com/guoyanzhao
+
+# Import necessary packages
+library(reshape)
+
+# This is for absolute sequence counts (which isn't too terribly useful)
+# Agglomerate taxa 
+glom <- tax_glom(phy97.f.c, taxrank = 'clade')
+# Create dataframe from phyloseq object
+dat <- psmelt(glom)
+# Convert clade from a factor to to a character vector
+dat$clade <- as.character(dat$clade)
+# Aggregate
+clade_abundance <- aggregate(Abundance~Sample+clade, dat, FUN=sum)
+# Reorganize table so every clade is a column
+clade_abundance <- cast(clade_abundance, Sample ~ clade)
+
+# This is the same as above, but for proportional sequence abundance
+glom <- tax_glom(phy97.f.c.p, taxrank = 'clade')
+dat <- psmelt(glom)
+dat$clade <- as.character(dat$clade)
+clade_abundance <- aggregate(Abundance~Sample+clade, dat, FUN=sum)
+clade_abundance <- cast(clade_abundance, Sample ~ clade)
+
+# Plot histograms for each clade 
+hist(clade_abundance$A,breaks = c(0,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.2,0.3,0.4,0.5),freq = TRUE)
+hist(clade_abundance$C,freq = TRUE)
+hist(clade_abundance$D,freq = TRUE)
+hist(clade_abundance$G,breaks = c(0,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9),freq = FALSE) # Get an error when I use freq=TRUE
+```
+
+
+```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Save grouped data as RData file
 save.image(file = "KI_seqs_f_coral_grouped_OTUSummary.RData")
 ```
