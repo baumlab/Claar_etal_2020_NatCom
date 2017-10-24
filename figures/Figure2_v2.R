@@ -62,52 +62,59 @@ platy_clades.t_sam <- merge(platy_clades.t,sam_platy, by=0,all=TRUE)
 
 # head(platy_clades.t_sam)
 
-# Make sure that 
+# Make sure that clade proportions are numeric for plotting
 platy_clades.t_sam$C <- as.numeric(as.character(platy_clades.t_sam$C))
 platy_clades.t_sam$D <- as.numeric(as.character(platy_clades.t_sam$D))
 platy_clades.t_sam$A <- as.numeric(as.character(platy_clades.t_sam$A))
 platy_clades.t_sam$G <- as.numeric(as.character(platy_clades.t_sam$G))
 
+# List corals which were measured before the bleaching event and during/after
 followed_corals <- c("62","99","157","161","223","234","253","289","328","353","379","389","402","442","455","466","470","486","594","612","618","637","727","735","742","754","762","766","768","783","788","792","797","807","813","820","824","850","857","248_696")
+# Subset to look at only those that were sampled "before" and during and/or after
 platy_clades.t_sam_subset <- subset(platy_clades.t_sam, coral_tag %in% followed_corals)
 
+# Make variable for "known status"
 ks <- c("alive","dead")
+# Subset to look at only those which we know their status (i.e. exclude Gone and UK)
 platy_clades.t_sam_subset2 <- subset(platy_clades.t_sam, Status %in% ks)
 
+# Choose colors for Status variable
 status_colors <- c("alive" = "#ca0020", "dead" = "#0571b0")
 
+# Rearrange factor levels for Disturbance Level
 platy_clades.t_sam_subset2$Dist <- factor(platy_clades.t_sam_subset2$Dist, levels= c("VeryLow","Low","HighMed","VeryHigh"))
 
+# Create ggplot for Clade C proportional abundance
 p <- ggplot(data=platy_clades.t_sam_subset2,aes(x=field_season,y=C),group=coral_tag)
-
+# Plot Clade C proportional abundance, with each coral tag series connected by lines
 p+geom_line(aes(group=coral_tag, color=Status))+scale_color_manual(values=status_colors)
-
+# Same plot as previous, but facet by Disturbance level
 p+geom_line(aes(group=coral_tag, color=Status))+facet_grid(.~Dist)+scale_color_manual(values=status_colors)
 
-# p+geom_line(aes(group=coral_tag, color=Status))+stat_smooth(aes(group=Dist,color=Dist))+stat_summary(aes(group=Dist),geom="point",fun.y=mean,size=3)
-
+# Create ggplot for Clade D proportional abundance
 p2 <- ggplot(data=platy_clades.t_sam_subset2,aes(x=field_season,y=D),group=coral_tag)
-
+# Plot Clade D proportional abundance, with each coral tag series connected by lines
 p2+geom_line(aes(group=coral_tag, color=Status))+scale_color_manual(values=status_colors)
-
+# Same plot as previous, but facet by Disturbance level
 p2+geom_line(aes(group=coral_tag, color=Status))+facet_grid(.~Dist)+scale_color_manual(values=status_colors)
 
+# Create tiff of C and D plots
 tiff(file="figures/Fig2_v2_temp.tiff",width = 12, height = 6,units="in",res=300)
 grid.arrange(ncol=2,p+geom_line(aes(group=coral_tag, color=Status))+scale_color_manual(values=status_colors)+theme(legend.position=c(0.15,0.2)),p2+geom_line(aes(group=coral_tag, color=Status))+scale_color_manual(values=status_colors,guide=FALSE))
 dev.off()
 
-
-
+## Both Clade A and G have very low abundances, but plot them just to see what it looks like. Note that the y-axes are different than C and D!! 
+# Create ggplot for Clade A proportional abundance
 p3 <- ggplot(data=platy_clades.t_sam_subset2,aes(x=field_season,y=A),group=coral_tag)
-
+# Plot Clade A proportional abundance, with each coral tag series connected by lines
 p3+geom_line(aes(group=coral_tag, color=Status))+scale_color_manual(values=status_colors)
-
+# Same plot as previous, but facet by Disturbance level
 p3+geom_line(aes(group=coral_tag, color=Status))+facet_grid(.~Dist)+scale_color_manual(values=status_colors)
 
-
+# Create ggplot for Clade G proportional abundance
 p4 <- ggplot(data=platy_clades.t_sam_subset2,aes(x=field_season,y=G),group=coral_tag)
-
+# Plot Clade G proportional abundance, with each coral tag series connected by lines
 p4+geom_line(aes(group=coral_tag, color=Status))+scale_color_manual(values=status_colors)
-
+# Same plot as previous, but facet by Disturbance level
 p4+geom_line(aes(group=coral_tag, color=Status))+facet_grid(.~Dist)+scale_color_manual(values=status_colors)
 
