@@ -23,7 +23,7 @@ library(cowplot)
 
 rm(list=ls())
 
-load("data/KI_seqs_f_coral_grouped.RData")
+load("../data/KI_seqs_f_coral_grouped.RData")
 
 # Look at tax_table
 tax_table(phy97.f.c)
