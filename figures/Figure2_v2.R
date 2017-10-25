@@ -79,7 +79,7 @@ ks <- c("alive","dead")
 platy_clades.t_sam_subset2 <- subset(platy_clades.t_sam, Status %in% ks)
 
 # Choose colors for Status variable
-status_colors <- c("alive" = "#ca0020", "dead" = "#0571b0")
+status_colors <- c("alive" = "#0571b0", "dead" = "#ca0020")
 
 # Rearrange factor levels for Disturbance Level
 platy_clades.t_sam_subset2$Dist <- factor(platy_clades.t_sam_subset2$Dist, levels= c("VeryLow","Low","HighMed","VeryHigh"))
