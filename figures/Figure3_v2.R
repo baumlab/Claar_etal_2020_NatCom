@@ -58,7 +58,7 @@ p1 <- plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before.C
                       shape="Status", color="Disturbance",type="samples",title="")
 # Format ordination plot
 ord_plot <- p1 + 
-  geom_point(size=1.5, pch=21,col="black") + 
+  geom_point(size=1.5) + 
   theme(legend.position=c(.72, .85),
         legend.box = "horizontal",legend.background = element_blank(), 
         legend.title = element_text(size=10),
@@ -77,7 +77,7 @@ ord_plot <- p1 +
 
 # Load in and format world map showing El Niño
 # Use imager to load the image
-img_20152016ElNino <- load.image('figures/figure_309.png')
+img_20152016ElNino <- load.image('figures/global_elnino_map/figure_1.png')
 # # Check that the data is in the correct format for the next step
 # as.data.frame(img_20152016ElNino,wide="c") %>% head
 # Mutate image data to be able to plot it using GridExtra/ggplot2
