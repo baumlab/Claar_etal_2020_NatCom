@@ -66,3 +66,13 @@ data/Bioinf/sequences/merged/KI*
 
 #Ignore .log files
 *.log
+
+#Ignore Temporary Microsoft Office Files
+data/~*
+ms/~*
+figures/~*
+analyses/~*
+
+#Ignore .ini files
+**/desktop.ini
+
