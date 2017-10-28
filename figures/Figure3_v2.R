@@ -167,10 +167,10 @@ HighDist <- ggplot(df4,aes(x,y)) +
 ### Make the multi-panel plot ###
 
 # Open a tiff image
-tiff(file="figures/Figure3_v3.tiff",width = 7.2, height = 4.5,units="in",res=300)
+tiff(file="figures/Figure3_v3.tiff",width = 7.2, height = 4,units="in",res=300)
 
 lay=rbind(c(1,1,1),c(2,4,5),c(3,4,5))
-grid.arrange(world_20152016ElNino,HighDist,VLowDist,KImap,ord_plot,ncol=3, nrow=3, layout_matrix=lay, widths=unit(c(1.9,2.1,2.7),c("in","in","in")),heights=unit(c(2.1,1.15,1.15),c("in","in","in")))
+grid.arrange(world_20152016ElNino,HighDist,VLowDist,KImap,ord_plot,ncol=3, nrow=3, layout_matrix=lay, widths=unit(c(1.9,2.1,2.7),c("in","in","in")),heights=unit(c(1.6,1.15,1.15),c("in","in","in")))
 
 dev.off()
 
