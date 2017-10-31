@@ -13,6 +13,7 @@ library(gridExtra)
 library(plyr)
 library(dplyr)
 library(imager)
+library(ggrepel)
 
 # Load in Data
 # You will need to be in the KI_Platy directory for this to work
@@ -48,7 +49,7 @@ sample_data(phy97.f.c.platy.AD.before)$Disturbance <- factor(sample_data(phy97.f
 # Create ordination for plotting
 ord.phy97.f.c.platy.AD.before.CAP <- ordinate(phy97.f.c.platy.AD.before,
                                               method="CAP",distance="wunifrac",
-                                              formula= ~ field_season + Status + Disturbance)
+                                              formula= ~ field_season + Disturbance)
 
 # # Plot this ordination - scree plot (Optional, helpful for looking at explained variance)
 # plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before.CAP,  shape="Status",type="scree",title="97% within-sample OTUs - CAP Platygyra only")
@@ -71,6 +72,17 @@ ord_plot <- p1 +
         axis.ticks.length=unit(-0.05, "in")) + 
   stat_ellipse(aes(group=Status), type = "t",level=0.95,color=c("darkgray"),lty=2) + 
   scale_color_manual(values=D_cols)
+
+# Disturbance centroids plot
+dist_cent <- ggplot(d2, aes(CAP1,CAP2)) + geom_point() + geom_label_repel(aes(label=row.names(d2)),box.padding = 0.5,col=D_cols[c(4,3,2,1)]) + ylim(-0.35,0.2)
+
+jpeg(file="figures/DisturbanceCentroids.jpg",width = 7.2, height = 4,units="in",res=300)
+dist_cent
+dev.off()
+
+jpeg(file="figures/Disturbance_and_fieldseason_Centroids.jpg",width = 7.2, height = 4,units="in",res=300)
+ggplot(d, aes(CAP1,CAP2)) + geom_point() + geom_label_repel(aes(label=row.names(d)),box.padding = 0.5,col=c("black","black","black",D_cols[c(4,3,2,1)])) + ylim(-0.35,0.2)
+dev.off()
 
 ##################################################################################
 ### El Niño Global Map ###
