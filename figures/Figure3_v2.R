@@ -56,10 +56,10 @@ ord.phy97.f.c.platy.AD.before.CAP <- ordinate(phy97.f.c.platy.AD.before,
 
 # Plot this ordination - Make plot using phyloseq & ggplot2
 p1 <- plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before.CAP,
-                      shape="Status", color="Disturbance",type="samples",title="")
+                      shape=factor("Status"), color="Disturbance",type="samples",title="")
 # Format ordination plot
 ord_plot <- p1 + 
-  geom_point(size=1.5) + 
+  geom_point(size=3) + 
   theme(legend.position=c(.72, .85),
         legend.box = "horizontal",legend.background = element_blank(), 
         legend.title = element_text(size=10),
@@ -69,9 +69,11 @@ ord_plot <- p1 +
         axis.title = element_text(size=8), 
         axis.text.x = element_text(size=8,margin = margin(b=5, t = 5)),
         axis.text.y = element_text(size=8,margin = margin(b=5, r = 5)), 
+        axis.title.x = element_text(size=8,margin = margin(b=5, t = 0.3)),
+        axis.title.y = element_text(size=8,margin = margin(b=5, r = 0.3)), 
         axis.ticks.length=unit(-0.05, "in")) + 
   stat_ellipse(aes(group=Status), type = "t",level=0.95,color=c("darkgray"),lty=2) + 
-  scale_color_manual(values=D_cols)
+  scale_color_manual(values=D_cols) 
 
 # Disturbance centroids plot
 dist_cent <- ggplot(d2, aes(CAP1,CAP2)) + geom_point() + geom_label_repel(aes(label=row.names(d2)),box.padding = 0.5,col=D_cols[c(4,3,2,1)]) + ylim(-0.35,0.2)
@@ -89,7 +91,7 @@ dev.off()
 
 # Load in and format world map showing El Niño
 # Use imager to load the image
-img_20152016ElNino <- load.image('figures/global_elnino_map/figure_1.png')
+img_20152016ElNino <- load.image('figures/global_elnino_map/figure_1.jpg')
 # # Check that the data is in the correct format for the next step
 # as.data.frame(img_20152016ElNino,wide="c") %>% head
 # Mutate image data to be able to plot it using GridExtra/ggplot2
@@ -112,7 +114,7 @@ world_20152016ElNino <- ggplot(df,aes(x,y)) +
 
 # Load in and format KI map showing local human disturbance
 # Use imager to load the image
-img_KImap <- load.image('figures/KI_map_coral_sites_NatGeo.jpg')
+img_KImap <- load.image('figures/KI_map_platysites_villages.jpeg')
 # # Check that the data is in the correct format for the next step
 # as.data.frame(img_KImap,wide="c") %>% head
 # Mutate image data to be able to plot it using GridExtra/ggplot2
@@ -179,10 +181,12 @@ HighDist <- ggplot(df4,aes(x,y)) +
 ### Make the multi-panel plot ###
 
 # Open a tiff image
-tiff(file="figures/Figure3_v3.tiff",width = 7.2, height = 4,units="in",res=300)
+tiff(file="figures/Figure3_v3.tiff",width = 7.2, height = 3.97,units="in",res=300)
 
-lay=rbind(c(1,1,1),c(2,4,5),c(3,4,5))
-grid.arrange(world_20152016ElNino,HighDist,VLowDist,KImap,ord_plot,ncol=3, nrow=3, layout_matrix=lay, widths=unit(c(1.9,2.1,2.7),c("in","in","in")),heights=unit(c(1.6,1.15,1.15),c("in","in","in")))
+# lay=rbind(c(1,1,1),c(2,4,5),c(3,4,5))
+# grid.arrange(world_20152016ElNino,HighDist,VLowDist,KImap,ord_plot,ncol=3, nrow=3, layout_matrix=lay, widths=unit(c(2,2,3.2),c("in","in","in")),heights=unit(c(1.6,1.15,1.15),c("in","in","in")))
+grid.arrange(world_20152016ElNino,arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2),KImap,ord_plot,ncol=3,widths=unit(c(1.7,2.1,3.1),c("in","in","in"))),nrow=2, heights=unit(c(1.67,2.1),c("in","in")),widths=unit(c(7.9),c("in")))
+# plot_grid(world_20152016ElNino,HighDist,VLowDist,KImap,ord_plot, align = "v", nrow = 2, ncol=3, rel_heights = c(1/2, 1/4, 1/4), rel_widths=c(1,1/4,1/4,1/4,1/4))
 
 dev.off()
 
