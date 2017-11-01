@@ -126,7 +126,7 @@
   mtext("v",side=2, line=-34.6, cex=1, las=2,padj=-5.6) # Add sampling date label
   mtext("vi",side=2, line=-47.9, cex=1, las=2,padj=-5.6) # Add sampling date label
   mtext("Temperature (°C)",side=4, cex=0.75,line=1.25)
-  mtext("Max. Monthly Mean",side=2,line=-47.7,cex=0.72,las=2,padj=0.2) # Label MMM line
+  mtext("Mean Monthly Max.",side=2,line=-47.7,cex=0.72,las=2,padj=0.2) # Label MMM line
   mtext("Bleaching Threshold",side=2,line=-47.7,cex=0.72,las=2,padj=-2.5) # Label bleaching threshold line
   
 
