@@ -29,7 +29,7 @@ mat[60:95, 10:40]<-2
 mat
 
 layout(mat)
-par(mar=c(3,6,1,1))
+par(mar=c(3,6,2,2))
 plot(diva_shp, xlim=c(-157.57, -157.15), ylim=c(1.73, 2.01), col=land, border=alpha("black",0.5), lwd=1)
 par(cex=1.4)
 axis(1, labels=c(expression(paste(157.6, degree, "W")),expression(paste(157.5, degree, "W")), expression(paste(157.4, degree, "W")), expression(paste(157.3, degree, "W")), expression(paste(157.2, degree, "W")), expression(paste(157.1, degree, "W"))), 
@@ -41,15 +41,20 @@ box(lwd=1)
 # # scale bar. for distances at the equator, where 0.1 degree of longitude = 11.132 km 
 
 ### at bottom of plot
-rect(-157.35,1.65,  -157.252, 1.65, col="black")  ###  EQUAL TO 10 KM
-rect(-157.35, 1.65, -157.35, 1.66)
-rect(-157.252, 1.65, -157.252, 1.66)
-rect(-157.301, 1.65, -157.301, 1.66)
+rect(-157.3,1.65,  -157.202, 1.65, col="black")  ###  EQUAL TO 10 KM
+rect(-157.3, 1.65, -157.3, 1.66)
+rect(-157.202, 1.65, -157.202, 1.66)
+rect(-157.251, 1.65, -157.251, 1.66)
 # rect(-157.3102, 1.69, -157.3102, 1.691)
-text(-157.35, 1.67, "0km", cex=1.4, font=1)
-text(-157.301, 1.67, "5km", cex=1.4, font=1)
-text(-157.252, 1.67, "10km", cex=1.4, font=1)
+text(-157.3, 1.67, "0km", cex=1.2, font=1)
+text(-157.251, 1.67, "5km", cex=1.2, font=1)
+text(-157.202, 1.67, "10km", cex=1.2, font=1)
 # text(-157.3102, 1.72, "20 km", cex=0.8, font=1)
+
+
+
+
+
 
 # ## at top of plot
 # rect(-157.3,2.04,  -157.398, 2.04, col="black")  ###  EQUAL TO 10 KM
