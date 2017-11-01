@@ -28,7 +28,7 @@ library(PBSmapping)
 
 
 
-### complex inset
+###complex inset
 # world_shp<-readShapePoly("/Users/jpwrobinson/Documents/git_repos/maps/shapes/ne_110m_land/ne_110m_land")
 # world_shp<-readShapePoly("/Users/IMAC3/Documents/git-jpwrobinson/maps/shapes/ne_110m_land/ne_110m_land")
  world_shp<-readShapePoly("/Users/KristinaTietjen/Documents/Git_Hub/maps/shapes/ne_110m_land/ne_110m_land")
