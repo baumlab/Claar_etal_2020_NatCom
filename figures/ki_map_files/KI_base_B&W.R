@@ -29,7 +29,7 @@ mat[60:95, 10:40]<-2
 mat
 
 layout(mat)
-par(mar=c(3,5,1,1))
+par(mar=c(3,6,1,1))
 plot(diva_shp, xlim=c(-157.57, -157.15), ylim=c(1.73, 2.01), col=land, border=alpha("black",0.5), lwd=1)
 par(cex=1)
 axis(1, labels=c(expression(paste(157.6, degree, "W")),expression(paste(157.5, degree, "W")), expression(paste(157.4, degree, "W")), expression(paste(157.3, degree, "W")), expression(paste(157.2, degree, "W")), expression(paste(157.1, degree, "W"))), 
