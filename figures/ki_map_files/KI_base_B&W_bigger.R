@@ -29,12 +29,12 @@ mat[60:95, 10:40]<-2
 mat
 
 layout(mat)
-par(mar=c(3,6,2,2))
+par(mar=c(3,6.5,0.3,0.3))
 plot(diva_shp, xlim=c(-157.57, -157.15), ylim=c(1.73, 2.01), col=land, border=alpha("black",0.5), lwd=1)
-par(cex=1.4)
+par(cex=1.7)
 axis(1, labels=c(expression(paste(157.6, degree, "W")),expression(paste(157.5, degree, "W")), expression(paste(157.4, degree, "W")), expression(paste(157.3, degree, "W")), expression(paste(157.2, degree, "W")), expression(paste(157.1, degree, "W"))), 
 	at=c(-157.6,-157.5, -157.4, -157.3,  -157.2, -157.1))
-par(cex=1.4)
+par(cex=1.7)
 axis(2, at=c(1.6, 1.7, 1.8, 1.9, 2, 2.1), las=2, labels=c(expression(paste(1.6, degree, "N")),expression(paste(1.7, degree, "N")),expression(paste(1.8, degree, "N")), expression(paste(1.9, degree, "N")),expression(paste(2, degree, "N")),expression(paste(2.1, degree, "N"))))
 box(lwd=1)
 
@@ -46,9 +46,9 @@ rect(-157.3, 1.65, -157.3, 1.66)
 rect(-157.202, 1.65, -157.202, 1.66)
 rect(-157.251, 1.65, -157.251, 1.66)
 # rect(-157.3102, 1.69, -157.3102, 1.691)
-text(-157.3, 1.67, "0km", cex=1.2, font=1)
-text(-157.251, 1.67, "5km", cex=1.2, font=1)
-text(-157.202, 1.67, "10km", cex=1.2, font=1)
+text(-157.3, 1.67, "0km", cex=1, font=1)
+text(-157.251, 1.67, "5km", cex=1, font=1)
+text(-157.202, 1.67, "10km", cex=1, font=1)
 # text(-157.3102, 1.72, "20 km", cex=0.8, font=1)
 
 
