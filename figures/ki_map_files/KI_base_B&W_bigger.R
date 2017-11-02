@@ -31,13 +31,13 @@ mat
 layout(mat)
 par(mar=c(5,8,0.3,0.3))
 plot(diva_shp, xlim=c(-157.57, -157.15), ylim=c(1.73, 2.01), col=land, border=alpha("black",0.5), lwd=1)
-par(cex=2)
+par(cex=2.5)
 #par(ps=35)
 axis(1, labels=c(expression(paste(157.6, degree, "W")),expression(paste(157.5, degree, "W")), expression(paste(157.4, degree, "W")), expression(paste(157.3, degree, "W")), expression(paste(157.2, degree, "W")), expression(paste(157.1, degree, "W"))), 
 	at=c(-157.6,-157.5, -157.4, -157.3,  -157.2, -157.1))
-par(cex=2)
+par(cex=2.5)
 #par(ps=35)
-axis(2, at=c(1.6, 1.7, 1.8, 1.9, 2, 2.1), las=2, labels=c(expression(paste(1.6, degree, "N")),expression(paste(1.7, degree, "N")),expression(paste(1.8, degree, "N")), expression(paste(1.9, degree, "N")),expression(paste(2, degree, "N")),
+axis(2, at=c(1.6, 1.7, 1.8, 1.9, 2, 2.1), las=0, labels=c(expression(paste(1.6, degree, "N")),expression(paste(1.7, degree, "N")),expression(paste(1.8, degree, "N")), expression(paste(1.9, degree, "N")),expression(paste(2, degree, "N")),
                                                           expression(paste(2.1, degree, "N"))))
 box(lwd=1)
 
