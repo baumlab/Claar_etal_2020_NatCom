@@ -59,8 +59,10 @@ p1 <- plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before.C
                       shape="Status", color="Disturbance",type="samples",title="")
 # Format ordination plot
 ord_plot <- p1 + 
-  geom_point() + scale_shape_manual(values = c(3,20)) + scale_size_manual(c(3,2))+
-  theme(legend.position=c(.92, .9),
+  geom_point() + 
+      scale_shape_manual(values = c(9,20)) + scale_size_manual(values = c(0.75,1))+
+      scale_color_manual(values=D_cols) + scale_fill_manual(values=D_cols) + guides(color=F) +
+  theme(legend.position=c(.88, .89),
         legend.box = "horizontal",legend.background = element_blank(), 
         legend.title = element_text(size=10),
         legend.text = element_text(size = 8),legend.key.height=unit(0.3,"line"),
@@ -72,8 +74,8 @@ ord_plot <- p1 +
         axis.title.x = element_text(size=8,margin = margin(b=5, t = 0.1)),
         axis.title.y = element_text(size=8,margin = margin(b=5, r = 0.1)), 
         axis.ticks.length=unit(-0.05, "in")) + 
-  stat_ellipse(aes(group=Status), type = "t",level=0.95,color=c("darkgray"),lty=2) + 
-  scale_color_manual(values=D_cols) + scale_fill_manual(values=D_cols) + guides(color=F)
+  stat_ellipse(aes(group=Status), type = "t",level=0.95,color=c("darkgray"),lty=2)
+  
 
 # Disturbance centroids plot
 dist_cent <- ggplot(d2, aes(CAP1,CAP2)) + geom_point() + geom_label_repel(aes(label=row.names(d2)),box.padding = 0.5,col=D_cols[c(4,3,2,1)]) + ylim(-0.35,0.2)
@@ -126,7 +128,7 @@ df2 <- as.data.frame(img_KImap,wide="c") %>% mutate(rgb.val=rgb(c.1,c.2,c.3))
 KImap <- ggplot(df2,aes(x,y))+geom_raster(aes(fill=rgb.val))+scale_fill_identity()+scale_y_reverse()+ theme(axis.line=element_blank(),axis.text.x=element_blank(),                                      axis.text.y=element_blank(),axis.ticks=element_blank(),                                         axis.title.x=element_blank(),                                                                   axis.title.y=element_blank(),legend.position="none",                                            panel.background=element_blank(),panel.border=element_blank(),
         panel.grid.major=element_blank(),panel.grid.minor=element_blank(),
         plot.background=element_blank(),
-        plot.margin = unit(c(-0.2,0,0,-0.2),c("in","in","in","in")))
+        plot.margin = unit(c(-0.2,0,0,-0.1),c("in","in","in","in")))
 
 
 ##################################################################################
@@ -145,12 +147,14 @@ df3 <- as.data.frame(img_VLowDist,wide="c") %>% mutate(rgb.val=rgb(c.1,c.2,c.3))
 # Turn image into a ggplot object for incorporating in multi-panel figure below
 VLowDist <- ggplot(df3,aes(x,y)) + 
   geom_raster(aes(fill=rgb.val)) + 
-  scale_fill_identity()+scale_y_reverse() + 
+  scale_x_continuous(expand=c(0,0)) +
+  scale_fill_identity()+scale_y_reverse(expand=c(0,0)) + 
   theme(axis.line=element_blank(),axis.text.x=element_blank(),
-        axis.text.y=element_blank(),axis.ticks=element_blank(),                                         axis.title.x=element_blank(),                                                                   axis.title.y=element_blank(),legend.position="none",                                            panel.background=element_blank(),panel.border=element_blank(),
+        axis.text.y=element_blank(),axis.ticks=element_blank(),                                         axis.title.x=element_blank(),                                                                   axis.title.y=element_blank(),legend.position="none",                                            panel.border=element_rect(colour="black",fill=NA,size=1,linetype = "solid"),
+        panel.background=element_blank(),
         panel.grid.major=element_blank(),panel.grid.minor=element_blank(),
         plot.background=element_blank(),
-        plot.margin = unit(c(-0.1,0,0,0),c("in","in","in","in")))
+        plot.margin = unit(c(-0.09,0,0,-0.2),c("in","in","in","in")))
 
 ##################################################################################
 ### High Disturbance Photo ###
@@ -168,24 +172,26 @@ df4 <- as.data.frame(img_HighDist,wide="c") %>% mutate(rgb.val=rgb(c.1,c.2,c.3))
 # Turn image into a ggplot object for incorporating in multi-panel figure below
 HighDist <- ggplot(df4,aes(x,y)) + 
   geom_raster(aes(fill=rgb.val)) + 
-  scale_fill_identity()+scale_y_reverse() + 
+  scale_x_continuous(expand=c(0,0)) +
+  scale_fill_identity()+scale_y_reverse(expand=c(0,0)) + 
   theme(axis.line=element_blank(),axis.text.x=element_blank(),
         axis.text.y=element_blank(),axis.ticks=element_blank(),
-        axis.title.x=element_blank(),                                                                   axis.title.y=element_blank(),legend.position="none",                                            panel.background=element_blank(),panel.border=element_blank(),
+        axis.title.x=element_blank(),                                                                   axis.title.y=element_blank(),legend.position="none",                                            panel.background=element_blank(),
+        panel.border=element_rect(colour = "black", fill=NA, size=1),
         panel.grid.major=element_blank(),panel.grid.minor=element_blank(),
         plot.background=element_blank(),
-        plot.margin = unit(c(-0.1,0,0,0),c("in","in","in","in")))
+        plot.margin = unit(c(-0.12,0,0,-0.2),c("in","in","in","in")))
 
 
 ##################################################################################
 ### Make the multi-panel plot ###
 
 # Open a tiff image
-tiff(file="figures/Figure3.tiff",width = 7.2, height = 3.97,units="in",res=300)
+tiff(file="figures/Figure3.tiff",width = 7.2, height = 4.07,units="in",res=300)
 
 # lay=rbind(c(1,1,1),c(2,4,5),c(3,4,5))
 # grid.arrange(world_20152016ElNino,HighDist,VLowDist,KImap,ord_plot,ncol=3, nrow=3, layout_matrix=lay, widths=unit(c(2,2,3.2),c("in","in","in")),heights=unit(c(1.6,1.15,1.15),c("in","in","in")))
-grid.arrange(world_20152016ElNino,arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2),KImap,ord_plot,ncol=3,widths=unit(c(1.7,2.1,3.1),c("in","in","in"))),nrow=2, heights=unit(c(1.67,2.1),c("in","in")),widths=unit(c(7.9),c("in")))
+grid.arrange(world_20152016ElNino,arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.05,1.05),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.5,2.1,3.1),c("in","in","in"))),nrow=2, heights=unit(c(1.67,2.2),c("in","in")),widths=unit(c(7.9),c("in")))
 # plot_grid(world_20152016ElNino,HighDist,VLowDist,KImap,ord_plot, align = "v", nrow = 2, ncol=3, rel_heights = c(1/2, 1/4, 1/4), rel_widths=c(1,1/4,1/4,1/4,1/4))
 
 dev.off()
