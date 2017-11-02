@@ -99,9 +99,9 @@ source("ki_map_files/KI_base_B&W_bigger.R")
 # village markers sized by population
 symbols(villages$lon, villages$lat, circles=(villages$pop)/10, add=TRUE,inches=0.3, bg=alpha("red", 0.4))
 ## legend for village size
-text(-157.4475, 1.663, "Village with 1500 people", cex=0.8)   
-text(-157.4475, 1.6885, "Village with 1000 people", cex=0.8)   
-text(-157.453, 1.714, "Village with 500 people", cex=0.8)   
+text(-157.463, 1.663, "Village with 1500 people", cex=0.69)   # if cex=0.8 then x = -157.4475
+text(-157.463, 1.6885, "Village with 1000 people", cex=0.69)   # if cex=0.8 then x = -157.4475
+text(-157.468, 1.714, "Village with 500 people", cex=0.69)   # if cex=0.8 then x = -157.453
 #with(villages[!villages$village=="legend",], text(lon, lat, label=village, pos=1, offset=0.5, font=2, col="black"))
 points(sites$lon, sites$lat, bg=alpha(sites$col,0.8), pch=21, cex=1.4) 
 #with(sites_platy, text(lon, lat, label=site, cex=0.7))
