@@ -175,8 +175,8 @@ villages$village<-c("London", "Tabwakea", "Banana", "Poland", "legend1500", "leg
 colnames(villages)[1]<-"lat"
 
 setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy/figures")
-#tiff(file="KI_map_platysites_villages_inset_bigger.tiff",width = 7.6, height = 7.2,units="in",res=300)
-jpeg(file="KI_map_platysites_villages_inset_bigger.jpeg",width = 7.5, height = 7,units="in",res=300)
+tiff(file="KI_map_platysites_villages_inset_bigger.tiff",width = 7.6, height = 7.2,units="in",res=300)
+#jpeg(file="KI_map_platysites_villages_inset_bigger.jpeg",width = 7.5, height = 7,units="in",res=300)
 #pdf(file="KI_map_platysites_villages_inset_bigger.pdf", width = 7.5, height =7)
 source("ki_map_files/KI_base_B&W_bigger.R")
 
