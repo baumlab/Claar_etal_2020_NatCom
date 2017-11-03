@@ -377,4 +377,6 @@ total_seqs <- sum(taxa_sums(phy97.f.c))
 rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,Low,LowMed,High,HighMed,phy.f.coral)
 
 # Save grouped data as RData file
-save(list = ls(all.names = TRUE), file = "data/KI_seqs_f_coral_grouped.RData")
+save(list = ls(all.names = TRUE), file = "data/KI_seqs_f_coral_grouped_all.RData")
+save(phy97.f.c.platy.AD.before, phy97.f.c.platy.p, phy97.f.c.platy.AD,phy97.f.c.coral.AD, file = "data/KI_seqs_f_coral_grouped.RData")
+
