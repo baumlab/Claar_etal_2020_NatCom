@@ -94,7 +94,7 @@ colnames(villages)[1]<-"lat"
 setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy/figures")
 #tiff(file="KI_map_platysites_villages_bigger.tiff",width = 7.6, height = 7.2,units="in",res=300)
 #jpeg(file="KI_map_platysites_villages_bigger.jpeg",width = 7.6, height = 7.2,units="in",res=300)
-#pdf(file="KI_map_platysites_villages_bigger.pdf", width = 7.5, height =7)
+pdf(file="KI_map_platysites_villages_bigger.pdf", width = 7.5, height =7)
 source("ki_map_files/KI_base_B&W_bigger.R")
 
 # village markers sized by population
@@ -111,6 +111,7 @@ text(-157.275, 2.01, "Human disturbance", srt=90, cex=0.6)
 segments(-157.263, 1.968,-157.263, 2.057)
 text(-157.3, 1.88, "Bay of\nWrecks", cex = 0.5)
 text(-157.53, 1.82, "Vaskess\nBay", cex = 0.5)
+text(-157.592, 2.078, "c", font=2, cex=1.5)
 #source("ki_map_files/KI_base_inset.R")
 
 dev.off()
@@ -175,9 +176,9 @@ villages$village<-c("London", "Tabwakea", "Banana", "Poland", "legend1500", "leg
 colnames(villages)[1]<-"lat"
 
 setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy/figures")
-tiff(file="KI_map_platysites_villages_inset_bigger.tiff",width = 7.6, height = 7.2,units="in",res=300)
+#tiff(file="KI_map_platysites_villages_inset_bigger.tiff",width = 7.6, height = 7.2,units="in",res=300)
 #jpeg(file="KI_map_platysites_villages_inset_bigger.jpeg",width = 7.5, height = 7,units="in",res=300)
-#pdf(file="KI_map_platysites_villages_inset_bigger.pdf", width = 7.5, height =7)
+pdf(file="KI_map_platysites_villages_inset_bigger.pdf", width = 7.5, height =7)
 source("ki_map_files/KI_base_B&W_bigger.R")
 
 # village markers sized by population
