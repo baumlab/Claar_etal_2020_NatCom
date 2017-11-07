@@ -81,7 +81,7 @@ KI2016b <- as.POSIXct("2016-11-08 00:00:00",tz="Pacific/Kiritimati", format="%Y-
 jpeg(file="figures/Figure1a_pres.jpg",width = 7.2, height = 2.25,units="in",res=300)
 
 # Set both inner and outer margins to 0
-par(oma=c(0,0,0,0),mar=c(2.5,4.5,1.25,3.5),bg="black")
+par(oma=c(0,0,0,0),mar=c(1.5,3.5,0.25,2.5),bg="black",col.lab="gray30")
 
 #################################################################################
 
@@ -107,9 +107,9 @@ abline(28.1,0,col=cols[4]) # Mean Monthly Maximum - MMM
 
 title(ylab="Degree Heating Weeks", line=1.2, cex.lab=1,col.lab="darkgoldenrod1") # Label y axis
 # Add in time axes (multiple axes added to allow for customization)
-axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0.05,lwd.ticks=2,labels=FALSE,col="gray30")
+axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0.05,lwd.ticks=2,labels=FALSE,col.tick="gray30")
 axis.POSIXct(side=1,at=seq(KI_heat$time[1],KI_heat$time[240],by="month"),KI_heat$time,tck=0.03,cex.axis=0.93,labels=c("","","Oct","","","","","","Apr","","","Jul","","","Oct","","","","","","Apr","","","Jul","","","Oct",""),lwd.ticks=1.5,padj=-1.5,col="gray30")
-axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0,padj=-1.5,col="gray30")
+axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0,padj=-1.5,col="gray30",col.axis="gray30")
 Z <- c(26,27,28,29,30,31) # To be used as temperature y-axis values
 axis(side=4,at=Z,cex.axis=0.93,tck=0.03, lwd.ticks=1.5, las=2,hadj=0.95,col.axis="cyan3",col.lab="gray30",col.tick="gray30")
 mtext("Temperature (°C)",side=4, cex=1,line=1.25,col="cyan3")
@@ -123,7 +123,7 @@ dev.off() # Close the jpg
 jpeg(file="figures/Figure1a_temponly_pres.jpg",width = 7.2, height = 2.25,units="in",res=300)
 
 # Set both inner and outer margins to 0
-par(oma=c(0,0,0,0),mar=c(2.5,4.5,1.25,3.5),bg="black")
+par(oma=c(0,0,0,0),mar=c(1.5,3.5,0.25,2.5),bg="black",col.lab="gray30")
 
 #################################################################################
 
@@ -140,7 +140,7 @@ abline(28.1,0,col=cols[4]) # Mean Monthly Maximum - MMM
 
 # Add in time axes (multiple axes added to allow for customization)
 axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0.05,lwd.ticks=2,labels=FALSE,col="gray30")
-axis.POSIXct(side=1,at=seq(KI_heat$time[1],KI_heat$time[240],by="month"),KI_heat$time,tck=0.03,cex.axis=0.93,labels=c("","","Oct","","","","","","Apr","","","Jul","","","Oct","","","","","","Apr","","","Jul","","","Oct",""),lwd.ticks=1.5,padj=-1.5,col="gray30")
+axis.POSIXct(side=1,at=seq(KI_heat$time[1],KI_heat$time[240],by="month"),KI_heat$time,tck=0.03,cex.axis=0.93,labels=c("","","Oct","","","","","","Apr","","","Jul","","","Oct","","","","","","Apr","","","Jul","","","Oct",""),lwd.ticks=1.5,padj=-1.5,col="gray30",col.axis="gray30")
 axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0,padj=-1.5,col="gray30")
 Z <- c(26,27,28,29,30,31) # To be used as temperature y-axis values
 axis(side=4,at=Z,cex.axis=0.93,tck=0.03, lwd.ticks=1.5, las=2,hadj=0.95,col.axis="cyan3",col.lab="gray30",col.tick="gray30")
@@ -149,3 +149,40 @@ mtext("Temperature (°C)",side=4, cex=1,line=1.25,col="cyan3")
 # mtext("Bleaching Threshold",side=2,line=-47.7,cex=0.72,las=2,padj=-2.5,col="white") # Label bleaching threshold line
 
 dev.off() # Close the jpg
+
+
+################ Make a jpg #####################
+
+jpeg(file="figures/Figure1a_DHWonly_pres.jpg",width = 7.2, height = 2.25,units="in",res=300)
+
+# Set both inner and outer margins to 0
+par(oma=c(0,0,0,0),mar=c(1.5,3.5,0.25,2.5),bg="black",col.lab="gray30")
+
+#################################################################################
+
+# Plot with the polycurve function
+with(KI_heat, plot(KI_heat$time,KI_heat$dhw, type="l", xlab="", ylab="", ylim=c(0,26),cex.axis=1,cex.lab=1.2,yaxs="i",xaxs="i",lwd=0.5,xaxt='n',yaxt='n', col="gray40",
+                   panel.first = # Panel first allows ablines to be plotted before polycurve, looks nicer.
+                     c(abline(v=KI2014,col="gray30",lwd=2,lty=2),
+                       abline(v=KI2015a,col="gray30",lwd=2,lty=2),
+                       abline(v=KI2015b,col="gray30",lwd=2,lty=2),
+                       abline(v=KI2015c,col="gray30",lwd=2,lty=2),
+                       abline(v=KI2016a,col="gray30",lwd=2,lty=2),
+                       abline(v=KI2016b,col="gray30",lwd=2,lty=2),
+                       polyCurve(KI_heat$time, KI_heat$dhw, from = from, to = to, miny = 0,
+                                 col = dhw.cc.rgb)
+                     )))
+Y <- c(0,5,10,15,20,25)
+axis(side=2,at=Y,cex.axis=0.93,tck=0.03, lwd.ticks=1.5, las=2,hadj=0,col.axis="darkgoldenrod1",col.lab="gray30",col.tick="gray30")
+
+title(ylab="Degree Heating Weeks", line=1.2, cex.lab=1,col.lab="darkgoldenrod1") # Label y axis
+# Add in time axes (multiple axes added to allow for customization)
+axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0.05,lwd.ticks=2,labels=FALSE,col="gray30")
+axis.POSIXct(side=1,at=seq(KI_heat$time[1],KI_heat$time[240],by="month"),KI_heat$time,tck=0.03,cex.axis=0.93,labels=c("","","Oct","","","","","","Apr","","","Jul","","","Oct","","","","","","Apr","","","Jul","","","Oct",""),lwd.ticks=1.5,padj=-1.5,col="gray30",col.axis="gray30")
+axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0,padj=-1.5,col="gray30")
+Z <- c(26,27,28,29,30,31) # To be used as temperature y-axis values
+# mtext("Max. Monthly Mean",side=2,line=-47.7,cex=0.72,las=2,padj=0.2,col="white") # Label MMM line
+# mtext("Bleaching Threshold",side=2,line=-47.7,cex=0.72,las=2,padj=-2.5,col="white") # Label bleaching threshold line
+
+dev.off() # Close the jpg
+
