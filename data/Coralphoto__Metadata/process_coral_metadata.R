@@ -4,11 +4,17 @@ library(plyr)
 
 load("data/qPCR/qPCR.RData")
 
-meta <- read.csv("data/Coralphoto__Metadata/KI_Coralphoto_Metadata_Jan_to_Apr_2017_23March.csv",header=T)
+meta <- read.csv("data/Coralphoto__Metadata/KI_Coralphoto_Metadata_through2017_ALLDONE.csv",header=T)
+meta$before.after <- gsub("before","_Pre",meta$before.after)
+meta$before.after <- gsub("after","_Post",meta$before.after)
+meta$before.after <- gsub("during but not affectd","_Pre",meta$before.after)
+meta$before.after[which(meta$before.after=="1")] <- ""
 meta$Year_Pre_Post <- paste(meta$field_season,meta$before.after, sep="")
 meta$ref <- paste(meta$Year_Pre_Post,".tag",meta$coral_tag, sep="")
-meta.forcat <- meta[,c(1:25)]
-duplicated(meta.forcat$ref)
+meta.forcat <- meta[,c(1:23,26:27)]
+count(duplicated(meta.forcat$ref))
+meta.forcat$ref[which(duplicated(meta.forcat$ref))] # These are duplicates in the datasheet
+meta.forcat[which(meta.forcat$ref=="KI2014.tag394"),] 
 
 map <- read.table("data/mapping_file.txt",stringsAsFactors = FALSE)
 colnames(map) <- c("SampleID", "InputFileName", "coral_tag","SampleType", "Year", "TubeNumber", "Coral_Species","Site","Status","Year_Pre_Post")
@@ -41,9 +47,12 @@ map.platy
 map.platy.forcat <- map.platy[,c(1,3:5,7:9,11)]
 
 
-metadata <- join_all(list(map.platy.forcat,meta.forcat),by='ref',match='first')
+metadata <- join_all(list(map.platy.forcat,meta.forcat),by='ref',match='all')
 names(metadata)
+metadata <- metadata[which(!(metadata$SampleID=="KI16aFSYM101" & metadata$annotator == "HD")),]
+metadata <- metadata[which(!(metadata$SampleID=="KI15cFSYM104" & metadata$date_annotated == "27-01-2015")),]
 rownames(metadata) <- metadata[,1] # Make rownames from SampleID
+# Current problem : non-unique values when setting 'row.names': ‘KI15cFSYM104’, ‘KI16aFSYM101’ 
 # metadata<-subset(metadata,select=-c(SampleID)) # Remove SampleID column
 
 metadata <- join_all(list(metadata,platy),by="ref",match="all")
@@ -53,6 +62,8 @@ S.H <- data.frame(ref = platy$ref, S.H = platy$S.H)
 metadata <- join_all(list(metadata,S.H),by="ref",match="all") 
 
 metadata <- metadata[which(metadata$Coral_Species=="Platygyra_sp"),]
+
+count(is.na(metadata$S.H))
 
 write.csv(metadata, file="data/Coralphoto__Metadata/KI_Platy_metadata.csv")
 write.table(metadata, file="data/Coralphoto__Metadata/KI_Platy_metadata.tsv", quote=FALSE, sep="\t", col.names = NA)
