@@ -76,3 +76,4 @@ analyses/~*
 #Ignore .ini files
 **/desktop.ini
 
+.Rproj.user
