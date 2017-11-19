@@ -43,6 +43,8 @@ m_contourf(lon,lat,dhwmax_enso16,50,'linestyle','none');
 m_coast('patch',[.4 .4 .4]);
 m_grid('fontsize',12);
 
+ 
+
 % Place colorbar and label
 cb=colorbar('EastOutside','fontsize',12);
 xlabel(cb,['Maximum DHW'],'fontsize',12);
@@ -62,6 +64,9 @@ hrev=hot(30);
 hrev=flipud(hrev);
 colormap(hrev)
 set(gcf, 'Position', [100, 100, 1000, 400]);
+
+KI = [-157.5 1.9];
+m_text(-157.5, 1.9,'Kiritimati','fontsize',12)
 
 % Make the figure and export
 drawnow;
