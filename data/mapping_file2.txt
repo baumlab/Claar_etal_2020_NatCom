@@ -69,3 +69,4 @@ KI17aFL095	NA	1028	coral	2017Jul	NA	Platygyra_sp	37	alive	2017Jul
 KI17aFL099	NA	1031	coral	2017Jul	NA	Platygyra_sp	37	alive	2017Jul
 KI17aFL270	NA	1036	coral	2017Jul	NA	Platygyra_sp	40	alive	2017Jul
 KI17aFL280	NA	1049	coral	2017Jul	NA	Platygyra_sp	40	alive	2017Jul
+KI15cFMD501	NA	783	coral	2015July	NA	Platygyra_sp	34	alive	2015July

@@ -14,6 +14,8 @@ meta$Year_Pre_Post <- paste(meta$field_season,meta$before.after, sep="")
 meta$coral_tag[which(meta$coral_tag==248)] <- "248_696"
 meta$coral_tag[which(meta$coral_tag==338)] <- "338_1168"
 meta$coral_tag[which(meta$coral_tag==410)] <- "410_893"
+meta$coral_tag[which(meta$coral_tag=="754_899")] <- "754_899_1060"
+meta$coral_tag[which(meta$coral_tag==1060)] <- "754_899_1060"
 
 
 meta$ref <- paste(meta$Year_Pre_Post,".tag",meta$coral_tag, sep="")
@@ -58,6 +60,9 @@ map.platy$coral_tag[fix] <- "341.2"
 map.platy$coral_tag[which(map.platy$coral_tag==248)] <- "248_696"
 map.platy$coral_tag[which(map.platy$coral_tag==338)] <- "338_1168"
 map.platy$coral_tag[which(map.platy$coral_tag==410)] <- "410_893"
+map.platy$coral_tag[which(map.platy$coral_tag=="754_899")] <- "754_899_1060"
+map.platy$coral_tag[which(map.platy$coral_tag==1060)] <- "754_899_1060"
+map.platy$coral_tag[which(map.platy$coral_tag==754)] <- "754_899_1060"
 
 map.platy$ref <- paste(map.platy$field_season,".tag",map.platy$coral_tag, sep="")
 duplicated(map.platy)
@@ -74,8 +79,12 @@ rownames(metadata) <- metadata[,1] # Make rownames from SampleID
 # Current problem : non-unique values when setting 'row.names': ‘KI15cFSYM104’, ‘KI16aFSYM101’ 
 # metadata<-subset(metadata,select=-c(SampleID)) # Remove SampleID column
 
-metadata <- join_all(list(metadata,platy),by="ref",match="all")
 
+# platy[which(is.na(platy$Tag)),]
+platy$Tag[which(platy$Sample.Name == "KI16bFMD068")] <- "820"
+platy$ref[which(platy$Sample.Name == "KI16bFMD068")] <- "KI2016b.tag820"
+
+metadata <- join_all(list(metadata,platy),by="ref",match="all")
 
 S.H <- data.frame(ref = platy$ref, S.H = platy$S.H)
 
