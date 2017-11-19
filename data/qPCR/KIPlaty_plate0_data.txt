@@ -1,0 +1,133 @@
+﻿* Block Type = 96well
+* Chemistry = SYBR_GREEN
+* Experiment File Name = E:\KIPlaty\KIPlaty_plate0.eds
+* Experiment Run End Time = 2017-11-10 18:45:35 PM EST
+* Instrument Type = steponeplus
+* Passive Reference = ROX
+
+[Results]
+Well	Sample Name	Target Name	Task	Reporter	Quencher	CT	CT Mean	CT SD	Quantity	Quantity Mean	Quantity SD	Automatic Ct Threshold	Ct Threshold	Automatic Baseline	Baseline Start	Baseline End	Comments	AMPNC	BADROX	HIGHSD	NOAMP	NOISE	NOSIGNAL	EXPFAIL
+A1																		N	N	N	N	N	N	N
+A2																		N	N	N	N	N	N	N
+A3																		N	N	N	N	N	N	N
+A4																		N	N	N	N	N	N	N
+A5																		N	N	N	N	N	N	N
+A6																		N	N	N	N	N	N	N
+A7																		N	N	N	N	N	N	N
+A8																		N	N	N	N	N	N	N
+A9																		N	N	N	N	N	N	N
+A10																		N	N	N	N	N	N	N
+A11																		N	N	N	N	N	N	N
+A12																		N	N	N	N	N	N	N
+B1	KI15cFMD468	PaxC	UNKNOWN	SYBR	None	17.9199	17.8274	0.1308				false	0.01	true	3	16		N	N	N	N	N	N	N
+B2	KI15cFMD468	PaxC	UNKNOWN	SYBR	None	17.7349	17.8274	0.1308				false	0.01	true	3	15		N	N	N	N	N	N	N
+B3	KI15cFMD468	C	UNKNOWN	VIC	NFQ-MGB	Undetermined						false	0.01	true	3	39		N	N	N	Y	N	N	Y
+B3	KI15cFMD468	D	UNKNOWN	FAM	NFQ-MGB	23.3064	23.3101	0.0052				false	0.01	true	3	22		N	N	N	Y	N	N	Y
+B4	KI15cFMD468	C	UNKNOWN	VIC	NFQ-MGB	Undetermined						false	0.01	true	3	39		N	N	N	Y	N	N	Y
+B4	KI15cFMD468	D	UNKNOWN	FAM	NFQ-MGB	23.3139	23.3101	0.0052				false	0.01	true	3	22		N	N	N	Y	N	N	Y
+B5	KI15cFMD018	PaxC	UNKNOWN	SYBR	None	18.7673	18.0837	0.9667				false	0.01	true	3	7		N	N	Y	N	N	N	N
+B6	KI15cFMD018	PaxC	UNKNOWN	SYBR	None	17.4002	18.0837	0.9667				false	0.01	true	3	14		N	N	Y	N	N	N	N
+B7	KI15cFMD018	C	UNKNOWN	VIC	NFQ-MGB	27.3006	27.4158	0.163				false	0.01	true	3	27		N	N	N	N	N	N	N
+B7	KI15cFMD018	D	UNKNOWN	FAM	NFQ-MGB	34.8467	34.8467					false	0.01	true	3	34		N	N	N	N	N	N	N
+B8	KI15cFMD018	C	UNKNOWN	VIC	NFQ-MGB	27.531	27.4158	0.163				false	0.01	true	3	27		N	N	N	Y	N	N	Y
+B8	KI15cFMD018	D	UNKNOWN	FAM	NFQ-MGB	Undetermined	34.8467					false	0.01	true	3	39		N	N	N	Y	N	N	Y
+B9	KI16aFMD116	PaxC	UNKNOWN	SYBR	None	17.4303	17.1983	0.3282				false	0.01	true	3	16		N	N	N	N	N	N	N
+B10	KI16aFMD116	PaxC	UNKNOWN	SYBR	None	16.9662	17.1983	0.3282				false	0.01	true	3	14		N	N	N	N	N	N	N
+B11	KI16aFMD116	C	UNKNOWN	VIC	NFQ-MGB	34.3832	33.0173	1.9316				false	0.01	true	3	39		N	N	Y	N	N	N	Y
+B11	KI16aFMD116	D	UNKNOWN	FAM	NFQ-MGB	24.1246	24.2426	0.167				false	0.01	true	3	23		N	N	Y	N	N	N	Y
+B12	KI16aFMD116	C	UNKNOWN	VIC	NFQ-MGB	31.6515	33.0173	1.9316				false	0.01	true	3	34		N	N	Y	N	N	N	N
+B12	KI16aFMD116	D	UNKNOWN	FAM	NFQ-MGB	24.3607	24.2426	0.167				false	0.01	true	3	23		N	N	Y	N	N	N	N
+C1																		N	N	N	N	N	N	N
+C2																		N	N	N	N	N	N	N
+C3																		N	N	N	N	N	N	N
+C4																		N	N	N	N	N	N	N
+C5																		N	N	N	N	N	N	N
+C6																		N	N	N	N	N	N	N
+C7																		N	N	N	N	N	N	N
+C8																		N	N	N	N	N	N	N
+C9	KI16aFMD049	PaxC	UNKNOWN	SYBR	None	19.6094	19.387	0.3145				false	0.01	true	3	18		N	N	N	N	N	N	N
+C10	KI16aFMD049	PaxC	UNKNOWN	SYBR	None	19.1646	19.387	0.3145				false	0.01	true	3	19		N	N	N	N	N	N	N
+C11	KI16aFMD049	C	UNKNOWN	VIC	NFQ-MGB	38.6549	34.6096	5.721				false	0.01	true	3	39		N	N	Y	N	N	N	Y
+C11	KI16aFMD049	D	UNKNOWN	FAM	NFQ-MGB	25.3392	25.428	0.1255				false	0.01	true	3	24		N	N	Y	N	N	N	Y
+C12	KI16aFMD049	C	UNKNOWN	VIC	NFQ-MGB	30.5642	34.6096	5.721				false	0.01	true	3	28		N	N	Y	N	N	N	N
+C12	KI16aFMD049	D	UNKNOWN	FAM	NFQ-MGB	25.5167	25.428	0.1255				false	0.01	true	3	24		N	N	Y	N	N	N	N
+D1	KI15cFMD488	PaxC	UNKNOWN	SYBR	None	17.93	17.7754	0.2187				false	0.01	true	3	16		N	N	N	N	N	N	N
+D2	KI15cFMD488	PaxC	UNKNOWN	SYBR	None	17.6207	17.7754	0.2187				false	0.01	true	3	15		N	N	N	N	N	N	N
+D3	KI15cFMD488	C	UNKNOWN	VIC	NFQ-MGB	29.524	29.5843	0.0852				false	0.01	true	3	29		N	N	N	N	N	N	N
+D3	KI15cFMD488	D	UNKNOWN	FAM	NFQ-MGB	33.5523	33.5523					false	0.01	true	3	33		N	N	N	N	N	N	N
+D4	KI15cFMD488	C	UNKNOWN	VIC	NFQ-MGB	29.6445	29.5843	0.0852				false	0.01	true	3	28		N	N	N	Y	N	N	Y
+D4	KI15cFMD488	D	UNKNOWN	FAM	NFQ-MGB	Undetermined	33.5523					false	0.01	true	3	39		N	N	N	Y	N	N	Y
+D5	KI15cFMD254	PaxC	UNKNOWN	SYBR	None	17.4617	17.603	0.1999				false	0.01	true	3	15		N	N	N	N	N	N	N
+D6	KI15cFMD254	PaxC	UNKNOWN	SYBR	None	17.7444	17.603	0.1999				false	0.01	true	3	14		N	N	N	N	N	N	N
+D7	KI15cFMD254	C	UNKNOWN	VIC	NFQ-MGB	24.4141	24.4364	0.0314				false	0.01	true	3	24		N	N	N	N	N	N	N
+D7	KI15cFMD254	D	UNKNOWN	FAM	NFQ-MGB	26.9363	26.9852	0.0692				false	0.01	true	3	26		N	N	N	N	N	N	N
+D8	KI15cFMD254	C	UNKNOWN	VIC	NFQ-MGB	24.4586	24.4364	0.0314				false	0.01	true	3	23		N	N	N	N	N	N	N
+D8	KI15cFMD254	D	UNKNOWN	FAM	NFQ-MGB	27.0342	26.9852	0.0692				false	0.01	true	3	26		N	N	N	N	N	N	N
+D9																		N	N	N	N	N	N	N
+D10																		N	N	N	N	N	N	N
+D11																		N	N	N	N	N	N	N
+D12																		N	N	N	N	N	N	N
+E1																		N	N	N	N	N	N	N
+E2																		N	N	N	N	N	N	N
+E3																		N	N	N	N	N	N	N
+E4																		N	N	N	N	N	N	N
+E5																		N	N	N	N	N	N	N
+E6																		N	N	N	N	N	N	N
+E7																		N	N	N	N	N	N	N
+E8																		N	N	N	N	N	N	N
+E9	KI16aFMD017	PaxC	UNKNOWN	SYBR	None	17.7137	17.4801	0.3304				false	0.01	true	3	16		N	N	N	N	N	N	N
+E10	KI16aFMD017	PaxC	UNKNOWN	SYBR	None	17.2465	17.4801	0.3304				false	0.01	true	3	14		N	N	N	N	N	N	N
+E11	KI16aFMD017	C	UNKNOWN	VIC	NFQ-MGB	39.4478	39.3955	0.074				false	0.01	true	3	39		N	N	N	N	N	N	Y
+E11	KI16aFMD017	D	UNKNOWN	FAM	NFQ-MGB	23.5175	23.5793	0.0875				false	0.01	true	3	23		N	N	N	N	N	N	Y
+E12	KI16aFMD017	C	UNKNOWN	VIC	NFQ-MGB	39.3431	39.3955	0.074				false	0.01	true	3	39		N	N	N	N	N	N	Y
+E12	KI16aFMD017	D	UNKNOWN	FAM	NFQ-MGB	23.6412	23.5793	0.0875				false	0.01	true	3	22		N	N	N	N	N	N	Y
+F1	KI15bFMD231	PaxC	UNKNOWN	SYBR	None	19.0741	18.7971	0.3917				false	0.01	true	3	16		N	N	N	N	N	N	N
+F2	KI15bFMD231	PaxC	UNKNOWN	SYBR	None	18.5201	18.7971	0.3917				false	0.01	true	3	17		N	N	N	N	N	N	N
+F3	KI15bFMD231	C	UNKNOWN	VIC	NFQ-MGB	Undetermined						false	0.01	true	3	39		N	N	N	Y	N	N	Y
+F3	KI15bFMD231	D	UNKNOWN	FAM	NFQ-MGB	23.9363	23.9334	0.004				false	0.01	true	3	23		N	N	N	Y	N	N	Y
+F4	KI15bFMD231	C	UNKNOWN	VIC	NFQ-MGB	Undetermined						false	0.01	true	3	39		N	N	N	Y	N	N	Y
+F4	KI15bFMD231	D	UNKNOWN	FAM	NFQ-MGB	23.9306	23.9334	0.004				false	0.01	true	3	23		N	N	N	Y	N	N	Y
+F5	KI15bFMD288	PaxC	UNKNOWN	SYBR	None	18.6977	18.6919	0.0082				false	0.01	true	3	17		N	N	N	N	N	N	N
+F6	KI15bFMD288	PaxC	UNKNOWN	SYBR	None	18.6861	18.6919	0.0082				false	0.01	true	3	16		N	N	N	N	N	N	N
+F7	KI15bFMD288	C	UNKNOWN	VIC	NFQ-MGB	24.5034	24.5821	0.1114				false	0.01	true	3	24		N	N	Y	N	N	N	N
+F7	KI15bFMD288	D	UNKNOWN	FAM	NFQ-MGB	34.7172	33.903	1.1514				false	0.01	true	3	35		N	N	Y	N	N	N	N
+F8	KI15bFMD288	C	UNKNOWN	VIC	NFQ-MGB	24.6609	24.5821	0.1114				false	0.01	true	3	24		N	N	Y	N	N	N	N
+F8	KI15bFMD288	D	UNKNOWN	FAM	NFQ-MGB	33.0889	33.903	1.1514				false	0.01	true	3	33		N	N	Y	N	N	N	N
+F9	NEC	PaxC	NTC	SYBR	None	35.4824						false	0.01	true	3	35		N	N	N	N	N	N	N
+F10	NEC	PaxC	NTC	SYBR	None	34.3234						false	0.01	true	3	34		Y	N	N	N	N	N	N
+F11	NEC	C	NTC	VIC	NFQ-MGB	Undetermined						false	0.01	true	3	39		N	N	N	N	N	N	N
+F11	NEC	D	NTC	FAM	NFQ-MGB	Undetermined						false	0.01	true	3	39		N	N	N	N	N	N	N
+F12	NEC	C	NTC	VIC	NFQ-MGB	Undetermined						false	0.01	true	3	39		N	N	N	N	N	N	N
+F12	NEC	D	NTC	FAM	NFQ-MGB	Undetermined						false	0.01	true	3	39		N	N	N	N	N	N	N
+G1																		N	N	N	N	N	N	N
+G2																		N	N	N	N	N	N	N
+G3																		N	N	N	N	N	N	N
+G4																		N	N	N	N	N	N	N
+G5																		N	N	N	N	N	N	N
+G6																		N	N	N	N	N	N	N
+G7																		N	N	N	N	N	N	N
+G8																		N	N	N	N	N	N	N
+G9	+	PaxC	UNKNOWN	SYBR	None	16.222	16.222					false	0.01	true	3	16		N	N	N	N	N	N	N
+G10	+	PaxC	UNKNOWN	SYBR	None	Undetermined	16.222					false	0.01	true	3	39		N	Y	N	N	N	Y	Y
+G11	+	C	UNKNOWN	VIC	NFQ-MGB	25.2514	24.7742	0.6749				false	0.01	true	3	24		N	N	Y	N	N	N	N
+G11	+	D	UNKNOWN	FAM	NFQ-MGB	34.1825	33.754	0.6059				false	0.01	true	3	34		N	N	Y	N	N	N	N
+G12	+	C	UNKNOWN	VIC	NFQ-MGB	24.297	24.7742	0.6749				false	0.01	true	3	24		N	N	Y	N	N	N	N
+G12	+	D	UNKNOWN	FAM	NFQ-MGB	33.3256	33.754	0.6059				false	0.01	true	3	33		N	N	Y	N	N	N	N
+H1	KI15bFMD023	PaxC	UNKNOWN	SYBR	None	19.1075	19.023	0.1195				false	0.01	false	3	12		N	N	N	N	N	N	N
+H2	KI15bFMD023	PaxC	UNKNOWN	SYBR	None	18.9386	19.023	0.1195				false	0.01	true	3	12		N	N	N	N	N	N	N
+H3	KI15bFMD023	C	UNKNOWN	VIC	NFQ-MGB	23.9456	23.9107	0.0494				false	0.01	true	3	23		N	N	N	N	N	N	N
+H3	KI15bFMD023	D	UNKNOWN	FAM	NFQ-MGB	34.8926	34.8926					false	0.01	true	3	35		N	N	N	N	N	N	N
+H4	KI15bFMD023	C	UNKNOWN	VIC	NFQ-MGB	23.8757	23.9107	0.0494				false	0.01	true	3	23		N	N	N	N	N	N	Y
+H4	KI15bFMD023	D	UNKNOWN	FAM	NFQ-MGB	Undetermined	34.8926					false	0.01	true	3	39		N	N	N	N	N	N	Y
+H5	KI16aFMD089	PaxC	UNKNOWN	SYBR	None	17.6397	17.5615	0.1106				false	0.01	true	3	16		N	N	N	N	N	N	N
+H6	KI16aFMD089	PaxC	UNKNOWN	SYBR	None	17.4833	17.5615	0.1106				false	0.01	true	3	15		N	N	N	N	N	N	N
+H7	KI16aFMD089	C	UNKNOWN	VIC	NFQ-MGB	28.7593	28.7593					false	0.01	true	3	27		N	N	N	N	N	N	N
+H7	KI16aFMD089	D	UNKNOWN	FAM	NFQ-MGB	23.5105	23.4631	0.0671				false	0.01	true	3	22		N	N	N	N	N	N	N
+H8	KI16aFMD089	C	UNKNOWN	VIC	NFQ-MGB	Undetermined	28.7593					false	0.01	true	3	39		N	N	N	Y	N	N	Y
+H8	KI16aFMD089	D	UNKNOWN	FAM	NFQ-MGB	23.4156	23.4631	0.0671				false	0.01	true	3	22		N	N	N	Y	N	N	Y
+H9	NTC	PaxC	NTC	SYBR	None	30.2196						false	0.01	true	3	20		Y	Y	N	N	Y	Y	N
+H10	NTC	PaxC	NTC	SYBR	None	14.389						false	0.01	true	3	39		Y	Y	N	N	N	Y	N
+H11	NTC	C	NTC	VIC	NFQ-MGB	16.7801						false	0.01	true	3	39		Y	N	N	N	N	N	N
+H11	NTC	D	NTC	FAM	NFQ-MGB	16.073						false	0.01	true	3	39		Y	N	N	N	N	N	N
+H12	NTC	C	NTC	VIC	NFQ-MGB	Undetermined						false	0.01	true	3	9		Y	Y	N	N	N	Y	N
+H12	NTC	D	NTC	FAM	NFQ-MGB	18.2053						false	0.01	true	3	39		Y	Y	N	N	N	Y	N

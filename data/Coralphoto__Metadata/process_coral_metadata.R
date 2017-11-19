@@ -10,13 +10,22 @@ meta$before.after <- gsub("after","_Post",meta$before.after)
 meta$before.after <- gsub("during but not affectd","_Pre",meta$before.after)
 meta$before.after[which(meta$before.after=="1")] <- ""
 meta$Year_Pre_Post <- paste(meta$field_season,meta$before.after, sep="")
+
+meta$coral_tag[which(meta$coral_tag==248)] <- "248_696"
+meta$coral_tag[which(meta$coral_tag==338)] <- "338_1168"
+meta$coral_tag[which(meta$coral_tag==410)] <- "410_893"
+
+
 meta$ref <- paste(meta$Year_Pre_Post,".tag",meta$coral_tag, sep="")
 meta.forcat <- meta[,c(1:23,26:27)]
 count(duplicated(meta.forcat$ref))
-meta.forcat$ref[which(duplicated(meta.forcat$ref))] # These are duplicates in the datasheet
-meta.forcat[which(meta.forcat$ref=="KI2014.tag394"),] 
+meta.forcat <- meta.forcat[which(!duplicated(meta.forcat$ref)),] # Remove duplicates
+# meta.forcat[which(meta.forcat$ref=="KI2014.tag394"),] 
 
-map <- read.table("data/mapping_file.txt",stringsAsFactors = FALSE)
+
+map1 <- read.table("data/mapping_file.txt",stringsAsFactors = FALSE)
+map2 <- read.table("data/mapping_file2.txt",stringsAsFactors = FALSE,sep="\t")
+map <- rbind(map1,map2)
 colnames(map) <- c("SampleID", "InputFileName", "coral_tag","SampleType", "Year", "TubeNumber", "Coral_Species","Site","Status","Year_Pre_Post")
 
 fs2014 <- which(map$Year==2014)
@@ -31,6 +40,11 @@ fs2015c <- which(map$Year=="2015July")
 map$Year[fs2015c] <- "KI2015c"
 fs2016a <- which(map$Year=="2016March")
 map$Year[fs2016a] <- "KI2016a"
+fs2016b <- which(map$Year=="2016Nov")
+map$Year[fs2016b] <- "KI2016b"
+fs2017a <- which(map$Year=="2017Jul")
+map$Year[fs2017a] <- "KI2017a"
+
 # map$ref <- paste(map$V5,"FSYM",map$V3,sep="")
 map.platy <- map
 
@@ -39,6 +53,11 @@ names(map.platy)[names(map.platy)=="Site"] <- "site"
 # Sampled the same coral colony twice during one field season
 fix <- which(map.platy$SampleID=="KI15cFSYM509")
 map.platy$coral_tag[fix] <- "341.2"
+
+# Standardize multi-tag names
+map.platy$coral_tag[which(map.platy$coral_tag==248)] <- "248_696"
+map.platy$coral_tag[which(map.platy$coral_tag==338)] <- "338_1168"
+map.platy$coral_tag[which(map.platy$coral_tag==410)] <- "410_893"
 
 map.platy$ref <- paste(map.platy$field_season,".tag",map.platy$coral_tag, sep="")
 duplicated(map.platy)
@@ -49,13 +68,14 @@ map.platy.forcat <- map.platy[,c(1,3:5,7:9,11)]
 
 metadata <- join_all(list(map.platy.forcat,meta.forcat),by='ref',match='all')
 names(metadata)
-metadata <- metadata[which(!(metadata$SampleID=="KI16aFSYM101" & metadata$annotator == "HD")),]
-metadata <- metadata[which(!(metadata$SampleID=="KI15cFSYM104" & metadata$date_annotated == "27-01-2015")),]
+# metadata <- metadata[which(!(metadata$SampleID=="KI16aFSYM101" & metadata$annotator == "HD")),]
+# metadata <- metadata[which(!(metadata$SampleID=="KI15cFSYM104" & metadata$date_annotated == "27-01-2015")),]
 rownames(metadata) <- metadata[,1] # Make rownames from SampleID
 # Current problem : non-unique values when setting 'row.names': ‘KI15cFSYM104’, ‘KI16aFSYM101’ 
 # metadata<-subset(metadata,select=-c(SampleID)) # Remove SampleID column
 
 metadata <- join_all(list(metadata,platy),by="ref",match="all")
+
 
 S.H <- data.frame(ref = platy$ref, S.H = platy$S.H)
 
@@ -63,7 +83,18 @@ metadata <- join_all(list(metadata,S.H),by="ref",match="all")
 
 metadata <- metadata[which(metadata$Coral_Species=="Platygyra_sp"),]
 
-count(is.na(metadata$S.H))
+count(!is.na(metadata$S.H))
+
+metadata.SH <- metadata[which(!is.na(metadata$S.H)),]
+
+# "248_696" %in% metadata.SH$coral_tag
+
+platy[which(!platy$ref %in% metadata.SH$ref),]
 
 write.csv(metadata, file="data/Coralphoto__Metadata/KI_Platy_metadata.csv")
 write.table(metadata, file="data/Coralphoto__Metadata/KI_Platy_metadata.tsv", quote=FALSE, sep="\t", col.names = NA)
+
+write.csv(metadata.SH, file="data/Coralphoto__Metadata/KI_Platy_metadataSH.csv")
+write.table(metadata.SH, file="data/Coralphoto__Metadata/KI_Platy_metadataSH.tsv", quote=FALSE, sep="\t", col.names = NA)
+
+save(metadata.SH,file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")

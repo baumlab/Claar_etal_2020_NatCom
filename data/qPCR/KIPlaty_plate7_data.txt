@@ -8,7 +8,7 @@
 [Results]
 Well	Sample Name	Target Name	Task	Reporter	Quencher	CT	CT Mean	CT SD	Quantity	Quantity Mean	Quantity SD	Automatic Ct Threshold	Ct Threshold	Automatic Baseline	Baseline Start	Baseline End	Comments	AMPNC	HIGHSD	NOAMP	EXPFAIL
 A1																		N	N	N	N
-A2	NTC	PaxC	NTC	SYBR	None	31.8365	35.0363	4.5253				false	0.01	true	3	31		Y	Y	N	N
+A2	NTC	PaxC	NTC	SYBR	None	31.8365						false	0.01	true	3	31		Y	N	N	N
 A3	KI16aFMD047	C	UNKNOWN	VIC	NFQ-MGB	Undetermined	29.3336					false	0.01	true	3	39		N	N	Y	Y
 A3	KI16aFMD047	D	UNKNOWN	FAM	NFQ-MGB	24.0269	23.8634	0.2313				false	0.01	true	3	23		N	N	Y	Y
 A4	KI16aFMD047	C	UNKNOWN	VIC	NFQ-MGB	29.3336	29.3336					false	0.01	true	3	27		N	N	N	N
@@ -133,7 +133,7 @@ G11	KI15bFMD239	D	UNKNOWN	FAM	NFQ-MGB	23.5943	23.8193	0.3182				false	0.01	true	
 G12	KI15bFMD239	C	UNKNOWN	VIC	NFQ-MGB	29.6148	29.4167	0.2801				false	0.01	true	3	26		N	N	N	N
 G12	KI15bFMD239	D	UNKNOWN	FAM	NFQ-MGB	24.0443	23.8193	0.3182				false	0.01	true	3	23		N	N	N	N
 H1																		N	N	N	N
-H2	NTC	PaxC	NTC	SYBR	None	38.2362	35.0363	4.5253				false	0.01	true	3	38		N	Y	N	N
+H2	NTC	PaxC	NTC	SYBR	None	38.2362						false	0.01	true	3	38		N	N	N	N
 H3	+	C	UNKNOWN	VIC	NFQ-MGB	28.9827	28.6453	0.4771				false	0.01	true	3	28		N	N	N	N
 H3	+	D	UNKNOWN	FAM	NFQ-MGB	30.9735	30.8755	0.1386				false	0.01	true	3	29		N	N	N	N
 H4	+	C	UNKNOWN	VIC	NFQ-MGB	28.3079	28.6453	0.4771				false	0.01	true	3	28		N	N	N	N

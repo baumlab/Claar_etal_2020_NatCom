@@ -17,7 +17,7 @@ files = list.files(path="data/qPCR/",pattern="*.txt",full.names = TRUE)
 
 # Run steponeR function
 df <- steponeR(files=files, delim="\t", target.ratios = c("C.PaxC","D.PaxC"), 
-               fluor.norm=list(C=0,D=0,PaxC=0), # These numbers are calc from standard curves
+               fluor.norm=list(C=8.6704,D=6.2979,PaxC=0), # These numbers are calc from standard curves
                copy.number=list(C=10,D=2,PaxC=1), # Copy # for C & D will be determined by counting cells and qPCR, PaxC is expected to be a single copy marker
                ploidy=list(C=1,D=1,PaxC=2), # Ploidy level of Symbiodinium in symbiosis is 1, and coral ploidy level is 2
                extract=list(C=0.813, D=0.813, PaxC=0.982)) # Extraction efficiencies, calculated by Ross previously
@@ -31,7 +31,7 @@ platy <- platy[grep("NTC", platy$Sample.Name, fixed = T, invert = T), ] # Rem. t
 platy <- platy[grep("NEC", platy$Sample.Name, fixed = T, invert = T), ] # Rem. negative controls
 
 # Remove failing samples
-platy$fail <- ifelse(platy$PaxC.reps < 2 | platy$PaxC.CT.mean < 16 | platy$PaxC.CT.mean > 25, TRUE, FALSE) # Fail if there are less than 2/2 successful PaxC replicates, or if PaxC CT is <16 or >25 
+platy$fail <- ifelse(platy$PaxC.reps < 2 | platy$PaxC.CT.mean < 16 | platy$PaxC.CT.mean > 21 | platy$PaxC.CT.sd > 3, TRUE, FALSE) # Fail if there are less than 2/2 successful PaxC replicates, or if PaxC CT is <16 or >25 
 fails <- platy[platy$fail==TRUE, ]
 platy <- platy[which(platy$fail==FALSE),] # Remove all fails
 
@@ -44,9 +44,16 @@ platy[which(platy$D.reps %in% c(0,1)),"D.PaxC"] <- 0 # If D amplified in one wel
 
 # Manually remove known problematic samples
 platy <- platy[which(platy$Sample.Name != "KI15cFMD383"),] # remove, is not Platy (should have been sample 385)
+platy <- platy[which(platy$Sample.Name != "KI17aFMD145"),] # remove, FL and FMD didn't match
+platy <- platy[which(platy$Sample.Name != "KI17aFMD312"),] # remove, FL and FMD didn't match
+platy <- platy[which(platy$Sample.Name != "KI17aFMD314"),] # remove, FL and FMD didn't match
+platy <- platy[which(platy$Sample.Name != "KI17aFMD316"),] # remove, FL and FMD didn't match
 
 # Calculate the total symbiont:host ratio by adding ratios of C and D to PaxC
 platy$S.H <- platy$C.PaxC + platy$D.PaxC
+
+# Check for zero symbiont amplification
+platy[!is.na(platy$PaxC.CT.mean) & is.na(platy$C.CT.mean) & is.na(platy$D.CT.mean),]
 
 # Create a melted key for merging sample names
 melt_key <- melt(SampleID_key,id.vars = "Tag")
@@ -56,11 +63,6 @@ platy$Tag <- melt_key[match(platy$Sample.Name,melt_key$value),"Tag"]
 
 # Figure out which sample names are not matching
 platy[which(!platy$Sample.Name %in% melt_key$value),] # These are the problem ones that are not matching
-# KI16aFMD079 should probably be KI16b not a
-# KI14FQ095 is either a 16 or 17 or the number is wrong
-#########################################################
-####### Still need to troubleshoot these!!! #############
-#########################################################
 
 # Create field_season column based on Sample.Name
 platy$field_season <- str_extract(platy$Sample.Name,"^[^F]*")
