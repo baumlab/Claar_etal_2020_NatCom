@@ -11,8 +11,15 @@ rm(list=ls())
 
 # Load filtered RData object from output of filter_notsym.R script
 load("analyses/KI_Platy.RData")
+load(file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
 
 phy.f.coral <- phy.f
+metadata <- sample_data(metadata.SH)
+rownames(metadata.SH) <- metadata.SH[,1]
+
+metadata.SH[which(rownames(metadata.SH) %in% sample_names(phy.f.coral)),]
+all(rownames(metadata) %in% sample_names(phy.f.coral))
+test <- merge_phyloseq(phy.f.coral,metadata)
 
 # Filter OTUs by minimum count
 # Set threshold count
