@@ -1,0 +1,113 @@
+﻿* Block Type = 96well
+* Chemistry = SYBR_GREEN
+* Experiment File Name = F:\KIPlaty\KIPlaty_plate13.eds
+* Experiment Run End Time = 2017-11-20 16:11:42 PM EST
+* Instrument Type = steponeplus
+* Passive Reference = ROX
+
+[Results]
+Well	Sample Name	Target Name	Task	Reporter	Quencher	CT	CT Mean	CT SD	Quantity	Quantity Mean	Quantity SD	Automatic Ct Threshold	Ct Threshold	Automatic Baseline	Baseline Start	Baseline End	Comments	HIGHSD	NOAMP	EXPFAIL
+A1																		N	N	N
+A2																		N	N	N
+A3																		N	N	N
+A4																		N	N	N
+A5																		N	N	N
+A6																		N	N	N
+A7																		N	N	N
+A8																		N	N	N
+A9																		N	N	N
+A10																		N	N	N
+A11																		N	N	N
+A12																		N	N	N
+B1																		N	N	N
+B2																		N	N	N
+B3																		N	N	N
+B4																		N	N	N
+B5																		N	N	N
+B6																		N	N	N
+B7																		N	N	N
+B8																		N	N	N
+B9	KI16aFMD001	PaxC	UNKNOWN	SYBR	None	17.7686	17.7676	0.0014				false	0.01	true	3	14		N	N	N
+B10	KI16aFMD001	PaxC	UNKNOWN	SYBR	None	17.7666	17.7676	0.0014				false	0.01	true	3	15		N	N	N
+B11	KI16aFMD001	C	UNKNOWN	VIC	NFQ-MGB	29.1867	29.2292	0.0601				false	0.01	true	3	26		N	N	N
+B11	KI16aFMD001	D	UNKNOWN	FAM	NFQ-MGB	23.133	23.2145	0.1153				false	0.01	true	3	22		N	N	N
+B12	KI16aFMD001	C	UNKNOWN	VIC	NFQ-MGB	29.2717	29.2292	0.0601				false	0.01	true	3	27		N	N	N
+B12	KI16aFMD001	D	UNKNOWN	FAM	NFQ-MGB	23.296	23.2145	0.1153				false	0.01	true	3	22		N	N	N
+C1																		N	N	N
+C2																		N	N	N
+C3																		N	N	N
+C4																		N	N	N
+C5																		N	N	N
+C6																		N	N	N
+C7																		N	N	N
+C8																		N	N	N
+C9	KI15cFMD180	PaxC	UNKNOWN	SYBR	None	18.4011	18.2782	0.1738				false	0.01	true	3	16		N	N	N
+C10	KI15cFMD180	PaxC	UNKNOWN	SYBR	None	18.1553	18.2782	0.1738				false	0.01	true	3	15		N	N	N
+C11	KI15cFMD180	C	UNKNOWN	VIC	NFQ-MGB	25.2451	25.614	0.5217				false	0.01	true	3	24		Y	Y	Y
+C11	KI15cFMD180	D	UNKNOWN	FAM	NFQ-MGB	Undetermined						false	0.01	true	3	39		Y	Y	Y
+C12	KI15cFMD180	C	UNKNOWN	VIC	NFQ-MGB	25.9829	25.614	0.5217				false	0.01	true	3	25		Y	N	Y
+C12	KI15cFMD180	D	UNKNOWN	FAM	NFQ-MGB	Undetermined						false	0.01	true	3	39		Y	N	Y
+D1																		N	N	N
+D2																		N	N	N
+D3																		N	N	N
+D4																		N	N	N
+D5																		N	N	N
+D6																		N	N	N
+D7																		N	N	N
+D8																		N	N	N
+D9	KI16bFMD084	PaxC	UNKNOWN	SYBR	None	17.9527	17.9277	0.0353				false	0.01	true	3	15		N	N	N
+D10	KI16bFMD084	PaxC	UNKNOWN	SYBR	None	17.9027	17.9277	0.0353				false	0.01	true	3	15		N	N	N
+D11	KI16bFMD084	C	UNKNOWN	VIC	NFQ-MGB	36.3863	33.6909	3.8119				false	0.01	true	3	39		Y	N	Y
+D11	KI16bFMD084	D	UNKNOWN	FAM	NFQ-MGB	24.1896	24.3832	0.2738				false	0.01	true	3	23		Y	N	Y
+D12	KI16bFMD084	C	UNKNOWN	VIC	NFQ-MGB	30.9955	33.6909	3.8119				false	0.01	true	3	28		Y	N	N
+D12	KI16bFMD084	D	UNKNOWN	FAM	NFQ-MGB	24.5768	24.3832	0.2738				false	0.01	true	3	23		Y	N	N
+E1																		N	N	N
+E2																		N	N	N
+E3																		N	N	N
+E4																		N	N	N
+E5																		N	N	N
+E6																		N	N	N
+E7																		N	N	N
+E8																		N	N	N
+E9	KI16aFMD206	PaxC	UNKNOWN	SYBR	None	17.9334	17.7733	0.2264				false	0.01	true	3	15		N	N	N
+E10	KI16aFMD206	PaxC	UNKNOWN	SYBR	None	17.6131	17.7733	0.2264				false	0.01	true	3	15		N	N	N
+E11	KI16aFMD206	C	UNKNOWN	VIC	NFQ-MGB	37.4359	37.4359					false	0.01	true	3	39		N	N	Y
+E11	KI16aFMD206	D	UNKNOWN	FAM	NFQ-MGB	24.311	24.563	0.3564				false	0.01	true	3	23		N	N	Y
+E12	KI16aFMD206	C	UNKNOWN	VIC	NFQ-MGB	Undetermined	37.4359					false	0.01	true	3	39		N	Y	Y
+E12	KI16aFMD206	D	UNKNOWN	FAM	NFQ-MGB	24.815	24.563	0.3564				false	0.01	true	3	23		N	Y	Y
+F1																		N	N	N
+F2																		N	N	N
+F3																		N	N	N
+F4																		N	N	N
+F5																		N	N	N
+F6																		N	N	N
+F7																		N	N	N
+F8																		N	N	N
+F9																		N	N	N
+F10																		N	N	N
+F11																		N	N	N
+F12																		N	N	N
+G1																		N	N	N
+G2																		N	N	N
+G3																		N	N	N
+G4																		N	N	N
+G5																		N	N	N
+G6																		N	N	N
+G7																		N	N	N
+G8																		N	N	N
+G9																		N	N	N
+G10																		N	N	N
+G11																		N	N	N
+G12																		N	N	N
+H1																		N	N	N
+H2																		N	N	N
+H3																		N	N	N
+H4																		N	N	N
+H5																		N	N	N
+H6																		N	N	N
+H7																		N	N	N
+H8																		N	N	N
+H9																		N	N	N
+H10																		N	N	N
+H11																		N	N	N
+H12																		N	N	N
