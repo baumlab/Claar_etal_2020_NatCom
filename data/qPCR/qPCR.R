@@ -30,8 +30,16 @@ platy <- platy[grep("+", platy$Sample.Name, fixed=T, invert = T), ] # Remove pos
 platy <- platy[grep("NTC", platy$Sample.Name, fixed = T, invert = T), ] # Rem. technical controls
 platy <- platy[grep("NEC", platy$Sample.Name, fixed = T, invert = T), ] # Rem. negative controls
 
+# Manually remove known problematic samples
+platy <- platy[which(platy$Sample.Name != "KI15cFMD383"),] # remove, is not Platy (should have been sample 385)
+platy <- platy[which(platy$Sample.Name != "KI17aFMD145"),] # remove, FL and FMD didn't match
+platy <- platy[which(platy$Sample.Name != "KI17aFMD312"),] # remove, FL and FMD didn't match
+platy <- platy[which(platy$Sample.Name != "KI17aFMD314"),] # remove, FL and FMD didn't match
+platy <- platy[which(platy$Sample.Name != "KI17aFMD316"),] # remove, FL and FMD didn't match
+
 # Remove failing samples
-platy$fail <- ifelse(platy$PaxC.reps < 2 | platy$PaxC.CT.mean < 16 | platy$PaxC.CT.mean > 21 | platy$PaxC.CT.sd > 3, TRUE, FALSE) # Fail if there are less than 2/2 successful PaxC replicates, or if PaxC CT is <16 or >25 
+platy$fail <- ifelse(platy$PaxC.reps < 2 | platy$PaxC.CT.mean < 16 | platy$PaxC.CT.mean > 21 | platy$PaxC.CT.sd > 3, TRUE, FALSE) # Fail if there are less than 2/2 successful PaxC replicates, or if PaxC CT is <16 or >25
+
 fails <- platy[platy$fail==TRUE, ]
 platy <- platy[which(platy$fail==FALSE),] # Remove all fails
 
@@ -41,13 +49,6 @@ hist(platy$PaxC.CT.mean,breaks = 10) # Look at the CT distribution of the sample
 redo <- platy[which(platy$C.reps==1 | platy$D.reps==1),] # If C or D amplified in one well, but not the other (i.e. 1/2 technical replicates amplified for either)
 platy[which(platy$C.reps %in% c(0,1)),"C.PaxC"] <- 0 # If C amplified in one well, but not the other (i.e. 1/2 technical replicates amplified), set ratio C.PaxC to 0
 platy[which(platy$D.reps %in% c(0,1)),"D.PaxC"] <- 0 # If D amplified in one well, but not the other (i.e. 1/2 technical replicates amplified ), set ratio D.PaxC to 0
-
-# Manually remove known problematic samples
-platy <- platy[which(platy$Sample.Name != "KI15cFMD383"),] # remove, is not Platy (should have been sample 385)
-platy <- platy[which(platy$Sample.Name != "KI17aFMD145"),] # remove, FL and FMD didn't match
-platy <- platy[which(platy$Sample.Name != "KI17aFMD312"),] # remove, FL and FMD didn't match
-platy <- platy[which(platy$Sample.Name != "KI17aFMD314"),] # remove, FL and FMD didn't match
-platy <- platy[which(platy$Sample.Name != "KI17aFMD316"),] # remove, FL and FMD didn't match
 
 # Calculate the total symbiont:host ratio by adding ratios of C and D to PaxC
 platy$S.H <- platy$C.PaxC + platy$D.PaxC

@@ -1,8 +1,20 @@
+---
+title: "qPCR_initial_exploration"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE}
 library(ggplot2)
 
 rm(list=ls())
 
 load(file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
+
+metadata.SH$dom <- ifelse(metadata.SH$C.PaxC > metadata.SH$D.PaxC,"C","D")
 
 metadata.SH$S.H.log <- log(metadata.SH$S.H)
 
@@ -28,7 +40,6 @@ ggplot(aes(y = S.H.log, x = before.after,color=bleaching_proportion), data = met
 
 hist(metadata.SH$S.H,breaks = 100)
 
-names(metadata.SH)
 metadata.SH$bleaching_proportion <- gsub(" ","",metadata.SH$bleaching_proportion)
 
 metadata.SH$bleaching2Plus <- metadata.SH$bleaching_proportion
@@ -42,4 +53,8 @@ ggplot(aes(y = S.H.log, x = bleaching_proportion,color=before.after), data = met
 
 ggplot(aes(y = S.H.log, x = bleaching_proportion,color=before.after), data = metadata.SH.noFQ) + geom_point()
 
-ggplot(aes(y = S.H.log, x = field_season,color=Status), data = metadata.SH.noFQ) + geom_point() + facet_wrap(~Status)
+ggplot(aes(y = S.H.log, x = field_season,color=dom), data = metadata.SH.noFQ) + geom_point() + facet_wrap(~Status)
+
+metadata.SH.AD <- metadata.SH[which(metadata.SH$Status != "UK" & metadata.SH$Status != "gone" & metadata.SH$Status != "dead_or_gone"),]
+```
+

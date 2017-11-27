@@ -65,8 +65,8 @@ map.platy$coral_tag[which(map.platy$coral_tag==1060)] <- "754_899_1060"
 map.platy$coral_tag[which(map.platy$coral_tag==754)] <- "754_899_1060"
 
 map.platy$ref <- paste(map.platy$field_season,".tag",map.platy$coral_tag, sep="")
-duplicated(map.platy)
-map.platy
+# duplicated(map.platy)
+# map.platy
 
 map.platy.forcat <- map.platy[,c(1,3:5,7:9,11)]
 
@@ -86,9 +86,9 @@ platy$ref[which(platy$Sample.Name == "KI16bFMD068")] <- "KI2016b.tag820"
 
 metadata <- join_all(list(metadata,platy),by="ref",match="all")
 
-S.H <- data.frame(ref = platy$ref, S.H = platy$S.H)
-
-metadata <- join_all(list(metadata,S.H),by="ref",match="all") 
+# S.H <- data.frame(ref = platy$ref, S.H = platy$S.H)
+# 
+# metadata <- join_all(list(metadata,S.H),by="ref",match="all") 
 
 metadata <- metadata[which(metadata$Coral_Species=="Platygyra_sp"),]
 
@@ -96,9 +96,22 @@ count(!is.na(metadata$S.H))
 
 metadata.SH <- metadata[which(!is.na(metadata$S.H)),]
 
+metadata.SH[which(duplicated(metadata.SH$SampleID)),]
 # "248_696" %in% metadata.SH$coral_tag
 
+# Clean up columns in this metadata
+metadata.SH <- metadata.SH[,c(1:8,10:48,50:51)]
+metadata.SH <- metadata.SH[,c(1:8,11:46,48:49)]
+names(metadata.SH)
+
+# dups <- metadata.SH[which(duplicated(metadata.SH$SampleID) | duplicated(metadata.SH$SampleID, fromLast = TRUE)),]
+
+# Remove duplicates, keeping later runs and discarding earlier runs
+# This is clunky and error-prone...try to change later.
+metadata.SH <- metadata.SH[which(!duplicated(metadata.SH$SampleID, fromLast = TRUE)),]
+
 platy[which(!platy$ref %in% metadata.SH$ref),]
+platy[which(!metadata.SH$ref %in% platy$ref),]
 
 write.csv(metadata, file="data/Coralphoto__Metadata/KI_Platy_metadata.csv")
 write.table(metadata, file="data/Coralphoto__Metadata/KI_Platy_metadata.tsv", quote=FALSE, sep="\t", col.names = NA)
