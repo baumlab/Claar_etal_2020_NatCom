@@ -12,14 +12,14 @@ meta$before.after[which(meta$before.after=="1")] <- ""
 meta$Year_Pre_Post <- paste(meta$field_season,meta$before.after, sep="")
 
 meta$coral_tag[which(meta$coral_tag==248)] <- "248_696"
-meta$coral_tag[which(meta$coral_tag==338)] <- "338_1168"
+# meta$coral_tag[which(meta$coral_tag==338)] <- "338_1168"
 meta$coral_tag[which(meta$coral_tag==410)] <- "410_893"
 meta$coral_tag[which(meta$coral_tag=="754_899")] <- "754_899_1060"
 meta$coral_tag[which(meta$coral_tag==1060)] <- "754_899_1060"
 
 
 meta$ref <- paste(meta$Year_Pre_Post,".tag",meta$coral_tag, sep="")
-meta.forcat <- meta[,c(1:23,26:27)]
+meta.forcat <- meta[,c(1:23,25:26)]
 count(duplicated(meta.forcat$ref))
 meta.forcat <- meta.forcat[which(!duplicated(meta.forcat$ref)),] # Remove duplicates
 # meta.forcat[which(meta.forcat$ref=="KI2014.tag394"),] 
