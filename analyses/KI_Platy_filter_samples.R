@@ -380,8 +380,12 @@ phy97.f.c.coral.after.HVH <- subset_samples(phy97.f.c.coral.after, Dist=="High" 
 # Calculate number of sequences in phy97.f.c
 total_seqs <- sum(taxa_sums(phy97.f.c))
 
+# Calculate number of corals in phy97.f.c
+total_tags <- unique(data.frame(sample_data(phy97.f.c.platy))$coral_tag)
+total_sites <- unique(data.frame(sample_data(phy97.f.c.platy))$site)
+
 # Cleanup 
-rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,Low,LowMed,High,HighMed,phy.f.coral)
+rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,Low,LowMed,High,HighMed,phy.f.coral,A_C,A_D,A_G,A.dis,C_D,C_G,C.dis,col1,col2,col3,col4,D_G,D.dis,G.dis,A.seqs,C.seqs,D.seqs,G.seqs,n)
 
 # Save grouped data as RData file
 save(list = ls(all.names = TRUE), file = "data/KI_seqs_f_coral_grouped_all.RData")
