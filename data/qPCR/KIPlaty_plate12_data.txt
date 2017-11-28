@@ -1,0 +1,117 @@
+﻿* Block Type = 96well
+* Chemistry = SYBR_GREEN
+* Experiment File Name = C:\Users\Dani\Documents\Data_Analysis\KI_Platy\data\qPCR\KIPlaty_plate12.eds
+* Experiment Run End Time = 2017-11-20 10:41:08 AM PST
+* Instrument Type = steponeplus
+* Passive Reference = ROX
+
+[Results]
+Well	Sample Name	Target Name	Task	Reporter	Quencher	CT	CT Mean	CT SD	Quantity	Quantity Mean	Quantity SD	Automatic Ct Threshold	Ct Threshold	Automatic Baseline	Baseline Start	Baseline End	Comments	HIGHSD	NOAMP	EXPFAIL
+A1																		N	N	N
+A2																		N	N	N
+A3																		N	N	N
+A4																		N	N	N
+A5																		N	N	N
+A6																		N	N	N
+A7																		N	N	N
+A8																		N	N	N
+A9																		N	N	N
+A10																		N	N	N
+A11																		N	N	N
+A12																		N	N	N
+B1		PaxC	UNKNOWN	SYBR	None	20.8928	23.1361	5.4892				true	0.3256	true	3	15		Y	N	N
+B2		PaxC	UNKNOWN	SYBR	None	20.6081	23.1361	5.4892				true	0.3256	true	3	14		Y	N	N
+B3		C	UNKNOWN	VIC	NFQ-MGB	Undetermined	28.1087	5.0898				true	0.0509	true	3	39		N	Y	Y
+B3		D	UNKNOWN	FAM	NFQ-MGB	28.2433	27.9654	0.2656				true	0.2802	true	3	22		N	Y	Y
+B4		C	UNKNOWN	VIC	NFQ-MGB	Undetermined	28.1087	5.0898				true	0.0509	true	3	39		N	Y	Y
+B4		D	UNKNOWN	FAM	NFQ-MGB	27.6102	27.9654	0.2656				true	0.2802	true	3	21		N	Y	Y
+B5																		N	N	N
+B6																		N	N	N
+B7																		N	N	N
+B8																		N	N	N
+B9																		N	N	N
+B10																		N	N	N
+B11																		N	N	N
+B12																		N	N	N
+C1		PaxC	UNKNOWN	SYBR	None	34.9685	23.1361	5.4892				true	0.3256	true	3	29		Y	N	N
+C2		PaxC	UNKNOWN	SYBR	None	34.773	23.1361	5.4892				true	0.3256	true	3	29		Y	N	N
+C3		C	UNKNOWN	VIC	NFQ-MGB	Undetermined	28.1087	5.0898				true	0.0509	true	3	39		N	Y	Y
+C3		D	UNKNOWN	FAM	NFQ-MGB	Undetermined	27.9654	0.2656				true	0.2802	true	3	39		N	Y	Y
+C4		C	UNKNOWN	VIC	NFQ-MGB	39.565	28.1087	5.0898				true	0.0509	true	3	35		Y	Y	Y
+C4		D	UNKNOWN	FAM	NFQ-MGB	Undetermined	27.9654	0.2656				true	0.2802	true	3	39		Y	Y	Y
+C5																		N	N	N
+C6																		N	N	N
+C7																		N	N	N
+C8																		N	N	N
+C9																		N	N	N
+C10																		N	N	N
+C11																		N	N	N
+C12																		N	N	N
+D1		PaxC	UNKNOWN	SYBR	None	20.9891	23.1361	5.4892				true	0.3256	true	3	13		Y	N	N
+D2		PaxC	UNKNOWN	SYBR	None	20.9188	23.1361	5.4892				true	0.3256	true	3	15		Y	N	N
+D3		C	UNKNOWN	VIC	NFQ-MGB	25.4323	28.1087	5.0898				true	0.0509	true	3	22		Y	Y	Y
+D3		D	UNKNOWN	FAM	NFQ-MGB	Undetermined	27.9654	0.2656				true	0.2802	true	3	39		Y	Y	Y
+D4		C	UNKNOWN	VIC	NFQ-MGB	25.4066	28.1087	5.0898				true	0.0509	true	3	22		Y	Y	Y
+D4		D	UNKNOWN	FAM	NFQ-MGB	Undetermined	27.9654	0.2656				true	0.2802	true	3	39		Y	Y	Y
+D5																		N	N	N
+D6																		N	N	N
+D7																		N	N	N
+D8																		N	N	N
+D9																		N	N	N
+D10																		N	N	N
+D11																		N	N	N
+D12																		N	N	N
+E1		PaxC	UNKNOWN	SYBR	None	20.3296	23.1361	5.4892				true	0.3256	false	6	16		Y	N	N
+E2		PaxC	UNKNOWN	SYBR	None	20.275	23.1361	5.4892				true	0.3256	false	6	16		Y	N	N
+E3		C	UNKNOWN	VIC	NFQ-MGB	26.9738	28.1087	5.0898				true	0.0509	true	3	24		Y	Y	Y
+E3		D	UNKNOWN	FAM	NFQ-MGB	Undetermined	27.9654	0.2656				true	0.2802	true	3	39		Y	Y	Y
+E4		C	UNKNOWN	VIC	NFQ-MGB	26.9048	28.1087	5.0898				true	0.0509	true	3	24		Y	Y	Y
+E4		D	UNKNOWN	FAM	NFQ-MGB	Undetermined	27.9654	0.2656				true	0.2802	true	3	39		Y	Y	Y
+E5																		N	N	N
+E6																		N	N	N
+E7																		N	N	N
+E8																		N	N	N
+E9																		N	N	N
+E10																		N	N	N
+E11																		N	N	N
+E12																		N	N	N
+F1		PaxC	UNKNOWN	SYBR	None	20.9298	23.1361	5.4892				true	0.3256	true	3	15		Y	N	N
+F2		PaxC	UNKNOWN	SYBR	None	20.6558	23.1361	5.4892				true	0.3256	true	3	13		Y	N	N
+F3		C	UNKNOWN	VIC	NFQ-MGB	Undetermined	28.1087	5.0898				true	0.0509	true	3	39		N	Y	Y
+F3		D	UNKNOWN	FAM	NFQ-MGB	28.0553	27.9654	0.2656				true	0.2802	true	3	22		N	Y	Y
+F4		C	UNKNOWN	VIC	NFQ-MGB	Undetermined	28.1087	5.0898				true	0.0509	true	3	39		N	Y	Y
+F4		D	UNKNOWN	FAM	NFQ-MGB	27.9528	27.9654	0.2656				true	0.2802	true	3	22		N	Y	Y
+F5																		N	N	N
+F6																		N	N	N
+F7																		N	N	N
+F8																		N	N	N
+F9																		N	N	N
+F10																		N	N	N
+F11																		N	N	N
+F12																		N	N	N
+G1		PaxC	UNKNOWN	SYBR	None	21.3265	23.1361	5.4892				true	0.3256	true	3	12		Y	N	N
+G2		PaxC	UNKNOWN	SYBR	None	20.966	23.1361	5.4892				true	0.3256	false	6	16		Y	N	N
+G3		C	UNKNOWN	VIC	NFQ-MGB	26.2419	28.1087	5.0898				true	0.0509	true	3	23		Y	Y	Y
+G3		D	UNKNOWN	FAM	NFQ-MGB	Undetermined	27.9654	0.2656				true	0.2802	true	3	39		Y	Y	Y
+G4		C	UNKNOWN	VIC	NFQ-MGB	26.2368	28.1087	5.0898				true	0.0509	true	3	23		Y	Y	Y
+G4		D	UNKNOWN	FAM	NFQ-MGB	Undetermined	27.9654	0.2656				true	0.2802	true	3	39		Y	Y	Y
+G5																		N	N	N
+G6																		N	N	N
+G7																		N	N	N
+G8																		N	N	N
+G9																		N	N	N
+G10																		N	N	N
+G11																		N	N	N
+G12																		N	N	N
+H1																		N	N	N
+H2																		N	N	N
+H3																		N	N	N
+H4																		N	N	N
+H5																		N	N	N
+H6																		N	N	N
+H7																		N	N	N
+H8																		N	N	N
+H9																		N	N	N
+H10																		N	N	N
+H11																		N	N	N
+H12																		N	N	N
