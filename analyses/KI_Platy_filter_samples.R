@@ -170,6 +170,12 @@ phy_tree(uber.tree)
 # Slot uber tree into the phy_tree slot of the phyloseq object
 phy_tree(phy97.f.c) <- phy_tree(uber.tree)
 
+# Change metadata "Status" for corals we found either alive or dead after sequence processing
+sample_data(phy97.f.c)$Status[which(data.frame(sample_data(phy97.f.c))$coral_tag=="157")] <- "alive"
+sample_data(phy97.f.c)$Status[which(data.frame(sample_data(phy97.f.c))$coral_tag=="223")] <- "alive"
+sample_data(phy97.f.c)$Status[which(data.frame(sample_data(phy97.f.c))$coral_tag=="234")] <- "dead"
+sample_data(phy97.f.c)$Status[which(data.frame(sample_data(phy97.f.c))$coral_tag=="379")] <- "alive"
+
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.p <- transform_sample_counts(phy97.f.c, function(x) x/sum(x))
 
