@@ -166,4 +166,4 @@ write.table(metadata, file="data/Coralphoto__Metadata/KI_Platy_metadata.tsv", qu
 write.csv(metadata.SH, file="data/Coralphoto__Metadata/KI_Platy_metadataSH.csv")
 write.table(metadata.SH, file="data/Coralphoto__Metadata/KI_Platy_metadataSH.tsv", quote=FALSE, sep="\t", col.names = NA)
 
-save(metadata.SH,file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
+save(metadata.SH,metadata.SH.FQ,metadata.SH.noFQ,file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
