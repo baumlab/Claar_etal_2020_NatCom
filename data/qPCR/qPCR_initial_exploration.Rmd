@@ -14,32 +14,10 @@ rm(list=ls())
 
 load(file="../Coralphoto__Metadata/KI_Platy_metadataSH.RData")
 
-metadata.SH$dom <- ifelse(metadata.SH$C.PaxC > metadata.SH$D.PaxC,"C","D")
-
-metadata.SH$S.H.log <- log(metadata.SH$S.H)
-
-metadata.SH$field_season[which(metadata.SH$field_season=="KI2015a_Pre")] <- "KI2015a"
-# But then collapse field seasons into before/during/after
-metadata.SH$before.after <- metadata.SH$field_season
-metadata.SH$before.after <- gsub("KI2014","before",metadata.SH$before.after)
-metadata.SH$before.after <- gsub("KI2015a","before",metadata.SH$before.after)
-metadata.SH$before.after <- gsub("KI2015b","before",metadata.SH$before.after)
-metadata.SH$before.after <- gsub("KI2015c","during",metadata.SH$before.after)
-metadata.SH$before.after <- gsub("KI2016a","after",metadata.SH$before.after)
-metadata.SH$before.after <- gsub("KI2016b","recovery1",metadata.SH$before.after)
-metadata.SH$before.after <- gsub("KI2017a","recovery2",metadata.SH$before.after)
-metadata.SH$bleaching_proportion <- gsub("NONE","FALSE",metadata.SH$bleaching_proportion)
-metadata.SH$bleaching_proportion <- gsub("1","FALSE",metadata.SH$bleaching_proportion)
-metadata.SH$bleaching_proportion <- gsub("2","2",metadata.SH$bleaching_proportion)
-metadata.SH$bleaching_proportion <- gsub("3","3",metadata.SH$bleaching_proportion)
-metadata.SH$bleaching_proportion <- gsub(" ","",metadata.SH$bleaching_proportion)
-
-metadata.SH.FQ <- metadata.SH[grepl("FQ", metadata.SH$Sample.Name),]
-metadata.SH.noFQ <- metadata.SH[!grepl("FQ", metadata.SH$Sample.Name),]
-
-
 ggplot(aes(y = S.H.log, x = field_season), data = metadata.SH.noFQ) + geom_boxplot()
 # ggplot(aes(y = S.H.log, x = before.after), data = metadata.SH.noFQ) + geom_boxplot()
+ggplot(aes(y = S.H, x = field_season), data = metadata.SH.noFQ) + geom_boxplot()
+
 
 ggplot(aes(y = S.H.log, x = field_season,color=dom), data = metadata.SH.noFQ) + geom_boxplot() + facet_wrap(~Status)
 
@@ -48,29 +26,11 @@ ggplot(aes(y = S.H.log, x = field_season,color=dom), data = metadata.SH.noFQ) + 
 
 ggplot(aes(y = S.H.log, x = before.after,color=bleaching_proportion), data = metadata.SH.noFQ) + geom_point()
 
-metadata.SH$bleaching_proportion <- gsub(" ","",metadata.SH$bleaching_proportion)
-
-metadata.SH$bleaching2Plus <- metadata.SH$bleaching_proportion
-metadata.SH$bleaching2Plus <- gsub("NONE","FALSE",metadata.SH$bleaching2Plus)
-metadata.SH$bleaching2Plus <- gsub("1","FALSE",metadata.SH$bleaching2Plus)
-metadata.SH$bleaching2Plus <- gsub("2","2",metadata.SH$bleaching2Plus)
-metadata.SH$bleaching2Plus <- gsub("3","3",metadata.SH$bleaching2Plus)
-metadata.SH$bleaching2Plus <- gsub(" ","",metadata.SH$bleaching2Plus)
-
 ggplot(aes(y = S.H.log, x = bleaching_proportion,color=before.after), data = metadata.SH.noFQ) + geom_point()
 
 ggplot(aes(y = S.H.log, x = bleaching_proportion,color=before.after), data = metadata.SH.noFQ) + geom_point()
 
 hist(metadata.SH$S.H,breaks = 100)
-
-metadata.SH.noFQ$date <- as.POSIXct("2010-01-01 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2014")] <- as.POSIXct("2014-09-01 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2015a")] <- as.POSIXct("2015-01-20 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2015b")] <- as.POSIXct("2015-05-10 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2015c")] <- as.POSIXct("2015-07-25 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2016a")] <- as.POSIXct("2016-03-25 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2016b")] <- as.POSIXct("2016-11-08 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2017a")] <- as.POSIXct("2017-07-15 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 
 ggplot(aes(y = S.H.log, x = date), data = metadata.SH.noFQ) + scale_x_datetime() + geom_smooth() + ggtitle("Symbiont:Host Ratio")
 
@@ -78,5 +38,97 @@ ggplot(aes(y = S.H.log, x = date,color=dom), data = metadata.SH.noFQ) + geom_smo
 
 
 metadata.SH.AD <- metadata.SH[which(metadata.SH$Status != "UK" & metadata.SH$Status != "gone" & metadata.SH$Status != "dead_or_gone"),]
+metadata.SH.noFQ.AD <- metadata.SH.noFQ[which(metadata.SH.noFQ$Status != "UK" & metadata.SH.noFQ$Status != "gone" & metadata.SH.noFQ$Status != "dead_or_gone"),]
+metadata.SH.noFQ.A <- metadata.SH.noFQ[which(metadata.SH.noFQ$Status != "UK" & metadata.SH.noFQ$Status != "gone" & metadata.SH.noFQ$Status != "dead_or_gone" & metadata.SH.noFQ$Status != "dead"),]
+
+ggplot(aes(y = D.PaxC.log, x = C.PaxC.log,color=dom), data = metadata.SH.noFQ) + geom_point() + facet_wrap(~Status) + ggtitle("C:D")
+
+ggplot(aes(y = D.PaxC.log, x = C.PaxC.log,color=before.after,shape=Status), data = metadata.SH.noFQ) + geom_point() + ggtitle("C:D")
+
+ggplot(aes(y = D.PaxC.log, x = C.PaxC.log,shape=dom,color=field_season,group=coral_tag), data = metadata.SH.noFQ.A) + geom_point() + ggtitle("C:D") + xlim(-15,-2.5)+ ylim(-15,-2.5) + geom_line(aes(color=dom))+facet_wrap(~Status)
+
+ggplot(aes(y = CtoD, x = date, group=coral_tag, color=Status), data = metadata.SH.noFQ) + scale_x_datetime() + geom_line() + ggtitle("Symbiont:Host Ratio") + geom_point(aes(color=dom))
+
+metadata.SH.noFQ.99 <- metadata.SH.noFQ[which(metadata.SH.noFQ$coral_tag == 99),]
+metadata.SH.noFQ.612 <- metadata.SH.noFQ[which(metadata.SH.noFQ$coral_tag == 612),]
+metadata.SH.noFQ.754_899_1060 <- metadata.SH.noFQ[which(metadata.SH.noFQ$coral_tag == "754_899_1060"),]
+metadata.SH.noFQ.792 <- metadata.SH.noFQ[which(metadata.SH.noFQ$coral_tag == 792),]
+metadata.SH.noFQ.62 <- metadata.SH.noFQ[which(metadata.SH.noFQ$coral_tag == 62),]
+metadata.SH.noFQ.328 <- metadata.SH.noFQ[which(metadata.SH.noFQ$coral_tag == 328),]
+metadata.SH.noFQ.813 <- metadata.SH.noFQ[which(metadata.SH.noFQ$coral_tag == 813),]
+
+ggplot(aes(y = D.PaxC.log, x = C.PaxC.log,shape=dom,color=field_season), data = metadata.SH.noFQ.99) + geom_point() + ggtitle("C:D") + geom_line(aes(color=dom))
+
+ggplot(aes(y = S.H.log, x = date), data = metadata.SH.noFQ.99) + geom_point(aes(color=dom)) + geom_line(linetype="dashed") + facet_wrap(~Status) + ggtitle("Symbiont:Host Ratio") + geom_point(aes(color=dom), data= metadata.SH.noFQ.612)+ geom_line(linetype="dotted", color="red", data= metadata.SH.noFQ.612)+ geom_point(aes(color=dom), data= metadata.SH.noFQ.754_899_1060)+ geom_line(linetype="dotdash",color="orange", data= metadata.SH.noFQ.754_899_1060)+ geom_point(aes(color=dom), data= metadata.SH.noFQ.792)+ geom_line(linetype="longdash",color="yellow", data= metadata.SH.noFQ.792)+ geom_point(aes(color=dom), data= metadata.SH.noFQ.62)+ geom_line(linetype="twodash",color="green", data= metadata.SH.noFQ.62)+ geom_point(aes(color=dom), data= metadata.SH.noFQ.328)+ geom_line(linetype="twodash", color="blue", data= metadata.SH.noFQ.328)
+
+metadata.SH.noFQ.3plus <- metadata.SH.noFQ[which(table(metadata.SH.noFQ$coral_tag)>2),]
+
+test <- metadata.SH.noFQ[ metadata.SH.noFQ$coral_tag %in%  names(table(metadata.SH.noFQ$coral_tag))[table(metadata.SH.noFQ$coral_tag) > 2] , ]
+table(metadata.SH.noFQ.3plus$coral_tag)
+
+metadata.SH.noFQ.AD.Cstart <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$dom == "C"),]
+
+ggplot(aes(y = S.H.log, x = date,group=coral_tag), data = metadata.SH.noFQ.AD) + geom_point(aes(shape=Status, color=CtoD)) + scale_shape_manual(values=c(16,4)) + geom_line(linetype="dashed",color="darkgray") + ggtitle("Symbiont:Host Ratio") + geom_smooth(aes(y = S.H.log, x = date, group=Status, color=..y..), span=.67, data = metadata.SH.noFQ.AD)+ scale_colour_gradient(low = "blue", high = "red")
+  
+ggplot(aes(y = S.H.log, x = date,group=coral_tag), data = metadata.SH.noFQ.AD) + geom_point(aes(shape=Status, color=CtoD)) + scale_shape_manual(values=c(16,4)) + geom_line(linetype="dashed",color="darkgray") + ggtitle("Symbiont:Host Ratio") + geom_smooth(aes(y = S.H.log, x = date, group=Status, color=..y..), span=.67, data = metadata.SH.noFQ.AD)+ scale_colour_gradient2(low = "blue", mid= "gray",high = "red", midpoint=1)
+
+ggplot(aes(y = S.H.log, x = date,group=coral_tag), data = metadata.SH.noFQ.AD) + geom_point(aes(shape=Status, color=CtoD)) + scale_shape_manual(values=c(16,4)) + geom_line(linetype="dashed",color="darkgray") + ggtitle("Symbiont:Host Ratio") + geom_smooth(aes(y = S.H.log, x = date, group=Status, color=..y..), span=.67, data = metadata.SH.noFQ.AD)+ scale_colour_gradient2(low = "blue", mid= "gray",high = "red", midpoint=1)
+
+
+min(metadata.SH.noFQ.AD$CtoD)
+max(metadata.SH.noFQ$CtoD)
+mean(metadata.SH.noFQ$CtoD)
+median(metadata.SH.noFQ$CtoD)
+
+ggplot(aes(y = S.H.log, x = date), data = metadata.SH.noFQ.AD) 
+
+ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=CtoD, shape=Status), data = metadata.SH.noFQ.AD) + geom_point()  + ggtitle("C:D") + scale_colour_gradient2(low = "blue", mid= "yellow", high = "red", midpoint=4) + xlim(c(-15,-2)) + ylim(c(-15,-2))
+
+ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=dom, shape=Status), data = metadata.SH.noFQ.AD) + geom_point()  + ggtitle("C:D") + scale_color_manual(values=c("blue","red"))
+
+
+#1b9e77
+#d95f02
+#7570b3
+
+# C_col <- "#1b9e77" # or low = "#2166ac"
+# D_col <- "#7570b3" # or high = "#b2182b"
+C_col <- "#2166ac"
+D_col <- "#b2182b"
+stress_col <- "#d95f02"
+stress_col <- "darkgoldenrod4"
+stress_col <- "burlywood4"
+
+scaletitle <- expression(paste("Dominant ", italic("Symbiodinium"), " Clade"))
+p1 <- ggplot(aes(y = S.H.log, x = date,group=coral_tag), data = metadata.SH.noFQ.AD)+
+  geom_rect(aes(xmin = as.POSIXct("2015-07-01"), xmax = as.POSIXct("2016-05-01"), ymin = -Inf, ymax = Inf),fill = stress_col, alpha = 0.002) +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        legend.position = c(0.75,0.15), 
+        legend.direction = "horizontal",
+        legend.text = element_blank(),
+        legend.background = element_blank(),
+        axis.text = element_text(size=12),
+        axis.title = element_text(size=18)) +
+  geom_point(aes(shape=Status, fill=dom),stroke=0,alpha=0.5, size=1.7) +
+  scale_shape_manual(values=c(21,4),guide=FALSE) +
+  scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
+  geom_smooth(aes(y = S.H.log, x = date, group=Status, color=..y..), 
+              span=.67, data = metadata.SH.noFQ.AD,level = 0.9999) + 
+  scale_colour_gradient2(low = C_col, high = D_col,mid="gray",midpoint = -5, 
+                         name= scaletitle) + 
+  ylab("Symbiont:Host Ratio") + xlab("") +
+  scale_x_datetime(date_breaks = "4 months",date_labels = "%b-%Y",expand=c(0.01,0.01)) +
+  guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, barwidth=10))+
+  annotate("text",x=as.POSIXct("2016-08-05"), y =-10.25,label="C")+
+  annotate("text",x=as.POSIXct("2017-05-15"), y =-10.25,label="D")+
+  annotate("text",x=as.POSIXct("2015-11-29"), y =-1.5,label="El Nino",size=6)+
+  geom_vline(xintercept=as.numeric(as.POSIXct("2015-07-01")),linetype="dashed")+
+  geom_vline(xintercept=as.numeric(as.POSIXct("2016-05-01")),linetype="dashed")
+
+p1
+
+p2 <- p1 +  geom_line(linetype="dashed",color="gray")
+p2
 ```
 

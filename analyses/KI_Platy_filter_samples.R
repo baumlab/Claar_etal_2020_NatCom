@@ -170,6 +170,12 @@ phy_tree(uber.tree)
 # Slot uber tree into the phy_tree slot of the phyloseq object
 phy_tree(phy97.f.c) <- phy_tree(uber.tree)
 
+# Change metadata "Status" for corals we found either alive or dead after sequence processing
+sample_data(phy97.f.c)$Status[which(data.frame(sample_data(phy97.f.c))$coral_tag=="157")] <- "alive"
+sample_data(phy97.f.c)$Status[which(data.frame(sample_data(phy97.f.c))$coral_tag=="223")] <- "alive"
+sample_data(phy97.f.c)$Status[which(data.frame(sample_data(phy97.f.c))$coral_tag=="234")] <- "dead"
+sample_data(phy97.f.c)$Status[which(data.frame(sample_data(phy97.f.c))$coral_tag=="379")] <- "alive"
+
 # Transform sample counts to proportional abundance for downstream analyses
 phy97.f.c.p <- transform_sample_counts(phy97.f.c, function(x) x/sum(x))
 
@@ -392,5 +398,5 @@ rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,Low,LowMed,High,HighMed,phy.f.coral,A_C,A_
 
 # Save grouped data as RData file
 save(list = ls(all.names = TRUE), file = "data/KI_seqs_f_coral_grouped_all.RData")
-save(phy97.f.c.platy.AD.before, phy97.f.c.platy.p, phy97.f.c.platy, phy97.f.c.platy.AD,phy97.f.c.coral.AD, file = "data/KI_seqs_f_coral_grouped.RData")
+save(phy97.f.c.platy.AD.before, phy97.f.c.platy.p, phy97.f.c.platy, phy97.f.c.platy.AD,phy97.f.c.coral.AD,phy97.f.c.platy.AD.before, file = "data/KI_seqs_f_coral_grouped.RData")
 

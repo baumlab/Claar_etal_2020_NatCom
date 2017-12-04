@@ -645,6 +645,18 @@ sum(clade_abundance$G > 0.01)
 
 ```
 
+```{r}
+data.frame(sample_data(phy97.f.c.p))[which(data.frame(sample_data(phy97.f.c.p))$coral_tag=="594"),]
+
+plot_bar(phy97.f.c.p)
+coral594 <- subset_samples(phy97.f.c.p,coral_tag=="594",prune=TRUE)
+coral594 <- prune_taxa(taxa_sums(coral594) > 0.01, coral594)
+
+plot_bar(coral594,fill = "hit")
+
+```
+
+
 
 ```{r, include=TRUE, echo=FALSE, cache=TRUE}
 # Save grouped data as RData file

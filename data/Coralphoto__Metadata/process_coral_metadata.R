@@ -113,10 +113,57 @@ metadata.SH <- metadata.SH[which(!duplicated(metadata.SH$SampleID, fromLast = TR
 platy[which(!platy$ref %in% metadata.SH$ref),]
 platy[which(!metadata.SH$ref %in% platy$ref),]
 
+
+metadata.SH$dom <- ifelse(metadata.SH$C.PaxC > metadata.SH$D.PaxC,"C","D")
+
+metadata.SH$S.H.log <- log(metadata.SH$S.H)
+metadata.SH$C.PaxC.log <- log(metadata.SH$C.PaxC+6.107637e-08)
+metadata.SH$D.PaxC.log <- log(metadata.SH$D.PaxC+6.107637e-08)
+metadata.SH$CtoD <- metadata.SH$C.PaxC.log / metadata.SH$D.PaxC.log
+sort(metadata.SH$D.PaxC)
+
+metadata.SH$field_season[which(metadata.SH$field_season=="KI2015a_Pre")] <- "KI2015a"
+# But then collapse field seasons into before/during/after
+metadata.SH$before.after <- metadata.SH$field_season
+metadata.SH$before.after <- gsub("KI2014","before",metadata.SH$before.after)
+metadata.SH$before.after <- gsub("KI2015a","before",metadata.SH$before.after)
+metadata.SH$before.after <- gsub("KI2015b","before",metadata.SH$before.after)
+metadata.SH$before.after <- gsub("KI2015c","during",metadata.SH$before.after)
+metadata.SH$before.after <- gsub("KI2016a","after",metadata.SH$before.after)
+metadata.SH$before.after <- gsub("KI2016b","recovery1",metadata.SH$before.after)
+metadata.SH$before.after <- gsub("KI2017a","recovery2",metadata.SH$before.after)
+metadata.SH$bleaching_proportion <- gsub("NONE","FALSE",metadata.SH$bleaching_proportion)
+metadata.SH$bleaching_proportion <- gsub("1","FALSE",metadata.SH$bleaching_proportion)
+metadata.SH$bleaching_proportion <- gsub("2","2",metadata.SH$bleaching_proportion)
+metadata.SH$bleaching_proportion <- gsub("3","3",metadata.SH$bleaching_proportion)
+metadata.SH$bleaching_proportion <- gsub(" ","",metadata.SH$bleaching_proportion)
+
+metadata.SH.FQ <- metadata.SH[grepl("FQ", metadata.SH$Sample.Name),]
+metadata.SH.noFQ <- metadata.SH[!grepl("FQ", metadata.SH$Sample.Name),]
+
+metadata.SH$bleaching_proportion <- gsub(" ","",metadata.SH$bleaching_proportion)
+
+metadata.SH$bleaching2Plus <- metadata.SH$bleaching_proportion
+metadata.SH$bleaching2Plus <- gsub("NONE","FALSE",metadata.SH$bleaching2Plus)
+metadata.SH$bleaching2Plus <- gsub("1","FALSE",metadata.SH$bleaching2Plus)
+metadata.SH$bleaching2Plus <- gsub("2","2",metadata.SH$bleaching2Plus)
+metadata.SH$bleaching2Plus <- gsub("3","3",metadata.SH$bleaching2Plus)
+metadata.SH$bleaching2Plus <- gsub(" ","",metadata.SH$bleaching2Plus)
+
+metadata.SH.noFQ$date <- as.POSIXct("2010-01-01 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2014")] <- as.POSIXct("2014-09-01 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2015a")] <- as.POSIXct("2015-01-20 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2015b")] <- as.POSIXct("2015-05-10 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2015c")] <- as.POSIXct("2015-07-25 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2016a")] <- as.POSIXct("2016-03-25 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2016b")] <- as.POSIXct("2016-11-08 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2017a")] <- as.POSIXct("2017-07-15 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+
+
 write.csv(metadata, file="data/Coralphoto__Metadata/KI_Platy_metadata.csv")
 write.table(metadata, file="data/Coralphoto__Metadata/KI_Platy_metadata.tsv", quote=FALSE, sep="\t", col.names = NA)
 
 write.csv(metadata.SH, file="data/Coralphoto__Metadata/KI_Platy_metadataSH.csv")
 write.table(metadata.SH, file="data/Coralphoto__Metadata/KI_Platy_metadataSH.tsv", quote=FALSE, sep="\t", col.names = NA)
 
-save(metadata.SH,file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
+save(metadata.SH,metadata.SH.FQ,metadata.SH.noFQ,file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
