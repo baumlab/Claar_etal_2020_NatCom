@@ -4,7 +4,7 @@ library(gridExtra)
 
 rm(list=ls())
 
-load(file="../Coralphoto__Metadata/KI_Platy_metadataSH.RData")
+load(file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
 
 metadata.SH.AD <- metadata.SH[which(metadata.SH$Status != "UK" & metadata.SH$Status != "gone" & metadata.SH$Status != "dead_or_gone"),]
 metadata.SH.noFQ.AD <- metadata.SH.noFQ[which(metadata.SH.noFQ$Status != "UK" & metadata.SH.noFQ$Status != "gone" & metadata.SH.noFQ$Status != "dead_or_gone"),]
@@ -21,6 +21,7 @@ p1 <- ggplot(aes(y = S.H.log, x = date,group=coral_tag), data = metadata.SH.noFQ
   geom_rect(aes(xmin = as.POSIXct("2015-07-01"), xmax = as.POSIXct("2016-05-01"), ymin = -Inf, ymax = Inf),fill = stress_col, alpha = 0.002) +
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
+        panel.background = element_blank(),
         legend.position = c(0.75,0.15), 
         legend.direction = "horizontal",
         legend.text = element_blank(),
@@ -28,7 +29,7 @@ p1 <- ggplot(aes(y = S.H.log, x = date,group=coral_tag), data = metadata.SH.noFQ
         axis.text = element_text(size=12),
         axis.title = element_text(size=18)) +
   geom_point(aes(shape=Status, fill=dom),stroke=0,alpha=0.5, size=1.7) +
-  scale_shape_manual(values=c(21,4),guide=FALSE) +
+  scale_shape_manual(values=c(21,7),guide=FALSE) +
   scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
   geom_smooth(aes(y = S.H.log, x = date, group=Status, color=..y..), 
               span=.67, data = metadata.SH.noFQ.AD,level = 0.9999) + 
@@ -46,13 +47,59 @@ p1 <- ggplot(aes(y = S.H.log, x = date,group=coral_tag), data = metadata.SH.noFQ
 p2 <- p1 +  geom_line(linetype="dashed",color="gray")
 p2
 
+scaletitle2 <- expression(paste(" Dominant ", italic("Symbiodinium"), " Clade"))
 p3 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=dom, shape=Status), 
-             data = metadata.SH.noFQ.AD) + 
-  geom_point()  +
-  scale_color_manual(values=c(C_col,D_col)) + 
-  scale_x_continuous(expand=c(0.01,0.01), limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log))) +  
-  scale_y_continuous(expand=c(0.01,0.01), limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log))) +
-  geom_abline(slope=1,intercept=0) 
+             data = metadata.SH.noFQ.AD) +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        legend.position = c(0.81,0.87), 
+        legend.direction = "horizontal",
+        legend.background = element_rect(fill="white", color="black"),
+        legend.key = element_blank(),
+        legend.spacing.y = unit(0, "cm"),
+        axis.text = element_text(size=12),
+        axis.title = element_text(size=18)) + 
+  geom_point(aes(shape=Status,fill=dom),stroke=0, alpha=0.7, size=1.7)  +
+  scale_color_manual(values=c(C_col,D_col),name=scaletitle2, labels=c("clade C", "clade D")) + 
+  scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
+  scale_shape_manual(name="       Coral Status (March 2016)  ",
+                     values = c(21,7),labels=c("Alive   ","Dead   ")) + 
+  scale_x_continuous(expand=c(0.01,0.01), 
+                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),
+                              max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
+                     name="Clade C Abundance (log S:H)") +  
+  scale_y_continuous(expand=c(0.01,0.01), 
+                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
+                     name="Clade D Abundance (log S:H)") +
+  geom_abline(slope=1,intercept=0) + 
+  guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5))+ 
+  guides(shape = guide_legend(title.position = "top",keywidth = 3.25, keyheight = 1.5))+
+  annotate("text",x=-14.5, y =-13.8,label="Coral is dominated by clade D",angle=40,color=D_col)+
+  annotate("text",x=-14, y =-14.5,label="Coral is dominated by clade C",angle=40, color= C_col)
 
 
 grid.arrange(p1,p3,nrow=1,ncol=2)
+
+
+# Open a jpg image
+jpeg(file="figures/Figure3_qpcr.jpg",width = 14.4, height = 6,units="in",res=300)
+grid.arrange(p1,p3,nrow=1,ncol=2)
+dev.off()
+
+# Open a jpg image
+jpeg(file="figures/Figure3_qpcr2.jpg",width = 14.4, height = 6,units="in",res=300)
+grid.arrange(p2,p3,nrow=1,ncol=2)
+dev.off()
+
++
+  geom_ribbon(aes(x=seq(-16,-4,0.1), ymin=y, ymax=(-1)), fill="blue") # not working right now
+  
+x=seq(-16,-4,0.1)
+y=seq(-16,-4,0.1)
+dat = data.frame(x=x, y=y)
+dat$ymax=max(dat$y)
+
+ggplot(dat)+geom_ribbon(aes(x, ymin=y, ymax=ymax), fill="blue",data = dat)
+
+
