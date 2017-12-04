@@ -85,8 +85,10 @@ dev.off()
 ###village data
 villages<-read.csv("ki_map_files/KI_villagesDCC_2015update.csv", header = TRUE) # you get an error but it works
 
-villages<-data.frame(c(1.989386333, 2.022090868, 1.983594483, 1.865048333, 1.665, 1.691, 1.715))
-villages$lon<-c(-157.4760637, -157.4884092, -157.3683462, -157.5522183, -157.589, -157.589, -157.589)
+#villages<-data.frame(c(1.989386333, 2.022090868, 1.983594483, 1.865048333, 1.692, 1.722, 1.75))
+#villages$lon<-c(-157.4760637, -157.4884092, -157.3683462, -157.5522183, -157.5585, -157.5585, -157.5585)
+villages<-data.frame(c(1.989386333, 2.022090868, 1.983594483, 1.865048333, 1.665, 1.691, 1.715))  # village population on two lines
+villages$lon<-c(-157.4760637, -157.4884092, -157.3683462, -157.5522183, -157.548, -157.548, -157.548)   # village population on two lines
 villages$pop<-c(1879, 2311, 955, 441, 1500, 1000, 500)
 villages$village<-c("London", "Tabwakea", "Banana", "Poland", "legend1500", "legend1000", "legend500")
 colnames(villages)[1]<-"lat"
@@ -94,15 +96,23 @@ colnames(villages)[1]<-"lat"
 setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy/figures")
 #tiff(file="KI_map_platysites_villages_bigger.tiff",width = 7.6, height = 7.2,units="in",res=300)
 #jpeg(file="KI_map_platysites_villages_bigger.jpeg",width = 7.6, height = 7.2,units="in",res=300)
-pdf(file="KI_map_platysites_villages_bigger.pdf", width = 7.5, height =7)
+jpeg(file="KI_map_platysites_villages_bigger_2.jpeg",width = 7.6, height = 7.2,units="in",res=300) # village population on two lines
+#pdf(file="KI_map_platysites_villages_bigger.pdf", width = 7.5, height =7)
 source("ki_map_files/KI_base_B&W_bigger.R")
 
 # village markers sized by population
 symbols(villages$lon, villages$lat, circles=(villages$pop)/10, add=TRUE,inches=0.3, bg=alpha("red", 0.4))
 ## legend for village size
-text(-157.463, 1.663, "Village with 1500 people", cex=0.69)   # if cex=0.8 then x = -157.4475
-text(-157.463, 1.6885, "Village with 1000 people", cex=0.69)   # if cex=0.8 then x = -157.4475
-text(-157.468, 1.714, "Village with 500 people", cex=0.69)   # if cex=0.8 then x = -157.453
+#text(-157.487, 1.69, "1500 people", cex=0.69)   # if cex=0.8 then x = -157.4475
+#text(-157.487, 1.72, "1000 people", cex=0.69)   # if cex=0.8 then x = -157.4475
+#text(-157.49, 1.75, "500 people", cex=0.69)   # if cex=0.8 then x = -157.453
+#text(-157.59, 1.72, "Village population", srt=90, cex=0.6)
+#segments(-157.577, 1.6925,-157.577, 1.75)
+text(-157.4765, 1.663, "1500 people", cex=0.69)   # village population on two lines
+text(-157.4765, 1.6885, "1000 people", cex=0.69)   # village population on two lines
+text(-157.4795, 1.714, "500 people", cex=0.69)   # village population on two lines
+text(-157.588, 1.69, "Village\npopulation", srt=90, cex=0.6)# village population on two lines
+segments(-157.566, 1.663,-157.566, 1.714)  # village population on two lines
 #with(villages[!villages$village=="legend",], text(lon, lat, label=village, pos=1, offset=0.5, font=2, col="black"))
 points(sites$lon, sites$lat, bg=alpha(sites$col,0.8), pch=21, cex=1.4) 
 #with(sites_platy, text(lon, lat, label=site, cex=0.7))
