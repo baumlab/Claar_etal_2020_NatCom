@@ -120,7 +120,7 @@ world_20152016ElNino <- ggplot(df,aes(x,y)) +
 
 # Load in and format KI map showing local human disturbance
 # Use imager to load the image
-img_KImap <- load.image('figures/KI_map_platysites_villages_bigger.jpeg')
+img_KImap <- load.image('figures/KI_map_platysites_villages_bigger_3.jpeg')
 # # Check that the data is in the correct format for the next step
 # as.data.frame(img_KImap,wide="c") %>% head
 # Mutate image data to be able to plot it using GridExtra/ggplot2
@@ -185,7 +185,7 @@ HighDist <- ggplot(df4,aes(x,y)) +
         panel.grid.major=element_blank(),panel.grid.minor=element_blank(),
         plot.background=element_blank(),plot.title = element_text("b"),
         plot.margin = unit(c(-0.17,0,0.1,-0.1),c("in","in","in","in"))) +  
-  annotate("rect", xmin=0, ymin=0, xmax=100, ymax=105,color="white",fill="white") + 
+  annotate("rect", xmin=0, ymin=0, xmax=100, ymax=110,color="white",fill="white") + 
   annotate("text", x = 55, y = 55, label = "a",fontface="bold", color="black")
 
 
