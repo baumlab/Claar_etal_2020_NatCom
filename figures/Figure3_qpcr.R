@@ -28,7 +28,7 @@ p1 <- ggplot(aes(y = S.H.log, x = date,group=coral_tag), data = metadata.SH.noFQ
         legend.background = element_blank(),
         axis.text = element_text(size=12),
         axis.title = element_text(size=18)) +
-  geom_point(aes(shape=Status, fill=dom),stroke=0,alpha=0.5, size=1.7) +
+  geom_point(aes(shape=Status, fill=dom),stroke=0,alpha=0.5, size=2) +
   scale_shape_manual(values=c(21,7),guide=FALSE) +
   scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
   geom_smooth(aes(y = S.H.log, x = date, group=Status, color=..y..), 
@@ -36,13 +36,15 @@ p1 <- ggplot(aes(y = S.H.log, x = date,group=coral_tag), data = metadata.SH.noFQ
   scale_colour_gradient2(low = C_col, high = D_col,mid="gray",midpoint = -5, 
                          name= scaletitle) + 
   ylab("Symbiont:Host Ratio") + xlab("") +
-  scale_x_datetime(date_breaks = "4 months",date_labels = "%b-%Y",expand=c(0.01,0.01)) +
+  scale_x_datetime(date_breaks = "1 month",date_labels = "%b",expand=c(0.01,0.01)) +
   guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, barwidth=10))+
   annotate("text",x=as.POSIXct("2016-08-05"), y =-10.25,label="C")+
   annotate("text",x=as.POSIXct("2017-05-15"), y =-10.25,label="D")+
-  annotate("text",x=as.POSIXct("2015-11-29"), y =-1.5,label="El Nino",size=6)+
+  annotate("text",x=as.POSIXct("2015-11-29"), y =-1.5,label="El Niño",size=6)+
   geom_vline(xintercept=as.numeric(as.POSIXct("2015-07-01")),linetype="dashed")+
   geom_vline(xintercept=as.numeric(as.POSIXct("2016-05-01")),linetype="dashed")
+
+p1
 
 p2 <- p1 +  geom_line(linetype="dashed",color="gray")
 p2
@@ -60,10 +62,10 @@ p3 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=dom, shape=Status),
         legend.spacing.y = unit(0, "cm"),
         axis.text = element_text(size=12),
         axis.title = element_text(size=18)) + 
-  geom_point(aes(shape=Status,fill=dom),stroke=0, alpha=0.7, size=1.7)  +
+  geom_point(aes(shape=Status,fill=dom),stroke=0, alpha=0.7, size=2)  +
   scale_color_manual(values=c(C_col,D_col),name=scaletitle2, labels=c("clade C", "clade D")) + 
   scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
-  scale_shape_manual(name="       Coral Status (March 2016)  ",
+  scale_shape_manual(name="       Coral Status Post El Niño  ",
                      values = c(21,7),labels=c("Alive   ","Dead   ")) + 
   scale_x_continuous(expand=c(0.01,0.01), 
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),
@@ -73,8 +75,8 @@ p3 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=dom, shape=Status),
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
                      name="Clade D Abundance (log S:H)") +
   geom_abline(slope=1,intercept=0) + 
-  guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5))+ 
-  guides(shape = guide_legend(title.position = "top",keywidth = 3.25, keyheight = 1.5))+
+  guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5,override.aes = list(size=8)))+ 
+  guides(shape = guide_legend(title.position = "top",keywidth = 3.25, keyheight = 1.5,override.aes = list(size=8)))+
   annotate("text",x=-14.5, y =-13.8,label="Coral is dominated by clade D",angle=40,color=D_col)+
   annotate("text",x=-14, y =-14.5,label="Coral is dominated by clade C",angle=40, color= C_col)
 
@@ -102,4 +104,46 @@ dat$ymax=max(dat$y)
 
 ggplot(dat)+geom_ribbon(aes(x, ymin=y, ymax=ymax), fill="blue",data = dat)
 
+C_col <- "darkgray"
+D_col <- "gray40"
 
+p3.2 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=Year_Pre_Post, shape=Status), 
+             data = metadata.SH.noFQ.AD) +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        legend.position = "bottom", #c(0.81,0.87), 
+        legend.direction = "horizontal",
+        legend.background = element_rect(fill="white", color="black"),
+        legend.key = element_blank(),
+        legend.spacing.y = unit(0, "cm"),
+        axis.text = element_text(size=12),
+        axis.title = element_text(size=18)) + 
+  geom_point(aes(shape=Status,fill=dom),stroke=0, alpha=0.7, size=3)  +
+  scale_color_manual(values=c("red","darkorange","green","purple","turquoise"),name=scaletitle2) + 
+  scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
+  scale_shape_manual(name="       Coral Status (March 2016)  ",
+                     values = c(21,7),labels=c("Alive   ","Dead   ")) + 
+  scale_x_continuous(expand=c(0.01,0.01), 
+                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),
+                              max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
+                     name="Clade C Abundance (log S:H)") +  
+  scale_y_continuous(expand=c(0.01,0.01), 
+                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
+                     name="Clade D Abundance (log S:H)") +
+  geom_abline(slope=1,intercept=0) + 
+  guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5))+ 
+  guides(shape = guide_legend(title.position = "top",keywidth = 3.25, keyheight = 1.5))+
+  annotate("text",x=-14.5, y =-13.8,label="clade D",angle=40,color=D_col)+
+  annotate("text",x=-14, y =-14.5,label="clade C",angle=40, color= C_col)
+
+str(metadata.SH.noFQ.AD$Year_Pre_Post)
+metadata.SH.noFQ.AD.Ordered <- metadata.SH.noFQ.AD[order(metadata.SH.noFQ.AD$Year_Pre_Post),]
+p4 <- p3.2 + geom_path(aes(group=coral_tag,color=Year_Pre_Post),arrow=arrow(length=unit(0.30,"cm"), type = "closed"), data = metadata.SH.noFQ.AD.Ordered)
+p4
+
+p4.2 <- p4 + facet_wrap(~Year_Pre_Post)
+p4.2
+
+p4.3 <- p4 + scale_color_manual(values=c("red","darkorange","lightgray","lightgray","lightgray"),name=scaletitle2)
+p4.3
