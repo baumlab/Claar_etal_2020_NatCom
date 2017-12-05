@@ -67,7 +67,7 @@ ord_plot <- p1 +
         legend.title = element_text(size=10),
         legend.text = element_text(size = 8),legend.key.height=unit(0.3,"line"),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        plot.margin = unit(c(-0.3,0,0,0),c("in","in","in","in")),
+        plot.margin = unit(c(-0.25,0,0.15,0),c("in","in","in","in")),
         axis.title = element_text(size=8), 
         axis.text.x = element_text(size=8,margin = margin(b=5, t = 5)),
         axis.text.y = element_text(size=8,margin = margin(b=5, r = 5)), 
@@ -75,7 +75,7 @@ ord_plot <- p1 +
         axis.title.y = element_text(size=8,margin = margin(b=5, r = 0.1)), 
         axis.ticks.length=unit(-0.05, "in")) + 
   stat_ellipse(aes(group=Status), type = "t",level=0.95,color=c("darkgray"),lty=2) +
-  annotate("text", x = -0.4, y = 4, label = "d",fontface="bold")
+  annotate("text", x = -0.4, y = 4, label = "c",fontface="bold")
   
 
 p1
@@ -132,7 +132,7 @@ df2 <- as.data.frame(img_KImap,wide="c") %>% mutate(rgb.val=rgb(c.1,c.2,c.3))
 KImap <- ggplot(df2,aes(x,y))+geom_raster(aes(fill=rgb.val))+scale_fill_identity()+scale_y_reverse()+ theme(axis.line=element_blank(),axis.text.x=element_blank(),                                      axis.text.y=element_blank(),axis.ticks=element_blank(),                                         axis.title.x=element_blank(),                                                                   axis.title.y=element_blank(),legend.position="none",                                            panel.background=element_blank(),panel.border=element_blank(),
         panel.grid.major=element_blank(),panel.grid.minor=element_blank(),
         plot.background=element_blank(),
-        plot.margin = unit(c(-0.2,0,0,-0.1),c("in","in","in","in")))
+        plot.margin = unit(c(-0.175,0,0,-0.1),c("in","in","in","in")))
 
 ##################################################################################
 ### Very Low Disturbance Photo ###
@@ -186,7 +186,7 @@ HighDist <- ggplot(df4,aes(x,y)) +
         plot.background=element_blank(),plot.title = element_text("b"),
         plot.margin = unit(c(-0.17,0,0.1,-0.1),c("in","in","in","in"))) +  
   annotate("rect", xmin=0, ymin=0, xmax=100, ymax=105,color="white",fill="white") + 
-  annotate("text", x = 55, y = 55, label = "b",fontface="bold", color="black")
+  annotate("text", x = 55, y = 55, label = "a",fontface="bold", color="black")
 
 
 ##################################################################################
@@ -203,11 +203,13 @@ grid.arrange(world_20152016ElNino,arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow
 dev.off()
 
 # Open a jpg image
-jpeg(file="figures/Figure2.jpg",width = 7.2, height = 3.97,units="in",res=300)
+jpeg(file="figures/Figure2_2.jpg",width = 7.2, height = 3.1,units="in",res=300)
 
-# lay=rbind(c(1,1,1),c(2,4,5),c(3,4,5))
-# grid.arrange(world_20152016ElNino,HighDist,VLowDist,KImap,ord_plot,ncol=3, nrow=3, layout_matrix=lay, widths=unit(c(2,2,3.2),c("in","in","in")),heights=unit(c(1.6,1.15,1.15),c("in","in","in")))
-grid.arrange(world_20152016ElNino,arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.05,1.05),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.3,3.1),c("in","in","in"))),nrow=2, heights=unit(c(1.67,2.2),c("in","in")),widths=unit(c(7.9),c("in")))
+# Option that includes world map
+# grid.arrange(world_20152016ElNino,arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.05,1.05),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.3,3.1),c("in","in","in"))),nrow=2, heights=unit(c(1.67,2.2),c("in","in")),widths=unit(c(7.9),c("in")))
+
+grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.3,1.3),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.8,2.6),c("in","in","in"))),nrow=1, heights=unit(c(2.9),c("in")),widths=unit(c(7.2),c("in")))
+
 # plot_grid(world_20152016ElNino,HighDist,VLowDist,KImap,ord_plot, align = "v", nrow = 2, ncol=3, rel_heights = c(1/2, 1/4, 1/4), rel_widths=c(1,1/4,1/4,1/4,1/4))
 
 dev.off()
