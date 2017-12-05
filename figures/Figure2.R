@@ -79,6 +79,7 @@ ord_plot <- p1 +
   
 
 p1
+ord_plot
 # Disturbance centroids plot
 dist_cent <- ggplot(d2, aes(CAP1,CAP2)) + geom_point() + geom_label_repel(aes(label=row.names(d2)),box.padding = 0.5,col=D_cols[c(4,3,2,1)]) + ylim(-0.35,0.2)
 
