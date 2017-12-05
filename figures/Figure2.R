@@ -139,7 +139,7 @@ KImap <- ggplot(df2,aes(x,y))+geom_raster(aes(fill=rgb.val))+scale_fill_identity
 
 # Load in and format Very Low Disturbance example image
 # Use imager to load the image
-img_VLowDist <- load.image('figures/VeryLowDisturbance_KI_cropped.jpg')
+img_VLowDist <- load.image('figures/site15_jan15_DanielleClaar_IMG_4926_2.jpg')
 # # Check that the data is in the correct format for the next step
 # as.data.frame(img_VLowDist,wide="c") %>% head
 # Mutate image data to be able to plot it using GridExtra/ggplot2
@@ -165,7 +165,7 @@ VLowDist <- ggplot(df3,aes(x,y)) +
 
 # Load in and format Very Low Disturbance example image
 # Use imager to load the image
-img_HighDist <- load.image('figures/highdisturbance_KI_cropped.jpg')
+img_HighDist <- load.image('figures/highdisturbance_KI.jpg')
 # # Check that the data is in the correct format for the next step
 # as.data.frame(img_HighDist,wide="c") %>% head
 # Mutate image data to be able to plot it using GridExtra/ggplot2
@@ -193,24 +193,22 @@ HighDist <- ggplot(df4,aes(x,y)) +
 ### Make the multi-panel plot ###
 
 # Open a tiff image
-tiff(file="figures/Figure2.tiff",width = 7.2, height = 4.07,units="in",res=300)
+tiff(file="figures/Figure2.tiff",width = 7.2, height = 2.8,units="in",res=300)
 
-# lay=rbind(c(1,1,1),c(2,4,5),c(3,4,5))
-# grid.arrange(world_20152016ElNino,HighDist,VLowDist,KImap,ord_plot,ncol=3, nrow=3, layout_matrix=lay, widths=unit(c(2,2,3.2),c("in","in","in")),heights=unit(c(1.6,1.15,1.15),c("in","in","in")))
-grid.arrange(world_20152016ElNino,arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.05,1.05),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.2,2.4,3.1),c("in","in","in"))),nrow=2, heights=unit(c(1.67,2.3),c("in","in")),widths=unit(c(7.9),c("in")))
-# plot_grid(world_20152016ElNino,HighDist,VLowDist,KImap,ord_plot, align = "v", nrow = 2, ncol=3, rel_heights = c(1/2, 1/4, 1/4), rel_widths=c(1,1/4,1/4,1/4,1/4))
+# Option that includes world map
+# grid.arrange(world_20152016ElNino,arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.05,1.05),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.2,2.4,3.1),c("in","in","in"))),nrow=2, heights=unit(c(1.67,2.3),c("in","in")),widths=unit(c(7.9),c("in")))
+
+grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.17,1.17),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.8,2.6),c("in","in","in"))),nrow=1, heights=unit(c(2.6),c("in")),widths=unit(c(7.2),c("in")))
 
 dev.off()
 
 # Open a jpg image
-jpeg(file="figures/Figure2_2.jpg",width = 7.2, height = 3.1,units="in",res=300)
+jpeg(file="figures/Figure2.jpg",width = 7.2, height = 2.8,units="in",res=300)
 
 # Option that includes world map
 # grid.arrange(world_20152016ElNino,arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.05,1.05),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.3,3.1),c("in","in","in"))),nrow=2, heights=unit(c(1.67,2.2),c("in","in")),widths=unit(c(7.9),c("in")))
 
-grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.3,1.3),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.8,2.6),c("in","in","in"))),nrow=1, heights=unit(c(2.9),c("in")),widths=unit(c(7.2),c("in")))
-
-# plot_grid(world_20152016ElNino,HighDist,VLowDist,KImap,ord_plot, align = "v", nrow = 2, ncol=3, rel_heights = c(1/2, 1/4, 1/4), rel_widths=c(1,1/4,1/4,1/4,1/4))
+grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.17,1.17),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.8,2.6),c("in","in","in"))),nrow=1, heights=unit(c(2.6),c("in")),widths=unit(c(7.2),c("in")))
 
 dev.off()
 
