@@ -1,0 +1,3 @@
+##README ki map files folder
+
+The main file is the KI_maps_platyms.R.  In there is the code to change most things about the map.  That file calls in the other files and files in the 'shapes' folder so unless you need to make a change to the base KI map (just the grey island, lat/long, scale bar, compass rose) or the inset map then you dont have to do anything in those code files except for changing the working directory to your wd. The csv contains the site information that is called into the code to plot the sites.  There is no need to change anything in this file.
