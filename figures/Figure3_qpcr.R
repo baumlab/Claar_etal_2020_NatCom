@@ -5,10 +5,42 @@ library(gridExtra)
 rm(list=ls())
 
 load(file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
+load("data/temperature/KI_SB_temp_DHW.RData")
 
 metadata.SH.AD <- metadata.SH[which(metadata.SH$Status != "UK" & metadata.SH$Status != "gone" & metadata.SH$Status != "dead_or_gone"),]
 metadata.SH.noFQ.AD <- metadata.SH.noFQ[which(metadata.SH.noFQ$Status != "UK" & metadata.SH.noFQ$Status != "gone" & metadata.SH.noFQ$Status != "dead_or_gone"),]
 metadata.SH.noFQ.A <- metadata.SH.noFQ[which(metadata.SH.noFQ$Status != "UK" & metadata.SH.noFQ$Status != "gone" & metadata.SH.noFQ$Status != "dead_or_gone" & metadata.SH.noFQ$Status != "dead"),]
+
+
+# Set up and format data
+# Set a start and end date for plotting
+startdate <- as.POSIXct("2014-08-01 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+enddate <- as.POSIXct("2016-11-19 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+# Truncate the data from startdate to enddate
+KI_heat <- KI_allsites_DHW[which(KI_allsites_DHW$xi3>startdate),]
+KI_heat <- KI_heat[which(KI_heat$xi3<enddate),]
+DHW_positive <- which(KI_heat$DHW > 0)
+firstDHW <- KI_heat$xi3[min(DHW_positive)]
+lastDHW <- KI_heat$xi3[max(DHW_positive)]
+
+
+## To look at only corals that were sampled 3+ times (but exclude those with only 3 after timepoints i.e. no before or during)
+metadata.SH.noFQ.AD.3plus.temp <- metadata.SH.noFQ.AD[which(sort(table(metadata.SH.noFQ.AD$coral_tag)) > 3),]
+t1 <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$coral_tag =="594"),]
+t2 <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$coral_tag =="612"),]
+t3 <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$coral_tag =="797"),]
+t4 <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$coral_tag =="906"),]
+t5 <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$coral_tag =="909"),]
+t6 <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$coral_tag =="919"),]
+t7 <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$coral_tag =="925"),]
+
+metadata.SH.noFQ.AD.3plus <- rbind(metadata.SH.noFQ.AD.3plus.temp, t1, t2, t3, t4, t5, t6, t7)
+
+sort(table(metadata.SH.noFQ.AD.3plus$coral_tag))
+
+################## DANGER!! Do this to see what if you only use those with 4+ timepoints (includes 3+ timepoints if they are not only the last 3 timepoints) ####################
+# Always turn this back off (==comment it out) if not actively testing:
+# metadata.SH.noFQ.AD <- metadata.SH.noFQ.AD.3plus
 
 C_col <- "#2166ac"
 D_col <- "#b2182b"
@@ -18,7 +50,7 @@ stress_col <- "burlywood4"
 
 scaletitle <- expression(paste("Dominant ", italic("Symbiodinium"), " Clade"))
 p1 <- ggplot(aes(y = S.H.log, x = date,group=coral_tag), data = metadata.SH.noFQ.AD)+
-  geom_rect(aes(xmin = as.POSIXct("2015-07-01"), xmax = as.POSIXct("2016-05-01"), ymin = -Inf, ymax = Inf),fill = stress_col, alpha = 0.002) +
+  geom_rect(aes(xmin = firstDHW, xmax = lastDHW, ymin = -Inf, ymax = Inf),fill = stress_col, alpha = 0.002) +
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         panel.background = element_blank(),
@@ -41,8 +73,8 @@ p1 <- ggplot(aes(y = S.H.log, x = date,group=coral_tag), data = metadata.SH.noFQ
   annotate("text",x=as.POSIXct("2016-08-05"), y =-10.25,label="C")+
   annotate("text",x=as.POSIXct("2017-05-15"), y =-10.25,label="D")+
   annotate("text",x=as.POSIXct("2015-11-29"), y =-1.5,label="El Niño",size=6)+
-  geom_vline(xintercept=as.numeric(as.POSIXct("2015-07-01")),linetype="dashed")+
-  geom_vline(xintercept=as.numeric(as.POSIXct("2016-05-01")),linetype="dashed")
+  geom_vline(xintercept=as.numeric(firstDHW),linetype="dashed")+
+  geom_vline(xintercept=as.numeric(lastDHW),linetype="dashed")
 
 p1
 
