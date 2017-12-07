@@ -1,6 +1,6 @@
 library(ggplot2)
 library(gridExtra)
-
+library(grid)
 
 rm(list=ls())
 
@@ -24,6 +24,14 @@ firstDHW <- KI_heat$xi3[min(DHW_positive)]
 lastDHW <- KI_heat$xi3[max(DHW_positive)]
 
 
+KI2014 <- as.POSIXct("2014-09-01 00:00:00", format="%Y-%m-%d %H:%M:%S")
+KI2015a <- as.POSIXct("2015-01-20 00:00:00", format="%Y-%m-%d %H:%M:%S")
+KI2015b <- as.POSIXct("2015-05-10 00:00:00", format="%Y-%m-%d %H:%M:%S")
+KI2015c <- as.POSIXct("2015-07-25 00:00:00", format="%Y-%m-%d %H:%M:%S")
+KI2016a <- as.POSIXct("2016-03-25 00:00:00", format="%Y-%m-%d %H:%M:%S")
+KI2016b <- as.POSIXct("2016-11-08 00:00:00", format="%Y-%m-%d %H:%M:%S")
+KI2017a <- as.POSIXct("2017-07-15 00:00:00", format="%Y-%m-%d %H:%M:%S")
+
 ## To look at only corals that were sampled 3+ times (but exclude those with only 3 after timepoints i.e. no before or during)
 metadata.SH.noFQ.AD.3plus.temp <- metadata.SH.noFQ.AD[which(sort(table(metadata.SH.noFQ.AD$coral_tag)) > 3),]
 t1 <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$coral_tag =="594"),]
@@ -33,14 +41,15 @@ t4 <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$coral_tag =="906"),]
 t5 <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$coral_tag =="909"),]
 t6 <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$coral_tag =="919"),]
 t7 <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$coral_tag =="925"),]
+dead <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$Status =="dead"),]
 
-metadata.SH.noFQ.AD.3plus <- rbind(metadata.SH.noFQ.AD.3plus.temp, t1, t2, t3, t4, t5, t6, t7)
+metadata.SH.noFQ.AD.3plus <- rbind(metadata.SH.noFQ.AD.3plus.temp, t1, t2, t3, t4, t5, t6, t7, dead)
 
 sort(table(metadata.SH.noFQ.AD.3plus$coral_tag))
 
 ################## DANGER!! Do this to see what if you only use those with 4+ timepoints (includes 3+ timepoints if they are not only the last 3 timepoints) ####################
 # Always turn this back off (==comment it out) if not actively testing:
-# metadata.SH.noFQ.AD <- metadata.SH.noFQ.AD.3plus
+metadata.SH.noFQ.AD <- metadata.SH.noFQ.AD.3plus
 
 C_col <- "#2166ac"
 D_col <- "#b2182b"
@@ -49,7 +58,7 @@ stress_col <- "darkgoldenrod4"
 stress_col <- "burlywood4"
 
 scaletitle <- expression(paste("Dominant ", italic("Symbiodinium"), " Clade"))
-p1 <- ggplot(aes(y = S.H.log, x = date,group=coral_tag), data = metadata.SH.noFQ.AD)+
+p1 <- ggplot(aes(y = S.H.log10, x = date,group=coral_tag), data = metadata.SH.noFQ.AD)+
   geom_rect(aes(xmin = firstDHW, xmax = lastDHW, ymin = -Inf, ymax = Inf),fill = stress_col, alpha = 0.002) +
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
@@ -63,18 +72,36 @@ p1 <- ggplot(aes(y = S.H.log, x = date,group=coral_tag), data = metadata.SH.noFQ
   geom_point(aes(shape=Status, fill=dom),stroke=0,alpha=0.5, size=2) +
   scale_shape_manual(values=c(21,7),guide=FALSE) +
   scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
-  geom_smooth(aes(y = S.H.log, x = date, group=Status, color=..y..), 
-              span=.67, data = metadata.SH.noFQ.AD,level = 0.9999) + 
-  scale_colour_gradient2(low = C_col, high = D_col,mid="gray",midpoint = -5, 
+  geom_smooth(aes(y = S.H.log10, x = date, group=Status, color=..y..), 
+              span=.67, data = metadata.SH.noFQ.AD,level = 0.95) + 
+  scale_colour_gradient2(low = C_col, high = D_col,mid="gray",midpoint = -2.25, 
                          name= scaletitle) + 
-  ylab("Symbiont:Host Ratio") + xlab("") +
-  scale_x_datetime(date_breaks = "1 month",date_labels = "%b",expand=c(0.01,0.01)) +
+  ylab("") + xlab("") +
+  scale_y_continuous(name="ln(Symbiont:Host Ratio)", limits=c(-3.5,-1),expand=c(0.01,0.01)) +
+  scale_x_datetime(date_breaks = "2 months",date_labels = "%b",expand=c(0.01,0.01)) +
   guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, barwidth=10))+
   annotate("text",x=as.POSIXct("2016-08-05"), y =-10.25,label="C")+
   annotate("text",x=as.POSIXct("2017-05-15"), y =-10.25,label="D")+
-  annotate("text",x=as.POSIXct("2015-11-29"), y =-1.5,label="El Niño",size=6)+
+  annotate("text",x=as.POSIXct("2015-11-29"), y =-1.25,label="El Niño",size=6)+
+  annotate("text",x=KI2015b, y =-1,label="iii",size=4)+
+  annotate("text",x=KI2015c, y =-1,label="iv",size=4)+
+  annotate("text",x=KI2016a, y =-1,label="v",size=4)+
+  annotate("text",x=KI2016b, y =-1,label="vi",size=4)+  
+  annotate("text",x=KI2017a, y =-1,label="vii",size=4)+
   geom_vline(xintercept=as.numeric(firstDHW),linetype="dashed")+
-  geom_vline(xintercept=as.numeric(lastDHW),linetype="dashed")
+  geom_vline(xintercept=as.numeric(lastDHW),linetype="dashed")+ 
+  annotate(geom = "text", x = c(as.POSIXct("2015-06-15"),as.POSIXct("2016-01-01"),as.POSIXct("2017-01-01")), y = -10.6, label = unique(format(metadata.SH.noFQ.AD$date,"%Y")), size = 4)
+
+# Text1 <- textGrob("2015")
+# Text2 <- textGrob("2016")
+# Text3 <- textGrob("2017")
+# p1 <- p1 + annotation_custom(grob = Text1,  xmin = as.POSIXct("2015-06-15"), xmax = as.POSIXct("2015-06-15"), ymin = -12, ymax = -11) +
+#     annotation_custom(grob = Text1,  xmin = as.POSIXct("2016-01-01"), xmax = as.POSIXct("2016-01-01"), ymin = -12, ymax = -11) +
+#     annotation_custom(grob = Text1,  xmin = as.POSIXct("2017-01-01"), xmax = as.POSIXct("2017-01-01"), ymin = -12, ymax = -11)
+# 
+# gg_table <- ggplot_gtable(ggplot_build(p1))
+# gg_table$layout$clip[gg_table$layout$name=="panel"] <- "off"
+# grid.draw(gg_table)
 
 p1
 
@@ -102,10 +129,10 @@ p3 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=dom, shape=Status),
   scale_x_continuous(expand=c(0.01,0.01), 
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),
                               max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
-                     name="Clade C Abundance (log S:H)") +  
+                     name="Clade C Abundance (ln(S:H))") +  
   scale_y_continuous(expand=c(0.01,0.01), 
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
-                     name="Clade D Abundance (log S:H)") +
+                     name="Clade D Abundance (ln(S:H))") +
   geom_abline(slope=1,intercept=0) + 
   guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5,override.aes = list(size=8)))+ 
   guides(shape = guide_legend(title.position = "top",keywidth = 3.25, keyheight = 1.5,override.aes = list(size=8)))+
@@ -126,3 +153,6 @@ jpeg(file="figures/Figure3_qpcr2.jpg",width = 14.4, height = 6,units="in",res=30
 grid.arrange(p2,p3,nrow=1,ncol=2)
 dev.off()
 
+# Coral 1024
+ggplot(aes(y = C.PaxC.log, x = D.PaxC.log,color=Year_Pre_Post), data = test) + geom_point()
+ggplot(aes(y = C.PaxC.log, x = D.PaxC.log,color=Year_Pre_Post), data = test) + geom_point() + scale_x_continuous(limits=c(-17,-2)) + scale_y_continuous(limits=c(-17,-2))
