@@ -88,6 +88,10 @@ levels(sample_data(phy.f.coral)$Dist) <- c("VeryHigh","High","HighMed","Low","Ve
 # Assign new name for clarity
 phy97.f.c <- phy.f.coral
 
+phy97.f.c <- subset_samples(phy97.f.c, as.data.frame(sample_data(phy97.f.c))$coral_tag != "1005")
+phy97.f.c <- subset_samples(phy97.f.c, as.data.frame(sample_data(phy97.f.c))$coral_tag != "1011")
+phy97.f.c <- subset_samples(phy97.f.c, as.data.frame(sample_data(phy97.f.c))$coral_tag != "1013")
+
 # Make a tax_table column for "clade"
 # Rename rank_names (aka column names in phy97.f.c)
 colnames(tax_table(phy97.f.c)) <- c(otu = "otu", sim = "sim", del = "del", ins = "ins", mis = "mis", len = "len", score = "score", hit = "hit", i = "clade")
