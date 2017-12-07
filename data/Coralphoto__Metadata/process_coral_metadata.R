@@ -122,6 +122,11 @@ metadata.SH$D.PaxC.log <- log(metadata.SH$D.PaxC+6.107637e-08)
 metadata.SH$CtoD <- metadata.SH$C.PaxC.log / metadata.SH$D.PaxC.log
 sort(metadata.SH$D.PaxC)
 
+metadata.SH$S.H.log10 <- log10(metadata.SH$S.H)
+metadata.SH$C.PaxC.log10 <- log10(metadata.SH$C.PaxC+6.107637e-08)
+metadata.SH$D.PaxC.log10 <- log10(metadata.SH$D.PaxC+6.107637e-08)
+metadata.SH$CtoD <- metadata.SH$C.PaxC.log10 / metadata.SH$D.PaxC.log10
+
 metadata.SH$field_season[which(metadata.SH$field_season=="KI2015a_Pre")] <- "KI2015a"
 # But then collapse field seasons into before/during/after
 metadata.SH$before.after <- metadata.SH$field_season
