@@ -234,11 +234,6 @@ p5.4 <- p3.2 + geom_path(aes(group=coral_tag,color=Year_Pre_Post),arrow=arrow(le
 
 grid.arrange(p5,p5.2,p5.3,p5.4,nrow=1,ncol=4)
 
-jpeg(file="figures/CD_arrows.jpg",width = 18, height = 4,units="in",res=300)
-grid.arrange(p5,p5.2,p5.3,p5.4,nrow=1,ncol=4)
-dev.off()
-
-
 head(metadata.SH.noFQ)
 
 Dmean <- aggregate(x=metadata.SH.noFQ$D.PaxC.log10,
@@ -288,6 +283,9 @@ colnames(Cmean2) <- c("Year_Pre_Post","Status","C.PaxC.log10")
 Cstd2 <- aggregate(x=metadata.SH.noFQ.AD$C.PaxC.log10,
           by=list(Year_Pre_Post = metadata.SH.noFQ.AD$Year_Pre_Post, Status=metadata.SH.noFQ.AD$Status),
           FUN = sd)
+Cse2 <- aggregate(x=metadata.SH.noFQ.AD$C.PaxC.log10,
+          by=list(Year_Pre_Post = metadata.SH.noFQ.AD$Year_Pre_Post, Status=metadata.SH.noFQ.AD$Status),
+          FUN = sd)
 colnames(Cstd2) <- c("Year_Pre_Post","Status","C.PaxC.log10.std")
 
 CD.PaxC.log10mean2 <- merge(Dmean2,Cmean2)
@@ -300,12 +298,48 @@ ggplot(aes(x=C.PaxC.log10,
        data=CD.PaxC.log10_2)+
   geom_point()+
   geom_errorbar(aes(ymin=D.PaxC.log10-D.PaxC.log10.std, ymax=D.PaxC.log10+D.PaxC.log10.std,
-                    linetype=Status,alpha=0.3), width=.1)+
+                    linetype=Status,alpha=0.2), width=.1,show.legend = FALSE)+
   geom_errorbarh(aes(xmin=C.PaxC.log10-C.PaxC.log10.std, xmax=C.PaxC.log10+C.PaxC.log10.std,
-                     linetype=Status,alpha=0.3), height=.1)+
+                     linetype=Status,alpha=0.2), height=.1,show.legend = FALSE)+
   geom_path(arrow=arrow(length=unit(0.30,"cm"), type = "closed"))+
   geom_point(data=metadata.SH.noFQ.AD, aes(x=C.PaxC.log10,y=D.PaxC.log10,color=Year_Pre_Post,shape=Status))
 
+
+```
+
+
+```{r, echo=FALSE}
+
+p1 <- ggplot(aes(x = S.H, fill=field_season), data = metadata.SH.noFQ) + 
+  theme(legend.position = c(0.9,0.7)) +
+  geom_histogram() + 
+  # facet_grid(. ~ field_season) +
+  scale_fill_manual(values=c("#2b83ba","#abdda4","#e6f598","#fdae61","#d7191c"),name ="Field Season") +
+  ylab("Count")
+p1  
+# xlim(0,0.1)
+
+p2 <- ggplot(aes(x = S.H, fill=field_season), data = metadata.SH.noFQ) + 
+  # facet_grid(. ~ field_season) +
+  scale_fill_manual(values=c("#2b83ba","#abdda4","#e6f598","#fdae61","#d7191c")) +
+  geom_density(aes(x = S.H), alpha=0.5) +  
+  guides(fill=FALSE) +
+  ylab("Density")
+  # xlim(0,0.1)
+
+p3 <- ggplot(aes(x = S.H, fill=field_season), data = metadata.SH.noFQ) + 
+    facet_grid(. ~ field_season) +
+  geom_density(aes(x = S.H, fill="lightgray"), alpha=0.5) + 
+  geom_histogram(color="black") + 
+  scale_fill_manual(values=c("#2b83ba","#abdda4","#e6f598","#fdae61","#d7191c", "lightgray")) +
+  xlim(0,0.1) +
+  guides(fill=FALSE) +
+  ylab("Density
+Count")
+
+jpeg(file="raw_SH_hist.jpg",width=10, height=8,units="in", res=300)
+grid.arrange(p1,p2,p3)
+dev.off()
 
 ```
 
