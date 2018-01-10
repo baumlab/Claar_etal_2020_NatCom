@@ -234,6 +234,11 @@ p5.4 <- p3.2 + geom_path(aes(group=coral_tag,color=Year_Pre_Post),arrow=arrow(le
 
 grid.arrange(p5,p5.2,p5.3,p5.4,nrow=1,ncol=4)
 
+jpeg(file="figures/CD_arrows.jpg",width = 18, height = 4,units="in",res=300)
+grid.arrange(p5,p5.2,p5.3,p5.4,nrow=1,ncol=4)
+dev.off()
+
+
 head(metadata.SH.noFQ)
 
 Dmean <- aggregate(x=metadata.SH.noFQ$D.PaxC.log10,
