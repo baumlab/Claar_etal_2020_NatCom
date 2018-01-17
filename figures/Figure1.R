@@ -110,7 +110,7 @@
   abline(28.1,0,col="black") # Mean Monthly Maximum - MMM
   
   title(ylab="Degree Heating Weeks 
-  (캜-weeks)", line=1.2, cex.lab=1.2) # Label y axis
+  (째C-weeks)", line=1.2, cex.lab=1.2) # Label y axis
   # Add in time axes (multiple axes added to allow for customization)
   axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0.05,lwd.ticks=2,labels=FALSE)
   axis.POSIXct(side=1,at=seq(KI_heat$time[1],KI_heat$time[240],by="month"),KI_heat$time,tck=0.03,cex.axis=0.93,labels=c("","","Oct","","","","","","Apr","","","Jul","","","Oct","","","","","","Apr","","","Jul","","","Oct",""),lwd.ticks=1.5,padj=-1.5)
@@ -125,7 +125,7 @@
   mtext("iv",side=2, line=-20.4, cex=1, las=2,padj=-5.6) # Add sampling date label
   mtext("v",side=2, line=-34.6, cex=1, las=2,padj=-5.6) # Add sampling date label
   mtext("vi",side=2, line=-47.9, cex=1, las=2,padj=-5.6) # Add sampling date label
-  mtext("Temperature (캜)",side=4, cex=0.75,line=1.25)
+  mtext("Temperature (째C)",side=4, cex=0.75,line=1.25)
   mtext("Mean Monthly Max.",side=2,line=-47.7,cex=0.72,las=2,padj=0.2) # Label MMM line
   mtext("Bleaching Threshold",side=2,line=-47.7,cex=0.72,las=2,padj=-2.5) # Label bleaching threshold line
   
@@ -196,7 +196,7 @@
   abline(28.1,0,col="black") # Mean Monthly Maximum - MMM
   
   title(ylab="Degree Heating Weeks 
-        (캜-weeks)", line=1.2, cex.lab=1.2) # Label y axis
+        (째C-weeks)", line=1.2, cex.lab=1.2) # Label y axis
   # Add in time axes (multiple axes added to allow for customization)
   axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0.05,lwd.ticks=2,labels=FALSE)
   axis.POSIXct(side=1,at=seq(KI_heat$time[1],KI_heat$time[240],by="month"),KI_heat$time,tck=0.03,cex.axis=0.93,labels=c("","","Oct","","","","","","Apr","","","Jul","","","Oct","","","","","","Apr","","","Jul","","","Oct",""),lwd.ticks=1.5,padj=-1.5)
@@ -211,7 +211,7 @@
   mtext("iv",side=2, line=-20.4, cex=1, las=2,padj=-5.6) # Add sampling date label
   mtext("v",side=2, line=-34.6, cex=1, las=2,padj=-5.6) # Add sampling date label
   mtext("vi",side=2, line=-47.9, cex=1, las=2,padj=-5.6) # Add sampling date label
-  mtext("Temperature (캜)",side=4, cex=0.75,line=1.25)
+  mtext("Temperature (째C)",side=4, cex=0.75,line=1.25)
   mtext("Max. Monthly Mean",side=2,line=-47.7,cex=0.72,las=2,padj=0.2) # Label MMM line
   mtext("Bleaching Threshold",side=2,line=-47.7,cex=0.72,las=2,padj=-2.5) # Label bleaching threshold line
   
