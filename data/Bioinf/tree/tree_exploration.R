@@ -94,3 +94,8 @@ corrplot(platy.rcorr$r, type="upper", order="AOE",
          p.mat = platy.rcorr$P, sig.level = 0.05, insig = "blank", method="square",
          col = rev(brewer.pal(n = 8, name = "RdBu")),tl.col = "black")
 dev.off()
+
+# Plot phylogenetic tree, and use custom colors for status (Alive/Dead)
+# GT100b <- subset_samples(GT100,sample_data(GT100)$field_season == "KI2014" | sample_data(GT100)$field_season == "KI2015a" | sample_data(GT100)$field_season == "KI2015b")
+# plottree2 <- plot_tree(GT100b,color="Status",label.tips = "hit",size="abundance",ladderize = "left") + scale_color_manual(values=c("#2b83ba","#d7191c","lightgray","lightgray","lightgray"))
+# plottree2

@@ -165,7 +165,7 @@ ggplot(data=fuck2) + geom_col(aes(x=site, y=x, fill = Status, color=site),positi
 
 ggplot(data=fuck3) + geom_col(aes(x=site, y=x, fill = Status, color=site),position="dodge") + scale_fill_manual(values = c("blue","red","orange", "yellow")) + ylab("Number of Samples")
 
-ggplot(data=fuck5) + geom_col(aes(x=site, y=x, fill = Status, color=site),position="dodge") + scale_fill_manual(values = c("blue","red","orange", "yellow")) + ylab("Number of Samples")
+ggplot(data=fuck5) + geom_col(aes(x=site, y=x, fill = Status, color=site),position="dodge") + scale_fill_manual(values = c("blue","red","orange", "yellow")) + ylab("Number of Samples") + scale_y_continuous(breaks=c(0,1,2,3,4,5,6,7,8,9))
 
 ###################################
 
