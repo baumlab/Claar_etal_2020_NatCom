@@ -34,7 +34,7 @@ p1 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=Year_Pre_Post),
         axis.text = element_text(size=12),
         axis.title = element_text(size=18)) + 
   geom_point(aes(fill=field_season),stroke=0, alpha=0.7, size=3)  +
-  scale_color_manual(values=c(timecols[c(1,4,5,3,2)]),name=scaletitle) + 
+  scale_color_manual(values=c(timecols[c(1,4,5,3,2)]),name=scaletitle, labels= c("May 2015", "July 2015", "March 2016", "November 2016", "July 2017")) + 
   scale_fill_manual(values=c(timecols[c(1,4,5,3,2)]),guide=FALSE) +
   scale_shape_manual(name="       Coral Status (March 2016)  ",
                      values = c(21,7),labels=c("Alive   ","Dead   ")) + 
@@ -46,8 +46,8 @@ p1 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=Year_Pre_Post),
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
                      name="Clade D Abundance (log S:H)") +
   geom_abline(slope=1,intercept=0) + 
-  guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5))+ 
-  guides(shape = guide_legend(title.position = "top",keywidth = 3.25, keyheight = 1.5))+
+  guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5))+
+  # guides(shape = guide_legend(title.position = "top",keywidth = 3.25, keyheight = 1.5))+
   annotate("text",x=-14.5, y =-13.8,label="clade D",angle=40,color=D_col)+
   annotate("text",x=-14, y =-14.5,label="clade C",angle=40, color= C_col)
 
