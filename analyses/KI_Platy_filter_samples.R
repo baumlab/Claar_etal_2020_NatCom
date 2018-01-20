@@ -91,6 +91,7 @@ phy97.f.c <- phy.f.coral
 phy97.f.c <- subset_samples(phy97.f.c, as.data.frame(sample_data(phy97.f.c))$coral_tag != "1005")
 phy97.f.c <- subset_samples(phy97.f.c, as.data.frame(sample_data(phy97.f.c))$coral_tag != "1011")
 phy97.f.c <- subset_samples(phy97.f.c, as.data.frame(sample_data(phy97.f.c))$coral_tag != "1013")
+phy97.f.c <- subset_samples(phy97.f.c, as.data.frame(sample_data(phy97.f.c))$coral_tag != "1017")
 
 # Make a tax_table column for "clade"
 # Rename rank_names (aka column names in phy97.f.c)
