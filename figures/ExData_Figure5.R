@@ -8,6 +8,8 @@ rm(list=ls())
 # Load in Platygyra phyloseq objects
 load("data/KI_seqs_f_coral_grouped.RData")
 
+timecols <- c("#2b83ba","#abdda4","#e6f598","#fdae61","#d7191c")
+
 # Set the plot margins
 par(mar=c(0.5,0.5,0.5,0.5))# Subset to only keep taxa with taxa_sums > 100
 GT100 <- subset_taxa(phy97.f.c.platy, taxa_sums(phy97.f.c.platy)>100)
@@ -17,7 +19,7 @@ GT100.p <- transform_sample_counts(GT100, function(x) x/sum(x))
 # otu_table(GT100.p) <- log10(otu_table(GT100.p))
 
 # Plot phylogenetic tree, and use custom colors for each field season
-plottree <- plot_tree(GT100.p,color="field_season",label.tips = "hit",size="abundance",ladderize = "left") + scale_color_manual(values=c("#2b83ba","#abdda4","#e6f598","#fdae61","#d7191c")) + scale_size_area(max_size=10) + labs(size = "Abundance (Proportion)")
+plottree <- plot_tree(GT100.p,color="field_season",label.tips = "hit",size="abundance",ladderize = "left") + scale_color_manual(values=c(timecols[c(1,4,5,3,2)])) + scale_size_area(max_size=10) + labs(size = "Abundance (Proportion)")
 plottree
 
 # Write this phylogenetic tree to jpg
