@@ -153,6 +153,16 @@ jpeg(file="figures/Figure3_qpcr2.jpg",width = 14.4, height = 6,units="in",res=30
 grid.arrange(p2,p3,nrow=1,ncol=2)
 dev.off()
 
+# Open a jpg image
+jpeg(file="figures/Figure3_qpcr_Aonly.jpg",width = 7.2, height = 6,units="in",res=300)
+p1
+dev.off()
+
+# Open a jpg image
+jpeg(file="figures/Figure3_qpcr2_Aonly.jpg",width = 7.2, height = 6,units="in",res=300)
+p2
+dev.off()
+
 # Coral 1024
 ggplot(aes(y = C.PaxC.log, x = D.PaxC.log,color=Year_Pre_Post), data = test) + geom_point()
 ggplot(aes(y = C.PaxC.log, x = D.PaxC.log,color=Year_Pre_Post), data = test) + geom_point() + scale_x_continuous(limits=c(-17,-2)) + scale_y_continuous(limits=c(-17,-2))
