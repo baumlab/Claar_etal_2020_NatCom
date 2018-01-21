@@ -156,3 +156,39 @@ dev.off()
 # Coral 1024
 ggplot(aes(y = C.PaxC.log, x = D.PaxC.log,color=Year_Pre_Post), data = test) + geom_point()
 ggplot(aes(y = C.PaxC.log, x = D.PaxC.log,color=Year_Pre_Post), data = test) + geom_point() + scale_x_continuous(limits=c(-17,-2)) + scale_y_continuous(limits=c(-17,-2))
+
+timecols <- c("#2b83ba","#abdda4","#e6f598","#fdae61","#d7191c")
+p4 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=Status, fill=field_season), 
+             data = metadata.SH.noFQ.AD) +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        legend.position = c(0.81,0.87), 
+        legend.direction = "horizontal",
+        legend.background = element_rect(fill="white", color="black"),
+        legend.key = element_blank(),
+        legend.spacing.y = unit(0, "cm"),
+        axis.text = element_text(size=12),
+        axis.title = element_text(size=18)) + 
+  geom_point(stroke=1, alpha=0.7, size=5,shape=21)  +
+  scale_color_manual(values=c("lightgray","black"),name="Status") +
+  scale_fill_manual(values=c(timecols[c(1,4,5,3,2)]),guide=FALSE) +
+  # scale_shape_manual(name="       Coral Status Post El Niño  ",
+  #                    values = c(21,7),labels=c("Alive   ","Dead   ")) + 
+  scale_x_continuous(expand=c(0.01,0.01), 
+                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),
+                              max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
+                     name="Clade C Abundance (ln(S:H))") +  
+  scale_y_continuous(expand=c(0.01,0.01), 
+                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
+                     name="Clade D Abundance (ln(S:H))") +
+  geom_abline(slope=1,intercept=0) + 
+  guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5,override.aes = list(size=8)))+ 
+  # guides(shape = guide_legend(title.position = "top",keywidth = 3.25, keyheight = 1.5,override.aes = list(size=8)))+
+  annotate("text",x=-14.5, y =-13.8,label="Coral is dominated by clade D",angle=40,color=D_col)+
+  annotate("text",x=-14, y =-14.5,label="Coral is dominated by clade C",angle=40, color= C_col)
+p4
+
+jpeg(file="figures/Figure3_qpcr_b_option2.jpg",width = 7.2, height = 6,units="in",res=300)
+p4
+dev.off()
