@@ -31,6 +31,7 @@ KI2015c <- as.POSIXct("2015-07-25 00:00:00", format="%Y-%m-%d %H:%M:%S")
 KI2016a <- as.POSIXct("2016-03-25 00:00:00", format="%Y-%m-%d %H:%M:%S")
 KI2016b <- as.POSIXct("2016-11-08 00:00:00", format="%Y-%m-%d %H:%M:%S")
 KI2017a <- as.POSIXct("2017-07-15 00:00:00", format="%Y-%m-%d %H:%M:%S")
+logtrans <- as.POSIXct("2017-06-15 00:00:00", format="%Y-%m-%d %H:%M:%S")
 
 ## To look at only corals that were sampled 3+ times (but exclude those with only 3 after timepoints i.e. no before or during)
 metadata.SH.noFQ.AD.3plus.temp <- metadata.SH.noFQ.AD[which(sort(table(metadata.SH.noFQ.AD$coral_tag)) > 3),]
@@ -77,20 +78,24 @@ p1 <- ggplot(aes(y = S.H.log10, x = date,group=coral_tag), data = metadata.SH.no
   scale_colour_gradient2(low = C_col, high = D_col,mid="gray",midpoint = -2.25, 
                          name= scaletitle) + 
   ylab("") + xlab("") +
-  scale_y_continuous(name="ln(Symbiont:Host Ratio)", limits=c(-3.5,-1),expand=c(0.01,0.01)) +
+  scale_y_continuous(name="log(Symbiont:Host Ratio)", limits=c(-3.5,-0.95),expand=c(0.01,0.01)) +
   scale_x_datetime(date_breaks = "2 months",date_labels = "%b",expand=c(0.01,0.01)) +
   guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, barwidth=10))+
   annotate("text",x=as.POSIXct("2016-08-05"), y =-10.25,label="C")+
   annotate("text",x=as.POSIXct("2017-05-15"), y =-10.25,label="D")+
-  annotate("text",x=as.POSIXct("2015-11-29"), y =-1.25,label="El NiÃ±o",size=6)+
-  annotate("text",x=KI2015b, y =-1,label="iii",size=4)+
-  annotate("text",x=KI2015c, y =-1,label="iv",size=4)+
-  annotate("text",x=KI2016a, y =-1,label="v",size=4)+
-  annotate("text",x=KI2016b, y =-1,label="vi",size=4)+  
-  annotate("text",x=KI2017a, y =-1,label="vii",size=4)+
+  annotate("text",x=as.POSIXct("2015-11-29"), y =-1.25,label="El Niño",size=6)+
+  annotate("text",x=KI2015b, y =-0.95,label="iii",size=4)+
+  annotate("text",x=KI2015c, y =-0.95,label="iv",size=4)+
+  annotate("text",x=KI2016a, y =-0.95,label="v",size=4)+
+  annotate("text",x=KI2016b, y =-0.95,label="vi",size=4)+  
+  annotate("text",x=KI2017a, y =-0.95,label="vii",size=4)+
   geom_vline(xintercept=as.numeric(firstDHW),linetype="dashed")+
   geom_vline(xintercept=as.numeric(lastDHW),linetype="dashed")+ 
-  annotate(geom = "text", x = c(as.POSIXct("2015-06-15"),as.POSIXct("2016-01-01"),as.POSIXct("2017-01-01")), y = -10.6, label = unique(format(metadata.SH.noFQ.AD$date,"%Y")), size = 4)
+  annotate(geom = "text", x = c(as.POSIXct("2015-06-15"),as.POSIXct("2016-01-01"),as.POSIXct("2017-01-01")), y = -10.6, label = unique(format(metadata.SH.noFQ.AD$date,"%Y")), size = 4) + 
+  geom_hline(yintercept = -2,linetype="longdash", color="gray") + geom_text(aes(logtrans,-2,label = "0.01", vjust=1)) +
+  geom_hline(yintercept = -1,linetype="longdash", color="gray") + geom_text(aes(logtrans,-1,label = "0.1", vjust=1)) +
+  geom_hline(yintercept = -3,linetype="longdash", color="gray") + geom_text(aes(logtrans,-3,label = "0.001", vjust=1))
+p1
 
 # Text1 <- textGrob("2015")
 # Text2 <- textGrob("2016")
@@ -129,10 +134,10 @@ p3 <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=dom, shape=Status),
   scale_x_continuous(expand=c(0.01,0.01), 
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),
                               max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
-                     name="Clade C Abundance (ln(S:H))") +  
+                     name="Clade C Abundance (log(S:H))") +  
   scale_y_continuous(expand=c(0.01,0.01), 
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
-                     name="Clade D Abundance (ln(S:H))") +
+                     name="Clade D Abundance (log(S:H))") +
   geom_abline(slope=1,intercept=0) + 
   guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5,override.aes = list(size=8)))+ 
   guides(shape = guide_legend(title.position = "top",keywidth = 3.25, keyheight = 1.5,override.aes = list(size=8)))+
@@ -173,7 +178,7 @@ p4 <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=Status, fill=field_se
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
         panel.background = element_blank(),
-        legend.position = c(0.81,0.87), 
+        legend.position = c(0.21,0.27), 
         legend.direction = "horizontal",
         legend.background = element_rect(fill="white", color="black"),
         legend.key = element_blank(),
@@ -188,15 +193,29 @@ p4 <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=Status, fill=field_se
   scale_x_continuous(expand=c(0.01,0.01), 
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),
                               max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
-                     name="Clade C Abundance (ln(S:H))") +  
+                     name="Clade C Abundance (log(S:H))") +  
   scale_y_continuous(expand=c(0.01,0.01), 
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
-                     name="Clade D Abundance (ln(S:H))") +
+                     name="Clade D Abundance (log(S:H))") +
   geom_abline(slope=1,intercept=0) + 
   guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5,override.aes = list(size=8)))+ 
   # guides(shape = guide_legend(title.position = "top",keywidth = 3.25, keyheight = 1.5,override.aes = list(size=8)))+
   annotate("text",x=-14.5, y =-13.8,label="Coral is dominated by clade D",angle=40,color=D_col)+
-  annotate("text",x=-14, y =-14.5,label="Coral is dominated by clade C",angle=40, color= C_col)
+  annotate("text",x=-14, y =-14.5,label="Coral is dominated by clade C",angle=40, color= C_col)+   geom_hline(yintercept = -2,linetype="longdash", color="gray") + 
+  geom_text(aes(-2,-2,label = "0.01", vjust=1)) +
+  geom_hline(yintercept = -3,linetype="longdash", color="gray") + 
+  geom_text(aes(-3,-3, label = "0.001", vjust=1)) +  
+  geom_hline(yintercept = -4,linetype="longdash", color="gray") + 
+  geom_text(aes(-4,-4, label = "0.0001", vjust=1)) +
+  geom_hline(yintercept = -5,linetype="longdash", color="gray") + 
+  geom_text(aes(-5,-5, label = "0.00001", vjust=1)) +
+  geom_hline(yintercept = -6,linetype="longdash", color="gray") + 
+  geom_text(aes(-6,-6, label = "0.000001", vjust=1)) +
+  geom_vline(xintercept = -2,linetype="longdash", color="gray") + 
+  geom_vline(xintercept = -3,linetype="longdash", color="gray") +
+  geom_vline(xintercept = -4,linetype="longdash", color="gray") +
+  geom_vline(xintercept = -5,linetype="longdash", color="gray") +
+  geom_vline(xintercept = -6,linetype="longdash", color="gray")
 p4
 
 jpeg(file="figures/Figure3_qpcr_b_option2.jpg",width = 7.2, height = 6,units="in",res=300)
