@@ -109,7 +109,7 @@ p2 <- p1 +  geom_line(linetype="dashed",color="gray")
 p2
 
 scaletitle2 <- expression(paste(" Dominant ", italic("Symbiodinium"), " Clade"))
-p3 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=dom, shape=Status), 
+p3 <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=dom, shape=Status), 
              data = metadata.SH.noFQ.AD) +
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
@@ -127,11 +127,11 @@ p3 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=dom, shape=Status),
   scale_shape_manual(name="       Coral Status Post El Niño  ",
                      values = c(21,7),labels=c("Alive   ","Dead   ")) + 
   scale_x_continuous(expand=c(0.01,0.01), 
-                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),
-                              max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
+                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),
+                              max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
                      name="Clade C Abundance (ln(S:H))") +  
   scale_y_continuous(expand=c(0.01,0.01), 
-                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
+                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
                      name="Clade D Abundance (ln(S:H))") +
   geom_abline(slope=1,intercept=0) + 
   guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5,override.aes = list(size=8)))+ 
@@ -164,11 +164,11 @@ p2
 dev.off()
 
 # Coral 1024
-ggplot(aes(y = C.PaxC.log, x = D.PaxC.log,color=Year_Pre_Post), data = test) + geom_point()
-ggplot(aes(y = C.PaxC.log, x = D.PaxC.log,color=Year_Pre_Post), data = test) + geom_point() + scale_x_continuous(limits=c(-17,-2)) + scale_y_continuous(limits=c(-17,-2))
+ggplot(aes(y = C.PaxC.log10, x = D.PaxC.log10,color=Year_Pre_Post), data = test) + geom_point()
+ggplot(aes(y = C.PaxC.log10, x = D.PaxC.log10,color=Year_Pre_Post), data = test) + geom_point() + scale_x_continuous(limits=c(-17,-2)) + scale_y_continuous(limits=c(-17,-2))
 
 timecols <- c("#2b83ba","#abdda4","#e6f598","#fdae61","#d7191c")
-p4 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=Status, fill=field_season), 
+p4 <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=Status, fill=field_season), 
              data = metadata.SH.noFQ.AD) +
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
@@ -186,11 +186,11 @@ p4 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=Status, fill=field_season
   # scale_shape_manual(name="       Coral Status Post El Niño  ",
   #                    values = c(21,7),labels=c("Alive   ","Dead   ")) + 
   scale_x_continuous(expand=c(0.01,0.01), 
-                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),
-                              max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
+                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),
+                              max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
                      name="Clade C Abundance (ln(S:H))") +  
   scale_y_continuous(expand=c(0.01,0.01), 
-                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
+                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
                      name="Clade D Abundance (ln(S:H))") +
   geom_abline(slope=1,intercept=0) + 
   guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5,override.aes = list(size=8)))+ 
