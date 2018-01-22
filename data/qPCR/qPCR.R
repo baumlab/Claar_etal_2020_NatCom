@@ -18,7 +18,7 @@ files = list.files(path="data/qPCR/",pattern="*.txt",full.names = TRUE)
 # Run steponeR function
 df <- steponeR(files=files, delim="\t", target.ratios = c("C.PaxC","D.PaxC"), 
                fluor.norm=list(C=8.6704,D=6.2979,PaxC=0), # These numbers are calc from standard curves
-               copy.number=list(C=10,D=2,PaxC=1), # Copy # for C & D will be determined by counting cells and qPCR, PaxC is expected to be a single copy marker
+               copy.number=list(C=1,D=1,PaxC=1), # Copy # for C & D will be determined by counting cells and qPCR, PaxC is expected to be a single copy marker
                ploidy=list(C=1,D=1,PaxC=2), # Ploidy level of Symbiodinium in symbiosis is 1, and coral ploidy level is 2
                extract=list(C=0.813, D=0.813, PaxC=0.982)) # Extraction efficiencies, calculated by Ross previously
 

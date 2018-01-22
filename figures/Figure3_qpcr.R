@@ -75,10 +75,10 @@ p1 <- ggplot(aes(y = S.H.log10, x = date,group=coral_tag), data = metadata.SH.no
   scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
   geom_smooth(aes(y = S.H.log10, x = date, group=Status, color=..y..), 
               span=.67, data = metadata.SH.noFQ.AD,level = 0.95) + 
-  scale_colour_gradient2(low = C_col, high = D_col,mid="gray",midpoint = -2.25, 
+  scale_colour_gradient2(low = C_col, high = D_col,mid="gray",midpoint = -1.57, 
                          name= scaletitle) + 
   ylab("") + xlab("") +
-  scale_y_continuous(name="log(Symbiont:Host Ratio)", limits=c(-3.5,-0.95),expand=c(0.01,0.01)) +
+  scale_y_continuous(name="log(Symbiont:Host Ratio)", limits=c(-2.4,-0.7),expand=c(0.01,0.01)) +
   scale_x_datetime(date_breaks = "2 months",date_labels = "%b",expand=c(0.01,0.01)) +
   guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, barwidth=10))+
   annotate("text",x=as.POSIXct("2016-08-05"), y =-10.25,label="C")+
@@ -129,7 +129,7 @@ p3 <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=dom, shape=Status),
   geom_point(aes(shape=Status,fill=dom),stroke=0, alpha=0.7, size=2)  +
   scale_color_manual(values=c(C_col,D_col),name=scaletitle2, labels=c("clade C", "clade D")) + 
   scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
-  scale_shape_manual(name="       Coral Status Post El NiÃ±o  ",
+  scale_shape_manual(name="       Coral Status Post El Niño  ",
                      values = c(21,7),labels=c("Alive   ","Dead   ")) + 
   scale_x_continuous(expand=c(0.01,0.01), 
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),
@@ -188,7 +188,7 @@ p4 <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=Status, fill=field_se
   geom_point(stroke=1, alpha=0.7, size=5,shape=21)  +
   scale_color_manual(values=c("lightgray","black"),name="Status") +
   scale_fill_manual(values=c(timecols[c(1,4,5,3,2)]),guide=FALSE) +
-  # scale_shape_manual(name="       Coral Status Post El NiÃ±o  ",
+  # scale_shape_manual(name="       Coral Status Post El Niño  ",
   #                    values = c(21,7),labels=c("Alive   ","Dead   ")) + 
   scale_x_continuous(expand=c(0.01,0.01), 
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),
@@ -221,3 +221,4 @@ p4
 jpeg(file="figures/Figure3_qpcr_b_option2.jpg",width = 7.2, height = 6,units="in",res=300)
 p4
 dev.off()
+
