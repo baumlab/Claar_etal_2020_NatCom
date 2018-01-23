@@ -48,10 +48,7 @@ metadata.SH.noFQ.AD.3plus <- rbind(metadata.SH.noFQ.AD.3plus.temp, t1, t2, t3, t
 
 sort(table(metadata.SH.noFQ.AD.3plus$coral_tag))
 
-################## DANGER!! Do this to see what if you only use those with 4+ timepoints (includes 3+ timepoints if they are not only the last 3 timepoints) ####################
-# Always turn this back off (==comment it out) if not actively testing:
-metadata.SH.noFQ.AD <- metadata.SH.noFQ.AD.3plus
-
+##################################3
 C_col <- "#2166ac"
 D_col <- "#b2182b"
 stress_col <- "#d95f02"
@@ -71,30 +68,30 @@ p1 <- ggplot(aes(y = S.H.log10, x = date,group=coral_tag), data = metadata.SH.no
         axis.text = element_text(size=12),
         axis.title = element_text(size=18)) +
   geom_point(aes(shape=Status, fill=dom),stroke=0,alpha=0.5, size=2) +
-  scale_shape_manual(values=c(21,7),guide=FALSE) +
+  scale_shape_manual(values=c(21,25),guide=FALSE) +
   scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
   geom_smooth(aes(y = S.H.log10, x = date, group=Status, color=..y..), 
               span=.67, data = metadata.SH.noFQ.AD,level = 0.95) + 
   scale_colour_gradient2(low = C_col, high = D_col,mid="gray",midpoint = -1.57, 
                          name= scaletitle) + 
   ylab("") + xlab("") +
-  scale_y_continuous(name="log(Symbiont:Host Ratio)", limits=c(-2.4,-0.7),expand=c(0.01,0.01)) +
+  scale_y_continuous(name="Symbiont:Host Ratio", limits=c(-2.4,-0.7),expand=c(0.01,0.01), breaks = c(-2,-1.7,-1.398,-1.22,-1.097,-1,-0.921,-0.854,-0.796,-0.745), labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18)) +
   scale_x_datetime(date_breaks = "2 months",date_labels = "%b",expand=c(0.01,0.01)) +
   guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, barwidth=10))+
-  annotate("text",x=as.POSIXct("2016-08-05"), y =-10.25,label="C")+
-  annotate("text",x=as.POSIXct("2017-05-15"), y =-10.25,label="D")+
-  annotate("text",x=as.POSIXct("2015-11-29"), y =-1.25,label="El Niño",size=6)+
-  annotate("text",x=KI2015b, y =-0.95,label="iii",size=4)+
-  annotate("text",x=KI2015c, y =-0.95,label="iv",size=4)+
-  annotate("text",x=KI2016a, y =-0.95,label="v",size=4)+
-  annotate("text",x=KI2016b, y =-0.95,label="vi",size=4)+  
-  annotate("text",x=KI2017a, y =-0.95,label="vii",size=4)+
+  annotate("text",x=as.POSIXct("2016-08-05"), y =-2.25,label="C")+
+  annotate("text",x=as.POSIXct("2017-05-15"), y =-2.25,label="D")+
+  annotate("text",x=as.POSIXct("2015-11-29"), y =-0.8,label="El Niño",size=6)+
+  annotate("text",x=KI2015b, y =-0.74,label="iii",size=4)+
+  annotate("text",x=KI2015c, y =-0.74,label="iv",size=4)+
+  annotate("text",x=KI2016a, y =-0.74,label="v",size=4)+
+  annotate("text",x=KI2016b, y =-0.74,label="vi",size=4)+  
+  annotate("text",x=KI2017a, y =-0.74,label="vii",size=4)+
   geom_vline(xintercept=as.numeric(firstDHW),linetype="dashed")+
-  geom_vline(xintercept=as.numeric(lastDHW),linetype="dashed")+ 
-  annotate(geom = "text", x = c(as.POSIXct("2015-06-15"),as.POSIXct("2016-01-01"),as.POSIXct("2017-01-01")), y = -10.6, label = unique(format(metadata.SH.noFQ.AD$date,"%Y")), size = 4) + 
-  geom_hline(yintercept = -2,linetype="longdash", color="gray") + geom_text(aes(logtrans,-2,label = "0.01", vjust=1)) +
-  geom_hline(yintercept = -1,linetype="longdash", color="gray") + geom_text(aes(logtrans,-1,label = "0.1", vjust=1)) +
-  geom_hline(yintercept = -3,linetype="longdash", color="gray") + geom_text(aes(logtrans,-3,label = "0.001", vjust=1))
+  geom_vline(xintercept=as.numeric(lastDHW),linetype="dashed")+
+  annotate(geom = "text", x = c(as.POSIXct("2015-06-15"),as.POSIXct("2016-01-01"),as.POSIXct("2017-01-01")), y = -10.6, label = unique(format(metadata.SH.noFQ.AD$date,"%Y")), size = 4)
+  # geom_hline(yintercept = -2,linetype="longdash", color="gray") + geom_text(aes(logtrans,-2,label = "0.01", vjust=1)) +
+  # geom_hline(yintercept = -1,linetype="longdash", color="gray") + geom_text(aes(logtrans,-1,label = "0.1", vjust=1)) +
+  # geom_hline(yintercept = -3,linetype="longdash", color="gray") + geom_text(aes(logtrans,-3,label = "0.001", vjust=1))
 p1
 
 # Text1 <- textGrob("2015")
@@ -130,12 +127,16 @@ p3 <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=dom, shape=Status),
   scale_color_manual(values=c(C_col,D_col),name=scaletitle2, labels=c("clade C", "clade D")) + 
   scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
   scale_shape_manual(name="       Coral Status Post El Niño  ",
-                     values = c(21,7),labels=c("Alive   ","Dead   ")) + 
+                     values = c(21,25),labels=c("Alive   ","Dead   ")) + 
   scale_x_continuous(expand=c(0.01,0.01), 
+                     breaks = c(-2,-1.7,-1.398,-1.22,-1.097,-1,-0.921,-0.854,-0.796,-0.745), 
+                     labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18),
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),
                               max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
                      name="Clade C Abundance (log(S:H))") +  
   scale_y_continuous(expand=c(0.01,0.01), 
+                     breaks = c(-2,-1.7,-1.398,-1.22,-1.097,-1,-0.921,-0.854,-0.796,-0.745), 
+                     labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18),
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
                      name="Clade D Abundance (log(S:H))") +
   geom_abline(slope=1,intercept=0) + 
@@ -189,7 +190,7 @@ p4 <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=Status, fill=field_se
   scale_color_manual(values=c("lightgray","black"),name="Status") +
   scale_fill_manual(values=c(timecols[c(1,4,5,3,2)]),guide=FALSE) +
   # scale_shape_manual(name="       Coral Status Post El Niño  ",
-  #                    values = c(21,7),labels=c("Alive   ","Dead   ")) + 
+  #                    values = c(21,25),labels=c("Alive   ","Dead   ")) + 
   scale_x_continuous(expand=c(0.01,0.01), 
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),
                               max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
@@ -222,3 +223,97 @@ jpeg(file="figures/Figure3_qpcr_b_option2.jpg",width = 7.2, height = 6,units="in
 p4
 dev.off()
 
+##########################
+######## Includes 3+ timepoints if they are not only the last 3 timepoints) #########
+
+
+p1r <- ggplot(aes(y = S.H.log10, x = date,group=coral_tag), data = metadata.SH.noFQ.AD.3plus)+
+  geom_rect(aes(xmin = firstDHW, xmax = lastDHW, ymin = -Inf, ymax = Inf),fill = stress_col, alpha = 0.002) +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        panel.background = element_blank(),
+        legend.position = c(0.75,0.15), 
+        legend.direction = "horizontal",
+        legend.text = element_blank(),
+        legend.background = element_blank(),
+        axis.text = element_text(size=12),
+        axis.title = element_text(size=18)) +
+  geom_point(aes(shape=Status, fill=dom),stroke=0,alpha=0.5, size=2) +
+  scale_shape_manual(values=c(21,25),guide=FALSE) +
+  scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
+  geom_smooth(aes(y = S.H.log10, x = date, group=Status, color=..y..), 
+              span=.67, data = metadata.SH.noFQ.AD.3plus,level = 0.95) + 
+  scale_colour_gradient2(low = C_col, high = D_col,mid="gray",midpoint = -1.57, 
+                         name= scaletitle) + 
+  ylab("") + xlab("") +
+  scale_y_continuous(name="Symbiont:Host Ratio", limits=c(-2.4,-0.7),expand=c(0.01,0.01), breaks = c(-2,-1.7,-1.398,-1.22,-1.097,-1,-0.921,-0.854,-0.796,-0.745), labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18)) +
+  scale_x_datetime(date_breaks = "2 months",date_labels = "%b",expand=c(0.01,0.01)) +
+  guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, barwidth=10))+
+  annotate("text",x=as.POSIXct("2016-08-05"), y =-2.25,label="C")+
+  annotate("text",x=as.POSIXct("2017-05-15"), y =-2.25,label="D")+
+  annotate("text",x=as.POSIXct("2015-11-29"), y =-0.8,label="El Niño",size=6)+
+  annotate("text",x=KI2015b, y =-0.74,label="iii",size=4)+
+  annotate("text",x=KI2015c, y =-0.74,label="iv",size=4)+
+  annotate("text",x=KI2016a, y =-0.74,label="v",size=4)+
+  annotate("text",x=KI2016b, y =-0.74,label="vi",size=4)+  
+  annotate("text",x=KI2017a, y =-0.74,label="vii",size=4)+
+  geom_vline(xintercept=as.numeric(firstDHW),linetype="dashed")+
+  geom_vline(xintercept=as.numeric(lastDHW),linetype="dashed")+
+  annotate(geom = "text", x = c(as.POSIXct("2015-06-15"),as.POSIXct("2016-01-01"),as.POSIXct("2017-01-01")), y = -10.6, label = unique(format(metadata.SH.noFQ.AD.3plus$date,"%Y")), size = 4)
+p1r
+
+p2r <- p1r +  geom_line(linetype="dashed",color="gray")
+p2r
+
+scaletitle2 <- expression(paste(" Dominant ", italic("Symbiodinium"), " Clade"))
+p3r <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=dom, shape=Status), 
+             data = metadata.SH.noFQ.AD.3plus) +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        legend.position = c(0.81,0.87), 
+        legend.direction = "horizontal",
+        legend.background = element_rect(fill="white", color="black"),
+        legend.key = element_blank(),
+        legend.spacing.y = unit(0, "cm"),
+        axis.text = element_text(size=12),
+        axis.title = element_text(size=18)) + 
+  geom_point(aes(shape=Status,fill=dom),stroke=0, alpha=0.7, size=2)  +
+  scale_color_manual(values=c(C_col,D_col),name=scaletitle2, labels=c("clade C", "clade D")) + 
+  scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
+  scale_shape_manual(name="       Coral Status Post El Niño  ",
+                     values = c(21,25),labels=c("Alive   ","Dead   ")) + 
+  scale_x_continuous(expand=c(0.01,0.01), 
+                     breaks = c(-2,-1.7,-1.398,-1.22,-1.097,-1,-0.921,-0.854,-0.796,-0.745), 
+                     labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18),
+                     limits=c(min(metadata.SH.noFQ.AD.3plus$C.PaxC.log10),
+                              max(metadata.SH.noFQ.AD.3plus$C.PaxC.log10,metadata.SH.noFQ.AD.3plus$D.PaxC.log10)),
+                     name="Clade C Abundance (log(S:H))") +  
+  scale_y_continuous(expand=c(0.01,0.01), 
+                     breaks = c(-2,-1.7,-1.398,-1.22,-1.097,-1,-0.921,-0.854,-0.796,-0.745), 
+                     labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18),
+                     limits=c(min(metadata.SH.noFQ.AD.3plus$C.PaxC.log10),max(metadata.SH.noFQ.AD.3plus$C.PaxC.log10,metadata.SH.noFQ.AD.3plus$D.PaxC.log10)),
+                     name="Clade D Abundance (log(S:H))") +
+  geom_abline(slope=1,intercept=0) + 
+  guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5,override.aes = list(size=8)))+ 
+  guides(shape = guide_legend(title.position = "top",keywidth = 3.25, keyheight = 1.5,override.aes = list(size=8)))+
+  annotate("text",x=-14.5, y =-13.8,label="Coral is dominated by clade D",angle=40,color=D_col)+
+  annotate("text",x=-14, y =-14.5,label="Coral is dominated by clade C",angle=40, color= C_col)
+
+
+grid.arrange(p1r,p3r,nrow=1,ncol=2)
+
+# Open a jpg image
+jpeg(file="figures/Figure3_qpcr_repeatcoloniesonly.jpg",width = 14.4, height = 6,units="in",res=300)
+grid.arrange(p1r,p3r,nrow=1,ncol=2)
+dev.off()
+
+# Open a jpg image
+jpeg(file="figures/Figure3_qpcr2_repeatcoloniesonly.jpg",width = 14.4, height = 6,units="in",res=300)
+grid.arrange(p2r,p3r,nrow=1,ncol=2)
+dev.off()
+
+# Open a jpg image
+jpeg(file="figures/Figure3_qpcr_Aonly_repeatcoloniesonly.jpg",width = 7.2, height = 6,units="in",res=300)
+p1r
+dev.off()
