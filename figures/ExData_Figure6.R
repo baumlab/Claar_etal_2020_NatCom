@@ -44,9 +44,9 @@ p2 <- ggplot(aes(x = S.H.log, fill=field_season), data = metadata.SH.noFQ) +
   geom_density(aes(x = S.H.log), alpha=0.5) +  
   guides(fill=FALSE) +
   ylab("Density") +
-  xlab("log(Symbiont:Host Ratio)") +
-  xlim(-11,-1)
-
+  xlab("Symbiont:Host Ratio") +
+  scale_x_continuous(limits = c(-11,-1), breaks = c(-10,-9,-8,-7,-6,-5,-4,-3,-2,-1), labels = c(expression(10^-10),expression(10^-9),expression(10^-8),expression(10^-7),expression(10^-6),expression(10^-5),expression(10^-4),expression(10^-3),expression(10^-2),expression(10^-1)))
+p2
 # xlim(0,0.1)
 
 p3 <- ggplot(aes(x = S.H.log, fill=field_season), data = metadata.SH.noFQ) + 
@@ -60,9 +60,10 @@ p3 <- ggplot(aes(x = S.H.log, fill=field_season), data = metadata.SH.noFQ) +
   # ylab("Density
        # Count") +
   ylab("Count") +
-  xlab("log(Symbiont:Host Ratio)") +
-  xlim(-11,-1)
+  xlab("Symbiont:Host Ratio") +
+  scale_x_continuous(limits = c(-11,-1), breaks = c(-8,-6,-4,-2), labels = c(expression(10^-8),expression(10^-6),expression(10^-4),expression(10^-2)))
 
+p3
 
 jpeg(file="figures/Extended Data/ExData_Figure6.jpg",width=10, height=8,units="in", res=300)
 # grid.arrange(p1,p2,p3)
