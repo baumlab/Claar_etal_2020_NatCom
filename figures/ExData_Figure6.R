@@ -39,13 +39,16 @@ p1
 
 p2 <- ggplot(aes(x = S.H.log, fill=field_season), data = metadata.SH.noFQ) + 
   # facet_grid(. ~ field_season) +
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        legend.position = c(0.08,0.75)) +
   scale_fill_manual(values=c(timecols[c(1,4,5,3,2)])) +
   geom_density(aes(x = S.H.log), alpha=0.5) +  
-  guides(fill=FALSE) +
   ylab("Density") +
   xlab("Symbiont:Host Ratio") +
-  scale_x_continuous(limits = c(-11,-1), breaks = c(-10,-9,-8,-7,-6,-5,-4,-3,-2,-1), labels = c(expression(10^-10),expression(10^-9),expression(10^-8),expression(10^-7),expression(10^-6),expression(10^-5),expression(10^-4),expression(10^-3),expression(10^-2),expression(10^-1)))
+  labs(fill="Field Season") +
+  scale_x_continuous(limits = c(-11,0), breaks = c(-10,-9,-8,-7,-6,-5,-4,-3,-2,-1), labels = c(expression(10^-10),expression(10^-9),expression(10^-8),expression(10^-7),expression(10^-6),expression(10^-5),expression(10^-4),expression(10^-3),expression(10^-2),expression(10^-1)),expand=c(0,0)) +
+  scale_y_continuous(expand=c(0,0),limits=c(0,0.85))
 p2
 # xlim(0,0.1)
 
@@ -53,7 +56,7 @@ p3 <- ggplot(aes(x = S.H.log, fill=field_season), data = metadata.SH.noFQ) +
   facet_grid(. ~ field_season, labeller = as_labeller(fsnames)) +
   theme(axis.text.x = element_text(size=8), 
         panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
-  geom_histogram(color="black",bins=c(25)) + 
+  geom_histogram(color="black",bins=c(25),alpha=0.7) + 
   scale_fill_manual(values=c(timecols[c(1,4,5,3,2)], "lightgray")) +
   guides(fill=FALSE) + 
   # geom_density(aes(x = S.H.log, fill="lightgray"), alpha=0.5) + 
@@ -61,7 +64,8 @@ p3 <- ggplot(aes(x = S.H.log, fill=field_season), data = metadata.SH.noFQ) +
        # Count") +
   ylab("Count") +
   xlab("Symbiont:Host Ratio") +
-  scale_x_continuous(limits = c(-11,-1), breaks = c(-8,-6,-4,-2), labels = c(expression(10^-8),expression(10^-6),expression(10^-4),expression(10^-2)))
+  scale_x_continuous(limits = c(-11,-1), breaks = c(-8,-6,-4,-2), labels = c(expression(10^-8),expression(10^-6),expression(10^-4),expression(10^-2)),expand=c(0,0))+
+  scale_y_continuous(expand=c(0,0),limits=c(0,10.5))
 
 p3
 
