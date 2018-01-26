@@ -17,16 +17,19 @@ metadata.SH.AD <- metadata.SH[which(metadata.SH$Status != "UK" & metadata.SH$Sta
 metadata.SH.noFQ.AD <- metadata.SH.noFQ[which(metadata.SH.noFQ$Status != "UK" & metadata.SH.noFQ$Status != "gone" & metadata.SH.noFQ$Status != "dead_or_gone"),]
 metadata.SH.noFQ.A <- metadata.SH.noFQ[which(metadata.SH.noFQ$Status != "UK" & metadata.SH.noFQ$Status != "gone" & metadata.SH.noFQ$Status != "dead_or_gone" & metadata.SH.noFQ$Status != "dead"),]
 
+metadata.SH.noFQ.AD$D.PaxC.log10[which(metadata.SH.noFQ.AD$D.PaxC.log10 == -7.2141268)] <- -6.25
+metadata.SH.noFQ.AD$D.PaxC.log10[which(metadata.SH.noFQ.AD$C.PaxC.log10 == -7.2141268)] <- -6.25
+
 # scaletitle <- expression(paste(" Dominant ", italic("Symbiodinium"), " Clade"))
 scaletitle <- "Field Season"
 
 
-p1 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=Year_Pre_Post), 
+p1 <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=Year_Pre_Post), 
                data = metadata.SH.noFQ.AD) +
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
         panel.background = element_blank(),
-        legend.position = c(0.91,0.87), 
+        legend.position = c(0.882,0.87), 
         legend.direction = "vertical",
         legend.background = element_rect(fill="white", color="black"),
         legend.key = element_blank(),
@@ -39,11 +42,15 @@ p1 <- ggplot(aes(y = D.PaxC.log, x = C.PaxC.log, color=Year_Pre_Post),
   scale_shape_manual(name="       Coral Status (March 2016)  ",
                      values = c(21,7),labels=c("Alive   ","Dead   ")) + 
   scale_x_continuous(expand=c(0.01,0.01), 
-                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),
-                              max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
+                     breaks = c(-2,-1.7,-1.398,-1.22,-1.097,-1,-0.921,-0.854,-0.796,-0.745), 
+                     labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18),
+                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),
+                              max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
                      name="Clade C Abundance (log S:H)") +  
   scale_y_continuous(expand=c(0.01,0.01), 
-                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log),max(metadata.SH.noFQ.AD$C.PaxC.log,metadata.SH.noFQ.AD$D.PaxC.log)),
+                     breaks = c(-2,-1.7,-1.398,-1.22,-1.097,-1,-0.921,-0.854,-0.796,-0.745), 
+                     labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18),
+                     limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
                      name="Clade D Abundance (log S:H)") +
   geom_abline(slope=1,intercept=0) + 
   guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5))+
