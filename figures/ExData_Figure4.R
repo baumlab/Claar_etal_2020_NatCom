@@ -1,11 +1,14 @@
 #### Making figures for the Platy manuscript #####
-##### Beginning code (lines up to 35) copied from site.comparisons.R #####
+##### Beginning code copied from site.comparisons.R #####
+
+#set wd
+setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy")
 
 rm(list=ls())
 
 dev.off()
 
-library(scales); library(ggplot2)
+library(scales); library(ggplot2);library(dichromat);library(maptools);library(scales);library(RColorBrewer);library(rgdal);library(ggplot2)
 theme_set(theme_bw())
 
 #####  Load data ####
@@ -17,6 +20,7 @@ load("data/temperature/KI_SB_temp_1hr.RData")
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #############################
 
+#just the temperature
 startday <- as.POSIXct("2014-09-01")
 endday <- as.POSIXct("2016-05-01")
 
@@ -74,13 +78,13 @@ p <- ggplot(site15_1hr, aes(x=xi2,temperature_1hr)) +
                                 'Site 30','Site 32','Site 34',
                                 'Site 35','Site 40'))
 
-jpeg(file="figures/Extended Data/ExData_Figure4.jpeg", height=8, width=15, units = "in",res = 300)
-p
-dev.off()
+#jpeg(file="figures/Extended Data/ExData_Figure4.jpeg", height=8, width=15, units = "in",res = 300)
+#p
+#dev.off()
 
-tiff(file="figures/Extended Data/ExData_Figure4.tiff", height=8, width=15, units = "in",res = 300)
-p
-dev.off()
+#tiff(file="figures/Extended Data/ExData_Figure4.tiff", height=8, width=15, units = "in",res = 300)
+#p
+#dev.off()
 
 # 
 # startday2 <- as.POSIXct("2016-06-30")
@@ -95,5 +99,126 @@ dev.off()
 #   labs(x="") +
 #   scale_y_continuous(limits=c(24.5,31),breaks = c(25,26,27,28,29,30,31),expand=c(0,0),name="Temperature (°C)") + geom_line(data=site30_1hr,col=site30_col)
 # 
+
+
+############create a map to be an inset ######################
+
+#set wd
+setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy/figures")
+
+### site data
+sites<-read.csv('ki_map_files/ki_sites_platy.csv')
+
+#take out sites that did not have a seabird at them
+sites<-sites[!sites$site=="14",]
+sites<-sites[!sites$site=="37",]
+sites<-sites[!sites$site=="38",]
+
+## set palette 
+
+# `Site 3` <- "#8dd3c7"
+# `Site 5` <- "#ffffb3"
+# `Site 8` <- "#bebada"
+# `Site 15` <-  "#fb8072"
+# `Site 25` <- "#80b1d3"
+# `Site 27` <- "#fdb462"
+# `Site 30` <-  "#b3de69"
+# `Site 32` <- "#fccde5"
+# `Site 34` <- "#d9d9d9"
+# `Site 35` <- "#bc80bd"
+# `Site 40` <- "#ccebc5"
+
+psites<-c("3","5","8","15","25", "27", "30","32", "34", "35", "40")
+site.cols<-as.data.frame(psites)
+site.cols$col<-c("#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5")
+sites$col<-site.cols$col[match(sites$site, site.cols$psites)]
+
+
+### Sites sampled for platy paper
+#pdf(file="KI_map_sites_temp_platyms.pdf")
+png(file="ki_map_files/KI_map_sites_temp_platyms.png",width = 7, height = 7,units="in",res=300)
+#tiff(file="KI_map_sites_temp_platyms.tiff",width = 7, height = 7,units="in",res=300)
+#jpeg(file="KI_map_sites_temp_platyms.jpeg",width = 7, height = 7,units="in",res=300)
+source("ki_map_files/KI_base_B&W.R")
+points(sites$lon, sites$lat, bg=alpha(sites$col,0.9), pch=21, cex=3.0)
+with(sites, text(lon, lat, label=site, cex=0.7))
+text(-157.3, 1.9, "Bay\n of\n Wrecks", cex=1)
+text(-157.52, 1.82, "Vaskess\n Bay", cex=1)
+
+dev.off()
+
+
+
+############## now going to inset it to the figure ##########################
+
+#set wd
+setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy")
+
+require(grImport)
+library(png)
+library(grid)
+
+
+#map<-readPNG("figures/ki_map_files/KI_map_sites_temp_platyms.png")
+#m<- rasterGrob(map, interpolate = TRUE)
+m = ggplotGrob(qplot(1, 1))
+p<-p+annotation_custom(grob = m, xmin=0, xmax=0.5, ymin=25.8, ymax=29)
+
+# vp1 <- viewport(width = 10, 
+#                 height = 10, 
+#                 x = 5, 
+#                 y = 7)
+
+
+jpeg(file="figures/Extended Data/ExData_Figure4_2.jpeg", height=8, width=15, units = "in",res = 300)
+print(p)
+#print(m, vp = vp1)
+dev.off()
+
+
+
+
+
+
+# 
+# g = qplot(0.1 , 0.1)
+# vp1 <- viewport(width = 0.3, 
+#                 height = 0.3, 
+#                 x = 0.4, 
+#                 y = 0.7)
+# vp2 <- viewport(width = 0.3, 
+#                 height = 0.3, 
+#                 x = 0.8, 
+#                 y = 0.3)
+# #png("text.png")
+# print(p)
+# print(g, vp = vp1)
+# print(g, vp = vp2)
+# #dev.off()
+
+
+# map<-readPNG("figures/ki_map_files/KI_map_sites_temp_platyms.png")
+# m<- rasterGrob(map, interpolate = TRUE)
+# p<-p+annotation_custom(m, xmin=0, xmax=0.5, ymin=25.8, ymax=29)
+# 
+# jpeg(file="figures/Extended Data/ExData_Figure4_2.jpeg", height=8, width=15, units = "in",res = 300)
+# p
+# dev.off()
+
+
+
+# p = qplot(1:10, 1:10)
+# g = ggplotGrob(qplot(1, 1))
+# p + annotation_custom(grob = g, xmin = 3, xmax = 6, ymin = 6, ymax = 10)
 # 
 # 
+# 
+# img <- readPNG(system.file("img", "Rlogo.png", package="png"))
+# g <- rasterGrob(img, interpolate=TRUE)
+# 
+# qplot(1:10, 1:10, geom="blank") +
+#   annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+#   geom_point()
+
+
+
