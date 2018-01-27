@@ -78,13 +78,17 @@ p <- ggplot(site15_1hr, aes(x=xi2,temperature_1hr)) +
                                 'Site 30','Site 32','Site 34',
                                 'Site 35','Site 40'))
 
-#jpeg(file="figures/Extended Data/ExData_Figure4.jpeg", height=8, width=15, units = "in",res = 300)
+#jpeg(file="figures/Extended_Data/ExData_Figure4.jpeg", height=8, width=15, units = "in",res = 300)
 #p
 #dev.off()
 
-#tiff(file="figures/Extended Data/ExData_Figure4.tiff", height=8, width=15, units = "in",res = 300)
+#tiff(file="figures/Extended_Data/ExData_Figure4.tiff", height=8, width=15, units = "in",res = 300)
 #p
 #dev.off()
+
+# png(file="figures/Extended_Data/ExData_Figure4.png", height=8, width=15, units = "in",res = 300)
+# p
+# dev.off()
 
 # 
 # startday2 <- as.POSIXct("2016-06-30")
@@ -136,9 +140,9 @@ sites$col<-site.cols$col[match(sites$site, site.cols$psites)]
 
 ### Sites sampled for platy paper
 #pdf(file="KI_map_sites_temp_platyms.pdf")
-png(file="ki_map_files/KI_map_sites_temp_platyms.png",width = 7, height = 7,units="in",res=300)
+#png(file="KI_map_sites_temp_platyms.png",width = 7, height = 7,units="in",res=300)
 #tiff(file="KI_map_sites_temp_platyms.tiff",width = 7, height = 7,units="in",res=300)
-#jpeg(file="KI_map_sites_temp_platyms.jpeg",width = 7, height = 7,units="in",res=300)
+jpeg(file="KI_map_sites_temp_platyms.jpeg",width = 7, height = 7,units="in",res=300)
 source("ki_map_files/KI_base_B&W.R")
 points(sites$lon, sites$lat, bg=alpha(sites$col,0.9), pch=21, cex=3.0)
 with(sites, text(lon, lat, label=site, cex=0.7))
@@ -152,30 +156,53 @@ dev.off()
 ############## now going to inset it to the figure ##########################
 
 #set wd
-setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy")
+setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy/figures/Extended_Data")
 
 require(grImport)
 library(png)
 library(grid)
+#require(EBImage)
+require(gridExtra)
+#require(ReadImage)
+require(magick)
+library(here)
+
+plot<-image_read("ExData_Figure4.png")
+
+map<-image_read("KI_map_sites_temp_platyms.png")
+
+final_plot<-image_mosaic(image_scale(c(plot, map),"500"), operator = compose_types("OverCompositeOp"))
 
 
-#map<-readPNG("figures/ki_map_files/KI_map_sites_temp_platyms.png")
-#m<- rasterGrob(map, interpolate = TRUE)
-m = ggplotGrob(qplot(1, 1))
-p<-p+annotation_custom(grob = m, xmin=0, xmax=0.5, ymin=25.8, ymax=29)
-
-# vp1 <- viewport(width = 10, 
-#                 height = 10, 
-#                 x = 5, 
-#                 y = 7)
 
 
-jpeg(file="figures/Extended Data/ExData_Figure4_2.jpeg", height=8, width=15, units = "in",res = 300)
-print(p)
+
+#jpeg(file="ExData_Figure4_2.jpeg", height=8, width=15, units = "in",res = 300)
+final_plot
+#png("figures/Extended_Data/ExData_Figure4_2.png",height=8, width=15, units = "in",res = 300)
+#p
+#print(p)
 #print(m, vp = vp1)
 dev.off()
 
 
+
+
+
+
+
+# 
+# #map<-readPNG("figures/ki_map_files/KI_map_sites_temp_platyms.png")
+# #m<- rasterGrob(map, interpolate = TRUE)
+# #m = ggplotGrob(qplot(1, 1))
+# m<-grid.picture("figures/KI_map_sites_temp_platyms.jpeg")
+# #p<-p+annotation_custom(grob = m, xmin=0, xmax=10, ymin=25.8, ymax=29)
+# 
+# vp1 <- viewport(width = 10,
+#                 height = 10,
+#                 x = 1,
+#                 y = 7)
+# 
 
 
 
