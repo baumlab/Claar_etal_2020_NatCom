@@ -11,7 +11,6 @@ metadata.SH.AD <- metadata.SH[which(metadata.SH$Status != "UK" & metadata.SH$Sta
 metadata.SH.noFQ.AD <- metadata.SH.noFQ[which(metadata.SH.noFQ$Status != "UK" & metadata.SH.noFQ$Status != "gone" & metadata.SH.noFQ$Status != "dead_or_gone"),]
 metadata.SH.noFQ.A <- metadata.SH.noFQ[which(metadata.SH.noFQ$Status != "UK" & metadata.SH.noFQ$Status != "gone" & metadata.SH.noFQ$Status != "dead_or_gone" & metadata.SH.noFQ$Status != "dead"),]
 
-
 # Set up and format data
 # Set a start and end date for plotting
 startdate <- as.POSIXct("2014-08-01 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
@@ -48,7 +47,21 @@ metadata.SH.noFQ.AD.3plus <- rbind(metadata.SH.noFQ.AD.3plus.temp, t1, t2, t3, t
 
 sort(table(metadata.SH.noFQ.AD.3plus$coral_tag))
 
-##################################3
+##################################
+summ_means <- metadata.SH.noFQ.AD %>% group_by(field_season,Status) %>% summarize(mean=mean(S.H),sd=sd(S.H),se=sd(S.H)/(sqrt(n())),S.H.log10.se=sd(S.H.log10)/(sqrt(n())),S.H.log10=mean(S.H.log10))
+summ_means_df <- as.data.frame(summ_means)
+summ_means_df$date[summ_means_df$field_season == "KI2015b"] <- KI2015b
+summ_means_df$date[summ_means_df$field_season == "KI2015c"] <- KI2015c
+summ_means_df$date[summ_means_df$field_season == "KI2016a"] <- KI2016a
+summ_means_df$date[summ_means_df$field_season == "KI2016b"] <- KI2016b
+summ_means_df$date[summ_means_df$field_season == "KI2017a"] <- KI2017a
+
+summ_means_df$dom <- "D"
+summ_means_df$dom[summ_means_df$field_season== "KI2015b" & summ_means_df$Status == "alive"] <- "C"
+summ_means_df$dom[summ_means_df$field_season== "KI2015c" & summ_means_df$Status == "alive"] <- "C"
+
+
+##################################
 C_col <- "#2166ac"
 D_col <- "#b2182b"
 stress_col <- "#d95f02"
@@ -317,3 +330,44 @@ dev.off()
 jpeg(file="figures/Figure3_qpcr_Aonly_repeatcoloniesonly.jpg",width = 7.2, height = 6,units="in",res=300)
 p1r
 dev.off()
+
+pd <- position_dodge(1000000)
+
+p5 <- ggplot(aes(y = S.H.log10, x = date), data = metadata.SH.noFQ.AD)+
+  geom_rect(aes(xmin = firstDHW, xmax = lastDHW, ymin = -Inf, ymax = Inf),fill = stress_col, alpha = 0.002) +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        panel.background = element_blank(),
+        legend.position = c(0.75,0.15), 
+        legend.direction = "horizontal",
+        legend.text = element_blank(),
+        legend.background = element_blank(),
+        axis.text = element_text(size=12),
+        axis.title = element_text(size=18)) +
+  # geom_point(aes(shape=Status, fill=dom),stroke=0,alpha=0.5, size=2) +
+  scale_shape_manual(values=c(21,25),guide=FALSE) +
+  scale_fill_manual(values=c(C_col,D_col),guide=FALSE) +
+  geom_smooth(aes(y = S.H.log10, x = date, group=Status, color=..y..), 
+              span=.67, data = metadata.SH.noFQ.AD,level = 0.95) + 
+  scale_colour_gradient2(low = C_col, high = D_col,mid="gray",midpoint = -1.57, 
+                         name= scaletitle) + 
+  ylab("") + xlab("") +
+  scale_y_continuous(name="Symbiont:Host Ratio", limits=c(-2.4,-0.7),expand=c(0.01,0.01), breaks = c(-2,-1.7,-1.398,-1.22,-1.097,-1,-0.921,-0.854,-0.796,-0.745), labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18)) +
+  scale_x_datetime(date_breaks = "2 months",date_labels = "%b",expand=c(0.01,0.01)) +
+  guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, barwidth=10))+
+  annotate("text",x=as.POSIXct("2016-08-05"), y =-2.25,label="C")+
+  annotate("text",x=as.POSIXct("2017-05-15"), y =-2.25,label="D")+
+  annotate("text",x=as.POSIXct("2015-11-29"), y =-0.8,label="El Niño",size=6)+
+  annotate("text",x=KI2015b, y =-0.74,label="iii",size=4)+
+  annotate("text",x=KI2015c, y =-0.74,label="iv",size=4)+
+  annotate("text",x=KI2016a, y =-0.74,label="v",size=4)+
+  annotate("text",x=KI2016b, y =-0.74,label="vi",size=4)+  
+  annotate("text",x=KI2017a, y =-0.74,label="vii",size=4)+
+  geom_vline(xintercept=as.numeric(firstDHW),linetype="dashed")+
+  geom_vline(xintercept=as.numeric(lastDHW),linetype="dashed")+
+  annotate(geom = "text", x = c(as.POSIXct("2015-06-15"),as.POSIXct("2016-01-01"),as.POSIXct("2017-01-01")), y = -10.6, label = unique(format(metadata.SH.noFQ.AD$date,"%Y")), size = 4)+
+geom_point(aes(shape=Status, fill=dom, x=as.POSIXct(date, origin="1970-01-01"), group=Status), data=summ_means_df,position=pd)+ 
+  geom_errorbar(aes(x=as.POSIXct(date, origin="1970-01-01"),group=Status,ymin=S.H.log10-S.H.log10.se,ymax=S.H.log10+S.H.log10.se, width=1000000), data=summ_means_df,position = pd)
+
+  
+p5
