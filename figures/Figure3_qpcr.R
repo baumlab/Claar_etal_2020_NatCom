@@ -14,14 +14,15 @@ metadata.SH.noFQ.AD <- metadata.SH.noFQ[which(metadata.SH.noFQ$Status != "UK" & 
 metadata.SH.noFQ.A <- metadata.SH.noFQ[which(metadata.SH.noFQ$Status != "UK" & metadata.SH.noFQ$Status != "gone" & metadata.SH.noFQ$Status != "dead_or_gone" & metadata.SH.noFQ$Status != "dead"),]
 metadata.SH.noFQ.D <- metadata.SH.noFQ.AD[which(metadata.SH.noFQ.AD$Status=="dead"),]
 
+mid <- 1.3
 metadata.SH.noFQ.AD$CtoD2 <- metadata.SH.noFQ.AD$C.PaxC / metadata.SH.noFQ.AD$D.PaxC
-metadata.SH.noFQ.AD$CtoD2[which(metadata.SH.noFQ.AD$CtoD2>2)] <- 2
+metadata.SH.noFQ.AD$CtoD2[which(metadata.SH.noFQ.AD$CtoD2>mid)] <- mid
 
 metadata.SH.noFQ.A$CtoD2 <- metadata.SH.noFQ.A$C.PaxC / metadata.SH.noFQ.A$D.PaxC
-metadata.SH.noFQ.A$CtoD2[which(metadata.SH.noFQ.A$CtoD2>2)] <- 2
+metadata.SH.noFQ.A$CtoD2[which(metadata.SH.noFQ.A$CtoD2>mid)] <- mid
 
 metadata.SH.noFQ.D$CtoD2 <- metadata.SH.noFQ.D$C.PaxC / metadata.SH.noFQ.D$D.PaxC
-metadata.SH.noFQ.D$CtoD2[which(metadata.SH.noFQ.D$CtoD2>2)] <- 2
+metadata.SH.noFQ.D$CtoD2[which(metadata.SH.noFQ.D$CtoD2>mid)] <- mid
 
 ##################################
 # Set up and format data
@@ -50,8 +51,9 @@ logtrans <- as.POSIXct("2017-06-15 00:00:00", format="%Y-%m-%d %H:%M:%S")
 C_col <- "#2166ac"
 D_col <- "#b2182b"
 stress_col <- "#d95f02"
-stress_col <- "darkgoldenrod4"
-stress_col <- "burlywood4"
+# stress_col <- "darkgoldenrod4"
+# stress_col <- "burlywood4"
+stress_col <- "#ffcc66"
 
 ##################################
 summ_means <- metadata.SH.noFQ.AD %>% dplyr::group_by(field_season,Status) %>% dplyr::summarize(mean=mean(S.H),sd=sd(S.H),se=sd(S.H)/(sqrt(n())),S.H.log10.se=sd(S.H.log10)/(sqrt(n())),S.H.log10=mean(S.H.log10))
@@ -66,10 +68,11 @@ summ_means_df$date[summ_means_df$field_season == "KI2017a"] <- as.POSIXct(KI2017
 summ_means_df$dom <- "D"
 summ_means_df$dom[summ_means_df$field_season== "KI2015b" & summ_means_df$Status == "alive"] <- "C"
 summ_means_df$dom[summ_means_df$field_season== "KI2015c" & summ_means_df$Status == "alive"] <- "C"
+summ_means_df$Status <- as.factor(summ_means_df$Status)
 
 ##################################
 scaletitle <- expression(paste("Dominant ", italic("Symbiodinium"), " Clade"))
-pd <- position_dodge(1000000)
+pd <- position_dodge(2000000)
 
 ggplot() + stat_smooth(aes(y = CtoD2, x = date, group=Status, color=..y..,
                            outfit=fit<<-..y..,outfit=xfit<<-..x..,outfit=sefit<<-..se..),
@@ -101,50 +104,61 @@ df1D <- cbind(xfit2D,
               as.data.frame(sefitD))
 
 p6 <- ggplot()+
-  geom_rect(aes(xmin = firstDHW, xmax = lastDHW, ymin = -2.4, ymax = -0.7),
+  geom_rect(aes(xmin = firstDHW, xmax = lastDHW, ymin = -Inf, ymax = Inf),
             fill = stress_col, alpha = 0.3) +
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         panel.background = element_blank(),
-        legend.position = c(0.75,0.15), 
+        axis.line = element_line(color="#404040"),
+        plot.margin = unit(c(0.1,0.5,0.1,0.1),"cm"),
+        legend.position = c(0.75,0.2), 
         legend.direction = "horizontal",
-        legend.text = element_blank(),
+        legend.title.align = 0.5,
+        legend.key = element_blank(),
+        # legend.text = element_blank(),
+        legend.box.just = "center",
+        legend.margin = margin(-0.15,0,0,0, unit="cm"),
         legend.background = element_blank(),
         axis.text = element_text(size=12),
-        axis.title = element_text(size=18)) +
-  ylab("") + xlab("") +
-  scale_y_continuous(name="Symbiont:Host Ratio", limits=c(-2.4,-0.7),expand=c(0.01,0.01), 
+        axis.title = element_text(size=18,color="#404040")) +
+  ylab("") + xlab("2015                  2016                               2017         ") +
+  scale_y_continuous(name="Symbiont:Host Ratio", limits=c(-2.4,-1),expand=c(0.01,0.01), 
                      breaks = c(-2,-1.7,-1.398,-1.22,-1.097,-1,-0.921,-0.854,-0.796,-0.745), 
                      labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18)) +
   scale_x_datetime(date_breaks = "2 months",date_labels = "%b",expand=c(0.01,0.01)) +
-  guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, barwidth=10))+
-  annotate("text",x=as.POSIXct("2016-08-05"), y =-2.25,label="C")+
-  annotate("text",x=as.POSIXct("2017-05-15"), y =-2.25,label="D")+
-  annotate("text",x=as.POSIXct("2015-11-29"), y =-0.8,label="El Niño",size=6)+
-  annotate("text",x=KI2015b, y =-0.74,label="iii",size=4)+
-  annotate("text",x=KI2015c, y =-0.74,label="iv",size=4)+
-  annotate("text",x=KI2016a, y =-0.74,label="v",size=4)+
-  annotate("text",x=KI2016b, y =-0.74,label="vi",size=4)+  
-  annotate("text",x=KI2017a, y =-0.74,label="vii",size=4)+
+  annotate("text",x=as.POSIXct("2016-07-10"), y =-2.25,label="100% D")+
+  annotate("text",x=as.POSIXct("2017-06-17"), y =-2.25,label="100% C")+
+  annotate("text",x=as.POSIXct("2015-11-6"), y =-1.05,label="El Niño",size=6)+
+  annotate("text",x=KI2015b, y =-1,label="iii",size=4)+
+  annotate("text",x=KI2015c, y =-1,label="iv",size=4)+
+  annotate("text",x=KI2016a, y =-1,label="v",size=4)+
+  annotate("text",x=KI2016b, y =-1,label="vi",size=4)+  
+  annotate("text",x=KI2017a, y =-1,label="vii",size=4)+
   geom_vline(xintercept=as.numeric(firstDHW),linetype="dashed")+
   geom_vline(xintercept=as.numeric(lastDHW),linetype="dashed")+
   annotate(geom = "text", x = c(as.POSIXct("2015-06-15"),as.POSIXct("2016-01-01"),
                                 as.POSIXct("2017-01-01")), 
            y = -10.6, label = unique(format(metadata.SH.noFQ.AD$date,"%Y")), size = 4)+
-  geom_ribbon(aes(x=xfit2,ymin=fit2-sefit,ymax=fit2+sefit), data=df1, alpha=0.3)+
-  geom_ribbon(aes(x=xfit2D,ymin=fit2D-sefitD,ymax=fit2D+sefitD), data=df1D, alpha=0.3)+
+  geom_ribbon(aes(x=xfit2,ymin=fit2-sefit,ymax=fit2+sefit), data=df1, alpha=0.2)+
+  geom_ribbon(aes(x=xfit2D,ymin=fit2D-sefitD,ymax=fit2D+sefitD), data=df1D, alpha=0.2)+
   geom_line(aes(x=xfit2,y=fit2,color=fit),data=df1,size=1.5) + 
   geom_line(aes(x=xfit2D,y=fit2D,color=fitD),data=df1D,size=1.5)+   
-  scale_colour_gradient2(low = C_col, high = D_col,mid="gray",
+  scale_colour_gradient2(low = D_col, high = C_col,mid="gray",
                          midpoint = 0.555, name= scaletitle) +
-  geom_point(aes(y=S.H.log10, shape=Status, fill=dom, x=as.POSIXct(date, origin="1970-01-01"), 
-                 group=Status), data=summ_means_df,position=pd) + 
+  geom_point(aes(y=S.H.log10, shape=Status, x=as.POSIXct(date, origin="1970-01-01"), 
+                 group=Status), data=summ_means_df,position=pd,cex=2) + 
   geom_errorbar(aes(x=as.POSIXct(date, origin="1970-01-01"),group=Status,
                     ymin=S.H.log10-S.H.log10.se,ymax=S.H.log10+S.H.log10.se, width=1000000),
-                data=summ_means_df,position = pd)
+                data=summ_means_df,position = pd) +
+  scale_shape_manual(name= "Coral Status",values=c("alive"=16,"dead"=17),
+                     labels=c("Alive","Dead"))+
+  guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, barwidth=10,label = F),
+         shape=guide_legend(title="Coral Status",title.position = "top",order = 1, override.aes = list(size=4)))
+
 p6
 
 # Open a jpg image
-jpeg(file="figures/Figure3.jpg",width = 7.2, height = 6,units="in",res=300)
+jpeg(file="figures/Figure3.jpg",width = 7.2, height = 4,units="in",res=300)
 p6
 dev.off()
+
