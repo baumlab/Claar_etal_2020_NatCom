@@ -47,11 +47,13 @@ p <- ggplot(site15_1hr, aes(x=xi2,temperature_1hr)) +
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
         legend.text = element_text(size=18),
+        legend.title = element_blank(),
+        legend.margin = margin(0,30, 0, 0),
         text = element_text(size=18),
         axis.text.x = element_text(size=10),
-        legend.position = c(0.75,0.25)) +
+        legend.position = c(0.503,0.36)) +
   scale_x_datetime(limits=c(startday,endday),
-                   expand=c(0,0),date_breaks = "1 month", date_labels = "%b-%Y") +
+                   expand=c(0,0),date_breaks = "1 month", date_labels = c( " ","%b-%Y")) +
   labs(x="") + 
   scale_y_continuous(limits=c(25.5,31),breaks = c(25,26,27,28,29,30,31),
                      expand=c(0,0),name="Temperature (°C)") +
@@ -86,9 +88,9 @@ p <- ggplot(site15_1hr, aes(x=xi2,temperature_1hr)) +
 #p
 #dev.off()
 
-# png(file="figures/Extended_Data/ExData_Figure4.png", height=8, width=15, units = "in",res = 300)
-# p
-# dev.off()
+png(file="figures/Extended_Data/ExData_Figure4.png", height=8, width=15, units = "in",res = 300)
+p
+dev.off()
 
 # 
 # startday2 <- as.POSIXct("2016-06-30")
@@ -161,91 +163,30 @@ setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy/figures/Extended_Data")
 require(grImport)
 library(png)
 library(grid)
-#require(EBImage)
 require(gridExtra)
-#require(ReadImage)
 require(magick)
 library(here)
 
+
+#read in the plot
 plot<-image_read("ExData_Figure4.png")
 
-map<-image_read("KI_map_sites_temp_platyms.png")
+#read in the map
+map_raw<-image_read("KI_map_sites_temp_platyms.png")
 
-final_plot<-image_mosaic(image_scale(c(plot, map),"500"), operator = compose_types("OverCompositeOp"))
+#scale the map and add the Kiritimati Island text
+map<- map_raw%>%
+  image_scale("1400") %>%
+  image_annotate("Kiritimati Island", color = "black", size = 50, location = "+50+50", gravity = "northeast")
 
+#combine the map and the plot
+final_plot<-image_apply(map, function(x){image_composite(plot, x, offset = "+2520+840")})
 
+#look at combined plots
+#final_plot
 
-
-
-#jpeg(file="ExData_Figure4_2.jpeg", height=8, width=15, units = "in",res = 300)
-final_plot
-#png("figures/Extended_Data/ExData_Figure4_2.png",height=8, width=15, units = "in",res = 300)
-#p
-#print(p)
-#print(m, vp = vp1)
-dev.off()
-
-
-
-
-
-
-
-# 
-# #map<-readPNG("figures/ki_map_files/KI_map_sites_temp_platyms.png")
-# #m<- rasterGrob(map, interpolate = TRUE)
-# #m = ggplotGrob(qplot(1, 1))
-# m<-grid.picture("figures/KI_map_sites_temp_platyms.jpeg")
-# #p<-p+annotation_custom(grob = m, xmin=0, xmax=10, ymin=25.8, ymax=29)
-# 
-# vp1 <- viewport(width = 10,
-#                 height = 10,
-#                 x = 1,
-#                 y = 7)
-# 
-
-
-
-
-# 
-# g = qplot(0.1 , 0.1)
-# vp1 <- viewport(width = 0.3, 
-#                 height = 0.3, 
-#                 x = 0.4, 
-#                 y = 0.7)
-# vp2 <- viewport(width = 0.3, 
-#                 height = 0.3, 
-#                 x = 0.8, 
-#                 y = 0.3)
-# #png("text.png")
-# print(p)
-# print(g, vp = vp1)
-# print(g, vp = vp2)
-# #dev.off()
-
-
-# map<-readPNG("figures/ki_map_files/KI_map_sites_temp_platyms.png")
-# m<- rasterGrob(map, interpolate = TRUE)
-# p<-p+annotation_custom(m, xmin=0, xmax=0.5, ymin=25.8, ymax=29)
-# 
-# jpeg(file="figures/Extended Data/ExData_Figure4_2.jpeg", height=8, width=15, units = "in",res = 300)
-# p
-# dev.off()
-
-
-
-# p = qplot(1:10, 1:10)
-# g = ggplotGrob(qplot(1, 1))
-# p + annotation_custom(grob = g, xmin = 3, xmax = 6, ymin = 6, ymax = 10)
-# 
-# 
-# 
-# img <- readPNG(system.file("img", "Rlogo.png", package="png"))
-# g <- rasterGrob(img, interpolate=TRUE)
-# 
-# qplot(1:10, 1:10, geom="blank") +
-#   annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
-#   geom_point()
-
-
-
+#save file
+image_write(final_plot, path = "ExData_Figure4_2.png", format = "png")
+image_write(final_plot, path = "ExData_Figure4_2.jpeg", format = "jpeg")
+image_write(final_plot, path = "Figure_S2.tiff", format = "tiff")
+ 
