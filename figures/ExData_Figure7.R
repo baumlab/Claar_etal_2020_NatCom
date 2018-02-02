@@ -3,9 +3,6 @@ library(gridExtra)
 
 rm(list=ls())
 
-##set wd
-setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy")
-
 load(file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
 
 C_col <- "#2166ac"
