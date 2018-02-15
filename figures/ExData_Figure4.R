@@ -1,9 +1,6 @@
 #### Making figures for the Platy manuscript #####
 ##### Beginning code copied from site.comparisons.R #####
 
-#set wd
-setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy")
-
 rm(list=ls())
 
 dev.off()
@@ -107,11 +104,8 @@ p <- ggplot(site15_1hr, aes(x=xi2,temperature_1hr)) +
 
 ############create a map to be an inset ######################
 
-#set wd
-setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy/figures")
-
 ### site data
-sites<-read.csv('ki_map_files/ki_sites_platy.csv')
+sites<-read.csv('figures/ki_map_files/ki_sites_platy.csv')
 
 #take out sites that did not have a seabird at them
 sites<-sites[!sites$site=="14",]
@@ -155,9 +149,6 @@ dev.off()
 
 ############## now going to inset it to the figure ##########################
 
-#set wd
-setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy/figures/Extended_Data")
-
 require(grImport)
 library(png)
 library(grid)
@@ -167,9 +158,9 @@ require(gridExtra)
 require(magick)
 library(here)
 
-plot<-image_read("ExData_Figure4.png")
+plot<-image_read("figures/Extended_Data/ExData_Figure4.png")
 
-map<-image_read("KI_map_sites_temp_platyms.png")
+map<-image_read("figures/Extended_Data/KI_map_sites_temp_platyms.png")
 
 final_plot<-image_mosaic(image_scale(c(plot, map),"500"), operator = compose_types("OverCompositeOp"))
 

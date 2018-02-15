@@ -1,8 +1,5 @@
 ## Script for creating KI map
 
-setwd("/Users/KristinaTietjen/Documents/Git_Hub/KI_Platy/figures")
-
-
 library(maptools)
 library(maps)
 library(scales)
@@ -17,7 +14,7 @@ library(RColorBrewer)
 # library(PBSmapping)
 
 
-diva_shp<-readShapePoly("ki_map_files/shapes/diva-gis/KIR_adm0.shp")
+diva_shp<-readShapePoly("figures/ki_map_files/shapes/diva-gis/KIR_adm0.shp")
 
 
 land<-brewer.pal(8, "Greys")[4]
