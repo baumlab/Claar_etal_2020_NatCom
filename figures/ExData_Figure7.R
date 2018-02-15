@@ -28,8 +28,10 @@ p1 <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=Year_Pre_Post),
                data = metadata.SH.noFQ.AD) +
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
-        panel.background = element_blank(),
-        legend.position = c(0.882,0.87), 
+       # panel.background = element_blank(),
+        panel.background = element_rect(color = "black", fill = NA),
+       # legend.position = c(0.882,0.87), 
+        legend.position = "none",
         legend.direction = "vertical",
         legend.background = element_rect(fill="white", color="black"),
         legend.key = element_blank(),
@@ -53,7 +55,7 @@ p1 <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=Year_Pre_Post),
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
                      name="Clade D Abundance (log S:H)") +
   geom_abline(slope=1,intercept=0) + 
-  guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5))+
+ # guides(colour = guide_legend(title.position = "top",keywidth = 2.75, keyheight = 1.5))+
   # guides(shape = guide_legend(title.position = "top",keywidth = 3.25, keyheight = 1.5))+
   annotate("text",x=-14.5, y =-13.8,label="clade D",angle=40,color=D_col)+
   annotate("text",x=-14, y =-14.5,label="clade C",angle=40, color= C_col)
@@ -106,7 +108,7 @@ p5.4 <- p1 +
   scale_fill_manual(values=c("white","white","white",timecols[c(3,2)])) +
   theme(axis.title.y=element_blank())
 
-jpeg(file="figures/Extended Data/ExData_Figure7.jpg",width=16, height=8,units="in", res=300)
+jpeg(file="figures/Extended_Data/ExData_Figure7.jpg",width=16, height=8,units="in", res=300)
 # grid.arrange(p5,p5.2,p5.3,p5.4,nrow=2,ncol=2)
 grid.arrange(p5,p5.2,p4,p5.3,p5.4,nrow=2,ncol=3, widths=c(1,1,2) , layout_matrix = rbind(c(1,2,3),c(4,5,3)))
 dev.off()
