@@ -159,84 +159,19 @@ require(magick)
 library(here)
 
 plot<-image_read("figures/Extended_Data/ExData_Figure4.png")
+map_raw<-image_read("figures/KI_map_sites_temp_platyms.png")
 
-map<-image_read("figures/KI_map_sites_temp_platyms.png")
+map<- map_raw%>%
+  image_scale("1400") %>%
+  image_annotate("Kiritimati Island", color = "black", size = 50, location = "+50+50", gravity = "northeast")
 
-final_plot<-image_mosaic(image_scale(c(plot, map),"500"), operator = compose_types("OverCompositeOp"))
+#combine the map and the plot
+final_plot<-image_apply(map, function(x){image_composite(plot, x, offset = "+2520+840")})
 
+#check it
+#final_plot
 
-
-
-
-#jpeg(file="ExData_Figure4_2.jpeg", height=8, width=15, units = "in",res = 300)
-final_plot
-#png("figures/Extended_Data/ExData_Figure4_2.png",height=8, width=15, units = "in",res = 300)
-#p
-#print(p)
-#print(m, vp = vp1)
-dev.off()
-
-
-
-
-
-
-
-# 
-# #map<-readPNG("figures/ki_map_files/KI_map_sites_temp_platyms.png")
-# #m<- rasterGrob(map, interpolate = TRUE)
-# #m = ggplotGrob(qplot(1, 1))
-# m<-grid.picture("figures/KI_map_sites_temp_platyms.jpeg")
-# #p<-p+annotation_custom(grob = m, xmin=0, xmax=10, ymin=25.8, ymax=29)
-# 
-# vp1 <- viewport(width = 10,
-#                 height = 10,
-#                 x = 1,
-#                 y = 7)
-# 
-
-
-
-
-# 
-# g = qplot(0.1 , 0.1)
-# vp1 <- viewport(width = 0.3, 
-#                 height = 0.3, 
-#                 x = 0.4, 
-#                 y = 0.7)
-# vp2 <- viewport(width = 0.3, 
-#                 height = 0.3, 
-#                 x = 0.8, 
-#                 y = 0.3)
-# #png("text.png")
-# print(p)
-# print(g, vp = vp1)
-# print(g, vp = vp2)
-# #dev.off()
-
-
-# map<-readPNG("figures/ki_map_files/KI_map_sites_temp_platyms.png")
-# m<- rasterGrob(map, interpolate = TRUE)
-# p<-p+annotation_custom(m, xmin=0, xmax=0.5, ymin=25.8, ymax=29)
-# 
-# jpeg(file="figures/Extended Data/ExData_Figure4_2.jpeg", height=8, width=15, units = "in",res = 300)
-# p
-# dev.off()
-
-
-
-# p = qplot(1:10, 1:10)
-# g = ggplotGrob(qplot(1, 1))
-# p + annotation_custom(grob = g, xmin = 3, xmax = 6, ymin = 6, ymax = 10)
-# 
-# 
-# 
-# img <- readPNG(system.file("img", "Rlogo.png", package="png"))
-# g <- rasterGrob(img, interpolate=TRUE)
-# 
-# qplot(1:10, 1:10, geom="blank") +
-#   annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
-#   geom_point()
-
-
+image_write(final_plot, path = "figures/Extended_Data/ExData_Figure4_2.png", format = "png")
+image_write(final_plot, path = "figures/Extended_Data/ExData_Figure4_2.jpeg", format = "jpeg")
+image_write(final_plot, path = "figures/Extended_Data/Figure_S2.tiff", format = "tiff")
 
