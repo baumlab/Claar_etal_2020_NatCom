@@ -2,6 +2,8 @@
 library(ggplot2)
 library(gridExtra)
 library(grid)
+library(plyr)
+library(dplyr)
 
 rm(list=ls())
 
@@ -56,7 +58,7 @@ stress_col <- "#d95f02"
 stress_col <- "#ffcc66"
 
 ##################################
-summ_means <- metadata.SH.noFQ.AD %>% dplyr::group_by(field_season,Status) %>% dplyr::summarize(mean=mean(S.H),sd=sd(S.H),se=sd(S.H)/(sqrt(n())),S.H.log10.se=sd(S.H.log10)/(sqrt(n())),S.H.log10=mean(S.H.log10))
+summ_means <- metadata.SH.noFQ.AD %>% dplyr::group_by(field_season,Status) %>% dplyr::summarize(mean=mean(S.H),sd=sd(S.H),se=sd(S.H)/(sqrt(n())),S.H.log10.se=sd(S.H.log10)/(sqrt(n())),S.H.log10=mean(S.H.log10),C.PaxC=mean(C.PaxC),D.PaxC=mean(D.PaxC), CtoD=mean(CtoD))
 summ_means_df <- as.data.frame(summ_means)
 summ_means_df$date <- as.POSIXct(KI2015b)
 summ_means_df$date[summ_means_df$field_season == "KI2015b"] <- as.POSIXct(KI2015b)
@@ -146,12 +148,13 @@ p6 <- ggplot()+
   scale_colour_gradient2(low = D_col, high = C_col,mid="gray",
                          midpoint = 0.555, name= scaletitle) +
   geom_point(aes(y=S.H.log10, shape=Status, x=as.POSIXct(date, origin="1970-01-01"), 
-                 group=Status), data=summ_means_df,position=pd,cex=2) + 
+                 group=Status,fill=dom), data=summ_means_df,position=pd,cex=4) +
   geom_errorbar(aes(x=as.POSIXct(date, origin="1970-01-01"),group=Status,
                     ymin=S.H.log10-S.H.log10.se,ymax=S.H.log10+S.H.log10.se, width=1000000),
                 data=summ_means_df,position = pd) +
-  scale_shape_manual(name= "Coral Status",values=c("alive"=16,"dead"=17),
+  scale_shape_manual(name= "Coral Status",values=c("alive"=21,"dead"=24),
                      labels=c("Alive","Dead"))+
+  scale_fill_manual(values=c(C_col,D_col),guide=F) +
   guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, barwidth=10,label = F),
          shape=guide_legend(title="Coral Status",title.position = "top",order = 1, override.aes = list(size=4)))
 
@@ -159,6 +162,10 @@ p6
 
 # Open a jpg image
 jpeg(file="figures/Figure3.jpg",width = 7.2, height = 4,units="in",res=300)
+p6
+dev.off()
+
+tiff(file="figures/Figure3.tiff",width = 7.2, height = 4,units="in",res=300)
 p6
 dev.off()
 
