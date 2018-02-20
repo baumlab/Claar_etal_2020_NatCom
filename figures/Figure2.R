@@ -24,7 +24,7 @@ load("data/KI_seqs_f_coral_grouped.RData")
 ### Formatting ###
 
 # Set colors for disturbance levels
-D_cols <- c("Very High"="#8c510a", "High"="#d8b365", "Medium"="#c7eae5", "Low"="#5ab4ac", "Very Low"="#01665e")
+D_cols <- c("Very High"="#8c510a", "High"="black", "Medium"="#c7eae5", "Low"="#5ab4ac", "Very Low"="#01665e")
 # D_cols <- c("Very High"="#e66101", "Medium"="#fdb863", "Low"="#b2abd2", "Very Low"="#5e3c99")
 
 # Set ggplot2 basic parameters
@@ -39,10 +39,18 @@ sample_data(phy97.f.c.platy.AD.before)$Status <- gsub("dead","Dead",sample_data(
 sample_data(phy97.f.c.platy.AD.before)$Disturbance <- gsub("HighMed","Medium",sample_data(phy97.f.c.platy.AD.before)$Disturbance)
 sample_data(phy97.f.c.platy.AD.before)$Disturbance <- gsub("VeryHigh","Very High",sample_data(phy97.f.c.platy.AD.before)$Disturbance)
 sample_data(phy97.f.c.platy.AD.before)$Disturbance <- gsub("VeryLow","Very Low",sample_data(phy97.f.c.platy.AD.before)$Disturbance)
+# sample_data(phy97.f.c.platy.AD.before)$Disturbance <- gsub("High","H",sample_data(phy97.f.c.platy.AD.before)$Disturbance)
 # Set factor levels for "Disturbance"
 sample_data(phy97.f.c.platy.AD.before)$Disturbance <- factor(sample_data(phy97.f.c.platy.AD.before)$Disturbance, levels = c("Very Low","Low","Medium","High","Very High"))
 
 
+# phy97.f.c.platy.AD.before.high <- subset_samples(phy97.f.c.platy.AD.before, sample_data(phy97.f.c.platy.AD.before)$Disturbance == "High")
+# ord.phy97.f.c.platy.AD.before.high.CAP <- ordinate(phy97.f.c.platy.AD.before.high,
+#                                               method="CAP",distance="wunifrac",
+#                                               formula= ~ field_season + Disturbance)
+# p1 <- plot_ordination(phy97.f.c.platy.AD.before.high, ord.phy97.f.c.platy.AD.before.high.CAP,
+#                       shape="Status", color="Disturbance",type="samples",title="")
+# 
 ##################################################################################
 ### Ordination Plot (CAP) ###
 
@@ -59,8 +67,8 @@ p1 <- plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before.C
                       shape="Status", color="Disturbance",type="samples",title="")
 # Format ordination plot
 ord_plot <- p1 + 
-  geom_point() + 
-      scale_shape_manual(values = c(9,20)) + scale_size_manual(values = c(0.75,1))+
+  geom_point(alpha=0.5) + 
+      scale_shape_manual(values = c(16,16)) + scale_size_manual(values = c(5,1))+
       scale_color_manual(values=D_cols) + scale_fill_manual(values=D_cols) + guides(color=F) +
   theme(legend.position=c(.88, .89),
         legend.box = "horizontal",legend.background = element_blank(), 
