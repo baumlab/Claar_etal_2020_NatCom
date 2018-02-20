@@ -19,13 +19,25 @@ GT100.p <- transform_sample_counts(GT100, function(x) x/sum(x))
 # otu_table(GT100.p) <- log10(otu_table(GT100.p))
 
 # Plot phylogenetic tree, and use custom colors for each field season
-plottree <- plot_tree(GT100.p,color="field_season",label.tips = "hit",size="abundance",ladderize = "left") + scale_color_manual(values=c(timecols[c(1,4,5,3,2)])) + scale_size_area(max_size=10) + labs(size = "Abundance (Proportion)")
+plottree <- plot_tree(GT100.p,color="field_season",label.tips = "hit",
+                      size="abundance",ladderize = "left",text.size = 6,plot.margin = 0.5) + 
+  theme(legend.position = c(0.87, 0.55),
+        legend.text = element_text(size=18),
+        legend.title = element_text(size=20)) +
+  scale_color_manual(values=c(timecols[c(1,1,1,4,5)])) + 
+  scale_size_area(max_size=10) +
+  labs(size = "Abundance (Proportion)")
 plottree
 
 # Write this phylogenetic tree to jpg
-jpeg(file="figures/Extended Data/ExData_Figure5.jpg",width=18, height=7,units="in", res=300)
+jpeg(file="figures/Extended_Data/ExData_Figure5.jpg",width=18, height=7,units="in", res=300)
 plottree
 dev.off()
+
+tiff(file="figures/Extended_Data/ExData_Figure5.tiff",width=18, height=7,units="in", res=300)
+plottree
+dev.off()
+
 
 ki16 <- subset_samples(GT100.p,sample_data(GT100.p)$field_season == "KI2016a")
 t16 <- subset_samples(ki16,data.frame(tax_table(ki16))$hit =="C15_AY239369", prune=TRUE)
