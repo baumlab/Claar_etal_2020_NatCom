@@ -30,7 +30,7 @@ p1 <- ggplot(aes(x = S.H.log, fill=field_season), data = metadata.SH.noFQ) +
         panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   geom_histogram(bins=30) + 
   # facet_grid(. ~ field_season) +
-  scale_fill_manual(values=c(timecols[c(1,4,5,3,2)]),name ="Field Season") +
+  scale_fill_manual(values=c(timecols[c(1,4,5,3,2)]),name ="Field Season",labels=c("May 2015","July 2015","March 2016","November 2016","July 2017")) +
   ylab("Count") +
   xlab("log(Symbiont:Host Ratio)") +
   xlim(-11,-1)
@@ -42,7 +42,7 @@ p2 <- ggplot(aes(x = S.H.log, fill=field_season), data = metadata.SH.noFQ) +
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
         legend.position = c(0.08,0.75)) +
-  scale_fill_manual(values=c(timecols[c(1,4,5,3,2)])) +
+  scale_fill_manual(values=c(timecols[c(1,4,5,3,2)]),labels=c("May 2015","July 2015","March 2016","November 2016","July 2017")) +
   geom_density(aes(x = S.H.log), alpha=0.5) +  
   ylab("Density") +
   xlab("Symbiont:Host Ratio") +
@@ -69,7 +69,12 @@ p3 <- ggplot(aes(x = S.H.log, fill=field_season), data = metadata.SH.noFQ) +
 
 p3
 
-jpeg(file="figures/Extended Data/ExData_Figure6.jpg",width=10, height=8,units="in", res=300)
+jpeg(file="figures/Extended_Data/ExData_Figure6.jpg",width=10, height=8,units="in", res=300)
+# grid.arrange(p1,p2,p3)
+grid.arrange(p2,p3)
+dev.off()
+
+tiff(file="figures/Extended_Data/ExData_Figure6.tiff",width=10, height=8,units="in", res=300)
 # grid.arrange(p1,p2,p3)
 grid.arrange(p2,p3)
 dev.off()
