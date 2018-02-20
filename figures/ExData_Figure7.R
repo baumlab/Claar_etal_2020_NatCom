@@ -17,8 +17,8 @@ metadata.SH.AD <- metadata.SH[which(metadata.SH$Status != "UK" & metadata.SH$Sta
 metadata.SH.noFQ.AD <- metadata.SH.noFQ[which(metadata.SH.noFQ$Status != "UK" & metadata.SH.noFQ$Status != "gone" & metadata.SH.noFQ$Status != "dead_or_gone"),]
 metadata.SH.noFQ.A <- metadata.SH.noFQ[which(metadata.SH.noFQ$Status != "UK" & metadata.SH.noFQ$Status != "gone" & metadata.SH.noFQ$Status != "dead_or_gone" & metadata.SH.noFQ$Status != "dead"),]
 
-metadata.SH.noFQ.AD$D.PaxC.log10[which(metadata.SH.noFQ.AD$D.PaxC.log10 == -7.2141268)] <- -6.25
-metadata.SH.noFQ.AD$D.PaxC.log10[which(metadata.SH.noFQ.AD$C.PaxC.log10 == -7.2141268)] <- -6.25
+metadata.SH.noFQ.AD$C.PaxC.log10[which(metadata.SH.noFQ.AD$D.PaxC.log10 < -7)] <- -3.2
+metadata.SH.noFQ.AD$D.PaxC.log10[which(metadata.SH.noFQ.AD$C.PaxC.log10 < -7)] <- -3.2
 
 # scaletitle <- expression(paste(" Dominant ", italic("Symbiodinium"), " Clade"))
 scaletitle <- "Field Season"
@@ -37,21 +37,22 @@ p1 <- ggplot(aes(y = D.PaxC.log10, x = C.PaxC.log10, color=Year_Pre_Post),
         legend.key = element_blank(),
         legend.spacing.y = unit(0, "cm"),
         axis.text = element_text(size=12),
-        axis.title = element_text(size=18)) + 
+        axis.title = element_text(size=18),
+        axis.text.x = element_text(angle = 90,vjust=0)) + 
   geom_point(aes(fill=field_season),stroke=0, alpha=0.7, size=3)  +
   scale_color_manual(values=c(timecols[c(1,4,5,3,2)]),name=scaletitle, labels= c("May 2015", "July 2015", "March 2016", "November 2016", "July 2017")) + 
   scale_fill_manual(values=c(timecols[c(1,4,5,3,2)]),guide=FALSE) +
   scale_shape_manual(name="       Coral Status (March 2016)  ",
                      values = c(21,7),labels=c("Alive   ","Dead   ")) + 
   scale_x_continuous(expand=c(0.01,0.01), 
-                     breaks = c(-2,-1.7,-1.398,-1.22,-1.097,-1,-0.921,-0.854,-0.796,-0.745), 
-                     labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18),
+                     breaks = c(-3,-2,-1.7,-1.398,-1.097,-0.796), 
+                     labels = c(0.001,0.010,0.020,0.040,0.080,0.160),
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),
                               max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
                      name="Clade C Abundance (log S:H)") +  
   scale_y_continuous(expand=c(0.01,0.01), 
-                     breaks = c(-2,-1.7,-1.398,-1.22,-1.097,-1,-0.921,-0.854,-0.796,-0.745), 
-                     labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18),
+                     breaks = c(-3,-2,-1.7,-1.398,-1.097,-0.796), 
+                     labels = c(0.001,0.010,0.020,0.040,0.080,0.160),
                      limits=c(min(metadata.SH.noFQ.AD$C.PaxC.log10),max(metadata.SH.noFQ.AD$C.PaxC.log10,metadata.SH.noFQ.AD$D.PaxC.log10)),
                      name="Clade D Abundance (log S:H)") +
   geom_abline(slope=1,intercept=0) + 
@@ -109,6 +110,11 @@ p5.4 <- p1 +
   theme(axis.title.y=element_blank())
 
 jpeg(file="figures/Extended_Data/ExData_Figure7.jpg",width=16, height=8,units="in", res=300)
+# grid.arrange(p5,p5.2,p5.3,p5.4,nrow=2,ncol=2)
+grid.arrange(p5,p5.2,p4,p5.3,p5.4,nrow=2,ncol=3, widths=c(1,1,2) , layout_matrix = rbind(c(1,2,3),c(4,5,3)))
+dev.off()
+
+tiff(file="figures/Extended_Data/ExData_Figure7.tiff",width=16, height=8,units="in", res=300)
 # grid.arrange(p5,p5.2,p5.3,p5.4,nrow=2,ncol=2)
 grid.arrange(p5,p5.2,p4,p5.3,p5.4,nrow=2,ncol=3, widths=c(1,1,2) , layout_matrix = rbind(c(1,2,3),c(4,5,3)))
 dev.off()
