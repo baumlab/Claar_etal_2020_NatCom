@@ -67,10 +67,7 @@ p1 <- plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before.C
                       shape="Status", color="Disturbance",type="samples",title="")
 # Format ordination plot
 ord_plot <- p1 + 
-  geom_point(alpha=0.5) + 
-      scale_shape_manual(values = c(16,16)) + scale_size_manual(values = c(5,1))+
-      scale_color_manual(values=D_cols) + scale_fill_manual(values=D_cols) + guides(color=F) +
-  theme(legend.position=c(.88, .89),
+  theme(legend.position=c(.83, .89),
         legend.box = "horizontal",legend.background = element_blank(), 
         legend.title = element_text(size=10),
         legend.text = element_text(size = 8),legend.key.height=unit(0.3,"line"),
@@ -82,6 +79,13 @@ ord_plot <- p1 +
         axis.title.x = element_text(size=8,margin = margin(b=5, t = 0.1)),
         axis.title.y = element_text(size=8,margin = margin(b=5, r = 0.1)), 
         axis.ticks.length=unit(-0.05, "in")) + 
+  geom_point(alpha=0.5,size=1.5) + 
+  scale_shape_manual(name= "Coral Fate", values=c("Alive"=19,"Dead"=24),
+                     labels=c("Survived","Died")) + 
+  # scale_size_manual(values = c(5,1))+
+  scale_color_manual(values=D_cols) + 
+  scale_fill_manual(values=D_cols) + 
+  guides(color=F) +
   stat_ellipse(aes(group=Status), type = "t",level=0.95,color=c("darkgray"),lty=2) +
   annotate("text", x = -0.4, y = 4, label = "c",fontface="bold")
   

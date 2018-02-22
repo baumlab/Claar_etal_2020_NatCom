@@ -125,7 +125,7 @@ p6 <- ggplot()+
         axis.title = element_text(size=18,color="#404040")) +
   ylab("") + xlab("2015                  2016                               2017         ") +
   scale_y_continuous(name="Symbiont:Host Ratio", limits=c(-2.4,-1),expand=c(0.01,0.01), 
-                     breaks = c(-2,-1.7,-1.398,-1.22,-1.097,-1,-0.921,-0.854,-0.796,-0.745), 
+                     breaks = c(log10(0.01),log10(0.02),log10(0.04),log10(0.06),log10(0.08),log10(0.1),log10(0.12),log10(0.14),log10(0.16),log10(0.18)), 
                      labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18)) +
   scale_x_datetime(date_breaks = "2 months",date_labels = "%b",expand=c(0.01,0.01)) +
   annotate("text",x=as.POSIXct("2016-07-10"), y =-2.25,label="100% D")+
@@ -152,11 +152,11 @@ p6 <- ggplot()+
   geom_errorbar(aes(x=as.POSIXct(date, origin="1970-01-01"),group=Status,
                     ymin=S.H.log10-S.H.log10.se,ymax=S.H.log10+S.H.log10.se, width=1000000),
                 data=summ_means_df,position = pd) +
-  scale_shape_manual(name= "Coral Status",values=c("alive"=21,"dead"=24),
-                     labels=c("Alive","Dead"))+
+  scale_shape_manual(name= "Coral Fate",values=c("alive"=21,"dead"=24),
+                     labels=c("Survived","Died"))+
   scale_fill_manual(values=c(C_col,D_col),guide=F) +
   guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, barwidth=10,label = F),
-         shape=guide_legend(title="Coral Status",title.position = "top",order = 1, override.aes = list(size=4)))
+         shape=guide_legend(title="Coral Fate",title.position = "top",order = 1, override.aes = list(size=4)))
 
 p6
 
@@ -169,3 +169,23 @@ tiff(file="figures/Figure3.tiff",width = 7.2, height = 4,units="in",res=300)
 p6
 dev.off()
 
+#https://stackoverflow.com/questions/25378184/need-to-extract-data-from-the-ggplot-geom-histogram
+p6b <- ggplot_build(p6)
+p6b$data[[17]]
+
+# Extract mean S:H in 'real' values (i.e. covert from log to regular)
+KI2015b_dead_SH_mean <- 10^(p6b$data[[17]]$y[1])
+KI2015b_alive_SH_mean <- 10^(p6b$data[[17]]$y[2])
+KI2015c_dead_SH_mean <- 10^(p6b$data[[17]]$y[3])
+KI2015c_alive_SH_mean <- 10^(p6b$data[[17]]$y[4])
+KI2016a_alive_SH_mean <- 10^(p6b$data[[17]]$y[5])
+KI2016b_alive_SH_mean <- 10^(p6b$data[[17]]$y[6])
+KI2017a_alive_SH_mean <- 10^(p6b$data[[17]]$y[7])
+# Extract standard error of S:H in 'real' values (i.e. covert from log to regular)
+KI2015b_dead_SH_se <- ((10^(p6b$data[[18]]$ymax[1])-10^(p6b$data[[18]]$ymin[1]))/2)
+KI2015b_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[2])-10^(p6b$data[[18]]$ymin[2]))/2)
+KI2015c_dead_SH_se <- ((10^(p6b$data[[18]]$ymax[3])-10^(p6b$data[[18]]$ymin[3]))/2)
+KI2015c_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[4])-10^(p6b$data[[18]]$ymin[4]))/2)
+KI2016a_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[5])-10^(p6b$data[[18]]$ymin[5]))/2)
+KI2016b_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[6])-10^(p6b$data[[18]]$ymin[6]))/2)
+KI2017a_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[7])-10^(p6b$data[[18]]$ymin[7]))/2)
