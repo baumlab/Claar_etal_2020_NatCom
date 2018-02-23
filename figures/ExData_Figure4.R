@@ -5,7 +5,7 @@ rm(list=ls())
 
 dev.off()
 
-library(scales); library(ggplot2);library(dichromat);library(maptools);library(scales);library(RColorBrewer);library(rgdal);library(ggplot2)
+library(scales); library(ggplot2);library(dichromat);library(maptools);library(scales);library(RColorBrewer);library(rgdal);library(ggplot2); library(plyr);library(dplyr);library(reshape2)
 theme_set(theme_bw())
 
 #####  Load data ####
@@ -33,74 +33,64 @@ site15_col <-  "#fb8072"
 `Site 34` <- "#d9d9d9"
 `Site 35` <- "#bc80bd"
 `Site 40` <- "#ccebc5"
-#ffed6f
+`Site 19` <- "#666699"
   
 # Subset based on redeployment date
 site30_1hr$temperature_1hr[c(45793:45817)] <- NaN
 # site30_1hr[c(45793:45817),]
 
+
+all_temp <- full_join(site3_1hr,site5_1hr,by="xi2")
+all_temp <- full_join(all_temp,site8_1hr,by="xi2")
+all_temp <- full_join(all_temp,site15_1hr,by="xi2")
+all_temp <- full_join(all_temp,site19_1hr,by="xi2")
+all_temp <- full_join(all_temp,site25_1hr,by="xi2")
+all_temp <- full_join(all_temp,site27_1hr,by="xi2")
+all_temp <- full_join(all_temp,site30_1hr,by="xi2")
+all_temp <- full_join(all_temp,site32_1hr,by="xi2")
+all_temp <- full_join(all_temp,site34_1hr,by="xi2")
+all_temp <- full_join(all_temp,site35_1hr,by="xi2")
+all_temp <- full_join(all_temp,site40_1hr,by="xi2")
+colnames(all_temp) <- c("xi2","Site 3","Site 5","Site 8","Site 15","Site 19","Site 25","Site 27","Site 30","Site 32","Site 34","Site 35","Site 40")
+
+
+all_temp_long <- melt(all_temp, id="xi2") 
+
 ## daily trend for each site on one graph for El Nino
-p <- ggplot(site15_1hr, aes(x=xi2,temperature_1hr)) + 
+p <- ggplot(all_temp_long, aes(x=xi2)) + 
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
         legend.text = element_text(size=18),
         text = element_text(size=18),
         axis.text.x = element_text(size=10),
-        legend.position = c(0.75,0.25)) +
+        legend.position = c(0.503,0.33),
+        legend.margin = margin(0,3,0,0)) +
   scale_x_datetime(limits=c(startday,endday),
                    expand=c(0,0),date_breaks = "1 month", date_labels = "%b-%Y") +
   labs(x="") + 
   scale_y_continuous(limits=c(25.5,31),breaks = c(25,26,27,28,29,30,31),
-                     expand=c(0,0),name="Temperature (°C)") +
+                     expand=c(0,0),name="Temperature (�C)") +
   guides(color = guide_legend(override.aes = list(size = 7))) +
-  geom_line(col=site15_col,aes(color=`Site 15`),show.legend = TRUE) + 
-  geom_line(data=site3_1hr,aes(color=`Site 3`)) + labs(color="") +
-  geom_line(data=site5_1hr,aes(color=`Site 5`)) + 
-  geom_line(data=site8_1hr,aes(color=`Site 8`)) +
-  geom_line(data=site25_1hr,aes(color=`Site 25`)) +
-  geom_line(data=site27_1hr,aes(color=`Site 27`)) +
-  geom_line(data=site30_1hr,aes(color=`Site 30`)) +
-  geom_line(data=site32_1hr,aes(color=`Site 32`)) +
-  geom_line(data=site34_1hr,aes(color=`Site 34`)) +
-  geom_line(data=site35_1hr,aes(color=`Site 35`)) +
-  geom_line(data=site40_1hr,aes(color=`Site 40`)) +
+  geom_path(aes(x=xi2, y=value, color=variable), data=all_temp_long,show.legend=TRUE) +
+  labs(color="") +
   geom_abline(slope=0,intercept=28.1,linetype="dashed")+
-  geom_abline(slope=0,intercept=29.1,color="maroon")+
-  scale_color_manual(values = c(`Site 15`,`Site 3`,`Site 5`,
-                                `Site 8`,`Site 25`,`Site 27`, 
-                                `Site 30`,`Site 32`,`Site 34`,
-                                `Site 35`,`Site 40`),
-                     labels = c('Site 15','Site 3','Site 5',
-                                'Site 8','Site 25','Site 27', 
-                                'Site 30','Site 32','Site 34',
-                                'Site 35','Site 40'))
+  geom_abline(slope=0,intercept=29.1,color="maroon") +
+  scale_color_manual(values = c(`Site 3`,`Site 5`,`Site 8`,
+                                `Site 15`,`Site 19`,`Site 25`,
+                                `Site 27`,`Site 30`,`Site 32`,
+                                `Site 34`,`Site 35`,`Site 40`))
 
-#jpeg(file="figures/Extended_Data/ExData_Figure4.jpeg", height=8, width=15, units = "in",res = 300)
-#p
-#dev.off()
+jpeg(file="figures/Extended_Data/ExData_Figure4.jpeg", height=8, width=15, units = "in",res = 300)
+p
+dev.off()
 
-#tiff(file="figures/Extended_Data/ExData_Figure4.tiff", height=8, width=15, units = "in",res = 300)
-#p
-#dev.off()
+tiff(file="figures/Extended_Data/ExData_Figure4.tiff", height=8, width=15, units = "in",res = 300)
+p
+dev.off()
 
-# png(file="figures/Extended_Data/ExData_Figure4.png", height=8, width=15, units = "in",res = 300)
-# p
-# dev.off()
-
-# 
-# startday2 <- as.POSIXct("2016-06-30")
-# endday2 <- as.POSIXct("2016-12-30")
-# 
-# ggplot(site15_1hr, aes(x=xi2,temperature_1hr)) +
-#   theme(panel.grid.major = element_blank(),
-#         panel.grid.minor = element_blank(),
-#         legend.text = element_text(size=10),
-#         legend.position = "top") +
-#   scale_x_datetime(limits=c(startday2,endday2),expand=c(0,0),date_breaks = "1 week", date_labels = "%b-%d") +
-#   labs(x="") +
-#   scale_y_continuous(limits=c(24.5,31),breaks = c(25,26,27,28,29,30,31),expand=c(0,0),name="Temperature (°C)") + geom_line(data=site30_1hr,col=site30_col)
-# 
-
+png(file="figures/Extended_Data/ExData_Figure4.png", height=8, width=15, units = "in",res = 300)
+p
+dev.off()
 
 ############create a map to be an inset ######################
 
@@ -112,31 +102,25 @@ sites<-sites[!sites$site=="14",]
 sites<-sites[!sites$site=="37",]
 sites<-sites[!sites$site=="38",]
 
-## set palette 
-
-# `Site 3` <- "#8dd3c7"
-# `Site 5` <- "#ffffb3"
-# `Site 8` <- "#bebada"
-# `Site 15` <-  "#fb8072"
-# `Site 25` <- "#80b1d3"
-# `Site 27` <- "#fdb462"
-# `Site 30` <-  "#b3de69"
-# `Site 32` <- "#fccde5"
-# `Site 34` <- "#d9d9d9"
-# `Site 35` <- "#bc80bd"
-# `Site 40` <- "#ccebc5"
-
-psites<-c("3","5","8","15","25", "27", "30","32", "34", "35", "40")
+psites<-c("3","5","8","15","19","25", "27", "30","32", "34", "35", "40")
 site.cols<-as.data.frame(psites)
-site.cols$col<-c("#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5")
+site.cols$col<-c("#8dd3c7","#ffffb3","#bebada","#fb8072","#666699","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5")
 sites$col<-site.cols$col[match(sites$site, site.cols$psites)]
 
 
 ### Sites sampled for platy paper
 #pdf(file="KI_map_sites_temp_platyms.pdf")
-#png(file="KI_map_sites_temp_platyms.png",width = 7, height = 7,units="in",res=300)
 #tiff(file="KI_map_sites_temp_platyms.tiff",width = 7, height = 7,units="in",res=300)
-jpeg(file="KI_map_sites_temp_platyms.jpeg",width = 7, height = 7,units="in",res=300)
+jpeg(file="figures/KI_map_sites_temp_platyms.jpeg",width = 7, height = 7,units="in",res=300)
+source("figures/ki_map_files/KI_base_B&W.R")
+points(sites$lon, sites$lat, bg=alpha(sites$col,0.9), pch=21, cex=3.0)
+with(sites, text(lon, lat, label=site, cex=0.7))
+text(-157.3, 1.9, "Bay\n of\n Wrecks", cex=1)
+text(-157.52, 1.82, "Vaskess\n Bay", cex=1)
+
+dev.off()
+
+png(file="figures/KI_map_sites_temp_platyms.png",width = 7, height = 7,units="in",res=300)
 source("figures/ki_map_files/KI_base_B&W.R")
 points(sites$lon, sites$lat, bg=alpha(sites$col,0.9), pch=21, cex=3.0)
 with(sites, text(lon, lat, label=site, cex=0.7))
