@@ -87,45 +87,45 @@ ord_plot <- p1 +
   scale_fill_manual(values=D_cols) + 
   guides(color=F) +
   stat_ellipse(aes(group=Status), type = "t",level=0.95,color=c("darkgray"),lty=2) +
-  annotate("text", x = -0.4, y = 4, label = "c",fontface="bold")
+  annotate("text", x = -0.4, y = 4, label = "C",fontface="bold")
   
 
 p1
 ord_plot
-# Disturbance centroids plot
-dist_cent <- ggplot(d2, aes(CAP1,CAP2)) + geom_point() + geom_label_repel(aes(label=row.names(d2)),box.padding = 0.5,col=D_cols[c(4,3,2,1)]) + ylim(-0.35,0.2)
-
-jpeg(file="figures/DisturbanceCentroids.jpg",width = 7.2, height = 4,units="in",res=300)
-dist_cent
-dev.off()
-
-jpeg(file="figures/Disturbance_and_fieldseason_Centroids.jpg",width = 7.2, height = 4,units="in",res=300)
-ggplot(d, aes(CAP1,CAP2)) + geom_point() + geom_label_repel(aes(label=row.names(d)),box.padding = 0.5,col=c("black","black","black",D_cols[c(4,3,2,1)])) + ylim(-0.35,0.2)
-dev.off()
+# # Disturbance centroids plot
+# dist_cent <- ggplot(d2, aes(CAP1,CAP2)) + geom_point() + geom_label_repel(aes(label=row.names(d2)),box.padding = 0.5,col=D_cols[c(4,3,2,1)]) + ylim(-0.35,0.2)
+# 
+# jpeg(file="figures/DisturbanceCentroids.jpg",width = 7.2, height = 4,units="in",res=300)
+# dist_cent
+# dev.off()
+# 
+# jpeg(file="figures/Disturbance_and_fieldseason_Centroids.jpg",width = 7.2, height = 4,units="in",res=300)
+# ggplot(d, aes(CAP1,CAP2)) + geom_point() + geom_label_repel(aes(label=row.names(d)),box.padding = 0.5,col=c("black","black","black",D_cols[c(4,3,2,1)])) + ylim(-0.35,0.2)
+# dev.off()
 
 ##################################################################################
 ### El Ni?o Global Map ###
 
 # Load in and format world map showing El Ni?o
 # Use imager to load the image
-img_20152016ElNino <- load.image('figures/global_elnino_map/figure_1.jpg')
+# img_20152016ElNino <- load.image('figures/global_elnino_map/figure_1.jpg')
 # # Check that the data is in the correct format for the next step
 # as.data.frame(img_20152016ElNino,wide="c") %>% head
 # Mutate image data to be able to plot it using GridExtra/ggplot2
-df <- as.data.frame(img_20152016ElNino,wide="c") %>% mutate(rgb.val=rgb(c.1,c.2,c.3))
+# df <- as.data.frame(img_20152016ElNino,wide="c") %>% mutate(rgb.val=rgb(c.1,c.2,c.3))
 # # Double check that it worked
 # head(df,3)
 
 # Turn image into a ggplot object for incorporating in multi-panel figure below
-world_20152016ElNino <- ggplot(df,aes(x,y)) + 
-  geom_raster(aes(fill=rgb.val)) + 
-  scale_fill_identity()+scale_y_reverse() + 
-  theme(axis.line=element_blank(),axis.text.x=element_blank(),
-        axis.text.y=element_blank(),axis.ticks=element_blank(),                                         axis.title.x=element_blank(),                                                                   axis.title.y=element_blank(),legend.position="none",                                            panel.background=element_blank(),panel.border=element_blank(),
-        panel.grid.major=element_blank(),panel.grid.minor=element_blank(),
-        plot.background=element_blank(),
-        plot.margin = unit(c(0,0,0,0),c("in","in","in","in"))) + 
-  annotate("text", x = 10, y = -10, label = "a",fontface="bold")
+# world_20152016ElNino <- ggplot(df,aes(x,y)) + 
+#   geom_raster(aes(fill=rgb.val)) + 
+#   scale_fill_identity()+scale_y_reverse() + 
+#   theme(axis.line=element_blank(),axis.text.x=element_blank(),
+#         axis.text.y=element_blank(),axis.ticks=element_blank(),                                         axis.title.x=element_blank(),                                                                   axis.title.y=element_blank(),legend.position="none",                                            panel.background=element_blank(),panel.border=element_blank(),
+#         panel.grid.major=element_blank(),panel.grid.minor=element_blank(),
+#         plot.background=element_blank(),
+#         plot.margin = unit(c(0,0,0,0),c("in","in","in","in"))) + 
+#   annotate("text", x = 10, y = -10, label = "A",fontface="bold")
 
 ##################################################################################
 ### KI Local Disturbance Map ###
@@ -195,10 +195,10 @@ HighDist <- ggplot(df4,aes(x,y)) +
         axis.title.x=element_blank(),                                                                   axis.title.y=element_blank(),legend.position="none",                                            panel.background=element_blank(),
         panel.border=element_rect(colour = "black", fill=NA, size=1),
         panel.grid.major=element_blank(),panel.grid.minor=element_blank(),
-        plot.background=element_blank(),plot.title = element_text("b"),
+        plot.background=element_blank(),plot.title = element_text("B"),
         plot.margin = unit(c(-0.17,0,0.1,-0.1),c("in","in","in","in"))) +  
   annotate("rect", xmin=0, ymin=0, xmax=100, ymax=110,color="white",fill="white") + 
-  annotate("text", x = 55, y = 55, label = "a",fontface="bold", color="black")
+  annotate("text", x = 55, y = 55, label = "A",fontface="bold", color="black")
 
 
 ##################################################################################
