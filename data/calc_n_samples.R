@@ -310,3 +310,6 @@ write.csv(m5total, "data/calc_n_samples.csv")
 m5total_before <- m5total[which(m5total$info=="sampled_before"),]
 ggplot(data=m5total) + geom_col(aes(x=site, y=total, fill = Status, alpha=info, color=info),position="dodge") + scale_fill_manual(values = c("blue","red","orange", "yellow")) + ylab("Number of Samples")
  
+write.csv(qpcr_only, "qpcr_only.csv")
+write.csv(seq_only, "seq_only.csv")
+write.csv(both, "qpcr_and_seq.csv")
