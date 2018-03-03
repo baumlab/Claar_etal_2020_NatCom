@@ -197,8 +197,8 @@ HighDist <- ggplot(df4,aes(x,y)) +
         panel.grid.major=element_blank(),panel.grid.minor=element_blank(),
         plot.background=element_blank(),plot.title = element_text("B"),
         plot.margin = unit(c(-0.17,0,0.1,-0.1),c("in","in","in","in"))) +  
-  annotate("rect", xmin=0, ymin=0, xmax=100, ymax=110,color="white",fill="white") + 
-  annotate("text", x = 55, y = 55, label = "A",fontface="bold", color="black")
+  annotate("rect", xmin=0, ymin=0, xmax=120, ymax=130,color="white",fill="white") + 
+  annotate("text", x = 72, y = 65, label = "A",fontface="bold", color="black")
 
 
 ##################################################################################
