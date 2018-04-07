@@ -109,12 +109,12 @@ p5.4 <- p1 +
   scale_fill_manual(values=c("white","white","white",timecols[c(3,2)])) +
   theme(axis.title.y=element_blank())
 
-jpeg(file="figures/Extended_Data/ExData_Figure7.jpg",width=16, height=8,units="in", res=300)
+jpeg(file="figures/Extended_Data/Figure_S7.jpg",width=16, height=8,units="in", res=300)
 # grid.arrange(p5,p5.2,p5.3,p5.4,nrow=2,ncol=2)
 grid.arrange(p5,p5.2,p4,p5.3,p5.4,nrow=2,ncol=3, widths=c(1,1,2) , layout_matrix = rbind(c(1,2,3),c(4,5,3)))
 dev.off()
 
-tiff(file="figures/Extended_Data/ExData_Figure7.tiff",width=16, height=8,units="in", res=300)
+tiff(file="figures/Extended_Data/Figure_S7.tiff",width=16, height=8,units="in", res=300)
 # grid.arrange(p5,p5.2,p5.3,p5.4,nrow=2,ncol=2)
 grid.arrange(p5,p5.2,p4,p5.3,p5.4,nrow=2,ncol=3, widths=c(1,1,2) , layout_matrix = rbind(c(1,2,3),c(4,5,3)))
 dev.off()
