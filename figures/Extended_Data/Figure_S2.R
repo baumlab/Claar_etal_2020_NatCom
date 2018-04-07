@@ -80,15 +80,15 @@ p <- ggplot(all_temp_long, aes(x=xi2)) +
                                 `Site 27`,`Site 30`,`Site 32`,
                                 `Site 34`,`Site 35`,`Site 40`))
 
-jpeg(file="figures/Extended_Data/ExData_Figure4.jpeg", height=8, width=15, units = "in",res = 300)
-p
-dev.off()
+# jpeg(file="figures/Extended_Data/Figure_S2_temp.jpeg", height=8, width=15, units = "in",res = 300)
+# p
+# dev.off()
+# 
+# tiff(file="figures/Extended_Data/Figure_S2_temp.tiff", height=8, width=15, units = "in",res = 300)
+# p
+# dev.off()
 
-tiff(file="figures/Extended_Data/ExData_Figure4.tiff", height=8, width=15, units = "in",res = 300)
-p
-dev.off()
-
-png(file="figures/Extended_Data/ExData_Figure4.png", height=8, width=15, units = "in",res = 300)
+png(file="figures/Extended_Data/Figure_S2_temp.png", height=8, width=15, units = "in",res = 300)
 p
 dev.off()
 
@@ -142,7 +142,7 @@ require(gridExtra)
 require(magick)
 library(here)
 
-plot<-image_read("figures/Extended_Data/ExData_Figure4.png")
+plot<-image_read("figures/Extended_Data/Figure_S2_temp.png")
 map_raw<-image_read("figures/KI_map_sites_temp_platyms.png")
 
 map<- map_raw%>%
@@ -155,7 +155,7 @@ final_plot<-image_apply(map, function(x){image_composite(plot, x, offset = "+252
 #check it
 #final_plot
 
-image_write(final_plot, path = "figures/Extended_Data/ExData_Figure4_2.png", format = "png")
-image_write(final_plot, path = "figures/Extended_Data/ExData_Figure4_2.jpeg", format = "jpeg")
+# image_write(final_plot, path = "figures/Extended_Data/Figure_S2.png", format = "png")
+image_write(final_plot, path = "figures/Extended_Data/Figure_S2.jpeg", format = "jpeg")
 image_write(final_plot, path = "figures/Extended_Data/Figure_S2.tiff", format = "tiff")
 
