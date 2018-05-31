@@ -7,7 +7,7 @@ library(rgdal)
 library(ggplot2)
 
 ### site data
-sites<-read.csv('figures/ki_map_files/ki_sites_platy.csv')
+sites<-read.csv('figures/ki_map_files/ki_sites_updatedMay2018_newFPressurePlaty.csv')
 
 ###village data
 villages<-read.csv("figures/ki_map_files/KI_villagesDCC_2015update.csv", header = TRUE) # you get an error but it works
@@ -30,7 +30,7 @@ sites$col<-fishing.cols$fishing.cols[match(sites$f.pressure, fishing.cols$f.pres
 
 #tiff(file="figures/KI_map_platysites_villages_bigger.tiff",width = 7.6, height = 7.2,units="in",res=300)
 #jpeg(file="figures/KI_map_platysites_villages_bigger.jpeg",width = 7.6, height = 7.2,units="in",res=300)
-jpeg(file="figures/KI_map_platysites_villages_bigger_3.jpeg",width = 7.6, height = 7.2,units="in",res=300)  # just 'village'
+jpeg(file="figures/KI_map_platysites_villages_bigger_updatedsites.jpeg",width = 7.6, height = 7.2,units="in",res=300)  # just 'village'
 #pdf(file="figures/KI_map_platysites_villages_bigger.pdf", width = 7.5, height =7)
 source("figures/ki_map_files/KI_base_B&W_bigger.R")
 
