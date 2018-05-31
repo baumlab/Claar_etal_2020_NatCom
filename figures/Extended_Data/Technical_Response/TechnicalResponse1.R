@@ -24,8 +24,8 @@ endday <- as.POSIXct("2016-05-01")
 D_cols <- c("Very High"="#8c510a", "High"="#d8b365", "Medium"="#c7eae5", "Low"="#5ab4ac", "Very Low"="#01665e")
 
 
-`Site 3` <- D_cols[["High"]]
-`Site 5` <- D_cols[["Low"]]
+`Site 3` <- D_cols[["Low"]]
+`Site 5` <- D_cols[["Very Low"]]
 `Site 8` <- D_cols[["Medium"]]
 `Site 15` <-  D_cols[["Very Low"]]
 site15_col <-  D_cols[["Very Low"]]
@@ -35,7 +35,7 @@ site15_col <-  D_cols[["Very Low"]]
 `Site 32` <- D_cols[["Very High"]]
 `Site 34` <- D_cols[["Medium"]]
 `Site 35` <- D_cols[["Medium"]]
-`Site 40` <- D_cols[["Very High"]]
+`Site 40` <- D_cols[["High"]]
 `Site 19` <- D_cols[["Very Low"]]
 
 # Subset based on redeployment date
@@ -83,15 +83,15 @@ p <- ggplot(all_temp_long, aes(x=xi2)) +
                                 `Site 27`,`Site 30`,`Site 32`,
                                 `Site 34`,`Site 35`,`Site 40`))
 
-jpeg(file="figures/Extended_Data/TechnicalResponse1.jpeg", height=8, width=15, units = "in",res = 300)
+jpeg(file="figures/Extended_Data/Technical_Response/TechnicalResponse1.jpeg", height=8, width=15, units = "in",res = 300)
 p
 dev.off()
 
-tiff(file="figures/Extended_Data/TechnicalResponse1.tiff", height=8, width=15, units = "in",res = 300)
+tiff(file="figures/Extended_Data/Technical_Response/TechnicalResponse1.tiff", height=8, width=15, units = "in",res = 300)
 p
 dev.off()
 
-png(file="figures/Extended_Data/TechnicalResponse1.png", height=8, width=15, units = "in",res = 300)
+png(file="figures/Extended_Data/Technical_Response/TechnicalResponse1.png", height=8, width=15, units = "in",res = 300)
 p
 dev.off()
 
@@ -107,7 +107,7 @@ sites<-sites[!sites$site=="38",]
 
 psites<-c("3","5","8","15","19","25", "27", "30","32", "34", "35", "40")
 site.cols<-as.data.frame(psites)
-site.cols$col <- c(D_cols[["High"]],D_cols[["Low"]], D_cols[["Medium"]],  D_cols[["Very Low"]], D_cols[["Very Low"]], D_cols[["High"]], D_cols[["Very High"]],  D_cols[["Very High"]], D_cols[["Very High"]], D_cols[["Medium"]], D_cols[["Medium"]], D_cols[["Very High"]])
+site.cols$col <- c(D_cols[["Low"]],D_cols[["Very Low"]], D_cols[["Medium"]],  D_cols[["Very Low"]], D_cols[["Very Low"]], D_cols[["High"]], D_cols[["Very High"]],  D_cols[["Very High"]], D_cols[["Very High"]], D_cols[["Medium"]], D_cols[["Medium"]], D_cols[["High"]])
 #site.cols$col<-c("#8dd3c7","#ffffb3","#bebada","#fb8072","#666699","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5")
 sites$col<-site.cols$col[match(sites$site, site.cols$psites)]
 
@@ -146,7 +146,7 @@ require(gridExtra)
 require(magick)
 library(here)
 
-plot<-image_read("figures/Extended_Data/TechnicalResponse1.png")
+plot<-image_read("figures/Extended_Data/Technical_Response/TechnicalResponse1.png")
 map_raw<-image_read("figures/KI_map_sites_temp_platyms.png")
 
 map<- map_raw%>%
@@ -159,6 +159,6 @@ final_plot<-image_apply(map, function(x){image_composite(plot, x, offset = "+252
 #check it
 #final_plot
 
-image_write(final_plot, path = "figures/Extended_Data/TechnicalResponse1_2.png", format = "png")
-image_write(final_plot, path = "figures/Extended_Data/TechnicalResponse1_2.jpeg", format = "jpeg")
+image_write(final_plot, path = "figures/Extended_Data/Technical_Response/TechnicalResponse1_2.png", format = "png")
+image_write(final_plot, path = "figures/Extended_Data/Technical_Response/TechnicalResponse1_2.jpeg", format = "jpeg")
 
