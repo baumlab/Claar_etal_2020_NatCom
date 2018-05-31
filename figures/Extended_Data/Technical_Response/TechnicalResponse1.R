@@ -98,7 +98,7 @@ dev.off()
 ############create a map to be an inset ######################
 
 ### site data
-sites<-read.csv('figures/ki_map_files/ki_sites_platy.csv')
+sites<-read.csv('figures/ki_map_files/ki_sites_updatedMay2018_newFPressurePlaty.csv')
 
 #take out sites that did not have a seabird at them
 sites<-sites[!sites$site=="14",]
