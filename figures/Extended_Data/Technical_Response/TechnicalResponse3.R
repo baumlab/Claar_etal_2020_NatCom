@@ -34,14 +34,15 @@ site30_1hr$temperature_1hr[c(45793:45817)] <- NaN
 # site30_1hr[c(45793:45817),]
 
 
-all_temp <- full_join(northshore_1hr,vaskesbay_1hr,by="xi2")
+all_temp <- full_join(northlagoon_1hr,northshore_1hr,by="xi2")
 all_temp <- full_join(all_temp,southlagoon_1hr,by="xi2")
+all_temp <- full_join(all_temp,vaskesbay_1hr,by="xi2")
 all_temp <- full_join(all_temp,bayofwrecks_1hr,by="xi2")
-all_temp <- full_join(all_temp,northlagoon_1hr,by="xi2")
-colnames(all_temp) <- c("xi2","High","Low","Medium","Very Low","Very High")
+colnames(all_temp) <- c("xi2","Very High","High","Medium","Low","Very Low")
 
 
 all_temp_long <- melt(all_temp, id="xi2") 
+all_temp_long$variable <- factor(all_temp_long$variable,levels=c("Very High","High","Medium","Low","Very Low"))
 
 ## daily trend for each site on one graph for El Nino
 p <- ggplot(all_temp_long, aes(x=xi2)) + 
@@ -50,29 +51,29 @@ p <- ggplot(all_temp_long, aes(x=xi2)) +
         legend.text = element_text(size=18),
         text = element_text(size=18),
         axis.text.x = element_text(size=10),
-        legend.position = c(0.503,0.33),
+        legend.position = c(0.495,0.33),
         legend.margin = margin(0,3,0,0)) +
   scale_x_datetime(limits=c(startday,endday),
                    expand=c(0,0),date_breaks = "1 month", date_labels = "%b-%Y") +
   labs(x="") + 
   scale_y_continuous(limits=c(25.5,31),breaks = c(25,26,27,28,29,30,31),
-                     expand=c(0,0),name="Temperature (Â°C)") +
+                     expand=c(0,0),name="Temperature (°C)") +
   guides(color = guide_legend(override.aes = list(size = 7))) +
   geom_path(aes(x=xi2, y=value, color=variable), data=all_temp_long,show.legend=TRUE) +
   labs(color="") +
   geom_abline(slope=0,intercept=28.1,linetype="dashed")+
   geom_abline(slope=0,intercept=29.1,color="maroon") +
-  scale_color_manual(values = c(northshore,vaskesbay, southlagoon,bayofwrecks,northlagoon))
+  scale_color_manual(values = c(northlagoon,northshore,southlagoon,vaskesbay,bayofwrecks))
 
-jpeg(file="figures/Extended_Data/TechnicalResponse3.jpeg", height=8, width=15, units = "in",res = 300)
+jpeg(file="figures/Extended_Data/Technical_Response/TechnicalResponse3.jpeg", height=8, width=15, units = "in",res = 300)
 p
 dev.off()
 
-tiff(file="figures/Extended_Data/TechnicalResponse3.tiff", height=8, width=15, units = "in",res = 300)
+tiff(file="figures/Extended_Data/Technical_Response/TechnicalResponse3.tiff", height=8, width=15, units = "in",res = 300)
 p
 dev.off()
 
-png(file="figures/Extended_Data/TechnicalResponse3.png", height=8, width=15, units = "in",res = 300)
+png(file="figures/Extended_Data/Technical_Response/TechnicalResponse3.png", height=8, width=15, units = "in",res = 300)
 p
 dev.off()
 
@@ -127,7 +128,7 @@ require(gridExtra)
 require(magick)
 library(here)
 
-plot<-image_read("figures/Extended_Data/TechnicalResponse3.png")
+plot<-image_read("figures/Extended_Data/Technical_Response/TechnicalResponse3.png")
 map_raw<-image_read("figures/KI_map_sites_temp_platyms.png")
 
 map<- map_raw%>%
@@ -140,6 +141,6 @@ final_plot<-image_apply(map, function(x){image_composite(plot, x, offset = "+252
 #check it
 #final_plot
 
-image_write(final_plot, path = "figures/Extended_Data/TechnicalResponse3_2.png", format = "png")
-image_write(final_plot, path = "figures/Extended_Data/TechnicalResponse3_2.jpeg", format = "jpeg")
+image_write(final_plot, path = "figures/Extended_Data/Technical_Response/TechnicalResponse3_2.png", format = "png")
+image_write(final_plot, path = "figures/Extended_Data/Technical_Response/TechnicalResponse3_2.jpeg", format = "jpeg")
 

@@ -43,12 +43,11 @@ phy.f.coral <- prune_samples(sample_sums(phy.f.coral)>=sn, phy.f.coral)
 # phy.f.coral <- prune_taxa(names(taxa), phy.f.coral)
 
 # Characterize sites by disturbance level
-VeryHigh <- c(33,40,32,31,27,30,26)
-High <- c(25,3,38,24)
-HighMed <- c(9,34,35,8,14,6)
-LowMed <- c(2,22,1,23)
-Low <- c(7,13,12,4,36,5,37)
-VeryLow <- c(10,21,11,20,16,15,39,19,18,17)
+VeryHigh <- c(32,31,27,30)
+High <- c(26,25,1,6)
+Medium <- c(33,34,35,8,14,7,13,12,22)
+Low <- c(23,2,24,38,3,9,4)
+VeryLow <- c(10,21,11,20,16,15,39,19,18,17,29,28,36,5,37)
 
 sample_data(phy.f.coral)$site <- factor(sample_data(phy.f.coral)$site)
 sample_data(phy.f.coral)$Dist <- sample_data(phy.f.coral)$site
@@ -63,14 +62,9 @@ for (i in High){
     (sample_data(phy.f.coral)$Dist<- gsub (paste("\\<",as.character(i),"\\>",sep=""),as.character("High"), as.character(data.frame(sample_data(phy.f.coral))$Dist), as.character("High")))
 }
 
-for (i in HighMed){
+for (i in Medium){
   if(i %in% unique(as.character(data.frame(sample_data(phy.f.coral))$site)))
-    (sample_data(phy.f.coral)$Dist<- gsub (paste("\\<",as.character(i),"\\>",sep=""),as.character("HighMed"), as.character(data.frame(sample_data(phy.f.coral))$Dist), as.character("HighMed")))
-}
-
-for (i in LowMed){
-  if(i %in% unique(as.character(data.frame(sample_data(phy.f.coral))$site)))
-    (sample_data(phy.f.coral)$Dist<- gsub (paste("\\<",as.character(i),"\\>",sep=""),as.character("LowMed"), as.character(data.frame(sample_data(phy.f.coral))$Dist), as.character("LowMed")))
+    (sample_data(phy.f.coral)$Dist<- gsub (paste("\\<",as.character(i),"\\>",sep=""),as.character("Medium"), as.character(data.frame(sample_data(phy.f.coral))$Dist), as.character("Medium")))
 }
 
 for (i in Low){
@@ -83,7 +77,7 @@ for (i in VeryLow){
     (sample_data(phy.f.coral)$Dist<- gsub (paste("\\<",as.character(i),"\\>",sep=""),as.character("VeryLow"), as.character(data.frame(sample_data(phy.f.coral))$Dist), as.character("VeryLow")))
 }
 
-levels(sample_data(phy.f.coral)$Dist) <- c("VeryHigh","High","HighMed","Low","VeryLow")
+levels(sample_data(phy.f.coral)$Dist) <- c("VeryHigh","High","Medium","Low","VeryLow")
 
 # Assign new name for clarity
 phy97.f.c <- phy.f.coral
@@ -315,38 +309,38 @@ phy97.f.c.fpenta.AD.during <- subset_samples(phy97.f.c.fpenta.AD,field_season=="
 
 phy97.f.c.fpenta.AD.before.LVL <- subset_samples(phy97.f.c.fpenta.AD.before, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
 phy97.f.c.fpenta.AD.before.LVL <- subset_taxa(phy97.f.c.fpenta.AD.before.LVL, taxa_sums(phy97.f.c.fpenta.AD.before.LVL) > 0, prune=TRUE)
-phy97.f.c.fpenta.AD.before.HM <- subset_samples(phy97.f.c.fpenta.AD.before, Dist=="HighMed", prune=TRUE)
+phy97.f.c.fpenta.AD.before.HM <- subset_samples(phy97.f.c.fpenta.AD.before, Dist=="Medium", prune=TRUE)
 phy97.f.c.fpenta.AD.before.HM <- subset_taxa(phy97.f.c.fpenta.AD.before.HM, taxa_sums(phy97.f.c.fpenta.AD.before.HM) > 0, prune=TRUE)
 phy97.f.c.fpenta.AD.before.HVH <- subset_samples(phy97.f.c.fpenta.AD.before, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 phy97.f.c.fpenta.AD.before.LVL <- subset_taxa(phy97.f.c.fpenta.AD.before.LVL, taxa_sums(phy97.f.c.fpenta.AD.before.LVL) > 0, prune=TRUE)
 phy97.f.c.fpenta.AD.during.LVL <- subset_samples(phy97.f.c.fpenta.AD.during, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
 phy97.f.c.fpenta.AD.before.LVL <- subset_taxa(phy97.f.c.fpenta.AD.before.LVL, taxa_sums(phy97.f.c.fpenta.AD.before.LVL) > 0, prune=TRUE)
-phy97.f.c.fpenta.AD.during.HM <- subset_samples(phy97.f.c.fpenta.AD.during, Dist=="HighMed", prune=TRUE)
+phy97.f.c.fpenta.AD.during.HM <- subset_samples(phy97.f.c.fpenta.AD.during, Dist=="Medium", prune=TRUE)
 phy97.f.c.fpenta.AD.during.HM <- subset_taxa(phy97.f.c.fpenta.AD.during.HM, taxa_sums(phy97.f.c.fpenta.AD.during.HM) > 0, prune=TRUE)
 phy97.f.c.fpenta.AD.during.HVH <- subset_samples(phy97.f.c.fpenta.AD.during, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 phy97.f.c.fpenta.AD.during.HVH <- subset_taxa(phy97.f.c.fpenta.AD.during.HVH, taxa_sums(phy97.f.c.fpenta.AD.during.HVH) > 0, prune=TRUE)
 phy97.f.c.fpenta.AD.after.LVL <- subset_samples(phy97.f.c.fpenta.AD.after, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
 phy97.f.c.fpenta.AD.after.LVL <- subset_taxa(phy97.f.c.fpenta.AD.after.LVL, taxa_sums(phy97.f.c.fpenta.AD.after.LVL) > 0, prune=TRUE)
-phy97.f.c.fpenta.AD.after.HM <- subset_samples(phy97.f.c.fpenta.AD.after, Dist=="HighMed", prune=TRUE)
+phy97.f.c.fpenta.AD.after.HM <- subset_samples(phy97.f.c.fpenta.AD.after, Dist=="Medium", prune=TRUE)
 phy97.f.c.fpenta.AD.after.HM <- subset_taxa(phy97.f.c.fpenta.AD.after.HM, taxa_sums(phy97.f.c.fpenta.AD.after.HM) > 0, prune=TRUE)
 phy97.f.c.fpenta.AD.after.HVH <- subset_samples(phy97.f.c.fpenta.AD.after, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 phy97.f.c.fpenta.AD.after.HVH <- subset_taxa(phy97.f.c.fpenta.AD.after.HVH, taxa_sums(phy97.f.c.fpenta.AD.after.HVH) > 0, prune=TRUE)
 
 phy97.f.c.platy.AD.before.LVL <- subset_samples(phy97.f.c.platy.AD.before, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
 phy97.f.c.platy.AD.before.LVL <- subset_taxa(phy97.f.c.platy.AD.before.LVL, taxa_sums(phy97.f.c.platy.AD.before.LVL) > 0, prune=TRUE)
-phy97.f.c.platy.AD.before.HM <- subset_samples(phy97.f.c.platy.AD.before, Dist=="HighMed", prune=TRUE)
+phy97.f.c.platy.AD.before.HM <- subset_samples(phy97.f.c.platy.AD.before, Dist=="Medium", prune=TRUE)
 phy97.f.c.platy.AD.before.HM <- subset_taxa(phy97.f.c.platy.AD.before.HM, taxa_sums(phy97.f.c.platy.AD.before.HM) > 0, prune=TRUE)
 phy97.f.c.platy.AD.before.HVH <- subset_samples(phy97.f.c.platy.AD.before, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 phy97.f.c.platy.AD.before.HVH <- subset_taxa(phy97.f.c.platy.AD.before.HVH, taxa_sums(phy97.f.c.platy.AD.before.HVH) > 0, prune=TRUE)
 phy97.f.c.platy.AD.during.LVL <- subset_samples(phy97.f.c.platy.AD.during, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
 phy97.f.c.platy.AD.during.LVL <- subset_taxa(phy97.f.c.platy.AD.during.LVL, taxa_sums(phy97.f.c.platy.AD.during.LVL) > 0, prune=TRUE)
-phy97.f.c.platy.AD.during.HM <- subset_samples(phy97.f.c.platy.AD.during, Dist=="HighMed", prune=TRUE)
+phy97.f.c.platy.AD.during.HM <- subset_samples(phy97.f.c.platy.AD.during, Dist=="Medium", prune=TRUE)
 phy97.f.c.platy.AD.during.HM <- subset_taxa(phy97.f.c.platy.AD.during.HM, taxa_sums(phy97.f.c.platy.AD.during.HM) > 0, prune=TRUE)
 phy97.f.c.platy.AD.during.HVH <- subset_samples(phy97.f.c.platy.AD.during, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 phy97.f.c.platy.AD.during.HVH <- subset_taxa(phy97.f.c.platy.AD.during.HVH, taxa_sums(phy97.f.c.platy.AD.during.HVH) > 0, prune=TRUE)
 phy97.f.c.platy.AD.after.LVL <- subset_samples(phy97.f.c.platy.AD.after, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
 phy97.f.c.platy.AD.after.LVL <- subset_taxa(phy97.f.c.platy.AD.after.LVL, taxa_sums(phy97.f.c.platy.AD.after.LVL) > 0, prune=TRUE)
-phy97.f.c.platy.AD.after.HM <- subset_samples(phy97.f.c.platy.AD.after, Dist=="HighMed", prune=TRUE)
+phy97.f.c.platy.AD.after.HM <- subset_samples(phy97.f.c.platy.AD.after, Dist=="Medium", prune=TRUE)
 phy97.f.c.platy.AD.after.HM <- subset_taxa(phy97.f.c.platy.AD.after.HM, taxa_sums(phy97.f.c.platy.AD.after.HM) > 0, prune=TRUE)
 phy97.f.c.platy.AD.after.HVH <- subset_samples(phy97.f.c.platy.AD.after, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 phy97.f.c.platy.AD.after.HVH <- subset_taxa(phy97.f.c.platy.AD.after.HVH, taxa_sums(phy97.f.c.platy.AD.after.HVH) > 0, prune=TRUE)
@@ -357,33 +351,33 @@ phy97.f.c.platy.AD.after.HVH <- subset_taxa(phy97.f.c.platy.AD.after.HVH, taxa_s
 # phy97.f.c.coral.p <- transform_sample_counts(phy97.f.c.coral, function(x) x/sum(x))
 phy97.f.c.coral.before <- subset_samples(phy97.f.c.coral, field_season=="KI2014"|field_season=="KI2015a"|field_season=="KI2015b", prune=TRUE)
 phy97.f.c.coral.before.LVL <- subset_samples(phy97.f.c.coral.before, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
-phy97.f.c.coral.before.HM <- subset_samples(phy97.f.c.coral.before, Dist=="HighMed", prune=TRUE)
+phy97.f.c.coral.before.HM <- subset_samples(phy97.f.c.coral.before, Dist=="Medium", prune=TRUE)
 phy97.f.c.coral.before.HVH <- subset_samples(phy97.f.c.coral.before, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 
 phy97.f.c.coral.during <- subset_samples(phy97.f.c.coral, field_season=="KI2015c", prune=TRUE)
 phy97.f.c.coral.during.LVL <- subset_samples(phy97.f.c.coral.during, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
-phy97.f.c.coral.during.HM <- subset_samples(phy97.f.c.coral.during, Dist=="HighMed", prune=TRUE)
+phy97.f.c.coral.during.HM <- subset_samples(phy97.f.c.coral.during, Dist=="Medium", prune=TRUE)
 phy97.f.c.coral.during.HVH <- subset_samples(phy97.f.c.coral.during, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 
 phy97.f.c.coral.after <- subset_samples(phy97.f.c.coral, field_season=="KI2016a", prune=TRUE)
 phy97.f.c.coral.after.LVL <- subset_samples(phy97.f.c.coral.after, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
-phy97.f.c.coral.after.HM <- subset_samples(phy97.f.c.coral.after, Dist=="HighMed", prune=TRUE)
+phy97.f.c.coral.after.HM <- subset_samples(phy97.f.c.coral.after, Dist=="Medium", prune=TRUE)
 phy97.f.c.coral.after.HVH <- subset_samples(phy97.f.c.coral.after, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 
 # phy97.f.c.coral.AD.before.LVL <- subset_taxa(phy97.f.c.coral.AD.before.LVL, taxa_sums(phy97.f.c.coral.AD.before.LVL) > 0, prune=TRUE)
-# phy97.f.c.coral.AD.before.HM <- subset_samples(phy97.f.c.coral.AD.before, Dist=="HighMed", prune=TRUE)
+# phy97.f.c.coral.AD.before.HM <- subset_samples(phy97.f.c.coral.AD.before, Dist=="Medium", prune=TRUE)
 # phy97.f.c.coral.AD.before.HM <- subset_taxa(phy97.f.c.coral.AD.before.HM, taxa_sums(phy97.f.c.coral.AD.before.HM) > 0, prune=TRUE)
 # phy97.f.c.coral.AD.before.HVH <- subset_samples(phy97.f.c.coral.AD.before, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 # phy97.f.c.coral.AD.before.HVH <- subset_taxa(phy97.f.c.coral.AD.before.HVH, taxa_sums(phy97.f.c.coral.AD.before.HVH) > 0, prune=TRUE)
 # phy97.f.c.coral.AD.during.LVL <- subset_samples(phy97.f.c.coral.AD.during, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
 # phy97.f.c.coral.AD.during.LVL <- subset_taxa(phy97.f.c.coral.AD.during.LVL, taxa_sums(phy97.f.c.coral.AD.during.LVL) > 0, prune=TRUE)
-# phy97.f.c.coral.AD.during.HM <- subset_samples(phy97.f.c.coral.AD.during, Dist=="HighMed", prune=TRUE)
+# phy97.f.c.coral.AD.during.HM <- subset_samples(phy97.f.c.coral.AD.during, Dist=="Medium", prune=TRUE)
 # phy97.f.c.coral.AD.during.HM <- subset_taxa(phy97.f.c.coral.AD.during.HM, taxa_sums(phy97.f.c.coral.AD.during.HM) > 0, prune=TRUE)
 # phy97.f.c.coral.AD.during.HVH <- subset_samples(phy97.f.c.coral.AD.during, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 # phy97.f.c.coral.AD.during.HVH <- subset_taxa(phy97.f.c.coral.AD.during.HVH, taxa_sums(phy97.f.c.coral.AD.during.HVH) > 0, prune=TRUE)
 # phy97.f.c.coral.AD.after.LVL <- subset_samples(phy97.f.c.coral.AD.after, Dist=="Low" | Dist=="VeryLow", prune=TRUE)
 # phy97.f.c.coral.AD.after.LVL <- subset_taxa(phy97.f.c.coral.AD.after.LVL, taxa_sums(phy97.f.c.coral.AD.after.LVL) > 0, prune=TRUE)
-# phy97.f.c.coral.AD.after.HM <- subset_samples(phy97.f.c.coral.AD.after, Dist=="HighMed", prune=TRUE)
+# phy97.f.c.coral.AD.after.HM <- subset_samples(phy97.f.c.coral.AD.after, Dist=="Medium", prune=TRUE)
 # phy97.f.c.coral.AD.after.HM <- subset_taxa(phy97.f.c.coral.AD.after.HM, taxa_sums(phy97.f.c.coral.AD.after.HM) > 0, prune=TRUE)
 # phy97.f.c.coral.AD.after.HVH <- subset_samples(phy97.f.c.coral.AD.after, Dist=="High" | Dist=="VeryHigh", prune=TRUE)
 # phy97.f.c.coral.AD.after.HVH <- subset_taxa(phy97.f.c.coral.AD.after.HVH, taxa_sums(phy97.f.c.coral.AD.after.HVH) > 0, prune=TRUE)
@@ -399,7 +393,7 @@ total_dist <- unique(data.frame(sample_data(phy97.f.c.platy))$Dist)
 # write.csv(total_tags,"data/included_tags.csv")
 
 # Cleanup 
-rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,Low,LowMed,High,HighMed,phy.f.coral,A_C,A_D,A_G,A.dis,C_D,C_G,C.dis,col1,col2,col3,col4,D_G,D.dis,G.dis,A.seqs,C.seqs,D.seqs,G.seqs,n)
+rm(a,b,c,i,nam,VeryHigh,VeryLow,phy.f,Low,High,Medium,phy.f.coral,A_C,A_D,A_G,A.dis,C_D,C_G,C.dis,col1,col2,col3,col4,D_G,D.dis,G.dis,A.seqs,C.seqs,D.seqs,G.seqs,n)
 
 # Save grouped data as RData file
 save(list = ls(all.names = TRUE), file = "data/KI_seqs_f_coral_grouped_all.RData")

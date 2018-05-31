@@ -132,7 +132,7 @@ ord_plot
 
 # Load in and format KI map showing local human disturbance
 # Use imager to load the image
-img_KImap <- load.image('figures/KI_map_platysites_villages_bigger_3.jpeg')
+img_KImap <- load.image('figures/KI_map_platysites_villages.jpeg')
 # # Check that the data is in the correct format for the next step
 # as.data.frame(img_KImap,wide="c") %>% head
 # Mutate image data to be able to plot it using GridExtra/ggplot2
