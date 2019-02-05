@@ -1,4 +1,7 @@
 library(ggplot2)
+library(scales); library(ggplot2);library(dichromat);library(maptools);library(scales);library(RColorBrewer);library(rgdal);library(ggplot2); library(plyr);library(dplyr);library(reshape2)
+library(magick)
+
 load("data/temperature/NOAA_5km.RData")
 
 # D_cols <- c("Very High"="#8c510a", "High"="#d8b365", "Medium"="#c7eae5", "Low"="#5ab4ac", "Very Low"="#01665e")
@@ -34,7 +37,7 @@ p <- ggplot(dhw_dist) +
         text = element_text(size=24),
         axis.text.x = element_text(size=24),
         axis.text.y = element_text(size=24),
-        legend.position = c(0.503,0.33),
+        legend.position = c(0.515,0.23),
         legend.margin = margin(0,3,0,0)) +
   # geom_point(aes(x=date,y=dhw_high),color=R_cols[["North shore"]]) +
   # geom_point(aes(x=date,y=dhw_low),color=R_cols[["Vaskess Bay"]]) +
@@ -63,7 +66,24 @@ p <- ggplot(dhw_dist) +
                      name = "Region")
   p
 
-jpeg(file="figures/Extended_Data/Technical_Response/TechnicalResponse4_NOAA.jpeg", height=6, width=15, units = "in",res = 300)
+jpeg(file="figures/Extended_Data/Technical_Response/TechnicalResponse4_NOAA_temp.jpeg", height=6, width=15, units = "in",res = 300)
 p
 dev.off()
+
+plot<-image_read("figures/Extended_Data/Technical_Response/TechnicalResponse4_NOAA_temp.jpeg")
+map_raw<-image_read("figures/Extended_Data/Technical_Response/KI_regions.jpg")
+
+map<- map_raw%>%
+  image_scale("1000") %>%
+  image_annotate("Kiritimati Island", color = "black", size = 50, location = "+50+50", gravity = "northeast")
+
+#combine the map and the plot
+final_plot<-image_apply(map, function(x){image_composite(plot, x, offset = "+2860+580")})
+
+#check it
+# final_plot
+
+# image_write(final_plot, path = "figures/Extended_Data/Figure_S2.png", format = "png")
+image_write(final_plot, path = "figures/Extended_Data/Figure_S2_C.jpeg", format = "jpeg")
+image_write(final_plot, path = "figures/Extended_Data/Figure_S2_C.tiff", format = "tiff")
 

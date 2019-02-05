@@ -224,6 +224,13 @@ grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.1
 
 dev.off()
 
+# Save as EPS
+setEPS(width=7.2,height=2.8)
+postscript("figures/Figure2.eps")
+grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.17,1.17),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.8,2.6),c("in","in","in"))),nrow=1, heights=unit(c(2.6),c("in")),widths=unit(c(7.2),c("in")))
+dev.off()
+
+
 ##################################################################################
 
 
