@@ -131,4 +131,5 @@ r_samdat3$dom_after <- as.factor(r_samdat3$dom_after)
 r_samdat4 <- r_samdat3
 rownames(r_samdat4) <- r_samdat4$coral_tag
 head(r_samdat4)
-write.csv(r_samdat3, file = "MyData.csv")
+write.csv(r_samdat3, file = "figures/summarize_samples_by_tag_Table.csv",
+          row.names = FALSE)
