@@ -44,7 +44,7 @@ phy.f.coral <- prune_samples(sample_sums(phy.f.coral)>=sn, phy.f.coral)
 
 # Characterize sites by disturbance level
 VeryHigh <- c(32,31,27,30)
-High <- c(26,25,1,6)
+High <- c(26,25,1,6,40)
 Medium <- c(33,34,35,8,14,7,13,12,22)
 Low <- c(23,2,24,38,3,9,4)
 VeryLow <- c(10,21,11,20,16,15,39,19,18,17,29,28,36,5,37)
