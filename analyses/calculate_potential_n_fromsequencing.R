@@ -29,17 +29,9 @@ data_w[data_w$Coral_Tag==62,]
 data_w$Tube_label.2017[data_w$Coral_Tag==62 & data_w$Coral_Tag_All==62] <- paste(data_w$Tube_label.2017[data_w$Coral_Tag==62 & data_w$Coral_Tag_All==62],data_w$Tube_label.2017[data_w$Coral_Tag==62 & data_w$Coral_Tag_All=="62_1260"], sep="_")
 data_w <- data_w[ !(data_w$Coral_Tag_All %in% c("62_1260")), ]
 
-data_w[data_w$Coral_Tag==89,]
-data_w$Tube_label.2016Nov[data_w$Coral_Tag==89 & data_w$Coral_Species=="Favia matthaii"] <- data_w$Tube_label.2016Nov[data_w$Coral_Tag==89 & data_w$Coral_Species=="Favia sp"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("89")&data_w$Coral_Species=="Favia sp"), ]
-
 data_w[data_w$Coral_Tag==99,]
 data_w$Tube_label.2017[data_w$Coral_Tag==99 & data_w$Coral_Tag_All==99] <- paste(data_w$Tube_label.2017[data_w$Coral_Tag==99 & data_w$Coral_Tag_All==99],data_w$Tube_label.2017[data_w$Coral_Tag==99 & data_w$Coral_Tag_All=="99_1312"], sep="_")
 data_w <- data_w[ !(data_w$Coral_Tag_All %in% c("99_1312")), ]
-
-data_w[data_w$Coral_Tag==100,]
-data_w$Tube_label.2017[data_w$Coral_Tag==100 & data_w$Coral_Species=="Favia matthaii"] <- data_w$Tube_label.2017[data_w$Coral_Tag==100 & data_w$Coral_Species=="Favia sp"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("100")&data_w$Coral_Species=="Favia sp"), ]
 
 data_w[data_w$Coral_Tag==128,]
 data_w$Tube_label.2017[data_w$Coral_Tag==128 & data_w$Coral_Tag_All==128] <- paste(data_w$Tube_label.2017[data_w$Coral_Tag==128 & data_w$Coral_Tag_All==128],data_w$Tube_label.2017[data_w$Coral_Tag==128 & data_w$Coral_Tag_All=="128_1261"], sep="_")
@@ -53,29 +45,24 @@ data_w[data_w$Coral_Tag==205,]
 data_w$Tube_label.2017[data_w$Coral_Tag==205 & data_w$Coral_Tag_All==205] <- data_w$Tube_label.2017[data_w$Coral_Tag==205 & data_w$Coral_Tag_All=="205_1258"]
 data_w <- data_w[ !(data_w$Coral_Tag_All %in% c("205_1258")), ]
 
-data_w[data_w$Coral_Tag==213,]
-data_w$Tube_label.2017[data_w$Coral_Tag==213 & data_w$Coral_Species=="Favites pentagona"] <- paste(data_w$Tube_label.2017[data_w$Coral_Tag==213 & data_w$Coral_Species=="Favites pentagona"],data_w$Tube_label.2017[data_w$Coral_Tag==213 & data_w$Coral_Species=="Favities pentagona"], sep="_")
-data_w <- data_w[ !(data_w$Coral_Species %in% c("Favities pentagona") & data_w$Coral_Tag %in% c("213")), ]
+data_w[data_w$Coral_Tag==248,]
+data_w$Tube_label.2015May[data_w$Coral_Tag==248 & data_w$Coral_Tag_All==248] <- data_w$Tube_label.2015May[data_w$Coral_Tag==248 & data_w$Coral_Tag_All=="248_696"]
+data_w$Tube_label.2015July[data_w$Coral_Tag==248 & data_w$Coral_Tag_All==248] <- data_w$Tube_label.2015July[data_w$Coral_Tag==248 & data_w$Coral_Tag_All=="248_696"]
+data_w$Tube_label.2016March[data_w$Coral_Tag==248 & data_w$Coral_Tag_All==248] <- data_w$Tube_label.2016March[data_w$Coral_Tag==248 & data_w$Coral_Tag_All=="248_696"]
+data_w <- data_w[ !(data_w$Coral_Tag_All %in% c("248_696")), ]
 
-data_w[data_w$Coral_Tag==231,]
-data_w$Tube_label.2017[data_w$Coral_Tag==231 & data_w$Coral_Species=="Favites pentagona"] <- paste(data_w$Tube_label.2017[data_w$Coral_Tag==231 & data_w$Coral_Species=="Favites pentagona"],data_w$Tube_label.2017[data_w$Coral_Tag==231 & data_w$Coral_Species=="Favities pentagona"], sep="_")
-data_w <- data_w[ !(data_w$Coral_Species %in% c("Favities pentagona") & data_w$Coral_Tag %in% c("231")), ]
 
 data_w[data_w$Coral_Tag==370,]
 data_w$Tube_label.2015July[data_w$Coral_Tag==370 & data_w$Coral_Tag_All==370] <- data_w$Tube_label.2015July[data_w$Coral_Tag==370 & data_w$Coral_Tag_All=="370_1265"]
 data_w <- data_w[ !(data_w$Coral_Tag_All %in% c("370_1265")), ]
-
-data_w[data_w$Coral_Tag==386,]
-data_w$Tube_label.2017[data_w$Coral_Tag==386 & data_w$Coral_Species=="Favites pentagona"] <- paste(data_w$Tube_label.2017[data_w$Coral_Tag==386 & data_w$Coral_Species=="Favites pentagona"],data_w$Tube_label.2017[data_w$Coral_Tag==386 & data_w$Coral_Species=="Favities pentagona"], sep="_")
-data_w <- data_w[ !(data_w$Coral_Species %in% c("Favities pentagona") & data_w$Coral_Tag %in% c("386")), ]
 
 data_w[data_w$Coral_Tag==388,]
 data_w$Tube_label.2016Nov[data_w$Coral_Tag==388 & data_w$Coral_Tag_All==388] <- data_w$Tube_label.2016Nov[data_w$Coral_Tag==388 & data_w$Coral_Tag_All=="388_1168"]
 data_w <- data_w[ !(data_w$Coral_Tag_All %in% c("388_1168")), ]
 
 data_w[data_w$Coral_Tag==400,]
-data_w$Tube_label.2017[data_w$Coral_Tag==400 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==400 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Species %in% c("Favities pentagona") & data_w$Coral_Tag %in% c("400")), ]
+data_w$Tube_label.2017[data_w$Coral_Tag==400 & data_w$Coral_Tag_All==400] <- data_w$Tube_label.2017[data_w$Coral_Tag==400 & data_w$Coral_Tag_All=="400_1102"]
+data_w <- data_w[ !(data_w$Coral_Tag_All %in% c("400_1102")), ]
 
 data_w[data_w$Coral_Tag==410,]
 data_w$Tube_label.2015July[data_w$Coral_Tag==410 & data_w$Coral_Tag_All==410] <- data_w$Tube_label.2015July[data_w$Coral_Tag==410 & data_w$Coral_Tag_All=="410_893"]
@@ -85,10 +72,6 @@ data_w[data_w$Coral_Tag==412,]
 data_w$Tube_label.2015July[data_w$Coral_Tag==412 & data_w$Coral_Tag_All==412] <- data_w$Tube_label.2015July[data_w$Coral_Tag==412 & data_w$Coral_Tag_All=="412_892"]
 data_w <- data_w[ !(data_w$Coral_Tag_All %in% c("412_892")), ]
 
-data_w[data_w$Coral_Tag==415,]
-data_w$Tube_label.2017[data_w$Coral_Tag==415 & data_w$Coral_Species=="Favia matthaii"] <- data_w$Tube_label.2017[data_w$Coral_Tag==415 & data_w$Coral_Species=="Favia sp"]
-data_w <- data_w[ !(data_w$Coral_Species %in% c("Favia sp") & data_w$Coral_Tag %in% "415"), ]
-
 data_w[data_w$Coral_Tag==482,]
 data_w$Tube_label.2016Nov[data_w$Coral_Tag==482 & data_w$Coral_Tag_All==482] <- data_w$Tube_label.2016Nov[data_w$Coral_Tag==482 & data_w$Coral_Tag_All=="482_897" & data_w$Coral_Species=="Favites pentagona"]
 data_w <- data_w[ !(data_w$Coral_Species %in% c("Favites pentagona") & data_w$Coral_Tag_All %in% c("482_897")), ]
@@ -97,45 +80,17 @@ data_w[data_w$Coral_Tag==482,]
 data_w$Tube_label.2017[data_w$Coral_Tag==482 & data_w$Coral_Tag_All==482] <- data_w$Tube_label.2017[data_w$Coral_Tag==482 & data_w$Coral_Tag_All=="482_897"]
 data_w <- data_w[ !(data_w$Coral_Tag_All %in% c("482_897")), ]
 
-data_w[data_w$Coral_Tag==497,]
-data_w$Tube_label.2017[data_w$Coral_Tag==497 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==497 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Species %in% c("Favities pentagona") & data_w$Coral_Tag %in% c("497")), ]
-
 data_w[data_w$Coral_Tag==588,]
 data_w$Tube_label.2016Nov[data_w$Coral_Tag==588 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2016Nov[data_w$Coral_Tag==588 & data_w$Coral_Tag_All=="588_1227" & data_w$Coral_Species=="Favites pentagona"]
 data_w <- data_w[ !(data_w$Coral_Species %in% c("Favites pentagona") & data_w$Coral_Tag_All %in% c("588_1227")), ]
-
-data_w[data_w$Coral_Tag==588,]
-data_w$Tube_label.2017[data_w$Coral_Tag==588 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==588 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("588") & data_w$Coral_Species %in% c("Favities pentagona")), ]
-
-data_w[data_w$Coral_Tag==592,]
-data_w$Tube_label.2017[data_w$Coral_Tag==592 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==592 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("592") & data_w$Coral_Species %in% c("Favities pentagona")), ]
 
 data_w[data_w$Coral_Tag==597,]
 data_w$Tube_label.2016Nov[data_w$Coral_Tag==597 & data_w$Coral_Tag_All==597] <- data_w$Tube_label.2016Nov[data_w$Coral_Tag==597 & data_w$Coral_Tag_All=="597_1228" & data_w$Coral_Species=="Favites pentagona"]
 data_w <- data_w[ !(data_w$Coral_Species %in% c("Favites pentagona") & data_w$Coral_Tag_All %in% c("597_1228")), ]
 
-data_w[data_w$Coral_Tag==597,]
-data_w$Tube_label.2017[data_w$Coral_Tag==597 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==597 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("597") & data_w$Coral_Species %in% c("Favities pentagona")), ]
-
-data_w[data_w$Coral_Tag==605,]
-data_w$Tube_label.2017[data_w$Coral_Tag==605 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==605 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("605") & data_w$Coral_Species %in% c("Favities pentagona")), ]
-
-data_w[data_w$Coral_Tag==628,]
-data_w$Tube_label.2017[data_w$Coral_Tag==628 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==628 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("628") & data_w$Coral_Species %in% c("Favities pentagona")), ]
-
 data_w[data_w$Coral_Tag==656,]
 data_w$Tube_label.2016Nov[data_w$Coral_Tag==656 & data_w$Coral_Tag_All==656] <- data_w$Tube_label.2016Nov[data_w$Coral_Tag==656 & data_w$Coral_Tag_All=="656_1075"]
 data_w <- data_w[ !(data_w$Coral_Tag_All %in% c("656_1075")), ]
-
-data_w[data_w$Coral_Tag==729,]
-data_w$Tube_label.2017[data_w$Coral_Tag==729 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==729 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("729")&data_w$Coral_Species=="Favities pentagona"), ]
 
 data_w[data_w$Coral_Tag==754,]
 data_w$Tube_label.2016March[data_w$Coral_Tag==754 & data_w$Coral_Tag_All==754] <- data_w$Tube_label.2016March[data_w$Coral_Tag==754 & data_w$Coral_Tag_All=="754_899"]
@@ -145,18 +100,6 @@ data_w[data_w$Coral_Tag==754,]
 data_w$Tube_label.2016Nov[data_w$Coral_Tag==754 & data_w$Coral_Tag_All==754] <- data_w$Tube_label.2016Nov[data_w$Coral_Tag==754 & data_w$Coral_Tag_All=="754_899_1060"]
 data_w <- data_w[ !(data_w$Coral_Tag_All %in% c("754_899_1060")), ]
 
-data_w[data_w$Coral_Tag==786,]
-data_w$Tube_label.2017[data_w$Coral_Tag==786 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==786 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("786")&data_w$Coral_Species=="Favities pentagona"), ]
-
-data_w[data_w$Coral_Tag==844,]
-data_w$Tube_label.2017[data_w$Coral_Tag==844 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==844 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("844")&data_w$Coral_Species=="Favities pentagona"), ]
-
-data_w[data_w$Coral_Tag==854,]
-data_w$Tube_label.2017[data_w$Coral_Tag==854 & data_w$Coral_Species=="Favia matthaii"] <- data_w$Tube_label.2017[data_w$Coral_Tag==854 & data_w$Coral_Species=="Favia sp"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("854")&data_w$Coral_Species=="Favia sp"), ]
-
 data_w[data_w$Coral_Tag==907,]
 data_w$Tube_label.2017[data_w$Coral_Tag==907 & data_w$Coral_Tag_All==907] <- data_w$Tube_label.2017[data_w$Coral_Tag==907 & data_w$Coral_Tag_All=="907_1284"]
 data_w <- data_w[ !(data_w$Coral_Tag_All %in% c("907_1284")), ]
@@ -165,41 +108,6 @@ data_w[data_w$Coral_Tag==911,]
 data_w$Tube_label.2017[data_w$Coral_Tag==911 & data_w$Coral_Tag_All==911] <- data_w$Tube_label.2017[data_w$Coral_Tag==911 & data_w$Coral_Tag_All=="911_1321"]
 data_w <- data_w[ !(data_w$Coral_Tag_All %in% c("911_1321")), ]
 
-data_w[data_w$Coral_Tag==937,]
-data_w$Tube_label.2017[data_w$Coral_Tag==937 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==937 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("937")&data_w$Coral_Species=="Favities pentagona"), ]
-
-data_w[data_w$Coral_Tag==1009,]
-data_w$Tube_label.2017[data_w$Coral_Tag==1009 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==1009 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("1009")&data_w$Coral_Species=="Favities pentagona"), ]
-
-data_w[data_w$Coral_Tag==1032,]
-data_w$Tube_label.2017[data_w$Coral_Tag==1032 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==1032 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("1032")&data_w$Coral_Species=="Favities pentagona"), ]
-
-data_w[data_w$Coral_Tag==1033,]
-data_w$Tube_label.2017[data_w$Coral_Tag==1033 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==1033 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("1033")&data_w$Coral_Species=="Favities pentagona"), ]
-
-data_w[data_w$Coral_Tag==1034,]
-data_w$Tube_label.2017[data_w$Coral_Tag==1034 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==1034 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("1034")&data_w$Coral_Species=="Favities pentagona"), ]
-
-data_w[data_w$Coral_Tag==1037,]
-data_w$Tube_label.2017[data_w$Coral_Tag==1037 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==1037 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("1037")&data_w$Coral_Species=="Favities pentagona"), ]
-
-data_w[data_w$Coral_Tag==1050,]
-data_w$Tube_label.2017[data_w$Coral_Tag==1050 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==1050 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("1050")&data_w$Coral_Species=="Favities pentagona"), ]
-
-data_w[data_w$Coral_Tag==1056,]
-data_w$Tube_label.2017[data_w$Coral_Tag==1056 & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag==1056 & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("1056")&data_w$Coral_Species=="Favities pentagona"), ]
-
-data_w[data_w$Coral_Tag=="583b",]
-data_w$Tube_label.2017[data_w$Coral_Tag=="583b" & data_w$Coral_Species=="Favites pentagona"] <- data_w$Tube_label.2017[data_w$Coral_Tag=="583b" & data_w$Coral_Species=="Favities pentagona"]
-data_w <- data_w[ !(data_w$Coral_Tag %in% c("583b")&data_w$Coral_Species=="Favities pentagona"), ]
 
 ##############
 #Add in info about alive/dead manually from sequencing runs spreadsheet - 8Feb2019 - DC
@@ -376,7 +284,7 @@ data_w$status[data_w$Coral_Tag==487] <- "dead" #2016b, last samples 2015c
 data_w$status[data_w$Coral_Tag==492] <- "dead" #2016a, last sampled 2015c
 data_w$status[data_w$Coral_Tag==493] <- "UK" #Last sampled 2014
 data_w$status[data_w$Coral_Tag==497] <- "alive" 
-data_w$status[data_w$Coral_Tag==500] <- "FIX" #inconsistent species 
+data_w$status[data_w$Coral_Tag==500] <- "alive" #inconsistent species 
 data_w$status[data_w$Coral_Tag==504] <- "gone_UK" #2016a, last sampled 2014
 data_w$status[data_w$Coral_Tag==575] <- "gone_before" # 2015a_post, last sampled 2015a_pre
 data_w$status[data_w$Coral_Tag==577] <- "alive" #barely
@@ -398,7 +306,7 @@ data_w$status[data_w$Coral_Tag==620] <- "alive"
 data_w$status[data_w$Coral_Tag==623] <- "gone_after" #2016a, last sampled 2015c
 data_w$status[data_w$Coral_Tag==628] <- "gone_after" #2016a, last sampled 2015c
 data_w$status[data_w$Coral_Tag==630] <- "alive"
-data_w$status[data_w$Coral_Tag==631] <- "FIX" #inconsistent species
+data_w$status[data_w$Coral_Tag==631] <- "alive" #inconsistent species
 data_w$status[data_w$Coral_Tag==637] <- "alive"
 data_w$status[data_w$Coral_Tag==656] <- "alive"
 data_w$status[data_w$Coral_Tag==658] <- "gone_after" #2016b, last sampled 2015c
@@ -410,7 +318,6 @@ data_w$status[data_w$Coral_Tag==685] <- "UK" #last sampled 2015b
 data_w$status[data_w$Coral_Tag==689] <- "alive"
 data_w$status[data_w$Coral_Tag==691] <- "alive" #barely, dead 2016b
 data_w$status[data_w$Coral_Tag==695] <- "dead" #2016a, last sampled 2015c
-data_w$status[data_w$Coral_Tag==696] <- "FIX" #THIS IS A RETAG. FIX ABOVE
 data_w$status[data_w$Coral_Tag==699] <- "dead" #2016a, last sampled 2015c
 data_w$status[data_w$Coral_Tag==719] <- "dead" #2016a, last sampled 2015c
 data_w$status[data_w$Coral_Tag==722] <- "gone_after" #2016a, last sampled 2015c
@@ -444,7 +351,7 @@ data_w$status[data_w$Coral_Tag==800] <- "gone_after" #2016a, last sampled 2015c
 data_w$status[data_w$Coral_Tag==804] <- "gone_after" #2016a, last sampled 2015c
 data_w$status[data_w$Coral_Tag==806] <- "alive" #but dead in 2017
 data_w$status[data_w$Coral_Tag==807] <- "alive"
-data_w$status[data_w$Coral_Tag==810] <- "FIX" #inconsistent species
+data_w$status[data_w$Coral_Tag==810] <- "dead" 
 data_w$status[data_w$Coral_Tag==813] <- "alive"
 data_w$status[data_w$Coral_Tag==817] <- "alive"
 data_w$status[data_w$Coral_Tag==820] <- "alive"
@@ -519,9 +426,12 @@ data_w$status[data_w$Coral_Tag==1056] <- "alive"
 data_w$status[data_w$Coral_Tag==1057] <- "alive"
 data_w$status[data_w$Coral_Tag=="583b"] <- "alive"
 data_w$status[data_w$Coral_Tag=="93b"] <- "UK" #Last sampled 2015a_post
+data_w$status[data_w$Coral_Tag=="631b"] <- "alive"
+data_w$status[data_w$Coral_Tag=="810b"] <- "alive"
+
 
 data_w$Coral_Tag[duplicated(data_w$Coral_Tag)]
-# FIX SPECIES CONFLICT - 500, 631, 810
+data_w[is.na(data_w$status),]
 
 ####
 n_fpenta <- nrow(data_w[data_w$Coral_Species=="Favites pentagona",])
@@ -564,7 +474,6 @@ n_colonies_UK <- nrow(data_w[data_w$status=="UK",]) # 60 coral colonies
 n_colonies_gone_before <- nrow(data_w[data_w$status=="gone_before",]) # 8 coral colonies
 n_colonies_gone_after <- nrow(data_w[data_w$status=="gone_after",]) # 37 coral colonies
 n_colonies_gone_UK <- nrow(data_w[data_w$status=="gone_UK",]) # 15 coral colonies
-n_colonies_FIX <- nrow(data_w[data_w$status=="FIX",]) 
 
 n_colonies_alive+n_colonies_dead+n_colonies_UK+n_colonies_gone_before+n_colonies_gone_after+n_colonies_gone_UK
 
