@@ -433,6 +433,17 @@ data_w$status[data_w$Coral_Tag=="810b"] <- "alive"
 data_w$Coral_Tag[duplicated(data_w$Coral_Tag)]
 data_w[is.na(data_w$status),]
 
+# Before is if it was sampled in any one (or more) of 2014, 2015 January, 2015 May
+data_w$before <- ifelse(is.na(data_w$Tube_label.2014)==F | is.na(data_w$Tube_label.2015Jan)==F | is.na(data_w$Tube_label.2015May)==F,"Yes","No")
+# During is in July 2015
+data_w$during <- ifelse(is.na(data_w$Tube_label.2015July)==F,"Yes","No")
+# After is in March 2016
+data_w$after <- ifelse(is.na(data_w$Tube_label.2016March)==F,"Yes","No")
+# Recovery is November 2016 and July 2017
+data_w$recovery <- ifelse(is.na(data_w$Tube_label.2016Nov)==F | is.na(data_w$Tube_label.2017)==F,"Yes","No")
+
+head(data_w)
+
 ####
 n_fpenta <- nrow(data_w[data_w$Coral_Species=="Favites pentagona",])
 n_fmatt <- nrow(data_w[data_w$Coral_Species=="Favia matthaii",])
@@ -447,15 +458,6 @@ n_all_favia <- n_fmatt+n_faviasp
 
 head(data_w)
 
-# Before is if it was sampled in any one (or more) of 2014, 2015 January, 2015 May
-data_w$before <- ifelse(is.na(data_w$Tube_label.2014)==F | is.na(data_w$Tube_label.2015Jan)==F | is.na(data_w$Tube_label.2015May)==F,"Yes","No")
-# During is in July 2015
-data_w$during <- ifelse(is.na(data_w$Tube_label.2015July)==F,"Yes","No")
-# After is in March 2016
-data_w$after <- ifelse(is.na(data_w$Tube_label.2016March)==F,"Yes","No")
-# Recovery is November 2016 and July 2017
-data_w$recovery <- ifelse(is.na(data_w$Tube_label.2016Nov)==F | is.na(data_w$Tube_label.2017)==F,"Yes","No")
-
 n_colonies_total_wbefore <- nrow(data_w[data_w$before=="Yes",]) # 246 coral colonies
 n_fpenta_wbefore <- nrow(data_w[data_w$Coral_Species=="Favites pentagona" & data_w$before=="Yes",])
 n_fmatt_wbefore <- nrow(data_w[data_w$Coral_Species=="Favia matthaii" & data_w$before=="Yes",])
@@ -468,6 +470,54 @@ n_favitessp_wbefore <- nrow(data_w[data_w$Coral_Species=="Favites sp" & data_w$b
 n_all_favites_wbefore <- n_fpenta_wbefore+n_favhali_wbefore+n_favitessp_wbefore
 n_all_favia_wbefore <- n_fmatt_wbefore+n_faviasp_wbefore
 
+n_fpenta_alive <- nrow(data_w[data_w$Coral_Species=="Favites pentagona" & data_w$status=="alive",])
+n_fmatt_alive <- nrow(data_w[data_w$Coral_Species=="Favia matthaii" & data_w$status=="alive",])
+n_platy_alive <- nrow(data_w[data_w$Coral_Species=="Platygyra sp" & data_w$status=="alive",])
+n_favhali_alive <- nrow(data_w[data_w$Coral_Species=="Favites halicora" & data_w$status=="alive",])
+n_hydno_alive <- nrow(data_w[data_w$Coral_Species=="Hydnophora microconos" & data_w$status=="alive",])
+n_faviasp_alive <- nrow(data_w[data_w$Coral_Species=="Favia sp" & data_w$status=="alive",])
+n_favitessp_alive <- nrow(data_w[data_w$Coral_Species=="Favites sp" & data_w$status=="alive",])
+
+n_fpenta_dead <- nrow(data_w[data_w$Coral_Species=="Favites pentagona" & data_w$status=="dead",])
+n_fmatt_dead <- nrow(data_w[data_w$Coral_Species=="Favia matthaii" & data_w$status=="dead",])
+n_platy_dead <- nrow(data_w[data_w$Coral_Species=="Platygyra sp" & data_w$status=="dead",])
+n_favhali_dead <- nrow(data_w[data_w$Coral_Species=="Favites halicora" & data_w$status=="dead",])
+n_hydno_dead <- nrow(data_w[data_w$Coral_Species=="Hydnophora microconos" & data_w$status=="dead",])
+n_faviasp_dead <- nrow(data_w[data_w$Coral_Species=="Favia sp" & data_w$status=="dead",])
+n_favitessp_dead <- nrow(data_w[data_w$Coral_Species=="Favites sp" & data_w$status=="dead",])
+
+n_fpenta_UK <- nrow(data_w[data_w$Coral_Species=="Favites pentagona" & data_w$status=="UK",])
+n_fmatt_UK <- nrow(data_w[data_w$Coral_Species=="Favia matthaii" & data_w$status=="UK",])
+n_platy_UK <- nrow(data_w[data_w$Coral_Species=="Platygyra sp" & data_w$status=="UK",])
+n_favhali_UK <- nrow(data_w[data_w$Coral_Species=="Favites halicora" & data_w$status=="UK",])
+n_hydno_UK <- nrow(data_w[data_w$Coral_Species=="Hydnophora microconos" & data_w$status=="UK",])
+n_faviasp_UK <- nrow(data_w[data_w$Coral_Species=="Favia sp" & data_w$status=="UK",])
+n_favitessp_UK <- nrow(data_w[data_w$Coral_Species=="Favites sp" & data_w$status=="UK",])
+
+n_fpenta_gone_before <- nrow(data_w[data_w$Coral_Species=="Favites pentagona" & data_w$status=="gone_before",])
+n_fmatt_gone_before <- nrow(data_w[data_w$Coral_Species=="Favia matthaii" & data_w$status=="gone_before",])
+n_platy_gone_before <- nrow(data_w[data_w$Coral_Species=="Platygyra sp" & data_w$status=="gone_before",])
+n_favhali_gone_before <- nrow(data_w[data_w$Coral_Species=="Favites halicora" & data_w$status=="gone_before",])
+n_hydno_gone_before <- nrow(data_w[data_w$Coral_Species=="Hydnophora microconos" & data_w$status=="gone_before",])
+n_faviasp_gone_before <- nrow(data_w[data_w$Coral_Species=="Favia sp" & data_w$status=="gone_before",])
+n_favitessp_gone_before <- nrow(data_w[data_w$Coral_Species=="Favites sp" & data_w$status=="gone_before",])
+
+n_fpenta_gone_after <- nrow(data_w[data_w$Coral_Species=="Favites pentagona" & data_w$status=="gone_after",])
+n_fmatt_gone_after <- nrow(data_w[data_w$Coral_Species=="Favia matthaii" & data_w$status=="gone_after",])
+n_platy_gone_after <- nrow(data_w[data_w$Coral_Species=="Platygyra sp" & data_w$status=="gone_after",])
+n_favhali_gone_after <- nrow(data_w[data_w$Coral_Species=="Favites halicora" & data_w$status=="gone_after",])
+n_hydno_gone_after <- nrow(data_w[data_w$Coral_Species=="Hydnophora microconos" & data_w$status=="gone_after",])
+n_faviasp_gone_after <- nrow(data_w[data_w$Coral_Species=="Favia sp" & data_w$status=="gone_after",])
+n_favitessp_gone_after <- nrow(data_w[data_w$Coral_Species=="Favites sp" & data_w$status=="gone_after",])
+
+n_fpenta_gone_UK <- nrow(data_w[data_w$Coral_Species=="Favites pentagona" & data_w$status=="gone_UK",])
+n_fmatt_gone_UK <- nrow(data_w[data_w$Coral_Species=="Favia matthaii" & data_w$status=="gone_UK",])
+n_platy_gone_UK <- nrow(data_w[data_w$Coral_Species=="Platygyra sp" & data_w$status=="gone_UK",])
+n_favhali_gone_UK <- nrow(data_w[data_w$Coral_Species=="Favites halicora" & data_w$status=="gone_UK",])
+n_hydno_gone_UK <- nrow(data_w[data_w$Coral_Species=="Hydnophora microconos" & data_w$status=="gone_UK",])
+n_faviasp_gone_UK <- nrow(data_w[data_w$Coral_Species=="Favia sp" & data_w$status=="gone_UK",])
+n_favitessp_gone_UK <- nrow(data_w[data_w$Coral_Species=="Favites sp" & data_w$status=="gone_UK",])
+
 n_colonies_alive <- nrow(data_w[data_w$status=="alive",]) # 151 coral colonies
 n_colonies_dead <- nrow(data_w[data_w$status=="dead",]) # 44 coral colonies
 n_colonies_UK <- nrow(data_w[data_w$status=="UK",]) # 60 coral colonies
@@ -478,3 +528,78 @@ n_colonies_gone_UK <- nrow(data_w[data_w$status=="gone_UK",]) # 15 coral colonie
 n_colonies_alive+n_colonies_dead+n_colonies_UK+n_colonies_gone_before+n_colonies_gone_after+n_colonies_gone_UK
 
 nrow(data_w)
+
+
+
+summary <- setNames(data.frame(matrix(ncol = 8, nrow = 7)), c("n_species","n_species_wbefore","n_alive","n_dead","n_UK", "n_gone_before","n_gone_after","n_gone_UK"))
+
+rownames(summary) <- c("Platygyra sp","Hydnophora","Favites pentagona","Favia matthaii","Favia sp","Favites halicora","Favites sp")
+
+summary$n_species[1] <- n_platy
+summary$n_species[2] <- n_hydno
+summary$n_species[3] <- n_fpenta
+summary$n_species[4] <- n_fmatt
+summary$n_species[5] <- n_faviasp
+summary$n_species[6] <- n_favhali
+summary$n_species[7] <- n_favitessp
+
+summary$n_species_wbefore[1] <- n_platy_wbefore
+summary$n_species_wbefore[2] <- n_hydno_wbefore
+summary$n_species_wbefore[3] <- n_fpenta_wbefore
+summary$n_species_wbefore[4] <- n_fmatt_wbefore
+summary$n_species_wbefore[5] <- n_faviasp_wbefore
+summary$n_species_wbefore[6] <- n_favhali_wbefore
+summary$n_species_wbefore[7] <- n_favitessp_wbefore
+
+summary$n_alive[1] <- n_platy_alive
+summary$n_alive[2] <- n_hydno_alive
+summary$n_alive[3] <- n_fpenta_alive
+summary$n_alive[4] <- n_fmatt_alive
+summary$n_alive[5] <- n_faviasp_alive
+summary$n_alive[6] <- n_favhali_alive
+summary$n_alive[7] <- n_favitessp_alive
+
+summary$n_dead[1] <- n_platy_dead
+summary$n_dead[2] <- n_hydno_dead
+summary$n_dead[3] <- n_fpenta_dead
+summary$n_dead[4] <- n_fmatt_dead
+summary$n_dead[5] <- n_faviasp_dead
+summary$n_dead[6] <- n_favhali_dead
+summary$n_dead[7] <- n_favitessp_dead
+
+summary$n_UK[1] <- n_platy_UK
+summary$n_UK[2] <- n_hydno_UK
+summary$n_UK[3] <- n_fpenta_UK
+summary$n_UK[4] <- n_fmatt_UK
+summary$n_UK[5] <- n_faviasp_UK
+summary$n_UK[6] <- n_favhali_UK
+summary$n_UK[7] <- n_favitessp_UK
+
+summary$n_gone_before[1] <- n_platy_gone_before
+summary$n_gone_before[2] <- n_hydno_gone_before
+summary$n_gone_before[3] <- n_fpenta_gone_before
+summary$n_gone_before[4] <- n_fmatt_gone_before
+summary$n_gone_before[5] <- n_faviasp_gone_before
+summary$n_gone_before[6] <- n_favhali_gone_before
+summary$n_gone_before[7] <- n_favitessp_gone_before
+
+summary$n_gone_after[1] <- n_platy_gone_after
+summary$n_gone_after[2] <- n_hydno_gone_after
+summary$n_gone_after[3] <- n_fpenta_gone_after
+summary$n_gone_after[4] <- n_fmatt_gone_after
+summary$n_gone_after[5] <- n_faviasp_gone_after
+summary$n_gone_after[6] <- n_favhali_gone_after
+summary$n_gone_after[7] <- n_favitessp_gone_after
+
+summary$n_gone_UK[1] <- n_platy_gone_UK
+summary$n_gone_UK[2] <- n_hydno_gone_UK
+summary$n_gone_UK[3] <- n_fpenta_gone_UK
+summary$n_gone_UK[4] <- n_fmatt_gone_UK
+summary$n_gone_UK[5] <- n_faviasp_gone_UK
+summary$n_gone_UK[6] <- n_favhali_gone_UK
+summary$n_gone_UK[7] <- n_favitessp_gone_UK
+
+write.csv(summary,file="analyses/coral_species_status_summary.csv")
+write.csv(data_w,file="analyses/coral_species_samples_bytag.csv")
+
+save.image(file="analyses/calculate_potential_n_fromsequencing.RData")
