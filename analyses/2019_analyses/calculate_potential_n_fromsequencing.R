@@ -1,6 +1,6 @@
 rm(list=ls())
 
-data <- read.csv("~/../Desktop/Sequencing_Runs_1-6_PlatyOptions.csv")
+data <- read.csv("analyses/2019_analyses/Sequencing_Runs_1-6_PlatyOptions.csv")
 
 colnames(data) <- c("Coral_Tag","Coral_Tag_All","SampleType","Year","Tube_label","Coral_Species","Site","Run")
 
@@ -599,7 +599,7 @@ summary$n_gone_UK[5] <- n_faviasp_gone_UK
 summary$n_gone_UK[6] <- n_favhali_gone_UK
 summary$n_gone_UK[7] <- n_favitessp_gone_UK
 
-write.csv(summary,file="analyses/coral_species_status_summary.csv")
-write.csv(data_w,file="analyses/coral_species_samples_bytag.csv")
+write.csv(summary,file="analyses/2019_analyses/coral_species_status_summary.csv")
+write.csv(data_w,file="analyses/2019_analyses/coral_species_samples_bytag.csv")
 
-save.image(file="analyses/calculate_potential_n_fromsequencing.RData")
+save.image(file="analyses/2019_analyses/calculate_potential_n_fromsequencing.RData")
