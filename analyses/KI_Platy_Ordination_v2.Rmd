@@ -1,0 +1,161 @@
+---
+title: "KI_Platy_Ordination"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+rm(list=ls())
+
+library(phyloseq)
+library(vegan)
+library(ggplot2)
+library(phangorn)
+
+load("data/KI_seqs_f_coral_grouped_symportal.RData")
+load("figures/KI_Platy_colors.RData")
+```
+## Ordinate *Symbiodinium* communities
+```{r echo=FALSE}
+# Do an unconstrained ordination on all coral data
+ord.phy97.f.c.coral.AD <- ordinate(phy97.f.c.coral.AD,method="PCoA",distance="bray")
+# Plot this ordination 
+plot_ordination(phy97.f.c.coral.AD, ord.phy97.f.c.coral.AD,  color="host_name", shape="outcome",title="SymPortal - PCoA - All") 
+
+# Do an unconstrained ordination on all coral data before the event
+ord.phy97.f.c.coral.AD.before <- ordinate(phy97.f.c.coral.AD.before,method="PCoA",distance="bray")
+# Plot this ordination 
+plot_ordination(phy97.f.c.coral.AD.before, ord.phy97.f.c.coral.AD.before,  color="outcome", shape="host_name", title="Symportal - PCoA - Before") 
+
+# Do an unconstrained ordination on only Platygyra corals
+ord.phy97.f.c.platy.AD <- ordinate(phy97.f.c.platy.AD,method="PCoA",distance="bray")
+# Plot this ordination 
+plot_ordination(phy97.f.c.platy.AD, ord.phy97.f.c.platy.AD, color="outcome",
+                shape="field_season", title="SymPortal - PCoA - Platy only")
+
+# Do an unconstrained ordination on only Platygyra corals before the event
+ord.phy97.f.c.platy.AD.before <- ordinate(phy97.f.c.platy.AD.before,method="PCoA",distance="bray")
+# Plot this ordination 
+plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before, color="disturbance_level", 
+                shape="field_season",title="SymPortal - PCoA - Platy before")
+
+# Do a constrained ordination on Platygyra corals
+ord.phy97.f.c.platy.AD.CAP <- ordinate(phy97.f.c.platy.AD,method="CAP",distance="bray",formula= ~ field_season + disturbance_level)
+# Plot this ordination - scree plot
+plot_ordination(phy97.f.c.platy.AD, ord.phy97.f.c.platy.AD.CAP,  shape="outcome",type="scree",
+                title="SymPortal - CAP Platygyra only")
+# Plot this ordination - sample plot
+plot_ordination(phy97.f.c.platy.AD, ord.phy97.f.c.platy.AD.CAP,  shape="outcome", color="disturbance_level",type="samples",title="SymPortal - CAP Platygyra only")
+# Test ordination
+anova(ord.phy97.f.c.platy.AD.CAP)
+anova.cca(ord.phy97.f.c.platy.AD.CAP, by="terms")
+
+# Use ordistep to assess which model terms should be included
+finalmodel.platy.AD <- ordistep(ord.phy97.f.c.platy.AD.CAP, formula= ~ field_season + disturbance_level + outcome, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
+# Look at the ordistep final model
+finalmodel.platy.AD
+# Check for covariance
+vif.cca(finalmodel.platy.AD)
+# Test the full model
+anova.cca(finalmodel.platy.AD)
+# Test the model terms
+anova.cca(finalmodel.platy.AD, by="terms")
+
+# Do a constrained ordination on Platygyra corals before the event
+ord.phy97.f.c.platy.AD.before.CAP <- ordinate(phy97.f.c.platy.AD.before,method="CAP",distance="bray",formula= ~ outcome + disturbance_level)
+# Plot this ordination - scree plot
+plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before.CAP,
+                type="scree", title="SymPortal - CAP Platygyra only")
+# Plot this ordination - sample plot
+plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before.CAP,  shape="outcome", color="disturbance_level",type="samples",title="SymPortal - CAP Platygyra only")
+# Test ordination
+anova(ord.phy97.f.c.platy.AD.before.CAP)
+anova.cca(ord.phy97.f.c.platy.AD.before.CAP, by="terms")
+
+### NOT WORKING
+# Use ordistep to assess which model terms should be included
+finalmodel.platy.AD.before <- ordistep(ord.phy97.f.c.platy.AD.before.CAP, formula= ~ field_season + outcome +  disturbance_level, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
+# Look at the ordistep final model
+finalmodel.platy.AD.before
+# Check for covariance
+vif.cca(finalmodel.platy.AD.before)
+# Test the full model
+anova.cca(finalmodel.platy.AD.before)
+# Test the model terms
+anova.cca(finalmodel.platy.AD.before, by="terms")
+
+# Do a constrained ordination on all corals
+ord.phy97.f.c.coral.AD.CAP <- ordinate(phy97.f.c.coral.AD,method="CAP",distance="bray",formula= ~ field_season + outcome + disturbance_level + host_name + field_season*outcome + field_season*disturbance_level + field_season*host_name + outcome*disturbance_level + outcome*host_name + disturbance_level*host_name)
+# Plot this ordination - scree plot
+plot_ordination(phy97.f.c.coral.AD, ord.phy97.f.c.coral.AD.CAP,  shape="outcome",type="scree",
+                title="SymPortal - CAP all corals")
+# Plot this ordination - sample plot
+plot_ordination(phy97.f.c.coral.AD, ord.phy97.f.c.coral.AD.CAP,  shape="outcome", color="site_name",type="samples",title="SymPortal - CAP all corals")
+# Test ordination
+anova(ord.phy97.f.c.coral.AD.CAP)
+anova.cca(ord.phy97.f.c.coral.AD.CAP,by="terms")
+
+# NOT WORKING
+# Use ordistep to assess which model terms should be included
+finalmodel.coral.AD <- ordistep(ord.phy97.f.c.coral.AD.CAP, formula= ~ field_season + outcome + disturbance_level + host_name + field_season*outcome + field_season*disturbance_level + field_season*host_name + outcome*disturbance_level + outcome*host_name + disturbance_level*host_name, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
+# Look at the ordisturbance_levelep final model
+finalmodel.coral.AD
+# Check for covariance
+vif.cca(finalmodel.coral.AD)
+# Test the full model
+anova.cca(finalmodel.coral.AD)
+# Test the model terms
+anova.cca(finalmodel.coral.AD, by="terms")
+
+# Do a constrained ordination on fpenta corals before the event
+ord.phy97.f.c.fpenta.AD.before.CAP <- ordinate(phy97.f.c.fpenta.AD.before,method="CAP",distance="bray",formula= ~ field_season + outcome + disturbance_level)
+# Plot this ordination - scree plot
+plot_ordination(phy97.f.c.fpenta.AD.before, ord.phy97.f.c.fpenta.AD.before.CAP,  shape="outcome",type="scree",
+                title="SymPortal - CAP fpenta only")
+# Plot this ordination - sample plot
+plot_ordination(phy97.f.c.fpenta.AD.before, ord.phy97.f.c.fpenta.AD.before.CAP, shape="outcome", color="disturbance_level",type="samples",title="SymPortal - CAP fpenta only")
+# Test ordination
+anova(ord.phy97.f.c.fpenta.AD.before.CAP)
+anova.cca(ord.phy97.f.c.fpenta.AD.before.CAP,by="terms")
+
+
+# Use ordistep to assess which model terms should be included
+finalmodel.fpenta.AD.before <- ordistep(ord.phy97.f.c.fpenta.AD.before.CAP, formula= ~ Year + outcome +  Dist, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
+# Look at the ordistep final model
+finalmodel.fpenta.AD.before
+# Check for covariance
+vif.cca(finalmodel.fpenta.AD.before)
+# Test the full model
+anova.cca(finalmodel.fpenta.AD.before)
+# Test the model terms
+anova.cca(finalmodel.fpenta.AD.before, by="terms")
+```
+
+```{r sat_curves}
+coralsat <- specaccum(otu_table(phy97.f.c.coral), method = "exact", permutations = 100)
+plot(coralsat)
+platysat <- specaccum(otu_table(phy97.f.c.platy), method = "coleman", permutations = 100)
+plot(platysat)
+```
+
+```{r richness_plot}
+plot_richness(phy97.f.c.platy.AD, x="outcome",color="field_season", measures=c("Observed", "Shannon"))
+```
+
+```{r upgma_comm_trees, include=FALSE}
+dist.phy97.f.c.coral <- distance(phy97.f.c.coral, method="bray", type="samples")
+upgma.phy97.f.c.coral <-  upgma(dist.phy97.f.c.coral)
+plot(upgma.phy97.f.c.coral)
+
+cols= c("red","orange","green","turquoise","blue")
+
+sample_data(phy97.f.c.platy.AD.before)$disturbance_level <- factor(sample_data(phy97.f.c.platy.AD.before)$disturbance_level,levels=c("VeryHigh","High","HighMed","Low","VeryLow"))
+
+par(mar=c(0,0,0,0))
+dist.phy97.f.c.platy.AD.before <- distance(phy97.f.c.platy.AD.before, method="bray", type="samples")
+upgma.phy97.f.c.platy.AD.before <-  upgma(dist.phy97.f.c.platy.AD.before)
+plot(upgma.phy97.f.c.platy.AD.before,show.tip.label = TRUE, tip.color = "white")
+phy97.f.c.platy.AD.before.tip.labels <- get_variable(phy97.f.c.platy.AD.before, "outcome")
+tiplabels(phy97.f.c.platy.AD.before.tip.labels, col = c(phy97.f.c.platy.AD.before.tip.labels), frame = "none", adj = -0.05, cex = 0.7)
+```
