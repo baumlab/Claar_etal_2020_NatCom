@@ -79,3 +79,9 @@ analyses/~*
 .Rproj.user
 
 figures/global_elnino_map/dhw_1516.mat
+
+#Ignore miscellaneous local files
+etc/*
+
+#Ignore raw NOAA data (very large)
+data/temperature/NOAA_5km/*
