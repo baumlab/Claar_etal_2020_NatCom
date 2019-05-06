@@ -6,8 +6,6 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-rm(list=ls())
-
 library(phyloseq)
 library(vegan)
 library(ggplot2)
@@ -34,11 +32,15 @@ ord.phy97.f.c.platy.AD <- ordinate(phy97.f.c.platy.AD,method="PCoA",distance="br
 plot_ordination(phy97.f.c.platy.AD, ord.phy97.f.c.platy.AD, color="outcome",
                 shape="field_season", title="SymPortal - PCoA - Platy only")
 
+phy97.f.c.platy.AD.before <- subset_samples(phy97.f.c.platy.AD.before,field_season!="KI2016a")
+phy97.f.c.platy.AD.before <- subset_samples(phy97.f.c.platy.AD.before,field_season!="KI2015c")
 # Do an unconstrained ordination on only Platygyra corals before the event
 ord.phy97.f.c.platy.AD.before <- ordinate(phy97.f.c.platy.AD.before,method="PCoA",distance="bray")
 # Plot this ordination 
-plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before, color="disturbance_level", 
-                shape="field_season",title="SymPortal - PCoA - Platy before")
+plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before,
+                color="outcome", shape="disturbance_level",
+                title="SymPortal - PCoA - Platy before")+
+  scale_color_manual(values=c("darkgreen","red"))
 
 # Do a constrained ordination on Platygyra corals
 ord.phy97.f.c.platy.AD.CAP <- ordinate(phy97.f.c.platy.AD,method="CAP",distance="bray",formula= ~ field_season + disturbance_level)
