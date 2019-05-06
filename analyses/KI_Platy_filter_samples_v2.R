@@ -32,7 +32,9 @@ phy.f.coral <- prune_samples(sample_sums(phy.f.coral)>=sn, phy.f.coral)
 sample_data(phy.f.coral)$disturbance_level[sample_data(phy.f.coral)$disturbance_level =="vhogh"] <- "vhigh"
 sample_data(phy.f.coral)$disturbance_level <- droplevels(sample_data(phy.f.coral)$disturbance_level)
 
-levels(sample_data(phy.f.coral)$disturbance_level) <- c("vhigh","high","med","low","vlow")
+# levels(sample_data(phy.f.coral)$disturbance_level) <- c("vhigh","high","med","low","vlow")
+sample_data(phy.f.coral)$disturbance_level = factor(sample_data(phy.f.coral)$disturbance_level,levels(sample_data(phy.f.coral)$disturbance_level)[c(4,1,3,2,5)])
+
 levels(sample_data(phy.f.coral)$disturbance_level) <- c("VeryHigh","High","Medium","Low","VeryLow")
 
 # Assign new name for clarity
