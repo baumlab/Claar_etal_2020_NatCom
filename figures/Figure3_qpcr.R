@@ -9,6 +9,7 @@ rm(list=ls())
 
 load(file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
 load("data/temperature/KI_SB_temp_DHW.RData")
+load("data/temperature/KI_SB_temp_DHW_allsites.RData")
 
 ##################################
 metadata.SH.AD <- metadata.SH[which(metadata.SH$Status != "UK" & metadata.SH$Status != "gone" & metadata.SH$Status != "dead_or_gone"),]
@@ -36,7 +37,7 @@ enddate <- as.POSIXct("2016-11-19 00:00:00",tz="Pacific/Kiritimati",
 # Truncate the data from startdate to enddate
 KI_heat <- KI_allsites_DHW[which(KI_allsites_DHW$xi3>startdate),]
 KI_heat <- KI_heat[which(KI_heat$xi3<enddate),]
-DHW_positive <- which(KI_heat$DHW > 0)
+DHW_positive <- which(KI_heat$DHW > 4)
 firstDHW <- KI_heat$xi3[min(DHW_positive)]
 lastDHW <- KI_heat$xi3[max(DHW_positive)]
 
@@ -73,7 +74,7 @@ summ_means_df$dom[summ_means_df$field_season== "KI2015c" & summ_means_df$Status 
 summ_means_df$Status <- as.factor(summ_means_df$Status)
 
 ##################################
-scaletitle <- expression(paste("Dominant ", italic("Symbiodinium"), " Clade"))
+scaletitle <- expression(paste("Dominant ", "Symbiodiniaceae", " Genus"))
 pd <- position_dodge(2000000)
 
 ggplot() + stat_smooth(aes(y = CtoD2, x = date, group=Status, color=..y..,
@@ -113,11 +114,10 @@ p6 <- ggplot()+
         panel.background = element_blank(),
         axis.line = element_line(color="#404040"),
         plot.margin = unit(c(0.1,0.5,0.1,0.1),"cm"),
-        legend.position = c(0.75,0.2), 
+        legend.position = c(0.725,0.2), 
         legend.direction = "horizontal",
         legend.title.align = 0.5,
         legend.key = element_blank(),
-        # legend.text = element_blank(),
         legend.box.just = "center",
         legend.margin = margin(-0.15,0,0,0, unit="cm"),
         legend.background = element_blank(),
@@ -128,9 +128,11 @@ p6 <- ggplot()+
                      breaks = c(log10(0.01),log10(0.02),log10(0.04),log10(0.06),log10(0.08),log10(0.1),log10(0.12),log10(0.14),log10(0.16),log10(0.18)), 
                      labels = c(0.01,0.02,0.04,0.06,0.08,"0.10",0.12,0.14,0.16,0.18)) +
   scale_x_datetime(date_breaks = "2 months",date_labels = "%b",expand=c(0.01,0.01)) +
-  annotate("text",x=as.POSIXct("2016-07-10"), y =-2.25,label="100% D")+
-  annotate("text",x=as.POSIXct("2017-06-17"), y =-2.25,label="100% C")+
-  annotate("text",x=as.POSIXct("2015-11-6"), y =-1.05,label="El Niño",size=6)+
+  annotate("text",x=as.POSIXct("2016-05-10"), y =-2.28,label="100% 
+  Durusdinium")+
+  annotate("text",x=as.POSIXct("2017-06-01"), y =-2.28,label="100% 
+  Cladocopium")+
+  annotate("text",x=as.POSIXct("2015-11-6"), y =-1.05,label="El NiÃ±o",size=6)+
   annotate("text",x=KI2015b, y =-1,label="iii",size=4)+
   annotate("text",x=KI2015c, y =-1,label="iv",size=4)+
   annotate("text",x=KI2016a, y =-1,label="v",size=4)+
@@ -150,12 +152,14 @@ p6 <- ggplot()+
   geom_point(aes(y=S.H.log10, shape=Status, x=as.POSIXct(date, origin="1970-01-01"), 
                  group=Status,fill=dom), data=summ_means_df,position=pd,cex=4) +
   geom_errorbar(aes(x=as.POSIXct(date, origin="1970-01-01"),group=Status,
-                    ymin=S.H.log10-S.H.log10.se,ymax=S.H.log10+S.H.log10.se, width=1000000),
+                    ymin=S.H.log10-S.H.log10.se,ymax=S.H.log10+S.H.log10.se, 
+                    width=1000000),
                 data=summ_means_df,position = pd) +
   scale_shape_manual(name= "Coral Fate",values=c("alive"=21,"dead"=24),
                      labels=c("Survived","Died"))+
   scale_fill_manual(values=c(C_col,D_col),guide=F) +
-  guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, barwidth=10,label = F),
+  guides(colour=guide_colourbar(title.position="top", title.hjust=0.5, 
+                                barwidth=10,label = F),
          shape=guide_legend(title="Coral Fate",title.position = "top",order = 1, override.aes = list(size=4)))
 
 p6
@@ -166,6 +170,10 @@ p6
 dev.off()
 
 tiff(file="figures/Figure3.tiff",width = 7.2, height = 4,units="in",res=300)
+p6
+dev.off()
+
+pdf(file="figures/Figure3.pdf",width = 7.2, height = 4,useDingbats = FALSE)
 p6
 dev.off()
 
