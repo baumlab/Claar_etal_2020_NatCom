@@ -87,3 +87,16 @@ pdf(file="figures/Figure2_ordination.pdf",width = 2.6, height = 2.8,useDingbats 
 ord_plot
 dev.off()
 
+anova(ord.phy97.f.c.platy.AD.before.CAP)
+anova.cca(ord.phy97.f.c.platy.AD.before.CAP, by="terms")
+
+# Use ordistep to assess which model terms should be included
+finalmodel.platy.AD <- ordistep(ord.phy97.f.c.platy.AD.before.CAP, formula= ~ field_season + disturbance_level + outcome, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
+# Look at the ordistep final model
+finalmodel.platy.AD
+# Check for covariance
+vif.cca(finalmodel.platy.AD)
+# Test the full model
+anova.cca(finalmodel.platy.AD)
+# Test the model terms
+anova.cca(finalmodel.platy.AD, by="terms")
