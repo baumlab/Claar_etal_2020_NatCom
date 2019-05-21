@@ -12,6 +12,7 @@
   load("data/temperature/KI_SB_temp_DHW.RData")
   load("data/temperature/KI_satellite_heat.RData")
   load(file="data/temperature/KI_SB_temp_1hr.RData")
+  load(file="data/temperature/KI_SB_temp_DHW_allsites.RData")
   
   #####################################################################
   # Set up and format data
