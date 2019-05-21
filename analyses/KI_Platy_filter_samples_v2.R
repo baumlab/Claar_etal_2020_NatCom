@@ -14,6 +14,12 @@ load("data/SymPortal/KI-platy-phyloseq-obj.RData")
 
 phy.f.coral <- physeq
 
+phy.f.coral <- subset_samples(phy.f.coral, host_species!="lobata")
+phy.f.coral <- subset_samples(phy.f.coral, as.data.frame(sample_data(phy.f.coral))$coral_tag != "1005")
+phy.f.coral <- subset_samples(phy.f.coral, as.data.frame(sample_data(phy.f.coral))$coral_tag != "1011")
+phy.f.coral <- subset_samples(phy.f.coral, as.data.frame(sample_data(phy.f.coral))$coral_tag != "1013")
+phy.f.coral <- subset_samples(phy.f.coral, as.data.frame(sample_data(phy.f.coral))$coral_tag != "1017")
+
 # Filter OTUs by minimum count
 # Set threshold count
 n <- 5
@@ -39,11 +45,6 @@ levels(sample_data(phy.f.coral)$disturbance_level) <- c("VeryHigh","High","Mediu
 
 # Assign new name for clarity
 phy97.f.c <- phy.f.coral
-
-phy97.f.c <- subset_samples(phy97.f.c, as.data.frame(sample_data(phy97.f.c))$coral_tag != "1005")
-phy97.f.c <- subset_samples(phy97.f.c, as.data.frame(sample_data(phy97.f.c))$coral_tag != "1011")
-phy97.f.c <- subset_samples(phy97.f.c, as.data.frame(sample_data(phy97.f.c))$coral_tag != "1013")
-phy97.f.c <- subset_samples(phy97.f.c, as.data.frame(sample_data(phy97.f.c))$coral_tag != "1017")
 
 # Make "host_name" with genus + species
 sample_data(phy97.f.c)$host_name <- paste(sample_data(phy97.f.c)$host_genus,sample_data(phy97.f.c)$host_species, sep="_")
@@ -142,9 +143,9 @@ phy97.f.c.dipmat <- subset_samples(phy97.f.c,host_name=="dipsastraea_matthai")
 phy97.f.c.dipmat <- subset_taxa(phy97.f.c.dipmat, taxa_sums(phy97.f.c.dipmat) > 0, prune=TRUE)
 phy97.f.c.dipmat.AD <- subset_samples(phy97.f.c.dipmat,outcome=="alive"|outcome=="dead")
 
-phy97.f.c.plob <- subset_samples(phy97.f.c,host_name=="porites_lobata")
-phy97.f.c.plob <- subset_taxa(phy97.f.c.plob, taxa_sums(phy97.f.c.plob) > 0, prune=TRUE)
-phy97.f.c.plob.AD <- subset_samples(phy97.f.c.plob,outcome=="alive"|outcome=="dead")
+# phy97.f.c.plob <- subset_samples(phy97.f.c,host_name=="porites_lobata")
+# phy97.f.c.plob <- subset_taxa(phy97.f.c.plob, taxa_sums(phy97.f.c.plob) > 0, prune=TRUE)
+# phy97.f.c.plob.AD <- subset_samples(phy97.f.c.plob,outcome=="alive"|outcome=="dead")
 
 phy97.f.c.hydno <- subset_samples(phy97.f.c,host_name=="hydnophora_microconos")
 phy97.f.c.hydno <- subset_taxa(phy97.f.c.hydno, taxa_sums(phy97.f.c.hydno) > 0, prune=TRUE)
@@ -161,7 +162,7 @@ phy97.f.c.platy.p <- transform_sample_counts(phy97.f.c.platy, function(x) x/sum(
 phy97.f.c.fpenta.p <- transform_sample_counts(phy97.f.c.fpenta, function(x) x/sum(x))
 phy97.f.c.dipsp.p <- transform_sample_counts(phy97.f.c.dipsp, function(x) x/sum(x))
 phy97.f.c.dipmat.p <- transform_sample_counts(phy97.f.c.dipmat, function(x) x/sum(x))
-phy97.f.c.plob.p <- transform_sample_counts(phy97.f.c.plob, function(x) x/sum(x))
+# phy97.f.c.plob.p <- transform_sample_counts(phy97.f.c.plob, function(x) x/sum(x))
 phy97.f.c.hydno.p <- transform_sample_counts(phy97.f.c.hydno, function(x) x/sum(x))
 
 # Subset coral samples to only keep samples taken before the event (==KI2014 to May 2015)
@@ -170,7 +171,7 @@ phy97.f.c.platy.AD.before <- subset_samples(phy97.f.c.platy.AD,field_season!="KI
 phy97.f.c.fpenta.AD.before <- subset_samples(phy97.f.c.fpenta.AD,field_season!="KI2016a"|field_season!="KI2015c", prune=TRUE)
 phy97.f.c.dipsp.AD.before <- subset_samples(phy97.f.c.dipsp.AD,field_season!="KI2016a"|field_season!="KI2015c", prune=TRUE)
 phy97.f.c.dipmat.AD.before <- subset_samples(phy97.f.c.dipmat.AD,field_season!="KI2016a"|field_season!="KI2015c", prune=TRUE)
-phy97.f.c.plob.AD.before <- subset_samples(phy97.f.c.plob.AD,field_season!="KI2016a"|field_season!="KI2015c", prune=TRUE)
+# phy97.f.c.plob.AD.before <- subset_samples(phy97.f.c.plob.AD,field_season!="KI2016a"|field_season!="KI2015c", prune=TRUE)
 phy97.f.c.hydno.AD.before <- subset_samples(phy97.f.c.hydno.AD,field_season!="KI2016a"|field_season!="KI2015c", prune=TRUE)
 
 # Subset coral samples to only keep samples taken after the event (== 2016)
@@ -179,7 +180,7 @@ phy97.f.c.platy.AD.after <- subset_samples(phy97.f.c.platy.AD,field_season=="KI2
 phy97.f.c.fpenta.AD.after <- subset_samples(phy97.f.c.fpenta.AD,field_season=="KI2016a", prune=TRUE)
 phy97.f.c.dipsp.AD.after <- subset_samples(phy97.f.c.dipsp.AD,field_season=="KI2016a", prune=TRUE)
 phy97.f.c.dipmat.AD.after <- subset_samples(phy97.f.c.dipmat.AD,field_season=="KI2016a", prune=TRUE)
-phy97.f.c.plob.AD.after <- subset_samples(phy97.f.c.plob.AD,field_season=="KI2016a", prune=TRUE)
+# phy97.f.c.plob.AD.after <- subset_samples(phy97.f.c.plob.AD,field_season=="KI2016a", prune=TRUE)
 phy97.f.c.hydno.AD.after <- subset_samples(phy97.f.c.hydno.AD,field_season=="KI2016a", prune=TRUE)
 
 # Calculate number of sequences in phy97.f.c
@@ -207,7 +208,7 @@ save(phy97.f.c.coral.AD.before, phy97.f.c.p,
      phy97.f.c.dipmat, phy97.f.c.dipmat.AD,
      phy97.f.c.hydno.AD.before, phy97.f.c.hydno.p, 
      phy97.f.c.hydno, phy97.f.c.hydno.AD,
-     phy97.f.c.plob.AD.before, phy97.f.c.plob.p, 
-     phy97.f.c.plob, phy97.f.c.plob.AD,
+     # phy97.f.c.plob.AD.before, phy97.f.c.plob.p, 
+     # phy97.f.c.plob, phy97.f.c.plob.AD,
      file = "data/KI_seqs_f_coral_grouped_symportal.RData")
 
