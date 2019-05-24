@@ -51,38 +51,38 @@ plot_bar(phy97.f.c.hydno.AD.before.p.no2015c,fill="clade")+facet_grid("outcome",
 plot_bar(phy97.f.c.hydno.AD.before.p.no2015c,fill="clade")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values=clade_cols)
 
 jpeg(filename = "figures/Supplementary_Materials/platy_barplot_clade_outcome.jpg",width = 10, height= 6, units = "in", res=300)
-plot_bar(phy97.f.c.platy.AD.before.p.no2015c,fill="clade")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values=clade_cols)
+plot_bar(phy97.f.c.platy.AD.before.p.no2015c,fill="clade")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values=clade_cols,name="Genus",labels=c(expression(paste(italic("Symbiodinium"))),expression(paste(italic("Cladocopium"))),expression(paste(italic("Durusdinium")))))
 dev.off()
 
 jpeg(filename = "figures/Supplementary_Materials/platy_barplot_clade_dist.jpg",width = 10, height= 6, units = "in", res=300)
-plot_bar(phy97.f.c.platy.AD.before.p.no2015c,fill="clade")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values=clade_cols)
+plot_bar(phy97.f.c.platy.AD.before.p.no2015c,fill="clade")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values=clade_cols,name="Genus",labels=c(expression(paste(italic("Symbiodinium"))),expression(paste(italic("Cladocopium"))),expression(paste(italic("Durusdinium")))))
 dev.off()
 
 
 jpeg(filename = "figures/Supplementary_Materials/fpenta_barplot_clade_outcome.jpg",width = 10, height= 6, units = "in", res=300)
-plot_bar(phy97.f.c.fpenta.AD.before.p.no2015c,fill="clade")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values=clade_cols)
+plot_bar(phy97.f.c.fpenta.AD.before.p.no2015c,fill="clade")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values=clade_cols,name="Genus",labels=c(expression(paste(italic("Cladocopium"))),expression(paste(italic("Durusdinium")))))
 dev.off()
 
 jpeg(filename = "figures/Supplementary_Materials/fpenta_barplot_clade_dist.jpg",width = 10, height= 6, units = "in", res=300)
-plot_bar(phy97.f.c.fpenta.AD.before.p.no2015c,fill="clade")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values=clade_cols)
+plot_bar(phy97.f.c.fpenta.AD.before.p.no2015c,fill="clade")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values=clade_cols,name="Genus",labels=c(expression(paste(italic("Cladocopium"))),expression(paste(italic("Durusdinium")))))
 dev.off()
 
 
 jpeg(filename = "figures/Supplementary_Materials/dipall_barplot_clade_outcome.jpg",width = 10, height= 6, units = "in", res=300)
-plot_bar(phy97.f.c.dipall.AD.before.p.no2015c,fill="clade")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values=clade_cols)
+plot_bar(phy97.f.c.dipall.AD.before.p.no2015c,fill="clade")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values=clade_cols,name="Genus",labels=c(expression(paste(italic("Cladocopium"))),expression(paste(italic("Durusdinium")))))
 dev.off()
 
 jpeg(filename = "figures/Supplementary_Materials/dipall_barplot_clade_dist.jpg",width = 10, height= 6, units = "in", res=300)
-plot_bar(phy97.f.c.dipall.AD.before.p.no2015c,fill="clade")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values=clade_cols)
+plot_bar(phy97.f.c.dipall.AD.before.p.no2015c,fill="clade")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values=clade_cols,name="Genus",labels=c(expression(paste(italic("Cladocopium"))),expression(paste(italic("Durusdinium")))))
 dev.off()
 
 
 jpeg(filename = "figures/Supplementary_Materials/hydno_barplot_clade_outcome.jpg",width = 10, height= 6, units = "in", res=300)
-plot_bar(phy97.f.c.hydno.AD.before.p.no2015c,fill="clade")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values=clade_cols)
+plot_bar(phy97.f.c.hydno.AD.before.p.no2015c,fill="clade")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values=clade_cols,name="Genus",labels=c(expression(paste(italic("Symbiodinium"))),expression(paste(italic("Breviolum"))),expression(paste(italic("Cladocopium"))),expression(paste(italic("Durusdinium")))))
 dev.off()
 
 jpeg(filename = "figures/Supplementary_Materials/hydno_barplot_clade_dist.jpg",width = 10, height= 6, units = "in", res=300)
-plot_bar(phy97.f.c.hydno.AD.before.p.no2015c,fill="clade")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values=clade_cols)
+plot_bar(phy97.f.c.hydno.AD.before.p.no2015c,fill="clade")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values=clade_cols,name="Genus",labels=c(expression(paste(italic("Symbiodinium"))),expression(paste(italic("Breviolum"))),expression(paste(italic("Cladocopium"))),expression(paste(italic("Durusdinium")))))
 dev.off()
 
 #################
@@ -93,112 +93,51 @@ phy97.f.c.coral.AD.before.p.no2015c <- subset_samples(phy97.f.c.coral.AD.before.
 
 colourCount2 = length(unique(data.frame(tax_table(phy97.f.c.coral.AD.before.p.no2015c))$majority_its2_sequence))
 its2maj_names <- unique(data.frame(tax_table(phy97.f.c.coral.AD.before.p.no2015c))$majority_its2_sequence)
-getPalette2 = colorRampPalette(brewer.pal(9, "Set3"))
+getPalette2 = colorRampPalette(brewer.pal(9, "Set1"))
 its2maj_cols <- data.frame(color = getPalette2(colourCount2))
 its2maj_cols$majority_its2_sequence <- its2maj_names
 
 its2maj_cols2 <- setNames(as.character(its2maj_cols$color), its2maj_cols$majority_its2_sequence)
 
 ####
-jpeg(filename = "figures/Supplementary_Materials/hydno_barplot_its2type_outcome.jpg",width = 10, height= 12, units = "in", res=300)
+jpeg(filename = "figures/Supplementary_Materials/hydno_barplot_its2type_outcome.jpg",width = 10, height= 6, units = "in", res=300)
 p2 <- plot_bar(phy97.f.c.hydno.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values = its2maj_cols2)
 p2
 dev.off()
 
-jpeg(filename = "figures/Supplementary_Materials/hydno_barplot_its2type_dist.jpg",width = 10, height= 12, units = "in", res=300)
+jpeg(filename = "figures/Supplementary_Materials/hydno_barplot_its2type_dist.jpg",width = 10, height= 6, units = "in", res=300)
 p2 <- plot_bar(phy97.f.c.hydno.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values = its2maj_cols2)
 p2
 dev.off()
 
-jpeg(filename = "figures/Supplementary_Materials/hydno_barplot_its2type_dist.jpg",width = 10, height= 12, units = "in", res=300)
-colourCount = length(unique(data.frame(tax_table(phy97.f.c.hydno.AD.before.p.no2015c))$its2_type_profile))
-getPalette = colorRampPalette(brewer.pal(9, "Set1"))
-p1 <- plot_bar(phy97.f.c.hydno.AD.before.p.no2015c,fill="its2_type_profile")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values = getPalette(colourCount))
-
-colourCount2 = length(unique(data.frame(tax_table(phy97.f.c.hydno.AD.before.p.no2015c))$majority_its2_sequence))
-getPalette2 = colorRampPalette(brewer.pal(9, "Set3"))
-p2 <- plot_bar(phy97.f.c.hydno.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values = getPalette2(colourCount2))
-
-grid.arrange(p1,p2,nrow=2)
-
+jpeg(filename = "figures/Supplementary_Materials/platy_barplot_its2type_outcome.jpg",width = 10, height= 6, units = "in", res=300)
+p2 <- plot_bar(phy97.f.c.platy.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values = its2maj_cols2)
+p2
 dev.off()
 
-jpeg(filename = "figures/Supplementary_Materials/platy_barplot_its2type_outcome.jpg",width = 10, height= 12, units = "in", res=300)
-colourCount = length(unique(data.frame(tax_table(phy97.f.c.platy.AD.before.p.no2015c))$its2_type_profile))
-getPalette = colorRampPalette(brewer.pal(9, "Set1"))
-p1 <- plot_bar(phy97.f.c.platy.AD.before.p.no2015c,fill="its2_type_profile")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values = getPalette(colourCount))
-
-colourCount2 = length(unique(data.frame(tax_table(phy97.f.c.platy.AD.before.p.no2015c))$majority_its2_sequence))
-getPalette2 = colorRampPalette(brewer.pal(9, "Set3"))
-p2 <- plot_bar(phy97.f.c.platy.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values = getPalette2(colourCount2))
-
-grid.arrange(p1,p2,nrow=2)
-
-dev.off()
-
-jpeg(filename = "figures/Supplementary_Materials/platy_barplot_its2type_dist.jpg",width = 10, height= 12, units = "in", res=300)
-colourCount = length(unique(data.frame(tax_table(phy97.f.c.platy.AD.before.p.no2015c))$its2_type_profile))
-getPalette = colorRampPalette(brewer.pal(9, "Set1"))
-p1 <- plot_bar(phy97.f.c.platy.AD.before.p.no2015c,fill="its2_type_profile")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values = getPalette(colourCount))
-
-colourCount2 = length(unique(data.frame(tax_table(phy97.f.c.platy.AD.before.p.no2015c))$majority_its2_sequence))
-getPalette2 = colorRampPalette(brewer.pal(9, "Set3"))
-p2 <- plot_bar(phy97.f.c.platy.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values = getPalette2(colourCount2))
-
-grid.arrange(p1,p2,nrow=2)
-
+jpeg(filename = "figures/Supplementary_Materials/platy_barplot_its2type_dist.jpg",width = 10, height= 6, units = "in", res=300)
+p2 <- plot_bar(phy97.f.c.platy.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values = its2maj_cols2)
+p2
 dev.off()
 
 
-jpeg(filename = "figures/Supplementary_Materials/fpenta_barplot_its2type_outcome.jpg",width = 10, height= 12, units = "in", res=300)
-colourCount = length(unique(data.frame(tax_table(phy97.f.c.fpenta.AD.before.p.no2015c))$its2_type_profile))
-getPalette = colorRampPalette(brewer.pal(9, "Set1"))
-p1 <- plot_bar(phy97.f.c.fpenta.AD.before.p.no2015c,fill="its2_type_profile")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values = getPalette(colourCount))
-
-colourCount2 = length(unique(data.frame(tax_table(phy97.f.c.fpenta.AD.before.p.no2015c))$majority_its2_sequence))
-getPalette2 = colorRampPalette(brewer.pal(9, "Set3"))
-p2 <- plot_bar(phy97.f.c.fpenta.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values = getPalette2(colourCount2))
-
-grid.arrange(p1,p2,nrow=2)
-
+jpeg(filename = "figures/Supplementary_Materials/dipall_barplot_its2type_outcome.jpg",width = 10, height= 6, units = "in", res=300)
+p2 <- plot_bar(phy97.f.c.dipall.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values = its2maj_cols2)
+p2
 dev.off()
 
-jpeg(filename = "figures/Supplementary_Materials/fpenta_barplot_its2type_dist.jpg",width = 10, height= 12, units = "in", res=300)
-colourCount = length(unique(data.frame(tax_table(phy97.f.c.fpenta.AD.before.p.no2015c))$its2_type_profile))
-getPalette = colorRampPalette(brewer.pal(9, "Set1"))
-p1 <- plot_bar(phy97.f.c.fpenta.AD.before.p.no2015c,fill="its2_type_profile")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values = getPalette(colourCount))
-
-colourCount2 = length(unique(data.frame(tax_table(phy97.f.c.fpenta.AD.before.p.no2015c))$majority_its2_sequence))
-getPalette2 = colorRampPalette(brewer.pal(9, "Set3"))
-p2 <- plot_bar(phy97.f.c.fpenta.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values = getPalette2(colourCount2))
-
-grid.arrange(p1,p2,nrow=2)
-
+jpeg(filename = "figures/Supplementary_Materials/dipall_barplot_its2type_dist.jpg",width = 10, height= 6, units = "in", res=300)
+p2 <- plot_bar(phy97.f.c.dipall.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values = its2maj_cols2)
+p2
 dev.off()
 
 
-jpeg(filename = "figures/Supplementary_Materials/dipall_barplot_its2type_outcome.jpg",width = 10, height= 12, units = "in", res=300)
-colourCount = length(unique(data.frame(tax_table(phy97.f.c.dipall.AD.before.p.no2015c))$its2_type_profile))
-getPalette = colorRampPalette(brewer.pal(9, "Set1"))
-p1 <- plot_bar(phy97.f.c.dipall.AD.before.p.no2015c,fill="its2_type_profile")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values = getPalette(colourCount))
-
-colourCount2 = length(unique(data.frame(tax_table(phy97.f.c.dipall.AD.before.p.no2015c))$majority_its2_sequence))
-getPalette2 = colorRampPalette(brewer.pal(9, "Set3"))
-p2 <- plot_bar(phy97.f.c.dipall.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values = getPalette2(colourCount2))
-
-grid.arrange(p1,p2,nrow=2)
-
+jpeg(filename = "figures/Supplementary_Materials/fpenta_barplot_its2type_outcome.jpg",width = 10, height= 6, units = "in", res=300)
+p2 <- plot_bar(phy97.f.c.fpenta.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("outcome",scales="free",space="free")+scale_fill_manual(values = its2maj_cols2)
+p2
 dev.off()
 
-jpeg(filename = "figures/Supplementary_Materials/dipall_barplot_its2type_dist.jpg",width = 10, height= 12, units = "in", res=300)
-colourCount = length(unique(data.frame(tax_table(phy97.f.c.dipall.AD.before.p.no2015c))$its2_type_profile))
-getPalette = colorRampPalette(brewer.pal(9, "Set1"))
-p1 <- plot_bar(phy97.f.c.dipall.AD.before.p.no2015c,fill="its2_type_profile")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values = getPalette(colourCount))
-
-colourCount2 = length(unique(data.frame(tax_table(phy97.f.c.dipall.AD.before.p.no2015c))$majority_its2_sequence))
-getPalette2 = colorRampPalette(brewer.pal(9, "Set3"))
-p2 <- plot_bar(phy97.f.c.dipall.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values = getPalette2(colourCount2))
-
-grid.arrange(p1,p2,nrow=2)
-
+jpeg(filename = "figures/Supplementary_Materials/fpenta_barplot_its2type_dist.jpg",width = 10, height= 6, units = "in", res=300)
+p2 <- plot_bar(phy97.f.c.fpenta.AD.before.p.no2015c,fill="majority_its2_sequence")+facet_grid("disturbance_level",scales="free",space="free")+scale_fill_manual(values = its2maj_cols2)
+p2
 dev.off()
