@@ -121,8 +121,8 @@ DHW_during_March2016 <- KI_allsites_DHW[546,]
   axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0,padj=-1.5)
   Z <- c(26,27,28,29,30,31) # To be used as temperature y-axis values
   axis(side=4,at=Z,cex.axis=0.93,tck=0.03, lwd.ticks=1.5, las=2,hadj=0.95)
-  mtext("A",side=2, line=2.5,cex=1.2,las=2,padj=-5,font=2) # Add label for figure, specify size
-  mtext("B",side=2, line=2.5,cex=1.2,las=2,padj=8, font=2) # Add label for figure, specify size
+  mtext("a",side=2, line=2.5,cex=1.2,las=2,padj=-5,font=2) # Add label for figure, specify size
+  mtext("b",side=2, line=2.5,cex=1.2,las=2,padj=8, font=2) # Add label for figure, specify size
   mtext("i",side=2, line=-1.45, cex=1, las=2,padj=-5.6) # Add sampling date label
   mtext("ii",side=2, line=-9.7, cex=1, las=2,padj=-5.6) # Add sampling date label
   mtext("iii",side=2, line=-16.1, cex=1, las=2,padj=-5.6) # Add sampling date label
