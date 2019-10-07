@@ -79,6 +79,10 @@ tiff(file="figures/Extended_Data/Figure_S6.tiff",width=10, height=8,units="in", 
 grid.arrange(p2,p3)
 dev.off()
 
+pdf(file="figures/Extended_Data/Figure_S6.pdf",width=10, height=8)
+# grid.arrange(p1,p2,p3)
+grid.arrange(p2,p3)
+dev.off()
 
 # p4 <- ggplot(aes(x = S.H, y=C.PaxC, fill=bleaching_proportion, col=dom), data = metadata.SH.noFQ) + 
 #   theme(legend.position = c(0.9,0.7)) +
