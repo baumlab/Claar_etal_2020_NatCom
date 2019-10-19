@@ -17,7 +17,7 @@ library(ggrepel)
 
 # Load in Data
 # You will need to be in the KI_Platy directory for this to work
-load("data/KI_seqs_f_coral_grouped.RData")
+load("data/KI_seqs_f_coral_grouped_symportal.RData")
 
 
 ################################################################################
@@ -30,10 +30,10 @@ D_cols <- c("Very High"="#8c510a", "High"="black", "Medium"="#c7eae5", "Low"="#5
 theme_set(theme_bw())
 
 # Rename "Disturbance" column
-colnames(sample_data(phy97.f.c.platy.AD.before))[25] = "Disturbance"
+colnames(sample_data(phy97.f.c.platy.AD.before))[15] = "Disturbance"
 # Capitalize the words "Alive" and "Dead"
-sample_data(phy97.f.c.platy.AD.before)$Status <- gsub("alive","Alive",sample_data(phy97.f.c.platy.AD.before)$Status)
-sample_data(phy97.f.c.platy.AD.before)$Status <- gsub("dead","Dead",sample_data(phy97.f.c.platy.AD.before)$Status)
+sample_data(phy97.f.c.platy.AD.before)$outcome <- gsub("alive","Alive",sample_data(phy97.f.c.platy.AD.before)$outcome)
+sample_data(phy97.f.c.platy.AD.before)$outcome <- gsub("dead","Dead",sample_data(phy97.f.c.platy.AD.before)$outcome)
 # Rename Disturbance Levels for easy plotting
 sample_data(phy97.f.c.platy.AD.before)$Disturbance <- gsub("HighMed","Medium",sample_data(phy97.f.c.platy.AD.before)$Disturbance)
 sample_data(phy97.f.c.platy.AD.before)$Disturbance <- gsub("VeryHigh","Very High",sample_data(phy97.f.c.platy.AD.before)$Disturbance)
@@ -52,12 +52,12 @@ ord.phy97.f.c.platy.AD.before.CAP <- ordinate(phy97.f.c.platy.AD.before,
                                               formula= ~ field_season + Disturbance)
 
 # # Plot this ordination - scree plot (Optional, helpful for looking at explained variance)
-plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before.CAP,  shape="Status",type="scree",title="97% within-sample OTUs - CAP Platygyra only")
+plot_ordination(phy97.f.c.platy.AD.before, ord.phy97.f.c.platy.AD.before.CAP,  shape="outcome",type="scree",title="97% within-sample OTUs - CAP Platygyra only")
 
 # Plot this ordination - Make plot using phyloseq & ggplot2
 p1 <- plot_ordination(phy97.f.c.platy.AD.before, 
                       ord.phy97.f.c.platy.AD.before.CAP,
-                      shape="Status", color="Disturbance",
+                      shape="outcome", color="Disturbance",
                       type="samples",title="")
 # Format ordination plot
 ord_plot <- p1 + 
@@ -80,8 +80,8 @@ ord_plot <- p1 +
   scale_color_manual(values=D_cols) + 
   scale_fill_manual(values=D_cols) + 
   guides(color=F) +
-  stat_ellipse(aes(group=Status), type = "t",level=0.95,color=c("darkgray"),lty=2) +
-  annotate("text", x = -0.4, y = 4, label = "C",fontface="bold")
+  stat_ellipse(aes(group=outcome), type = "t",level=0.95,color=c("darkgray"),lty=2) +
+  annotate("text", x = -1.95, y = 4, label = "C",fontface="bold")
   
 
 p1
