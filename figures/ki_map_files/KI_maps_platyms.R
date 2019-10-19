@@ -7,7 +7,7 @@ library(rgdal)
 library(ggplot2)
 
 ### site data
-sites<-read.csv('figures/ki_map_files/ki_sites_updatedMay2018_newFPressurePlaty.csv')
+sites<-read.csv('figures/ki_map_files/ki_sites_updated2019.csv')
 
 ###village data
 villages<-read.csv("figures/ki_map_files/KI_villagesDCC_2015update.csv", header = TRUE) # you get an error but it works
@@ -30,8 +30,10 @@ sites$col<-fishing.cols$fishing.cols[match(sites$f.pressure, fishing.cols$f.pres
 
 #tiff(file="figures/KI_map_platysites_villages_bigger.tiff",width = 7.6, height = 7.2,units="in",res=300)
 #jpeg(file="figures/KI_map_platysites_villages_bigger.jpeg",width = 7.6, height = 7.2,units="in",res=300)
-jpeg(file="figures/KI_map_platysites_villages.jpeg",width = 7.6, height = 7.2,units="in",res=300)  # just 'village'
+# jpeg(file="figures/KI_map_platysites_villages.jpeg",width = 7.6, height = 7.2,units="in",res=300)
 #pdf(file="figures/KI_map_platysites_villages_bigger.pdf", width = 7.5, height =7)
+png(file="figures/KI_map_platysites_villages.png",width = 7.6, height = 7.2,units="in",res=300)
+
 source("figures/ki_map_files/KI_base_B&W_bigger.R")
 
 # village markers sized by population
@@ -100,36 +102,3 @@ text(-157.53, 1.82, "Vaskess\nBay", cex = 0.5)
 text(-157.592, 2.078, "B", font=2, cex=1.25)
 
 dev.off()
-
-
-
-
-
-
-
-# 
-# #######doing versions with the inset so the village legends need to be moved#############
-# #tiff(file="KI_map_platysites_villages_inset_bigger.tiff",width = 7.6, height = 7.2,units="in",res=300)
-# #jpeg(file="KI_map_platysites_villages_inset_bigger.jpeg",width = 7.5, height = 7,units="in",res=300)
-# pdf(file="figures/KI_map_platysites_villages_inset_bigger.pdf", width = 7.5, height =7)
-# source("figures/ki_map_files/KI_base_B&W_bigger.R")
-# 
-# # village markers sized by population
-# symbols(villages$lon, villages$lat, circles=(villages$pop)/10, add=TRUE,inches=0.3, bg=alpha("red", 0.4))
-# ## legend for village size
-# text(-157.19, 1.85, "1500 people", cex=0.66)   
-# text(-157.19, 1.877, "1000 people", cex=0.66)   
-# text(-157.1945, 1.904, "500 people", cex=0.66)  
-# points(sites$lon, sites$lat, bg=alpha(sites$col,0.8), pch=21, cex=1.4) 
-# #with(sites_platy, text(lon, lat, label=site, cex=0.7))
-# legend(-157.265, 2.075,legend=levels(sites$f.pressure), pt.bg=c("#8c510a","#d8b365","#c7eae5","#5ab4ac","#01665e"), pch=21, bty="n", pt.cex=1.4, cex=0.6)
-# text(-157.275, 2.01, "Human disturbance", srt=90, cex=0.6)
-# segments(-157.263, 1.968,-157.263, 2.057)
-# text(-157.315, 1.88, "Bay of\nWrecks", cex = 0.45)
-# text(-157.524, 1.825, "Vaskess\nBay", cex = 0.45)
-# par(mar=c(1.3,0.9,0.5,0.5))
-# source("figures/ki_map_files/KI_base_inset_forbigger.R")
-# 
-# dev.off()
-# 
-# 
