@@ -32,7 +32,7 @@ sites$col<-fishing.cols$fishing.cols[match(sites$f.pressure, fishing.cols$f.pres
 #jpeg(file="figures/KI_map_platysites_villages_bigger.jpeg",width = 7.6, height = 7.2,units="in",res=300)
 # jpeg(file="figures/KI_map_platysites_villages.jpeg",width = 7.6, height = 7.2,units="in",res=300)
 #pdf(file="figures/KI_map_platysites_villages_bigger.pdf", width = 7.5, height =7)
-png(file="figures/KI_map_platysites_villages.png",width = 7.6, height = 7.2,units="in",res=300)
+jpeg(file="figures/KI_map_platysites_villages.jpg",width = 7.6, height = 7.2,units="in",res=300)
 
 source("figures/ki_map_files/KI_base_B&W_bigger.R")
 

@@ -80,10 +80,8 @@ ord_plot <- p1 +
   scale_fill_manual(values=D_cols) + 
   guides(color=F) +
   stat_ellipse(aes(group=Status), type = "t",level=0.95,color=c("darkgray"),lty=2) +
-  annotate("text", x = -0.4, y = 4, label = "C",fontface="bold")
+  annotate("text", x = -1.4, y = 4, label = "C",fontface="bold")
 
-
-p1
 ord_plot
 
 ##################################################################################
@@ -91,7 +89,8 @@ ord_plot
 
 # Load in and format KI map showing local human disturbance
 # Use imager to load the image
-img_KImap <- load.image('figures/KI_map_platysites_villages.jpeg')
+img_KImap <- load.image('figures/KI_map_platysites_villages.jpg')
+# was previously ...jpeg which made imager very mad and it didn't work.
 # # Check that the data is in the correct format for the next step
 # as.data.frame(img_KImap,wide="c") %>% head
 # Mutate image data to be able to plot it using GridExtra/ggplot2
@@ -164,30 +163,24 @@ HighDist <- ggplot(df4,aes(x,y)) +
 ### Make the multi-panel plot ###
 
 # Open a tiff image
-tiff(file="figures/Figure2.tiff",width = 7.2, height = 2.8,units="in",res=300)
-
-# Option that includes world map
-# grid.arrange(world_20152016ElNino,arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.05,1.05),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.2,2.4,3.1),c("in","in","in"))),nrow=2, heights=unit(c(1.67,2.3),c("in","in")),widths=unit(c(7.9),c("in")))
+tiff(file="figures/Figure2_ASV.tiff",width = 7.2, height = 2.8,units="in",res=300)
 
 grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.17,1.17),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.8,2.6),c("in","in","in"))),nrow=1, heights=unit(c(2.6),c("in")),widths=unit(c(7.2),c("in")))
 
 dev.off()
 
 # Open a jpg image
-jpeg(file="figures/Figure2.jpg",width = 7.2, height = 2.8,units="in",res=300)
-
-# Option that includes world map
-# grid.arrange(world_20152016ElNino,arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.05,1.05),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.3,3.1),c("in","in","in"))),nrow=2, heights=unit(c(1.67,2.2),c("in","in")),widths=unit(c(7.9),c("in")))
+jpeg(file="figures/Figure2_ASV.jpg",width = 7.2, height = 2.8,units="in",res=300)
 
 grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.17,1.17),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.8,2.6),c("in","in","in"))),nrow=1, heights=unit(c(2.6),c("in")),widths=unit(c(7.2),c("in")))
 
 dev.off()
 
 # Save as EPS
-setEPS(width=7.2,height=2.8)
-postscript("figures/Figure2.eps")
-grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.17,1.17),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.8,2.6),c("in","in","in"))),nrow=1, heights=unit(c(2.6),c("in")),widths=unit(c(7.2),c("in")))
-dev.off()
+# setEPS(width=7.2,height=2.8)
+# postscript("figures/Figure2.eps")
+# grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.17,1.17),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.8,2.6),c("in","in","in"))),nrow=1, heights=unit(c(2.6),c("in")),widths=unit(c(7.2),c("in")))
+# dev.off()
 
 
 ##################################################################################
