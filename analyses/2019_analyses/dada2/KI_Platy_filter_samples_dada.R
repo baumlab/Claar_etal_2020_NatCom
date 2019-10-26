@@ -23,11 +23,17 @@ sample_data(phy.f)$field_season <- replace(sample_data(phy.f)$field_season, samp
 sample_data(phy.f)$field_season <- replace(sample_data(phy.f)$field_season, sample_data(phy.f)$field_season=="2015Jan_Post", "KI2015a_Post")
 sample_data(phy.f)$field_season <- replace(sample_data(phy.f)$field_season, sample_data(phy.f)$field_season=="2015May", "KI2015b")
 sample_data(phy.f)$field_season <- replace(sample_data(phy.f)$field_season, sample_data(phy.f)$field_season=="2015July", "KI2015c")
+sample_data(phy.f)$field_season <- replace(sample_data(phy.f)$field_season, sample_data(phy.f)$field_season=="2016March", "KI2016a")
 
 colnames(sample_data(phy.f))[colnames(sample_data(phy.f))=="Site"] <- "site"
 
 ################################### Filtering ######################################
-# Remove samples that were sequenced with this set, but are not included in this ms
+phy.f <- subset_samples(phy.f, Coral_Species!="lobata")
+phy.f <- subset_samples(phy.f, as.data.frame(sample_data(phy.f))$CoralTag != "1005")
+phy.f <- subset_samples(phy.f, as.data.frame(sample_data(phy.f))$CoralTag != "1011")
+phy.f <- subset_samples(phy.f, as.data.frame(sample_data(phy.f))$CoralTag != "1013")
+phy.f <- subset_samples(phy.f, as.data.frame(sample_data(phy.f))$CoralTag != "1017")
+
 
 ############################## Site Formatting ####################################
 
@@ -202,12 +208,17 @@ phyASV.f.c.p <- transform_sample_counts(phyASV.f.c, function(x) x/sum(x))
 # Calculate number of sequences in phyASV.f.c
 total_seqs <- sum(taxa_sums(phyASV.f.c))
 
-############################## Subset by compartment/disturbance #######################
-# Subset by compartment and disturbance level
-# phyASV.f.c.VH <- subset_samples(phyASV.f.c,sample_data(phyASV.f.c)$Dist=="VeryHigh")
-# phyASV.f.c.VH <- prune_taxa(taxa_sums(phyASV.f.c.VH)>0,phyASV.f.c.VH)
-# phyASV.f.c.M <- subset_samples(phyASV.f.c,sample_data(phyASV.f.c)$Dist=="Medium")
-# phyASV.f.c.M <- prune_taxa(taxa_sums(phyASV.f.c.M)>0,phyASV.f.c.M)
+############################## Subset out Platy #######################
+# Subset coral data set into individual genus data sets
+phyASV.f.c.platy <- subset_samples(phyASV.f.c,Coral_Species=="Platygyra_sp")
+phyASV.f.c.platy <- subset_taxa(phyASV.f.c.platy, taxa_sums(phyASV.f.c.platy) > 0, prune=TRUE)
+phyASV.f.c.platy.AD <- subset_samples(phyASV.f.c.platy,Status=="alive"|Status=="dead")
+
+phyASV.f.c.platy.p <- transform_sample_counts(phyASV.f.c.platy, function(x) x/sum(x))
+
+phyASV.f.c.platy.AD.before <- subset_samples(phyASV.f.c.platy.AD,field_season!="KI2016a", prune=TRUE)
+phyASV.f.c.platy.AD.before <- subset_samples(phyASV.f.c.platy.AD.before,field_season!="KI2015c", prune=TRUE)
+phyASV.f.c.platy.AD.after <- subset_samples(phyASV.f.c.platy.AD,field_season=="KI2016a", prune=TRUE)
 
 ############################### Subset by coral species/disturbance ##########################
 # Subset by coral species and disturbance level
