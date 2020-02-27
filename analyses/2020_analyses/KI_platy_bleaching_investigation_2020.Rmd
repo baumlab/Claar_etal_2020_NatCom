@@ -1,0 +1,230 @@
+---
+title: "Bleaching investigation for Platy paper"
+author: "Kristina Tietjen"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: yes
+---
+
+i) create a new .Rmd / .html file (in the appropriate Platy Git repo) borrowing code from the tagged coral analysis we've been doing for KI Bleaching MS, and calculate the % of each of the 4 species that were bleached (and ideally also do a table for this in which we know which bleaching category they were i.e. how bleached) in July 2015 and in March/April 2016
+
+ii) from Kim's Nov. 2015 data, create a spreadsheet (that we can then read into R and do calculations on) with data recorded for the Site, Coral Species, total number of individual colonies of that species that were visible in all photos at that site, total number of individual colonies of that species that were bleached. Then in R, calculate the proportion bleached: overall sites, and by disturbance level.
+
+iii) we should do the same for the SPQ data for July 2015 and March/April 2016 - will sort out these numbers with Jenn and Jessie as they've been the people primarily working with these data.
+
+From i) and ii) I would like to then make a figure that shows the proportion bleached for each of the 4 species at these three time points. -> bar plot
+
+Statistics: We could then do a series of simply models to quantify the following things:
+
+a) What proportion of tagged coral colonies was bleached in 2015, and did this differ by species (ie. the 4 species) or disturbance level. Suggested model: mixed effects logistic regression with bleached/not-bleached as response, species and disturbance level as fixed effects, site as random effect.
+
+b) same question but for Nov. 2015
+
+c) What proportion of tagged coral colonies survived (i.e. March/April 2016 timepoint) and was survival higher at lower levels of disturbance (and did survival differ by species). Same type of model
+
+#
+```{r load data and packages, message=FALSE, warning=FALSE, include=FALSE}
+#<--remove items in the environment-->
+#rm(list=ls())
+
+#dev.off()
+
+#<--load required packages-->
+library(here)
+require(plyr)
+library(ggplot2)
+require(tidyr)
+library(RColorBrewer)
+library(dplyr)
+library(reshape2)
+
+
+
+#<-- read in data -->
+taggedcorals <- read.csv(here::here("data/bleachingdata_2020_analysis","KI_taggedcoral_status.csv")) #taken from bleaching paper git repo
+metadata <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_Coralphoto_Metadata_20Jan20_2019DONE.csv")) #taken from bleaching paper git repo
+
+
+
+
+
+```
+
+```{r prep df - tagged corals, message=FALSE, warning=FALSE, include=FALSE}
+
+#<-- look at data and prep -->
+###taggedcorals df
+head(taggedcorals)
+
+taggedcorals$"X" <- NULL
+taggedcorals$"X.1" <- NULL
+taggedcorals$"X.2" <- NULL
+taggedcorals$"Notes." <- NULL
+taggedcorals$"notesstatus" <- NULL
+
+dim(taggedcorals)
+
+names(taggedcorals)
+#Note: status2016a = Status as of 2016a (based only on what was known as of 2016a OR subsequently sampled)
+#Note: status = IF we then also asume that corals that were found DEAD in 2017 died in the El Niño 
+newcolnames <- c("tag", "site", "disturbcat", "species", "KI14", "KI15apre", "KI15apost", "KI15b", "KI15c", "KI16a", "KI16b", "KI17", "KI18", "KI19", "status2016a", "status")
+colnames(taggedcorals) <- newcolnames
+names(taggedcorals)
+
+str(taggedcorals)
+taggedcorals$site <- as.character(taggedcorals$site)
+
+unique(taggedcorals$site)
+unique(taggedcorals$status)
+a <- plyr::count(taggedcorals$status)
+a
+
+taggedcorals <- taggedcorals[!is.na(taggedcorals$site), ]
+taggedcorals <- droplevels(taggedcorals)
+
+c <- plyr::count(taggedcorals$site)
+c
+mean(c$freq)
+
+head(taggedcorals)
+
+###Change some key variables that are factor to character 
+taggedcorals$disturbcat <- as.character(levels(taggedcorals$disturbcat))[taggedcorals$disturbcat]
+taggedcorals$species <- as.character(levels(taggedcorals$species))[taggedcorals$species]
+
+## Fix species names
+unique(taggedcorals$species)
+taggedcorals$species <- ifelse(taggedcorals$species == 'Pocillopora eydouxi', 'Pocillopora grandis', taggedcorals$species) 
+
+## Fix disturbance level for site 25 from HIGH to MED
+taggedcorals[taggedcorals$site=="25", ]
+### also rename the dataset 
+tagged<-taggedcorals
+unique(tagged$disturbcat)
+tagged$disturbcat <- ifelse(tagged$site=="25","MED",tagged$disturbcat)
+tagged[tagged$site=="25", ]
+
+## Add a column for numeric value of disturbance
+tagged$disturbnum <- 1
+tagged$disturbnum <- ifelse(tagged$disturbcat=="LOW",2,tagged$disturbnum)
+tagged$disturbnum <- ifelse(tagged$disturbcat=="MED",3,tagged$disturbnum)
+tagged$disturbnum <- ifelse(tagged$disturbcat=="VERYHIGH",4,tagged$disturbnum)
+
+head(tagged)
+
+
+
+
+
+
+
+
+
+
+
+```
+
+```{r prep df - metadata, message=FALSE, warning=FALSE, include=FALSE}
+
+names(metadata)
+meta <- subset(metadata, select = c("field_season", "site", "coral_tag", "binary_bleaching", "bleaching_proportion", "notes_bleaching"))
+meta <- meta[(meta$field_season == "KI2015c" | meta$field_season == "KI2016a"),  ]
+meta <- droplevels(meta)
+dim(meta)
+head(meta)
+table(meta$field_season)
+
+unique(meta$field_season)
+## fixing bleaching proportion column
+unique(meta$bleaching_proportion)
+meta <- meta[!meta$bleaching_proportion=="No Photo", ]
+meta <- droplevels(meta)
+
+#Realized that some of the "NONE"s are not "no bleaching, but rather no photo and the latter was only recorded in the Notes column
+meta <- meta[!meta$notes_bleaching=="* NO PHOTO ", ]
+meta$bleaching_proportion <- ifelse((meta$bleaching_proportion == "NONE" | meta$bleaching_proportion == "None" | meta$bleaching_proportion == "NONE "),0,meta$bleaching_proportion)
+str(meta)
+
+## fixing bleaching proportion column
+unique(meta$binary_bleaching)
+meta$binary_bleaching <- ifelse((meta$binary_bleaching == "n" | meta$binary_bleaching == "N" | meta$binary_bleaching == "NONE"), 0, 1)
+unique(meta$binary_bleaching)
+table(meta$bleaching_proportion) 
+table(meta$binary_bleaching)
+
+## fix the mistake between binary_bleaching and bleaching_proportion -> used the below code to find the issues in the excel and fixed it there so that is why it is commented out now.
+#test <- meta[meta$binary_bleaching==0, ]
+#dim(test)
+#table(test$bleaching_proportion)  #Ah! Actually 4 colonies that say bleaching proportion =1, but binary_bleaching=0!
+#test2 <- test[test$bleaching_proportion==1, ]
+#dim(test2)
+#test2
+#and the other way....
+#test <- meta[meta$binary_bleaching==1, ]
+#dim(test)
+#table(test$bleaching_proportion)  #Ah! And 3 colonies that say bleaching proportion =0, but binary_bleaching=1!
+#test3 <- test[test$bleaching_proportion==0, ]
+#dim(test3)
+#test3
+
+table(meta$field_season, meta$binary_bleaching)
+table(meta$field_season, meta$bleaching_proportion)
+
+#We realized that unfortunately there are some duplicates (i.e. the same coral-e)
+#test5 <- meta[duplicated(meta[1:3]),]
+#test5
+
+#need to reshape - dcast widen the table to have columns for each field seaon so that we can add in NAs for 2016a and 2016bs so that we can then delted them as these are the UNKNOWNS taht were already deleted from the tagged coral dataframe. Then the 506 vs. 434 shoudl be mostly fixed up, except taht we will still have to fix any corals that were retagged so their numbers don't match. 
+metawide <- dcast(meta, coral_tag + site ~ field_season, value.var = "bleaching_proportion", fun.aggregate=sum, fill=5)
+#Note the 5's are actually NA's
+head(metawide)
+table(metawide$KI2015c)
+table(metawide$KI2016a)
+
+# #First remove 5s form 2015c cause we dont care about corals that were not sampled before the elnino
+# dim(metawide)
+# metawide.nona <- metawide[!metawide$KI2015c==5,]
+# metawide.nona <- droplevels(metawide.nona)
+# dim(metawide.nona) #189 went away good
+# table(metawide.nona$KI2015c) #great they are all gone
+# 
+# #Now remove rows with 5 (aka NAs) from both 2016a and 2016b. 
+# 
+# metawide.nona <- metawide.nona[!(metawide.nona$KI2016a == 5 & metawide.nona$KI2016b == 5),] #get rid of colonies that were not sampled in either 16a or 16b
+# metawide.nona <- droplevels(metawide.nona)
+# dim(metawide.nona) #102
+
+# 
+# table(metawide.nona$KI2016a)
+# table(metawide.nona$KI2016b)
+# 
+# #take a peak at some of the 5s
+# metawide.nona[metawide.nona$KI2016a == 5,] # good non of the colonies that were NA in 2016a were also NA in 2016b
+# metawide.nona[metawide.nona$KI2016b == 5,] # good to go
+
+#Change the 5s to NAs
+
+metawide$KI2015c <- ifelse(metawide$KI2015c==5, NA, metawide$KI2015c)
+metawide$KI2016a <- ifelse(metawide$KI2016a==5, NA, metawide$KI2016a)
+head(metawide)
+
+#look at sites and get rid of ones we dont care about i.e. deep sites
+unique(metawide$site)
+metawide <- metawide[!(metawide$site == "30_deep" | metawide$site == "34_deep"),]
+metawide <- droplevels(metawide)
+unique(metawide$site)
+
+#ok now we need to add in species names
+
+
+
+
+```
+
+
+
+
+
