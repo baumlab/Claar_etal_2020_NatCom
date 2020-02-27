@@ -40,12 +40,14 @@ require(tidyr)
 library(RColorBrewer)
 library(dplyr)
 library(reshape2)
+library(stringr)
 
 
 
 #<-- read in data -->
 taggedcorals <- read.csv(here::here("data/bleachingdata_2020_analysis","KI_taggedcoral_status.csv")) #taken from bleaching paper git repo
 metadata <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_Coralphoto_Metadata_20Jan20_2019DONE.csv")) #taken from bleaching paper git repo
+coraldata <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_sequencing_runs_fromdropbox27Feb20.csv")) #taken from sequencing dropbox 
 
 
 
@@ -218,9 +220,121 @@ metawide <- droplevels(metawide)
 unique(metawide$site)
 
 #ok now we need to add in species names
+#but first have to prepare the document so we can easy compare the tag numbers since I am sure some retag will not be recorded in the metadata
+head(coraldata)
+#get rid of a bunch of columns so it is easier to work with
+corals <- subset(coraldata, select = c("Tag..", "Site.", "Coral.species", "X2015c", "X2016a"))
+#change col names
+newcolnames2 <- c("tag", "site", "species", "ki15c", "ki16a")
+colnames(corals) <- newcolnames2
+head(corals)
 
+unique(corals$tag)
+unique(metawide$coral_tag)
 
+#need to split the retagges and just work with first tag for now
+#first for coral dataframe
+str(corals)
+corals$tag <- as.character(corals$tag)
+corals$tags <- str_split_fixed(corals$tag, "_", 2)
+head(corals)
+str(corals) #Confusingly it has split the columns, but it still thinks its a single column. 
+corals$firsttag <- corals$tags[,1]
+corals$secondtag <- corals$tags[,2]
+head(corals)
 
+#now for metadata
+str(metawide)
+metawide$coral_tag <- as.character(metawide$coral_tag)
+metawide$tags <- str_split_fixed(metawide$coral_tag, "_", 2)
+head(metawide)
+str(metawide) #Confusingly it has split the columns, but it still thinks its a single column. 
+metawide$firsttag <- metawide$tags[,1]
+metawide$secondtag <- metawide$tags[,2]
+head(metawide)
+
+comparedataframes <- metawide[(!metawide$firsttag %in% corals$firsttag), ]
+dim(comparedataframes) 
+comparedataframes
+
+##ok first dont care about the none ones
+metawide<-metawide[!metawide$coral_tag == "NONE", ]
+dim(metawide)
+
+#1016
+#so it really is 1016a in the corals worksheet
+corals[corals$firsttag == "1016a",]
+#so replace 1016a with 1016
+corals$firsttag <- ifelse(corals$firsttag== "1016a", "1016", corals$firsttag)
+#check
+corals[corals$firsttag == "1016a",]
+corals[corals$firsttag == "1016",]
+
+#905
+#so it has a ?
+corals[corals$firsttag == "905?",]
+#so fix that
+corals$firsttag <- ifelse(corals$firsttag== "905?", "905", corals$firsttag)
+#check
+corals[corals$firsttag == "905?",]
+corals[corals$firsttag == "905",]
+
+#Unknown_573
+
+metawide[metawide$firsttag == "Unknown",]
+metawide[metawide$firsttag == "573",]
+metawide[metawide$firsttag == "573b",]
+corals[corals$firsttag == "573b",] # ok so this one is the unknown one because it was sampled in 15c
+corals[corals$firsttag == "573",]  # ok so the one who is just 573 is 573a and not sampled in 15c and gone 16a and so not in metadata
+#so 573b is duplicated in the metadata so need to get rid of the unknown row
+dim(metawide)
+metawide <- metawide[!metawide$firsttag == "Unknown",]
+metawide <- droplevels(metawide)
+dim(metawide)
+#check
+metawide[metawide$firsttag == "573b",]
+metawide[metawide$firsttag == "Unknown",]
+
+#rerun compare
+
+comparedataframes2 <- metawide[(!metawide$firsttag %in% corals$firsttag), ]
+dim(comparedataframes2) #great!
+
+##ok now to transfer the species names
+metawide.sp <- metawide
+metawide.sp$species <- corals$species[match(metawide.sp$firsttag, corals$firsttag)]
+head(metawide.sp)
+
+#check to see how many did not get a species
+plyr::count(metawide.sp$species)  # cool they all did
+
+#ok but now to fix some of the naming
+str(metawide.sp$species)
+metawide.sp$species <- as.character(metawide.sp$species)
+
+#combine the favia, favia sp, and Favia sp
+metawide.sp$species <- ifelse((metawide.sp$species == "favia" | metawide.sp$species =="Favia sp" | metawide.sp$species == "favia sp"), "Favia sp", metawide.sp$species)
+
+plyr::count(metawide.sp$species)
+
+#ok now condense some genuses
+##first make a new column for this
+metawide.sp$species.comb <- metawide.sp$species
+
+#combine Favites sp and Favites halicora
+metawide.sp$species.comb <- ifelse((metawide.sp$species.comb == "Favites sp" | metawide.sp$species.comb =="Favites halicora"), "Favites spp", metawide.sp$species.comb)
+
+#combine Favia sp, Favia speciosa, and Favia matthai
+metawide.sp$species.comb <- ifelse((metawide.sp$species.comb == "Favia sp" | metawide.sp$species.comb =="Favia speciosa" | metawide.sp$species.comb == "Favia matthai"), "Favia spp", metawide.sp$species.comb)
+
+#look at it now
+plyr::count(metawide.sp$species.comb)
+
+#cool looks good
+
+head(metawide.sp)
+
+#ok it might be ready to go now. 
 
 ```
 
