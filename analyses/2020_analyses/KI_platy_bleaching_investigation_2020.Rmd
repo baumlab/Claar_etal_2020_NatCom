@@ -336,7 +336,51 @@ head(metawide.sp)
 
 #ok it might be ready to go now. 
 
+#ok actually flip it long for when i need it long for figures
+
+metalong.sp <- melt(metawide.sp, na.rm = FALSE, id.vars = c("coral_tag", "site", "tags", "firsttag", "secondtag", "species", "species.comb"))
+head(metalong.sp)
+colnames(metalong.sp)<-c("coral_tag", "site", "tags", "firsttag", "secondtag", "species", "species.comb", "year", "bleach.prop")
+head(metalong.sp)
+
+#take out NA
+metalong.sp <- metalong.sp[!is.na(metalong.sp$bleach.prop), ]
+head(metalong.sp)
+
 ```
+  
+# i)  
+
+## table of bleaching proportion  
+
+```{r bleaching proportion table, echo=FALSE}
+
+tblprob <- plyr::count(metalong.sp, c("year", "species.comb","bleach.prop"))
+
+tblprob
+
+```
+
+## bar plots
+
+```{r bleaching proportion figure, echo=FALSE}
+
+ggplot(tblprob, aes(x = bleach.prop, y = freq, fill = year)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~species.comb, scales = "free_y")
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
