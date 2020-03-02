@@ -85,3 +85,6 @@ etc/*
 
 #Ignore raw NOAA data (very large)
 data/temperature/NOAA_5km/*
+
+#Ignore .eps
+figures/*.eps
