@@ -636,7 +636,7 @@ bleachcols2 <- c("seagreen4", "seagreen3", "seagreen2", "darkseagreen1", "deepsk
 ```
   
   
-# i)  
+# i)  metadata for 2015c and 2016a
 
 ## table of bleaching proportion  
 
@@ -690,8 +690,12 @@ summary(lr1)
 ```
 
 
-# ii)
+# ii) data from photos 2015d
+  
+## Notes    
+KT went through every single photo and tallied each Merulinidae (except for F. speciosa and F. stelligara) that could be seen. The bleaching status of each was recorded using the scale above. There is a category of Favid which are corals that I could tell were a favid but I was unable to tell if it was Favia or Favites.
 
+## Calculations
 ```{r calculate things, include=FALSE}
 
 #platy
@@ -794,7 +798,7 @@ In the photos from Kim Cobb from November 2015 there were s `r faviasum` Favia s
 There were `r favia.distubsum[1,2]` at medium disturbance sites - `r favia.disturb[1,3]` of them were healthy (`r (favia.disturb[1,3]/favia.distubsum[1,2])*100`%), `r favia.disturb[4,3]` were full bleached (level 3) (`r (favia.disturb[4,3]/favia.distubsum[1,2])*100`%). There were `r favia.distubsum[2,2]` at VH sites - `r favia.disturb[6,3]` were not bleached and there `r favia.disturb[8,3]` fully bleached. There was only `r favia.distubsum[3,2]` at VL sites and it was a level 3 bleaching. There were not many photos from BOW though. 
 
 **Favia spp**  
-In the photos from Kim Cobb from November 2015 there were s `r favidsum` Favid. There were corals that I could tell were a favid but I was unable to tell if it was Favia or Favites. There were `r favid[1,2]` that were not showing any signs of bleaching. That is `r (favid[1,2]/favidsum)*100`% of the F. pentagona. Only `r favid[2,2]` had level 1 bleaching, `r favid[3,2]` had level 2, but `r favid[4,2]` had level 3.   
+In the photos from Kim Cobb from November 2015 there were s `r favidsum` Favid. There were `r favid[1,2]` that were not showing any signs of bleaching. That is `r (favid[1,2]/favidsum)*100`% of the F. pentagona. Only `r favid[2,2]` had level 1 bleaching, `r favid[3,2]` had level 2, but `r favid[4,2]` had level 3.   
 
 There were `r favid.distubsum[1,2]` at medium disturbance sites - `r favid.disturb[1,3]` of them were healthy (`r (favid.disturb[1,3]/favid.distubsum[1,2])*100`%), `r favid.disturb[4,3]` were full bleached (level 3) (`r (favid.disturb[4,3]/favid.distubsum[1,2])*100`%). There were `r favid.distubsum[2,2]` at VH sites - `r favid.disturb[7,3]` were not bleached and there `r favid.disturb[10,3]` fully bleached. There was none at the VL sites. There were not many photos from BOW though. 
 
@@ -854,7 +858,7 @@ summary(lr2)
 ```
 
 
-# iii)
+# iii) coral net data 2015c, 2015d, 2016a
 
 ## bar plots  
 
@@ -928,7 +932,7 @@ ggplot(cn.sum.disturb16a, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom
 ```
 
 
-# iv)
+# iv) Compare coral net 2015d to colony specific data (that KT collected) from photos 2015d
 
 
 
