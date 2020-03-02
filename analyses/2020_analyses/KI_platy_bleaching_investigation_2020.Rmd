@@ -420,6 +420,15 @@ nov.tbl <- droplevels(nov.tbl)
 
 ```
   
+```{r set up , include=FALSE}
+
+bleachcols <- c("seagreen4", "seagreen3", "seagreen2", "darkseagreen1")
+
+bleachcols2 <- c("seagreen4", "seagreen3", "seagreen2", "darkseagreen1", "deepskyblue3")
+
+
+```
+  
   
 # i)  
 
@@ -435,10 +444,21 @@ tblprob
 
 ## bar plots
 
-```{r bleaching proportion figure, echo=FALSE}
+```{r bleaching proportion figure proportion on x, echo=FALSE}
 
 ggplot(tblprob, aes(x = bleach.prop, y = freq, fill = year)) + geom_bar(stat='identity', position='dodge') +
-  facet_wrap(~species.comb, scales = "free_y")
+  facet_wrap(~species.comb, scales = "free_y") 
+
+
+```
+
+
+```{r bleaching proportion figure proportion fill, echo=FALSE}
+
+tblprob$bleach.prop <- as.character(tblprob$bleach.prop)
+
+ggplot(tblprob, aes(x = year, y = freq, fill = bleach.prop)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~species.comb, scales = "free_y") + scale_fill_manual(values = bleachcols)
 
 
 ```
@@ -528,29 +548,29 @@ favid <- plyr::count(nov15.favid$bleaching.proportion)
 ```
 
 **Platy**  
-In the photos from Kim Cobb from November 2015 there were s `r platysum` Platygyra. There were `r platy[1,2]` that were not showing any signs of bleaching. That is `r platy[1,2]/platysum`% of the Platys. Only `r platy[2,2]` had level 1 bleaching, `r platy[3,2]` had level 2, and `r platy[4,2]` had level 3.   
+In the photos from Kim Cobb from November 2015 there were s `r platysum` Platygyra. There were `r platy[1,2]` that were not showing any signs of bleaching. That is `r (platy[1,2]/platysum)*100`% of the Platys. Only `r platy[2,2]` had level 1 bleaching, `r platy[3,2]` had level 2, and `r platy[4,2]` had level 3.   
 
-There were `r platy.disturbsum[1,2]` at medium disturbance sites - `r platy.disturb[1,3]` of them were healthy. Only `r platy.disturb[3,3]` were full bleached (level 3). There were `r platy.disturbsum[2,2]` at VH sites - `r platy.disturb[5,3]` were not bleached and there were none that were fully bleached. There was only `r platy.disturbsum[3,2]` platy at VL sites but it was not bleached. There were not many photos from BOW though. 
+There were `r platy.disturbsum[1,2]` at medium disturbance sites - `r platy.disturb[1,3]` of them were healthy (`r (platy.disturb[1,3]/platy.disturbsum[1,2])*100`%). Only `r platy.disturb[3,3]` were full bleached (level 3). There were `r platy.disturbsum[2,2]` at VH sites - `r platy.disturb[5,3]` were not bleached and there were none that were fully bleached. There was only `r platy.disturbsum[3,2]` platy at VL sites but it was not bleached. There were not many photos from BOW though. 
   
 **Hydno**  
-In the photos from Kim Cobb from November 2015 there were s `r hydnosum` Hydnophora. There were `r hydno[1,2]` that were not showing any signs of bleaching. That is `r hydno[1,2]/hydnosum`% of the hydnos. Only `r hydno[2,2]` had level 1 bleaching, `r hydno[3,2]` had level 2, but `r hydno[4,2]` had level 3.   
+In the photos from Kim Cobb from November 2015 there were s `r hydnosum` Hydnophora. There were `r hydno[1,2]` that were not showing any signs of bleaching. That is `r (hydno[1,2]/hydnosum)*100`% of the hydnos. Only `r hydno[2,2]` had level 1 bleaching, `r hydno[3,2]` had level 2, but `r hydno[4,2]` had level 3.   
 
-There were `r hydno.distubsum[1,2]` at medium disturbance sites - `r hydno.disturb[1,3]` of them were healthy,`r hydno.disturb[4,3]` were full bleached (level 3). There were `r hydno.distubsum[2,2]` at VH sites - `r hydno.disturb[6,3]` were not bleached and there were `r hydno.disturb[8,3]` fully bleached. There was only `r hydno.distubsum[3,2]` at VL sites but they were all fully bleached. There were not many photos from BOW though. 
+There were `r hydno.distubsum[1,2]` at medium disturbance sites - `r hydno.disturb[1,3]` of them were healthy (`r (hydno.disturb[1,3]/hydno.distubsum[1,2])*100`%), `r hydno.disturb[4,3]` were full bleached (level 3) (`r (hydno.disturb[4,3]/hydno.distubsum[1,2])*100`%). There were `r hydno.distubsum[2,2]` at VH sites - `r hydno.disturb[6,3]` were not bleached and there were `r hydno.disturb[8,3]` fully bleached. There was only `r hydno.distubsum[3,2]` at VL sites but they were all fully bleached. There were not many photos from BOW though. 
   
 **F. pentagona**  
-In the photos from Kim Cobb from November 2015 there were s `r fpentasum` F. pentagona. There were `r fpenta[1,2]` that were not showing any signs of bleaching. That is `r fpenta[1,2]/fpentasum`% of the F. pentagona. Only `r fpenta[2,2]` had level 1 bleaching, `r fpenta[3,2]` had level 2, but `r fpenta[4,2]` had level 3.   
+In the photos from Kim Cobb from November 2015 there were s `r fpentasum` F. pentagona. There were `r fpenta[1,2]` that were not showing any signs of bleaching. That is `r (fpenta[1,2]/fpentasum)*100`% of the F. pentagona. Only `r fpenta[2,2]` had level 1 bleaching, `r fpenta[3,2]` had level 2, but `r fpenta[4,2]` had level 3.   
 
-There were `r fpenta.distubsum[1,2]` at medium disturbance sites - `r fpenta.disturb[1,3]` of them were healthy,`r fpenta.disturb[4,3]` were full bleached (level 3). There were `r fpenta.distubsum[2,2]` at VH sites - `r fpenta.disturb[6,3]` were not bleached and there were none fully bleached. There was only `r fpenta.distubsum[3,2]` at VL sites and it was a level 2 bleaching. There were not many photos from BOW though. 
-
-**Favia spp**  
-In the photos from Kim Cobb from November 2015 there were s `r faviasum` Favia spp. There were `r favia[1,2]` that were not showing any signs of bleaching. That is `r favia[1,2]/faviasum`% of the F. pentagona. Only `r favia[2,2]` had level 1 bleaching, `r favia[3,2]` had level 2, but `r favia[4,2]` had level 3.   
-
-There were `r favia.distubsum[1,2]` at medium disturbance sites - `r favia.disturb[1,3]` of them were healthy,`r favia.disturb[4,3]` were full bleached (level 3). There were `r favia.distubsum[2,2]` at VH sites - `r favia.disturb[6,3]` were not bleached and there `r favia.disturb[8,3]` fully bleached. There was only `r favia.distubsum[3,2]` at VL sites and it was a level 3 bleaching. There were not many photos from BOW though. 
+There were `r fpenta.distubsum[1,2]` at medium disturbance sites - `r fpenta.disturb[1,3]` of them were healthy (`r (fpenta.disturb[1,3]/fpenta.distubsum[1,2])*100`%), `r fpenta.disturb[4,3]` were full bleached (level 3) (`r (fpenta.disturb[4,3]/fpenta.distubsum[1,2])*100`%). There were `r fpenta.distubsum[2,2]` at VH sites - `r fpenta.disturb[6,3]` were not bleached and there were none fully bleached. There was only `r fpenta.distubsum[3,2]` at VL sites and it was a level 2 bleaching. There were not many photos from BOW though. 
 
 **Favia spp**  
-In the photos from Kim Cobb from November 2015 there were s `r favidsum` Favid. There were corals that I could tell were a favid but I was unable to tell if it was Favia or Favites. There were `r favid[1,2]` that were not showing any signs of bleaching. That is `r favid[1,2]/favidsum`% of the F. pentagona. Only `r favid[2,2]` had level 1 bleaching, `r favid[3,2]` had level 2, but `r favid[4,2]` had level 3.   
+In the photos from Kim Cobb from November 2015 there were s `r faviasum` Favia spp. There were `r favia[1,2]` that were not showing any signs of bleaching. That is `r (favia[1,2]/faviasum)*100`% of the F. pentagona. Only `r favia[2,2]` had level 1 bleaching, `r favia[3,2]` had level 2, but `r favia[4,2]` had level 3.   
 
-There were `r favid.distubsum[1,2]` at medium disturbance sites - `r favid.disturb[1,3]` of them were healthy,`r favid.disturb[4,3]` were full bleached (level 3). There were `r favid.distubsum[2,2]` at VH sites - `r favid.disturb[7,3]` were not bleached and there `r favid.disturb[10,3]` fully bleached. There was none at the VL sites. There were not many photos from BOW though. 
+There were `r favia.distubsum[1,2]` at medium disturbance sites - `r favia.disturb[1,3]` of them were healthy (`r (favia.disturb[1,3]/favia.distubsum[1,2])*100`%), `r favia.disturb[4,3]` were full bleached (level 3) (`r (favia.disturb[4,3]/favia.distubsum[1,2])*100`%). There were `r favia.distubsum[2,2]` at VH sites - `r favia.disturb[6,3]` were not bleached and there `r favia.disturb[8,3]` fully bleached. There was only `r favia.distubsum[3,2]` at VL sites and it was a level 3 bleaching. There were not many photos from BOW though. 
+
+**Favia spp**  
+In the photos from Kim Cobb from November 2015 there were s `r favidsum` Favid. There were corals that I could tell were a favid but I was unable to tell if it was Favia or Favites. There were `r favid[1,2]` that were not showing any signs of bleaching. That is `r (favid[1,2]/favidsum)*100`% of the F. pentagona. Only `r favid[2,2]` had level 1 bleaching, `r favid[3,2]` had level 2, but `r favid[4,2]` had level 3.   
+
+There were `r favid.distubsum[1,2]` at medium disturbance sites - `r favid.disturb[1,3]` of them were healthy (`r (favid.disturb[1,3]/favid.distubsum[1,2])*100`%), `r favid.disturb[4,3]` were full bleached (level 3) (`r (favid.disturb[4,3]/favid.distubsum[1,2])*100`%). There were `r favid.distubsum[2,2]` at VH sites - `r favid.disturb[7,3]` were not bleached and there `r favid.disturb[10,3]` fully bleached. There was none at the VL sites. There were not many photos from BOW though. 
 
 
 ## table of bleaching proportion in November 2015
@@ -568,7 +588,8 @@ nov.tbl
 ```{r bleaching proportion figure nov 2015 facet by species, echo=FALSE}
 
 ggplot(nov.tbl, aes(x = site, y = bleach.prop.freq, fill = bleach.prop)) + geom_bar(stat='identity', position='dodge') +
-  facet_wrap(~species.comb, scales = "free_y")
+  facet_wrap(~species.comb, scales = "free_y") +
+  scale_fill_manual(values = bleachcols2)
 
 
 ```
@@ -580,7 +601,8 @@ ggplot(nov.tbl, aes(x = site, y = bleach.prop.freq, fill = bleach.prop)) + geom_
 
 ggplot(nov.tbl, aes(x = species.comb, y = bleach.prop.freq, fill = bleach.prop)) + geom_bar(stat='identity', position='dodge') +
   facet_wrap(~site, scales = "free_y") +
-  theme(axis.text.x = element_text(angle = 90))
+  theme(axis.text.x = element_text(angle = 90)) +
+  scale_fill_manual(values = bleachcols2)
 
 
 ```
