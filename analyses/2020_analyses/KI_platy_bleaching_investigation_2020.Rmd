@@ -9,23 +9,52 @@ output:
     toc_float: yes
 ---
 
-i) create a new .Rmd / .html file (in the appropriate Platy Git repo) borrowing code from the tagged coral analysis we've been doing for KI Bleaching MS, and calculate the % of each of the 4 species that were bleached (and ideally also do a table for this in which we know which bleaching category they were i.e. how bleached) in July 2015 and in March/April 2016
+```{r include=FALSE}
+library(magick)
+library(here)
 
-ii) from Kim's Nov. 2015 data, create a spreadsheet (that we can then read into R and do calculations on) with data recorded for the Site, Coral Species, total number of individual colonies of that species that were visible in all photos at that site, total number of individual colonies of that species that were bleached. Then in R, calculate the proportion bleached: overall sites, and by disturbance level.
+```
 
-iii) we should do the same for the SPQ data for July 2015 and March/April 2016 - will sort out these numbers with Jenn and Jessie as they've been the people primarily working with these data.
+**Tasks from Slack:  **
 
-iv) compare the coral net version of proportion bleached from novebmer 2015 against the colony level proportion bleached that I tallied from the photos
+i) create a new .Rmd / .html file (in the appropriate Platy Git repo) borrowing code from the tagged coral analysis we've been doing for KI Bleaching MS, and calculate the % of each of the 4 species that were bleached (and ideally also do a table for this in which we know which bleaching category they were i.e. how bleached) in July 2015 and in March/April 2016  
 
-From i) and ii) I would like to then make a figure that shows the proportion bleached for each of the 4 species at these three time points. -> bar plot
+ii) from Kim's Nov. 2015 data, create a spreadsheet (that we can then read into R and do calculations on) with data recorded for the Site, Coral Species, total number of individual colonies of that species that were visible in all photos at that site, total number of individual colonies of that species that were bleached. Then in R, calculate the proportion bleached: overall sites, and by disturbance level.  
 
-Statistics: We could then do a series of simply models to quantify the following things:
+iii) we should do the same for the SPQ data for July 2015 and March/April 2016 - will sort out these numbers with Jenn and Jessie as they've been the people primarily working with these data.  (took the cleaned data from the bleaching repo that is from DM cleaning script)
 
-a) What proportion of tagged coral colonies was bleached in 2015, and did this differ by species (ie. the 4 species) or disturbance level. Suggested model: mixed effects logistic regression with bleached/not-bleached as response, species and disturbance level as fixed effects, site as random effect.
+iv) compare the coral net version of proportion bleached from novebmer 2015 against the colony level proportion bleached that I tallied from the photos (from skype 2 Mar 20)  
 
-b) same question but for Nov. 2015
+From i) and ii) I would like to then make a figure that shows the proportion bleached for each of the 4 species at these three time points. -> bar plot  
 
-c) What proportion of tagged coral colonies survived (i.e. March/April 2016 timepoint) and was survival higher at lower levels of disturbance (and did survival differ by species). Same type of model
+Statistics: We could then do a series of simply models to quantify the following things:  
+
+a) What proportion of tagged coral colonies was bleached in 2015, and did this differ by species (ie. the 4 species) or disturbance level. Suggested model: mixed effects logistic regression with bleached/not-bleached as response, species and disturbance level as fixed effects, site as random effect.  
+
+b) same question but for Nov. 2015  
+
+c) What proportion of tagged coral colonies survived (i.e. March/April 2016 timepoint) and was survival higher at lower levels of disturbance (and did survival differ by species). Same type of model  
+
+
+** Relevant notes **  
+
+Bleaching levels  
+* 1 = partial spotty/ patching bleaching (patches smaller than 5cm)  
+* 2 = large patches greater than 5cm by not severe  
+* 3 = severe or complete bleaching (~80% of the coral is bleached)  
+* 4 = partial mortality but living tissue is not bleached
+
+
+**example of level 4**   
+
+```{r example photo, echo=FALSE}
+
+example <- image_read(here::here("data/bleachingdata_2020_analysis", "Level4_example.png"))
+example
+
+
+```
+
 
 #
 ```{r load data and packages, message=FALSE, warning=FALSE, include=FALSE}
@@ -35,7 +64,7 @@ c) What proportion of tagged coral colonies survived (i.e. March/April 2016 time
 #dev.off()
 
 #<--load required packages-->
-library(here)
+
 require(plyr)
 library(ggplot2)
 require(tidyr)
@@ -52,6 +81,7 @@ metadata <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_Coralpho
 coraldata <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_sequencing_runs_fromdropbox27Feb20.csv")) #taken from sequencing dropbox 
 nov15 <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_2015d_Merulinidae.csv")) 
 sitedata <- read.csv(here::here("data", "KI_Monitoring_Site_Names_for_Publications_Sept2019.csv"))
+coralnet <- read.csv(here::here("data/bleachingdata_2020_analysis", "Coral_Data_Master.csv")) #taken from bleaching paper git repo
 
 
 
@@ -484,6 +514,41 @@ nov.tbl <- nov.tbl[!nov.tbl$bleach.prop == "5",]
 nov.tbl <- droplevels(nov.tbl)
 
 head(nov.tbl)
+
+```
+  
+```{r prepping coral net data, include=FALSE}
+
+head(coralnet)
+
+#take out some columns I dont care about
+cn <- subset(coralnet, select = c("Field.Season", "Site", "Quadrat", "adj.total.points.quadrat", "coralnet.tag", "Cover", "Bleached", "Species", "Fish.Level", "adj.total.points.site"))
+
+#subset for sites with tagged coral
+unique(cn$Site)
+sitestokeep <- c("site14", "site15", "site19", "site25",  "site27", "site3",  "site30", "site32",  "site34", "site35",  "site37", "site38", "site40", "site5", "site8" )
+cn <- cn[cn$Site%in%sitestokeep, ]
+cn <- droplevels(cn)
+unique(cn$Site)
+
+#subset for just the species I care about
+unique(cn$coralnet.tag)
+unique(cn$Species)
+coralstokeep <- c("Favia.matthai", "Hydnophora.microconos", "Favia.spp", "Platygyra.spp", "Favites.halicora", "Favites.pentagona", "Favites.spp")
+cn <- cn[cn$Species%in%coralstokeep, ]
+cn <- droplevels(cn)
+unique(cn$Species)
+
+head(cn)
+
+###now to create tables and calculate proportions etc
+
+cn.sum<-aggregate(Cover ~  Species + Site + Field.Season + Bleached + adj.total.points.site, cn, sum)
+head(cn.sum)
+
+#now calculate proportion
+#cn.sum$prop <- 
+
 
 ```
   
