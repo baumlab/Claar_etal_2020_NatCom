@@ -83,10 +83,6 @@ nov15 <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_2015d_Merul
 sitedata <- read.csv(here::here("data", "KI_Monitoring_Site_Names_for_Publications_Sept2019.csv"))
 coralnet <- read.csv(here::here("data/bleachingdata_2020_analysis", "Coral_Data_Master.csv")) #taken from bleaching paper git repo
 
-
-
-
-
 ```
 
 ```{r prep df - tagged corals, message=FALSE, warning=FALSE, include=FALSE}
@@ -524,12 +520,38 @@ head(coralnet)
 #take out some columns I dont care about
 cn <- subset(coralnet, select = c("Field.Season", "Site", "Quadrat", "adj.total.points.quadrat", "coralnet.tag", "Cover", "Bleached", "Species", "Fish.Level", "adj.total.points.site"))
 
+#subset for 2015c, 2015d, and 2016a
+cn <- cn[(cn$Field.Season == "KI2015c" | cn$Field.Season == "KI2015d" | cn$Field.Season == "KI2016a"), ]
+cn <- droplevels(cn)
+unique(cn$Field.Season)
+
 #subset for sites with tagged coral
 unique(cn$Site)
 sitestokeep <- c("site14", "site15", "site19", "site25",  "site27", "site3",  "site30", "site32",  "site34", "site35",  "site37", "site38", "site40", "site5", "site8" )
 cn <- cn[cn$Site%in%sitestokeep, ]
 cn <- droplevels(cn)
 unique(cn$Site)
+
+#take site out of site column
+cn$site <- cn$Site
+str(cn$site)
+cn$site <- as.character(levels(cn$site))[cn$site]
+unique(cn$site)
+cn$site <- ifelse(grepl("e3", cn$Site), "3", cn$site)
+cn$site <- ifelse(grepl("e5", cn$Site), "5", cn$site)
+cn$site <- ifelse(grepl("e8", cn$Site), "8", cn$site)
+cn$site <- ifelse(grepl("e14", cn$Site), "14", cn$site)
+cn$site <- ifelse(grepl("e15", cn$Site), "15", cn$site)
+cn$site <- ifelse(grepl("e19", cn$Site), "19", cn$site)
+cn$site <- ifelse(grepl("e25", cn$Site), "25", cn$site)
+cn$site <- ifelse(grepl("e27", cn$Site), "27", cn$site)
+cn$site <- ifelse(grepl("e30", cn$Site), "30", cn$site)
+cn$site <- ifelse(grepl("e32", cn$Site), "32", cn$site)
+cn$site <- ifelse(grepl("e34", cn$Site), "34", cn$site)
+cn$site <- ifelse(grepl("e35", cn$Site), "35", cn$site)
+cn$site <- ifelse(grepl("e37", cn$Site), "37", cn$site)
+cn$site <- ifelse(grepl("e38", cn$Site), "38", cn$site)
+cn$site <- ifelse(grepl("e40", cn$Site), "40", cn$site)
 
 #subset for just the species I care about
 unique(cn$coralnet.tag)
@@ -539,20 +561,72 @@ cn <- cn[cn$Species%in%coralstokeep, ]
 cn <- droplevels(cn)
 unique(cn$Species)
 
+#Favia.spp and Favites.spp are not ever recorded so going to take them out
+cn[(cn$Species == "Favia.spp" | cn$Species == "Favites.spp"),] # aka the cover is 0 for all of them
+cn <- cn[!(cn$Species == "Favia.spp" | cn$Species == "Favites.spp"), ]
+cn <- droplevels(cn)
+
 head(cn)
+
+#set order to some of the categories
+str(cn)
+
+cn$site <- as.factor(cn$site)
+levels(cn$site)
+cn$site<-factor(cn$site, levels = c("15", "19", "5", "37", "38", "3", "25", "8", "14", "35", "34", "40", "32", "30", "27"))
+levels(cn$site)
+
+levels(cn$Fish.Level)
+cn$Fish.Level <- factor(cn$Fish.Level, levels = c("Very.Low", "Low", "Medium",  "High" , "Very.High"))
+levels(cn$Fish.Level)
+
+levels(cn$Species)
+cn$Species <- factor(cn$Species, levels = c("Platygyra.spp", "Hydnophora.microconos", "Favites.pentagona",  "Favia.matthai", "Favia.spp", "Favites.halicora",  "Favites.spp"))
+levels(cn$Species)
 
 ###now to create tables and calculate proportions etc
 
-cn.sum<-aggregate(Cover ~  Species + Site + Field.Season + Bleached + adj.total.points.site, cn, sum)
-head(cn.sum)
+#by site
+cn.sum.site<-aggregate(Cover ~  Species + site + Field.Season + Bleached, cn, sum)
+head(cn.sum.site)
+
+#calculate the number of points at each site for each species (healthy and bleached) so we can get proportion of bleached vr healthy
+cn.sum.species.site <- aggregate(Cover ~ Species + site + Field.Season, cn, sum)
+head(cn.sum.species.site)
+
+#now add to the other dataframe 
+cn.sum.site$season.site.spec <- paste(cn.sum.site$Field.Season, cn.sum.site$site, cn.sum.site$Species, sep = ".")
+cn.sum.species.site$season.site.spec <- paste(cn.sum.species.site$Field.Season, cn.sum.species.site$site, cn.sum.species.site$Species, sep = ".")
+cn.sum.site$adj.total.points.site.spec <- cn.sum.species.site$Cover[match(cn.sum.site$season.site.spec, cn.sum.species.site$season.site.spec)]
+head(cn.sum.site)
 
 #now calculate proportion
-#cn.sum$prop <- 
+cn.sum.site$prop <- cn.sum.site$Cover/cn.sum.site$adj.total.points.site.spec
+head(cn.sum.site)
 
+
+
+#by disturbance 
+cn.sum.disturb<-aggregate(Cover ~  Species + Fish.Level + Field.Season + Bleached, cn, sum)
+head(cn.sum.disturb)
+
+#now to calculate the number of points per disturbance by species
+cn.ptsum.disturb.spec<-aggregate(Cover ~ Fish.Level + Field.Season + Species, cn, sum)
+head(cn.ptsum.disturb.spec)
+
+#add to other df
+cn.ptsum.disturb.spec$season.fish.spec <- paste(cn.ptsum.disturb.spec$Field.Season, cn.ptsum.disturb.spec$Fish.Level, cn.ptsum.disturb.spec$Species, sep = ".")
+cn.sum.disturb$season.fish.spec <- paste(cn.sum.disturb$Field.Season, cn.sum.disturb$Fish.Level, cn.sum.disturb$Species, sep = ".")
+cn.sum.disturb$adj.total.points.fish.spec <- cn.ptsum.disturb.spec$Cover[match(cn.sum.disturb$season.fish.spec, cn.ptsum.disturb.spec$season.fish.spec)]
+head(cn.sum.disturb)
+
+#now calculate proportion
+cn.sum.disturb$prop <- cn.sum.disturb$Cover/cn.sum.disturb$adj.total.points.fish.spec
+head(cn.sum.disturb)
 
 ```
   
-```{r set up , include=FALSE}
+```{r color set up , include=FALSE}
 
 bleachcols <- c("seagreen4", "seagreen3", "seagreen2", "darkseagreen1")
 
@@ -781,6 +855,91 @@ summary(lr2)
 
 
 # iii)
+
+## bar plots  
+
+### proportion bleached vrs healthy per field season across sites with tagged corals
+  
+```{r prop by site 2015c, echo=FALSE, warning=FALSE}
+
+cn.sum.site15c <- cn.sum.site[cn.sum.site$Field.Season == "KI2015c", ]
+
+ggplot(cn.sum.site15c, aes(x = site, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species, scales = "free_y") +
+  labs(title = "2015c")
+
+```
+
+    
+```{r prop by site 2015d, echo=FALSE, warning=FALSE}
+
+cn.sum.site15d <- cn.sum.site[cn.sum.site$Field.Season == "KI2015d", ]
+
+ggplot(cn.sum.site15d, aes(x = site, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species, scales = "free_y") +
+  labs(title = "2015d")
+
+```
+  
+  
+```{r prop by site 2016a, echo=FALSE, warning=FALSE}
+
+cn.sum.site16a <- cn.sum.site[cn.sum.site$Field.Season == "KI2016a", ]
+
+ggplot(cn.sum.site16a, aes(x = site, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species, scales = "free_y") +
+  labs(title = "2016a")
+
+```
+
+### across disturbance gradient (again only sites that have tagged corals)
+
+ 
+```{r prop by disturb 2015c, echo=FALSE, warning=FALSE}
+
+cn.sum.disturb15c <- cn.sum.disturb[cn.sum.disturb$Field.Season == "KI2015c", ]
+
+ggplot(cn.sum.disturb15c, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species) +
+  labs(title = "2015c")
+
+```
+
+    
+```{r prop by disturb 2015d, echo=FALSE, warning=FALSE}
+
+cn.sum.disturb15d <- cn.sum.disturb[cn.sum.disturb$Field.Season == "KI2015d", ]
+
+ggplot(cn.sum.disturb15d, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species) +
+  labs(title = "2015d")
+
+```
+  
+  
+```{r prop by disturb 2016a, echo=FALSE, warning=FALSE}
+
+cn.sum.disturb16a <- cn.sum.disturb[cn.sum.disturb$Field.Season == "KI2016a", ]
+
+ggplot(cn.sum.disturb16a, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species) +
+  labs(title = "2016a")
+
+```
+
+
+# iv)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
