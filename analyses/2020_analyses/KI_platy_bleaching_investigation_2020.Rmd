@@ -15,6 +15,8 @@ ii) from Kim's Nov. 2015 data, create a spreadsheet (that we can then read into 
 
 iii) we should do the same for the SPQ data for July 2015 and March/April 2016 - will sort out these numbers with Jenn and Jessie as they've been the people primarily working with these data.
 
+iv) compare the coral net version of proportion bleached from novebmer 2015 against the colony level proportion bleached that I tallied from the photos
+
 From i) and ii) I would like to then make a figure that shows the proportion bleached for each of the 4 species at these three time points. -> bar plot
 
 Statistics: We could then do a series of simply models to quantify the following things:
@@ -41,7 +43,7 @@ library(RColorBrewer)
 library(dplyr)
 library(reshape2)
 library(stringr)
-
+library(lme4)
 
 
 #<-- read in data -->
@@ -49,6 +51,7 @@ taggedcorals <- read.csv(here::here("data/bleachingdata_2020_analysis","KI_tagge
 metadata <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_Coralphoto_Metadata_20Jan20_2019DONE.csv")) #taken from bleaching paper git repo
 coraldata <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_sequencing_runs_fromdropbox27Feb20.csv")) #taken from sequencing dropbox 
 nov15 <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_2015d_Merulinidae.csv")) 
+sitedata <- read.csv(here::here("data", "KI_Monitoring_Site_Names_for_Publications_Sept2019.csv"))
 
 
 
@@ -179,6 +182,8 @@ table(meta$field_season, meta$bleaching_proportion)
 #We realized that unfortunately there are some duplicates (i.e. the same coral-e)
 #test5 <- meta[duplicated(meta[1:3]),]
 #test5
+
+head(meta)
 
 #need to reshape - dcast widen the table to have columns for each field seaon so that we can add in NAs for 2016a and 2016bs so that we can then delted them as these are the UNKNOWNS taht were already deleted from the tagged coral dataframe. Then the 506 vs. 434 shoudl be mostly fixed up, except taht we will still have to fix any corals that were retagged so their numbers don't match. 
 metawide <- dcast(meta, coral_tag + site ~ field_season, value.var = "bleaching_proportion", fun.aggregate=sum, fill=5)
@@ -318,6 +323,12 @@ metawide.sp$species <- ifelse((metawide.sp$species == "favia" | metawide.sp$spec
 
 plyr::count(metawide.sp$species)
 
+#take out species not important for this paper
+unique(metawide.sp$species.comb)
+metawide.sp <- metawide.sp[!(metawide.sp$species == "Pocillopora eydouxi" | metawide.sp$species == "Montipora foliosa" | metawide.sp$species == "Porites lobata"), ]
+metawide.sp <- droplevels(metawide.sp)
+plyr::count(metawide.sp$species)
+
 #ok now condense some genuses
 ##first make a new column for this
 metawide.sp$species.comb <- metawide.sp$species
@@ -347,6 +358,40 @@ head(metalong.sp)
 #take out NA
 metalong.sp <- metalong.sp[!is.na(metalong.sp$bleach.prop), ]
 head(metalong.sp)
+
+##add in binary bleaching except I am going to create the column myself  0 = no bleaching 1 = bleaching
+metalong.sp$bin.bleach <- 0
+metalong.sp$bin.bleach <- ifelse((metalong.sp$bleach.prop== "3" | metalong.sp$bleach.prop == "2" | metalong.sp$bleach.prop == "1"), 1, metalong.sp$bin.bleach)
+
+head(metalong.sp)
+
+## add in disturbance
+unique(metalong.sp$site)
+metalong.sp$disturb <- sitedata$pressure.group[match(metalong.sp$site, sitedata$site)]
+unique(metalong.sp$disturb)
+
+head(metalong.sp)
+tail(metalong.sp)
+
+#set order of the levels
+str(metalong.sp)
+
+#disturbance
+levels(metalong.sp$disturb)
+metalong.sp[metalong.sp$disturb == "",]
+metalong.sp$disturb<-factor(metalong.sp$disturb, levels = c("Very high", "High", "Medium", "Low", "Very low")) 
+levels(metalong.sp$disturb)
+
+#species
+metalong.sp$species.comb <- as.factor(metalong.sp$species.comb)
+levels(metalong.sp$species.comb)
+metalong.sp$species.comb<-factor(metalong.sp$species.comb, levels = c("Platygyra sp", "Favia spp", "Favites pentagona", "Favites spp", "Hydnophora microconos")) 
+levels(metalong.sp$species.comb)
+
+#make a df of just 2015c
+metalong.sp15c <- metalong.sp[metalong.sp$year == "KI2015c", ]
+metalong.sp15c <- droplevels(metalong.sp15c)
+unique(metalong.sp15c$year)
 
 ```
   
@@ -405,6 +450,26 @@ nov15$disturb <- ifelse(nov15$site == "BayofWrecks_Loggers", "VL", nov15$disturb
 
 unique(nov15$disturb)
 
+head(nov15)
+
+#add column of binary bleaching
+nov15$bin.bleach <- 0
+nov15$bin.bleach <- ifelse((nov15$bleaching.proportion == "3" | nov15$bleaching.proportion == "2"| nov15$bleaching.proportion == "1"), 1, nov15$bin.bleach)
+head(nov15)
+tail(nov15)
+
+#determine order of levels
+str(nov15)
+nov15$disturb <- as.factor(nov15$disturb)
+levels(nov15$disturb)
+nov15$disturb<-factor(nov15$disturb, levels = c("VH", "M", "VL")) 
+levels(nov15$disturb)
+
+nov15$species.comb <- as.factor(nov15$species.comb)
+levels(nov15$species.comb)
+nov15$species.comb<-factor(nov15$species.comb, levels = c("Platygyra sp.", "F. pentagona",  "Favia spp", "Favid", "Favites spp", "Hydnophora")) 
+levels(nov15$species.comb)
+
 #make a table
 
 nov.tbl <- plyr::count(nov15, c("site", "species.comb", "bleaching.proportion"))
@@ -417,6 +482,8 @@ str(nov.tbl)
 #take out level 5
 nov.tbl <- nov.tbl[!nov.tbl$bleach.prop == "5",]
 nov.tbl <- droplevels(nov.tbl)
+
+head(nov.tbl)
 
 ```
   
@@ -460,6 +527,26 @@ tblprob$bleach.prop <- as.character(tblprob$bleach.prop)
 ggplot(tblprob, aes(x = year, y = freq, fill = bleach.prop)) + geom_bar(stat='identity', position='dodge') +
   facet_wrap(~species.comb, scales = "free_y") + scale_fill_manual(values = bleachcols)
 
+
+```
+
+## statistics
+
+**not bleached = 0   bleached (levels 1, 2, 3) = 1**  
+
+site not included as random effect due to not enough sites within each disturbance level (it would not converge)  
+
+```{r include=FALSE}
+mean(metalong.sp15c$bin.bleach)
+var(metalong.sp15c$bin.bleach)
+
+```
+
+```{r stats for i, echo=FALSE}
+
+lr1 <- glm(bin.bleach ~ species.comb + disturb, family =  binomial(link = 'logit'), data = metalong.sp15c)
+
+summary(lr1)
 
 ```
 
@@ -604,6 +691,26 @@ ggplot(nov.tbl, aes(x = species.comb, y = bleach.prop.freq, fill = bleach.prop))
   theme(axis.text.x = element_text(angle = 90)) +
   scale_fill_manual(values = bleachcols2)
 
+
+```
+
+## statistics
+
+**not bleached = 0   bleached (levels 1, 2, 3) = 1**  
+
+site not included as random effect due to not enough sites within each disturbance level (it would not converge)  
+
+```{r include=FALSE}
+mean(nov15$bin.bleach)
+var(nov15$bin.bleach)
+
+```
+
+```{r stats for ii, echo=FALSE}
+
+lr2 <- glm(bin.bleach ~ species.comb + disturb, family =  binomial(link = 'logit'), data = nov15)
+
+summary(lr2)
 
 ```
 
