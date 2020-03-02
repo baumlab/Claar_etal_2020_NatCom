@@ -177,10 +177,10 @@ grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.1
 dev.off()
 
 # Save as EPS
-# setEPS(width=7.2,height=2.8)
-# postscript("figures/Figure2.eps")
-# grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.17,1.17),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.8,2.6),c("in","in","in"))),nrow=1, heights=unit(c(2.6),c("in")),widths=unit(c(7.2),c("in")))
-# dev.off()
+setEPS(width=7.2,height=2.8)
+postscript("figures/Figure2_ASV.eps")
+grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=2,heights=unit(c(1.17,1.17),c("in","in"))),KImap,ord_plot,ncol=3,widths=unit(c(1.4,2.8,2.6),c("in","in","in"))),nrow=1, heights=unit(c(2.6),c("in")),widths=unit(c(7.2),c("in")))
+dev.off()
 
 
 ##################################################################################
@@ -188,13 +188,16 @@ dev.off()
 
 # Test ordination
 anova(ord.phyASV.f.c.platy.AD.before.CAP)
+anova.cca(ord.phyASV.f.c.platy.AD.before.CAP, by="terms")
 # Use ordistep to assess which model terms should be included
 finalmodel.platy.AD.before <- ordistep(ord.phyASV.f.c.platy.AD.before.CAP, formula= ~ Year + Status +  Dist, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
 # Look at the ordistep final model
 finalmodel.platy.AD.before
+anova(finalmodel.platy.AD.before)
 # Check for covariance
 vif.cca(finalmodel.platy.AD.before)
 # Test the full model
 anova.cca(finalmodel.platy.AD.before)
 # Test the model terms
 anova.cca(finalmodel.platy.AD.before, by="terms")
+
