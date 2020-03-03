@@ -163,7 +163,7 @@ head(tagged)
 
 names(metadata)
 meta <- subset(metadata, select = c("field_season", "site", "coral_tag", "binary_bleaching", "bleaching_proportion", "notes_bleaching"))
-meta <- meta[(meta$field_season == "KI2015c" | meta$field_season == "KI2016a"),  ]
+meta <- meta[(meta$field_season == "KI2015b" | meta$field_season == "KI2015c" | meta$field_season == "KI2016a"),  ]
 meta <- droplevels(meta)
 dim(meta)
 head(meta)
@@ -215,6 +215,7 @@ head(meta)
 metawide <- dcast(meta, coral_tag + site ~ field_season, value.var = "bleaching_proportion", fun.aggregate=sum, fill=5)
 #Note the 5's are actually NA's
 head(metawide)
+table(metawide$KI2015b)
 table(metawide$KI2015c)
 table(metawide$KI2016a)
 
@@ -240,7 +241,7 @@ table(metawide$KI2016a)
 # metawide.nona[metawide.nona$KI2016b == 5,] # good to go
 
 #Change the 5s to NAs
-
+metawide$KI2015b <- ifelse(metawide$KI2015b==5, NA, metawide$KI2015b)
 metawide$KI2015c <- ifelse(metawide$KI2015c==5, NA, metawide$KI2015c)
 metawide$KI2016a <- ifelse(metawide$KI2016a==5, NA, metawide$KI2016a)
 head(metawide)
@@ -326,6 +327,9 @@ dim(metawide)
 #check
 metawide[metawide$firsttag == "573b",]
 metawide[metawide$firsttag == "Unknown",]
+
+#get rid of NA
+metawide <- metawide[!is.na(metawide$coral_tag), ]
 
 #rerun compare
 
@@ -659,7 +663,10 @@ bleachcols2 <- c("seagreen4", "seagreen3", "seagreen2", "darkseagreen1", "deepsk
 
 ```{r bleaching proportion table, echo=FALSE}
 
-tblprob <- plyr::count(metalong.sp, c("year", "species.comb","bleach.prop"))
+metalong.sp.no15b <- metalong.sp[!metalong.sp$year == "KI2015b", ]
+metalong.sp.no15b <- droplevels(metalong.sp.no15b)
+
+tblprob <- plyr::count(metalong.sp.no15b, c("year", "species.comb","bleach.prop"))
 
 tblprob
 
@@ -667,6 +674,37 @@ tblprob
 
 ## bar plots
 
+### overall
+```{r prep for overall figure metadata, include=FALSE}
+
+metalong.overall.status <- aggregate(coral_tag ~ year + species.comb + bin.bleach, metalong.sp, length)
+head(metalong.overall.status)
+
+metalong.overall <- aggregate(coral_tag ~ year + species.comb, metalong.sp, length)
+head(metalong.overall)
+
+metalong.overall$year.spec <- paste(metalong.overall$year, metalong.overall$species.comb, sep = ".")
+metalong.overall.status$year.spec <- paste(metalong.overall.status$year, metalong.overall.status$species.comb, sep = ".")
+metalong.overall.status$overall.spec <- metalong.overall$coral_tag[match(metalong.overall.status$year.spec, metalong.overall$year.spec)]
+head(metalong.overall.status)
+
+metalong.overall.status$prop <- metalong.overall.status$coral_tag/metalong.overall.status$overall.spec
+head(metalong.overall.status)
+
+str(metalong.overall.status)
+metalong.overall.status$bin.bleach <- as.character(metalong.overall.status$bin.bleach)
+
+```
+
+```{r overall figure metadata, echo=FALSE}
+
+ggplot(metalong.overall.status, aes(x = year, y = prop, fill = bin.bleach)) + geom_bar(stat='identity', position='stack') +
+  facet_wrap(~species.comb, scales = "free_y") +
+  theme(axis.text.x = element_text(angle = 90))
+
+```
+
+### year and level of bleaching
 ```{r bleaching proportion figure proportion on x, echo=FALSE}
 
 ggplot(tblprob, aes(x = bleach.prop, y = freq, fill = year)) + geom_bar(stat='identity', position='dodge') +
