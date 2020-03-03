@@ -1006,6 +1006,113 @@ ggplot(cn.sum.disturb16a, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom
 
 ```
 
+## bar plots but with only the 4 sites
+
+```{r include=FALSE}
+
+head(cn.sum.site)
+unique(cn.sum.site$site)
+
+cn.sum.site.c <- cn.sum.site[(cn.sum.site$site == "8" | cn.sum.site$site == "35" | cn.sum.site$site == "27" | cn.sum.site$site == "32"), ]
+cn.sum.site.c <- droplevels(cn.sum.site.c)
+unique(cn.sum.site.c$site)
+head(cn.sum.site.c)
+
+
+#by disturbance 
+cn.c <- cn[(cn$site == "8" | cn$site == "35" | cn$site == "27" | cn$site == "32"), ]
+cn.c <- droplevels(cn.c)
+unique(cn.c$site)
+head(cn.c)
+
+cn.sum.c.disturb<-aggregate(Cover ~  Species + Fish.Level + Field.Season + Bleached, cn.c, sum)
+head(cn.sum.c.disturb)
+
+#now to calculate the number of points per disturbance by species
+cn.ptsum.disturb.spec.c<-aggregate(Cover ~ Fish.Level + Field.Season + Species, cn.c, sum)
+head(cn.ptsum.disturb.spec.c)
+
+#add to other df
+cn.ptsum.disturb.spec.c$season.fish.spec <- paste(cn.ptsum.disturb.spec.c$Field.Season, cn.ptsum.disturb.spec.c$Fish.Level, cn.ptsum.disturb.spec.c$Species, sep = ".")
+cn.sum.c.disturb$season.fish.spec <- paste(cn.sum.c.disturb$Field.Season, cn.sum.c.disturb$Fish.Level, cn.sum.c.disturb$Species, sep = ".")
+cn.sum.c.disturb$adj.total.points.fish.spec <- cn.ptsum.disturb.spec.c$Cover[match(cn.sum.c.disturb$season.fish.spec, cn.ptsum.disturb.spec.c$season.fish.spec)]
+head(cn.sum.c.disturb)
+
+#now calculate proportion
+cn.sum.c.disturb$prop <- cn.sum.c.disturb$Cover/cn.sum.c.disturb$adj.total.points.fish.spec
+head(cn.sum.c.disturb)
+
+```
+
+### proportion bleached vrs healthy per field season across the 4 sites
+  
+```{r prop by site 2015c with only 4 sites, echo=FALSE, warning=FALSE}
+
+cn.sum.sitec15c <- cn.sum.site.c[cn.sum.site.c$Field.Season == "KI2015c", ]
+
+ggplot(cn.sum.sitec15c, aes(x = site, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species, scales = "free_y") +
+  labs(title = "2015c")
+
+```
+
+    
+```{r prop by site 2015d with only 4 sites, echo=FALSE, warning=FALSE}
+
+cn.sum.sitec15d <- cn.sum.site.c[cn.sum.site.c$Field.Season == "KI2015d", ]
+
+ggplot(cn.sum.sitec15d, aes(x = site, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species, scales = "free_y") +
+  labs(title = "2015d")
+
+```
+  
+  
+```{r prop by site 2016a with only 4 sites, echo=FALSE, warning=FALSE}
+
+cn.sum.sitec16a <- cn.sum.site.c[cn.sum.site.c$Field.Season == "KI2016a", ]
+
+ggplot(cn.sum.sitec16a, aes(x = site, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species, scales = "free_y") +
+  labs(title = "2016a")
+
+```
+
+### across disturbance gradient (again only the four sites)
+
+ 
+```{r prop by disturb 2015c with only 4 sites, echo=FALSE, warning=FALSE}
+
+cn.sum.c.disturb15c <- cn.sum.c.disturb[cn.sum.c.disturb$Field.Season == "KI2015c", ]
+
+ggplot(cn.sum.c.disturb15c, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species) +
+  labs(title = "2015c")
+
+```
+
+    
+```{r prop by disturb 2015d with only 4 sites, echo=FALSE, warning=FALSE}
+
+cn.sum.c.disturb15d <- cn.sum.c.disturb[cn.sum.c.disturb$Field.Season == "KI2015d", ]
+
+ggplot(cn.sum.c.disturb15d, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species) +
+  labs(title = "2015d")
+
+```
+  
+  
+```{r prop by disturb 2016a with only 4 sites, echo=FALSE, warning=FALSE}
+
+cn.sum.c.disturb16a <- cn.sum.c.disturb[cn.sum.c.disturb$Field.Season == "KI2016a", ]
+
+ggplot(cn.sum.c.disturb16a, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species) +
+  labs(title = "2016a")
+
+```
+
 
 # iv) Compare coral net 2015d to colony specific data (that KT collected) from photos 2015d
 
