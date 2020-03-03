@@ -521,7 +521,7 @@ head(coralnet)
 cn <- subset(coralnet, select = c("Field.Season", "Site", "Quadrat", "adj.total.points.quadrat", "coralnet.tag", "Cover", "Bleached", "Species", "Fish.Level", "adj.total.points.site"))
 
 #subset for 2015c, 2015d, and 2016a
-cn <- cn[(cn$Field.Season == "KI2015c" | cn$Field.Season == "KI2015d" | cn$Field.Season == "KI2016a"), ]
+cn <- cn[(cn$Field.Season == "KI2015b" | cn$Field.Season == "KI2015c" | cn$Field.Season == "KI2015d" | cn$Field.Season == "KI2016a"), ]
 cn <- droplevels(cn)
 unique(cn$Field.Season)
 
@@ -585,6 +585,23 @@ cn$Species <- factor(cn$Species, levels = c("Platygyra.spp", "Hydnophora.microco
 levels(cn$Species)
 
 ###now to create tables and calculate proportions etc
+
+#overall
+cn.sum <-aggregate(Cover ~  Species + Field.Season + Bleached, cn, sum)
+head(cn.sum)
+#calculate the number of points at each site for each species (healthy and bleached) so we can get proportion of bleached vr healthy
+cn.sum.species <- aggregate(Cover ~ Species + Field.Season, cn, sum)
+head(cn.sum.species)
+
+#now add to the other dataframe 
+cn.sum$season.spec <- paste(cn.sum$Field.Season, cn.sum$Species, sep = ".")
+cn.sum.species$season.spec <- paste(cn.sum.species$Field.Season, cn.sum.species$Species, sep = ".")
+cn.sum$total.season.spec <- cn.sum.species$Cover[match(cn.sum$season.spec, cn.sum.species$season.spec)]
+head(cn.sum)
+
+#now calculate proportion
+cn.sum$prop <- cn.sum$Cover/cn.sum$total.season.spec
+head(cn.sum)
 
 #by site
 cn.sum.site<-aggregate(Cover ~  Species + site + Field.Season + Bleached, cn, sum)
@@ -861,6 +878,24 @@ summary(lr2)
 
 
 # iii) coral net data 2015c, 2015d, 2016a
+
+**important note** 
+
+2015d coral net is only 4 sites - 8, 35, 32, 27....   
+Should I cut down all field seasons to just those four sites to make it actually comparable??  
+
+## over time all sites combined   
+requested by SS
+
+```{r overall figure coralnet, echo=FALSE}
+
+ggplot(cn.sum, aes(x = Field.Season, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='stack') +
+  facet_wrap(~Species, scales = "free_y") +
+  theme(axis.text.x = element_text(angle = 90))
+
+
+
+```
 
 ## bar plots  
 
