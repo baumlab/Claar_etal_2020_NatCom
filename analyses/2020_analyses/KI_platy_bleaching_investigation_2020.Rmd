@@ -693,7 +693,7 @@ summary(lr1)
 # ii) data from photos 2015d
   
 ## Notes    
-KT went through every single photo and tallied each Merulinidae (except for F. speciosa and F. stelligara) that could be seen. The bleaching status of each was recorded using the scale above. There is a category of Favid which are corals that I could tell were a favid but I was unable to tell if it was Favia or Favites.
+I (KT) went through every single photo and tallied each Merulinidae (except for F. speciosa and F. stelligara) that could be seen. The bleaching status of each was recorded using the scale above. I was very careful to not double count any coral that showed up in another photo. There is a category of Favid which are corals that I could tell were a favid but I was unable to tell if it was Favia or Favites.
 
 ## Calculations
 ```{r calculate things, include=FALSE}
@@ -934,12 +934,134 @@ ggplot(cn.sum.disturb16a, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom
 
 # iv) Compare coral net 2015d to colony specific data (that KT collected) from photos 2015d
 
+```{r prep data for comparison, include=FALSE}
+
+# data collected from photos by hand
+head(nov15)
+unique(nov15$site)
+
+# data from coral net
+head(cn.sum.site)
+unique(cn.sum.site$site)
+#select for just 2015d
+cn.sum.site.compare <- cn.sum.site[cn.sum.site$Field.Season == "KI2015d", ]
+
+#ok only select for sites that are the same
+nov15.compare <- nov15[(nov15$site == "27" | nov15$site == "32" | nov15$site == "35" | nov15$site == "8"), ]
+nov15.compare <- droplevels(nov15.compare)
+cn.sum.site.compare <- cn.sum.site.compare[(cn.sum.site.compare$site == "27" | cn.sum.site.compare$site == "32" | cn.sum.site.compare$site == "35" | cn.sum.site.compare$site == "8"), ]
+cn.sum.site.compare <- droplevels(cn.sum.site.compare)
+
+#get rid of the NA from cn.sum.site.compare
+cn.sum.site.compare <- cn.sum.site.compare[!is.na(cn.sum.site.compare$prop),]
+
+#can we combine?
+head(nov15.compare)
+head(cn.sum.site.compare)
+
+#not yet because nov15.compare is not proportion
+#so calculate proportion
+#add a column that says bleaching or healthy
+str(nov15.compare)
+unique(nov15.compare$bin.bleach)
+nov15.compare$status <- "Healthy"
+nov15.compare$status <- ifelse((nov15.compare$bleaching.proportion == "3" | nov15.compare$bleaching.proportion == "2"| nov15.compare$bleaching.proportion == "1"), "Bleaching", nov15.compare$status)
+head(nov15.compare)
+
+#count how many total of each species and status that were each site
+nov15.compare.sum.status <- aggregate(cut.off.y.n ~ site + species.comb + status, nov15.compare, length)
+head(nov15.compare.sum.status)
+colnames(nov15.compare.sum.status)<-c("site", "species.comb" ,"status","total.spec.site.status")
+
+#ok count how many total of each species there were at each site
+nov15.compare.sum <- aggregate(cut.off.y.n ~ site + species.comb, nov15.compare, length)
+head(nov15.compare.sum)
+
+#combine df
+nov15.compare.sum$site.spec <- paste(nov15.compare.sum$site, nov15.compare.sum$species.comb, sep = ".")
+nov15.compare.sum.status$site.spec <- paste(nov15.compare.sum.status$site, nov15.compare.sum.status$species.comb, sep = ".")
+nov15.compare.sum.status$total.spec.site <- nov15.compare.sum$cut.off.y.n[match(nov15.compare.sum.status$site.spec, nov15.compare.sum$site.spec)]
+head(nov15.compare.sum.status)
+
+#calculate proportion bleached
+nov15.compare.sum.status$prop <- nov15.compare.sum.status$total.spec.site.status/nov15.compare.sum.status$total.spec.site
+head(nov15.compare.sum.status)
+
+#combine
+head(nov15.compare.sum.status)
+head(cn.sum.site.compare)
+
+#ugg species names are off.... need to fix that
+str(nov15.compare.sum.status)
+nov15.compare.sum.status$species.comb <- as.character(levels(nov15.compare.sum.status$species.comb))[nov15.compare.sum.status$species.comb]
+str(cn.sum.site.compare)
+cn.sum.site.compare$Species <- as.character(levels(cn.sum.site.compare$Species))[cn.sum.site.compare$Species]
+unique(nov15.compare.sum.status$species.comb)
+unique(cn.sum.site.compare$Species)
+nov15.compare.sum.status$species.comb <- ifelse(nov15.compare.sum.status$species.comb == "Platygyra sp.", "Platygyra.spp", nov15.compare.sum.status$species.comb)
+nov15.compare.sum.status$species.comb <- ifelse(nov15.compare.sum.status$species.comb == "F. pentagona", "Favites.pentagona", nov15.compare.sum.status$species.comb)
+nov15.compare.sum.status$species.comb <- ifelse(nov15.compare.sum.status$species.comb == "Hydnophora", "Hydnophora.microconos", nov15.compare.sum.status$species.comb)
+cn.sum.site.compare$Species <- ifelse(cn.sum.site.compare$Species == "Favia.matthai", "Favia spp", cn.sum.site.compare$Species)
+cn.sum.site.compare$Species <- ifelse(cn.sum.site.compare$Species == "Favites.halicora", "Favites spp", cn.sum.site.compare$Species)
+unique(nov15.compare.sum.status$species.comb)
+unique(cn.sum.site.compare$Species)
 
 
+head(cn.sum.site.compare)
+head(nov15.compare.sum.status)
+
+#ok now combine
+#nov15.compare.sum.status$site.spec.status <- paste(nov15.compare.sum.status$site, nov15.compare.sum.status$species.comb, nov15.compare.sum.status$status, sep = ".")
+#cn.sum.site.compare$site.spec.status <- paste(cn.sum.site.compare$site, cn.sum.site.compare$Species, cn.sum.site.compare$Bleached, sep = ".")
+cn.sum.site.compare$"Field.Season" <- NULL
+cn.sum.site.compare$"season.site.spec" <- NULL
+nov15.compare.sum.status$"site.spec" <-NULL
+colnames(cn.sum.site.compare)<-c("species", "site" ,"status","total.spec.site.status", "total.spec.site", "prop")
+colnames(nov15.compare.sum.status)<-c( "site" , "species", "status","total.spec.site.status", "total.spec.site", "prop")
+
+#create a new column with type
+cn.sum.site.compare$type <- "coralnet"
+nov15.compare.sum.status$type <- "bycolony"
+
+head(cn.sum.site.compare)
+head(nov15.compare.sum.status)
+
+#reorder
+cn.sum.site.compare <- cn.sum.site.compare[, c(2, 1, 3, 4, 5, 6, 7)]
+
+head(cn.sum.site.compare)
+head(nov15.compare.sum.status)
+
+#ok finally time to combine
+compare <- rbind(cn.sum.site.compare, nov15.compare.sum.status)
+head(compare)
+tail(compare)
+
+```
+
+**there are no Favid from coral net**
 
 
+```{r compare figure for bleaching, echo=FALSE, warning=FALSE}
+
+compare.bl <- compare[compare$status == "Bleaching",]
+
+ggplot(compare.bl, aes(x = site, y = prop, fill = type)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~species, scales = "free_y") +
+  labs(title = "Bleached proportion")
+
+```
 
 
+```{r compare figure for healthy, echo=FALSE, warning=FALSE}
+
+compare.h <- compare[compare$status == "Healthy",]
+
+ggplot(compare.h, aes(x = site, y = prop, fill = type)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~species, scales = "free_y") +
+  labs(title = "Healthy proportion")
+
+```
 
 
 
