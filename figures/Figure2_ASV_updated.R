@@ -24,6 +24,9 @@ platy_ord_physeq <- subset_samples(platy_ord_physeq,sample_data(platy_ord_physeq
 
 sample_data(platy_ord_physeq)$Dist <- factor(sample_data(platy_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
+platy_ord_physeq <- rarefy_even_depth(platy_ord_physeq, 
+                                      sample.size = 1000)
+
 platy_ord_CAP <- ordinate(platy_ord_physeq,method="CAP",
                           distance="wunifrac",formula= ~ field_season + Dist)
 
@@ -59,7 +62,7 @@ ord_plot <- p1 +
 ord_plot
 
 # Open a jpg image
-jpeg(file="figures/Figure2c_ASV_updated.jpg",width = 6, height = 6,units="in",res=300)
+jpeg(file="figures/Figure2c_ASV_updated_rare100.jpg",width = 6, height = 6,units="in",res=300)
 ord_plot
 dev.off()
 

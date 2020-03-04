@@ -26,6 +26,9 @@ fpenta_ord_physeq <- subset_samples(fpenta_ord_physeq,
 
 sample_data(fpenta_ord_physeq)$Dist <- factor(sample_data(fpenta_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
+fpenta_ord_physeq <- rarefy_even_depth(fpenta_ord_physeq, 
+                                      sample.size = 1000)
+
 fpenta_ord_CAP <- ordinate(fpenta_ord_physeq,method="CAP",
                           distance="wunifrac",formula= ~ field_season + Dist)
 
@@ -61,7 +64,7 @@ ord_plot <- p1 +
 ord_plot
 
 # Open a jpg image
-jpeg(file="figures/Figure2c_ASV_fpenta.jpg",width = 6, height = 6,units="in",res=300)
+jpeg(file="figures/Figure2c_ASV_fpenta_rare1000.jpg",width = 6, height = 6,units="in",res=300)
 ord_plot
 dev.off()
 
