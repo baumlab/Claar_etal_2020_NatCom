@@ -1637,6 +1637,24 @@ ggplot(compare.h, aes(x = site, y = prop, fill = type)) + geom_bar(stat='identit
 I (KT) went through the photos of the tagged corals in 2016a and compared it to the most recent photo of it from before (i.e. so most of them were compared to 2015c but a few were other field seasons). I recorded the year it was compared to, the level of heat stress induced partial mortality (see scale below), if the remaining tissue was healthy (h; bleaching level 0 and 1 from above) or bleaching (b; bleaching level 2 and 3 from above).   
   
 **currently only of F. pentagona.**   
+
+**example photos of a colony bleached in 2015c and then recovered with partial mortality in 2016a**  
+*colony 588 from site 15*  
+
+```{r echo=FALSE}
+
+
+fpenta15c.588 <- image_read(here::here("data/bleachingdata_2020_analysis", "KI2015c_site15_588.jpeg"))
+fpenta15c.588
+
+```
+
+```{r echo=FALSE}
+fpenta16a.588 <- image_read(here::here("data/bleachingdata_2020_analysis", "KI2016a_site15_588.jpeg"))
+fpenta16a.588
+
+
+```
    
 **scale**   
 0 - no partial mortality    
