@@ -12,7 +12,7 @@ library(DECIPHER)
 rm(list=ls())
 
 # Load filtered RData object from output of filter_notsym.R script
-load("analyses/2019_analyses/dada2/KI_Platy_dada.RData")
+load("analyses/dada2/KI_Platy_dada.RData")
 
 phy.f <- ps
 
@@ -39,9 +39,9 @@ phy.f <- subset_samples(phy.f, as.data.frame(sample_data(phy.f))$CoralTag != "10
 
 # Characterize sites by disturbance level
 VeryHigh <- c(30,31,32,27)
-High <- c(1,6,26,38,40)
+High <- c(1,6,26,40)
 Medium <- c(7,8,12,13,14,22,25,33,34,35)
-Low <- c(2,3,4,9,23,24)
+Low <- c(2,3,4,9,23,24,38)
 VeryLow <- c(5,10,11,15,16,17,18,19,20,21,28,29,36,37,39)
 
 # Make site a factor
