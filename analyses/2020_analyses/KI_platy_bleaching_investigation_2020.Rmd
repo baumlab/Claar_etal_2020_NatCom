@@ -32,17 +32,28 @@ Statistics: We could then do a series of simply models to quantify the following
 a) What proportion of tagged coral colonies was bleached in 2015, and did this differ by species (ie. the 4 species) or disturbance level. Suggested model: mixed effects logistic regression with bleached/not-bleached as response, species and disturbance level as fixed effects, site as random effect.  
 
 b) same question but for Nov. 2015  
+ 
 
-c) What proportion of tagged coral colonies survived (i.e. March/April 2016 timepoint) and was survival higher at lower levels of disturbance (and did survival differ by species). Same type of model  
+**3 Mar 20**  
+
+* Make level 1 bleaching healthy (combine 0 and 1)   
+* leaving in cut off corals   
+* do an iteration where 4s are 0s (just in the write up area)  
+
 
 
 **Relevant notes**  
 
-Bleaching levels  
+_Binary bleaching_  
+* 0 = Not bleaching (as of 3 Mar 20 this includes levels 0, 1, and 4 although sometimes 4 is left as its own category)  
+* 1 = Bleaching (as of 3 Mar 20 this includes levels 2 and 3)  
+
+
+_Bleaching levels_  
 * 1 = partial spotty/ patching bleaching (patches smaller than 5cm)  
 * 2 = large patches greater than 5cm by not severe  
 * 3 = severe or complete bleaching (~80% of the coral is bleached)  
-* 4 = partial mortality but living tissue is not bleached
+* 4 = recent (texture has not been eroded yet) partial mortality where living tissue is not bleached
 
 
 **example of level 4**   
@@ -82,6 +93,7 @@ coraldata <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_sequenc
 nov15 <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_2015d_Merulinidae.csv")) 
 sitedata <- read.csv(here::here("data", "KI_Monitoring_Site_Names_for_Publications_Sept2019.csv"))
 coralnet <- read.csv(here::here("data/bleachingdata_2020_analysis", "Coral_Data_Master.csv")) #taken from bleaching paper git repo
+partialmortality <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_partialmortality_2016a.csv")) 
 
 ```
 
@@ -389,9 +401,9 @@ head(metalong.sp)
 metalong.sp <- metalong.sp[!is.na(metalong.sp$bleach.prop), ]
 head(metalong.sp)
 
-##add in binary bleaching except I am going to create the column myself  0 = no bleaching 1 = bleaching
+##add in binary bleaching except I am going to create the column myself  0 = no bleaching (level 0 and 1) 1 = bleaching (level 2 and 3)
 metalong.sp$bin.bleach <- 0
-metalong.sp$bin.bleach <- ifelse((metalong.sp$bleach.prop== "3" | metalong.sp$bleach.prop == "2" | metalong.sp$bleach.prop == "1"), 1, metalong.sp$bin.bleach)
+metalong.sp$bin.bleach <- ifelse((metalong.sp$bleach.prop== "3" | metalong.sp$bleach.prop == "2"), 1, metalong.sp$bin.bleach)
 
 head(metalong.sp)
 
@@ -418,10 +430,18 @@ levels(metalong.sp$species.comb)
 metalong.sp$species.comb<-factor(metalong.sp$species.comb, levels = c("Platygyra sp", "Favia spp", "Favites pentagona", "Favites spp", "Hydnophora microconos")) 
 levels(metalong.sp$species.comb)
 
+#bin bleaching 
+metalong.sp$bin.bleach <- as.factor(metalong.sp$bin.bleach)
+levels(metalong.sp$bin.bleach)
+metalong.sp$bin.bleach <- factor(metalong.sp$bin.bleach, levels = c("1", "0"))
+levels(metalong.sp$bin.bleach)
+
 #make a df of just 2015c
 metalong.sp15c <- metalong.sp[metalong.sp$year == "KI2015c", ]
 metalong.sp15c <- droplevels(metalong.sp15c)
 unique(metalong.sp15c$year)
+
+
 
 ```
   
@@ -436,9 +456,12 @@ nov15$bleaching.proportion <- as.character(nov15$bleaching.proportion)
 #check columns because I know I was not careful with capitals etc
 
 unique(nov15$site) #good
+#althougth I am going to rename the bay of wrecks one to just BOW so it is shorter
+nov15$site <- as.character(levels(nov15$site))[nov15$site]
+nov15$site <- ifelse(nov15$site == "BayofWrecks_Loggers", "bow", nov15$site)
+unique(nov15$site) #good
 
 unique(nov15$species) #ok of course some to fix which i knew
-
 
 nov15$species <- ifelse(nov15$species == "hydno", "Hydnophora", nov15$species)
 nov15$species <- ifelse(nov15$species == "favia sp.", "Favia sp.", nov15$species)
@@ -476,7 +499,7 @@ unique(nov15$species.comb)
 nov15$disturb <- "VH"
 nov15$disturb <- ifelse(nov15$site == "8", "M", nov15$disturb)
 nov15$disturb <- ifelse(nov15$site == "35", "M", nov15$disturb)
-nov15$disturb <- ifelse(nov15$site == "BayofWrecks_Loggers", "VL", nov15$disturb)
+nov15$disturb <- ifelse(nov15$site == "bow", "VL", nov15$disturb)
 
 unique(nov15$disturb)
 
@@ -484,7 +507,7 @@ head(nov15)
 
 #add column of binary bleaching
 nov15$bin.bleach <- 0
-nov15$bin.bleach <- ifelse((nov15$bleaching.proportion == "3" | nov15$bleaching.proportion == "2"| nov15$bleaching.proportion == "1"), 1, nov15$bin.bleach)
+nov15$bin.bleach <- ifelse((nov15$bleaching.proportion == "3" | nov15$bleaching.proportion == "2"), 1, nov15$bin.bleach)
 head(nov15)
 tail(nov15)
 
@@ -514,6 +537,25 @@ nov.tbl <- nov.tbl[!nov.tbl$bleach.prop == "5",]
 nov.tbl <- droplevels(nov.tbl)
 
 head(nov.tbl)
+
+
+## create a version where the 4 is made into a 0
+head(nov15)
+str(nov15)
+nov15$bleach.prop.no4 <- nov15$bleaching.proportion
+nov15$bleach.prop.no4 <- ifelse(nov15$bleach.prop.no4 == "4", "0", nov15$bleach.prop.no4)
+unique(nov15$bleach.prop.no4)
+
+#take out 5
+nov15 <- nov15[!nov15$bleaching.proportion == "5", ]
+nov15 <- droplevels(nov15)
+unique(nov15$bleach.prop.no4)
+
+#make a table with the new column
+
+nov.tbl.no4 <- plyr::count(nov15, c("site", "species.comb", "bleach.prop.no4"))
+
+nov.tbl.no4
 
 ```
   
@@ -588,6 +630,8 @@ levels(cn$Species)
 cn$Species <- factor(cn$Species, levels = c("Platygyra.spp", "Hydnophora.microconos", "Favites.pentagona",  "Favia.matthai", "Favia.spp", "Favites.halicora",  "Favites.spp"))
 levels(cn$Species)
 
+head(cn)
+
 ###now to create tables and calculate proportions etc
 
 #overall
@@ -647,11 +691,59 @@ head(cn.sum.disturb)
 
 ```
   
+```{r prepping partial mortality data, include=FALSE}
+
+head(partialmortality)
+
+#check it to make sure it is nice
+unique(partialmortality$field_season)
+
+unique(partialmortality$site)
+
+unique(partialmortality$coral_tag)
+
+unique(partialmortality$species)
+
+unique(partialmortality$tagcompare_year)
+
+unique(partialmortality$partialmortality)
+
+unique(partialmortality$living_tissue_status)
+
+##all looks good so just rename it to have a smaller name
+
+pm <- partialmortality
+
+##check structure
+str(pm)
+
+pm$partialmortality <- as.character(pm$partialmortality)
+pm$site <- as.character(pm$site)
+
+str(pm)
+
+## make a table 
+
+pm.table <- plyr::count(pm, c("partialmortality", "living_tissue_status") )
+pm.table
+
+## make a table with site
+
+pm.site.tbl <- plyr::count(pm, c("site", "partialmortality", "living_tissue_status"))
+pm.site.tbl
+
+```
+  
+  
 ```{r color set up , include=FALSE}
 
 bleachcols <- c("seagreen4", "seagreen3", "seagreen2", "darkseagreen1")
 
 bleachcols2 <- c("seagreen4", "seagreen3", "seagreen2", "darkseagreen1", "deepskyblue3")
+
+bleachcols3 <- c("indianred2", "deepskyblue2")
+
+pm2 <- c("blue", "seagreen4", "seagreen3", "seagreen2", "darkseagreen1", "deepskyblue3")
 
 
 ```
@@ -660,6 +752,8 @@ bleachcols2 <- c("seagreen4", "seagreen3", "seagreen2", "darkseagreen1", "deepsk
 # i)  metadata for 2015c and 2016a
 
 ## table of bleaching proportion  
+
+level definitions above   
 
 ```{r bleaching proportion table, echo=FALSE}
 
@@ -674,7 +768,7 @@ tblprob
 
 ## bar plots
 
-### overall
+### overall including 2015b - this one is PROPORTION
 ```{r prep for overall figure metadata, include=FALSE}
 
 metalong.overall.status <- aggregate(coral_tag ~ year + species.comb + bin.bleach, metalong.sp, length)
@@ -691,20 +785,30 @@ head(metalong.overall.status)
 metalong.overall.status$prop <- metalong.overall.status$coral_tag/metalong.overall.status$overall.spec
 head(metalong.overall.status)
 
-str(metalong.overall.status)
-metalong.overall.status$bin.bleach <- as.character(metalong.overall.status$bin.bleach)
+#str(metalong.overall.status)
+#metalong.overall.status$bin.bleach <- as.character(metalong.overall.status$bin.bleach)
+
+levels(metalong.overall.status$bin.bleach)
 
 ```
+
+Healthy = levels 0 and 1  
+Bleached = levels 2 and 3  
 
 ```{r overall figure metadata, echo=FALSE}
 
 ggplot(metalong.overall.status, aes(x = year, y = prop, fill = bin.bleach)) + geom_bar(stat='identity', position='stack') +
   facet_wrap(~species.comb, scales = "free_y") +
-  theme(axis.text.x = element_text(angle = 90))
+  theme(axis.text.x = element_text(angle = 90)) + 
+  scale_fill_manual(values = bleachcols3, labels = c("1" = "Bleached", "0" = "Healthy"))
 
 ```
 
 ### year and level of bleaching
+
+At the colony level (i.e. not proportion).  
+Level defnition above  
+
 ```{r bleaching proportion figure proportion on x, echo=FALSE}
 
 ggplot(tblprob, aes(x = bleach.prop, y = freq, fill = year)) + geom_bar(stat='identity', position='dodge') +
@@ -724,13 +828,30 @@ ggplot(tblprob, aes(x = year, y = freq, fill = bleach.prop)) + geom_bar(stat='id
 
 ```
 
+
+```{r bleaching proportion figure species fill, echo=FALSE}
+
+ggplot(tblprob, aes(x = year, y = freq, fill = species.comb)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~bleach.prop, scales = "free_y") 
+
+
+```
+
+
+
 ## statistics
 
-**not bleached = 0   bleached (levels 1, 2, 3) = 1**  
+What proportion of tagged coral colonies was bleached in 2015, and did this differ by species (ie. the 4 species) or disturbance level. Suggested model: mixed effects logistic regression with bleached/not-bleached as response, species and disturbance level as fixed effects, site as random effect.    
+
+**not bleached (levels 0 and 1) = 0**     
+**bleached (levels 2 and 3) = 1**   
 
 site not included as random effect due to not enough sites within each disturbance level (it would not converge)  
+Platygyra and Very High are set as the intercepts  
 
 ```{r include=FALSE}
+metalong.sp15c$bin.bleach <- as.numeric(levels(metalong.sp15c$bin.bleach))[metalong.sp15c$bin.bleach]
+
 mean(metalong.sp15c$bin.bleach)
 var(metalong.sp15c$bin.bleach)
 
@@ -750,12 +871,18 @@ summary(lr1)
 ## Notes    
 I (KT) went through every single photo and tallied each Merulinidae (except for F. speciosa and F. stelligara) that could be seen. The bleaching status of each was recorded using the scale above. I was very careful to not double count any coral that showed up in another photo. There is a category of Favid which are corals that I could tell were a favid but I was unable to tell if it was Favia or Favites.  
 
-I created a column in the datasheet when going through the data for if the coral was cut off or not.  I said y when I estimated I could see less than 60% of the coral. Currently all corals I tallied (including ones that had a y for cut off) are included in the figures etc below.  
+I created a column in the datasheet when going through the data for if the coral was cut off or not.  I said y when I estimated I could see less than 60% of the coral. This includes corals cut off on the edge of the photo and also ones that are hiding behind other corals in horizontal shots (compared to bird eye view). Currently all corals I tallied (including ones that had a y for cut off) are included in the figures etc below.  
 
-## Calculations
-```{r calculate things, include=FALSE}
+The BOW site I am not sure where it was as the folder just said BayOfWreck_Loggers. I have just named it BOW for simplicity. Also there were a way fewer photos for the bow site so effort is quite different between bow and the leeward sites.  
 
-#platy
+I did notice that large proportion of the _Favids_ and _Hydnos_ that were on the healthy end of the spectrum were either JV or shaded by other corals or reef structures.  
+
+## Calculations  
+
+**Platy**   
+```{r calculate platy, include=FALSE}
+
+###platy
 nov.tbl.platy <- nov.tbl[nov.tbl$species.comb == "Platygyra sp.", ]
 
 nov.tbl.platy
@@ -770,7 +897,43 @@ platy.disturbsum <-  plyr::count(nov15.platy, c("disturb"))
 
 platy <- plyr::count(nov15.platy$bleaching.proportion)
 
-#hydno
+#no4
+
+nov.tbl.no4.platy <- nov.tbl.no4[nov.tbl.no4$species.comb == "Platygyra sp.", ]
+
+nov.tbl.no4.platy
+
+platysum.no4 <- sum(nov.tbl.no4.platy$freq)
+
+platy.disturb.no4 <- plyr::count(nov15.platy, c("disturb", "bleach.prop.no4"))
+
+platy.no4 <- plyr::count(nov15.platy$bleach.prop.no4)
+
+```
+  
+In the photos from Kim Cobb from November 2015 there were `r platysum` Platygyra. There were `r platy[1,2]` that were not showing any signs of bleaching (level 0). That is `r (platy[1,2]/platysum)*100`% of the Platys. Only `r platy[2,2]` had level 1 bleaching, `r platy[3,2]` had level 2, and `r platy[4,2]` had level 3. There was `r platy[5,2]` that had the level 4 so when that is added to the level 0 that makes for `r platy.no4[1,2]` or `r (platy.no4[1,2]/platysum.no4)*100`% that showed zero signs of bleaching. Add level 1 to that and it is `r platy.no4[1,2]+platy.no4[2,2]` or `r ((platy.no4[1,2]+platy.no4[2,2])/platysum.no4)*100`%.  
+
+There were `r platy.disturbsum[2,2]` at medium disturbance sites - `r platy.disturb[5,3]` of them were level 0 (`r (platy.disturb[5,3]/platy.disturbsum[2,2])*100`%). Only `r platy.disturb[8,3]` were fully bleached (level 3). There were `r platy.disturbsum[1,2]` at VH sites - `r platy.disturb[1,3]` were not bleached and there were none that were fully bleached. There was only `r platy.disturbsum[3,2]` platy at VL sites but it was not bleached. There were not many photos from BOW though.   
+
+*With level 4 included in level 0:*      
+* medium sites     
+`r platy.disturb.no4[4,3]` of them were level 0 (`r (platy.disturb.no4[4,3]/platy.disturbsum[2,2])*100`%)  
+`r platy.disturb.no4[5,3]` were level 1  
+`r platy.disturb.no4[6,3]` were level 2  
+`r platy.disturb.no4[7,3]` were level 3  
+* vh sites  
+`r platy.disturb.no4[1,3]` were level 0  
+`r platy.disturb.no4[2,3]` were level 1  
+`r platy.disturb.no4[3,3]` were level 2  
+there were none that were fully bleached    
+* vl site  
+ Still just a level 0  
+    
+**Hydno**    
+  
+```{r calculate hydno, include=FALSE}
+
+###hydno
 nov.tbl.hydno <- nov.tbl[nov.tbl$species.comb == "Hydnophora", ]
 
 nov.tbl.hydno
@@ -785,13 +948,49 @@ hydno.distubsum <-  plyr::count(nov15.hydno, c("disturb"))
 
 hydno <- plyr::count(nov15.hydno$bleaching.proportion)
 
+#no level 4
+nov.tbl.no4.hydno <- nov.tbl.no4[nov.tbl.no4$species.comb == "Hydnophora", ]
+
+nov.tbl.no4.hydno
+
+hydnosum.no4 <- sum(nov.tbl.no4.hydno$freq)
+
+hydno.disturb.no4 <- plyr::count(nov15.hydno, c("disturb", "bleach.prop.no4"))
+
+hydno.no4 <- plyr::count(nov15.hydno$bleach.prop.no4)
+
+```
+   
+In the photos from Kim Cobb from November 2015 there were `r hydnosum` Hydnophora. There were `r hydno[1,2]` that were not showing any signs of bleaching. That is `r (hydno[1,2]/hydnosum)*100`% of the hydnos. Only `r hydno[2,2]` had level 1 bleaching, `r hydno[3,2]` had level 2, but `r hydno[4,2]` had level 3. There was `r hydno[5,2]` that had the level 4 so when that is added to the level 0 that makes for `r hydno.no4[1,2]` or `r (hydno.no4[1,2]/hydnosum.no4)*100`% that showed zero signs of bleaching. Add level 1 to that and it is `r hydno.no4[1,2]+hydno.no4[2,2]` or `r ((hydno.no4[1,2]+hydno.no4[2,2])/hydnosum.no4)*100`%.       
+
+There were `r hydno.distubsum[2,2]` at medium disturbance sites - `r hydno.disturb[5,3]` of them were healthy (`r (hydno.disturb[5,3]/hydno.distubsum[2,2])*100`%), `r hydno.disturb[8,3]` were full bleached (level 3) (`r (hydno.disturb[8,3]/hydno.distubsum[2,2])*100`%). There were `r hydno.distubsum[1,2]` at VH sites - `r hydno.disturb[1,3]` were not bleached and there were `r hydno.disturb[3,3]` fully bleached. There was only `r hydno.distubsum[3,2]` at VL sites but they were all fully bleached. 
+
+*With level 4 included in level 0:*      
+* medium sites     
+`r hydno.disturb.no4[4,3]` of them were level 0 (`r (hydno.disturb.no4[4,3]/hydno.distubsum[2,2])*100`%)  
+`r hydno.disturb.no4[5,3]` were level 1  
+`r hydno.disturb.no4[6,3]` were level 2  
+`r hydno.disturb.no4[7,3]` were level 3  
+* vh sites  
+`r hydno.disturb.no4[1,3]` were level 0  
+`r hydno.disturb.no4[2,3]` were level 1 
+None were level 2  
+`r hydno.disturb.no4[3,3]` were level 3  
+* vl site  
+ all were level 3  
+
+
+
+**F. pentagona**   
+
+```{r calculate f penta, include=FALSE}
 
 #fpenta
 nov.tbl.fpenta <- nov.tbl[nov.tbl$species.comb == "F. pentagona", ]
 
 nov.tbl.fpenta
 
-fpentasum <- sum(nov.tbl.hydno$bleach.prop.freq)
+fpentasum <- sum(nov.tbl.fpenta$bleach.prop.freq)
 
 nov15.fpenta <- nov15[nov15$species.comb == "F. pentagona",]
 
@@ -801,6 +1000,42 @@ fpenta.distubsum <-  plyr::count(nov15.fpenta, c("disturb"))
 
 fpenta <- plyr::count(nov15.fpenta$bleaching.proportion)
 
+#no 4
+nov.tbl.no4.fpenta <- nov.tbl.no4[nov.tbl.no4$species.comb == "F. pentagona", ]
+
+nov.tbl.no4.fpenta
+
+fpentasum.no4 <- sum(nov.tbl.no4.fpenta$freq)
+
+fpenta.disturb.no4 <- plyr::count(nov15.fpenta, c("disturb", "bleach.prop.no4"))
+
+fpenta.no4 <- plyr::count(nov15.fpenta$bleach.prop.no4)
+  
+```  
+  
+
+In the photos from Kim Cobb from November 2015 there were `r fpentasum` F. pentagona. There were `r fpenta[1,2]` that were not showing any signs of bleaching. That is `r (fpenta[1,2]/fpentasum)*100`% of the F. pentagona. Only `r fpenta[2,2]` had level 1 bleaching, `r fpenta[3,2]` had level 2, but `r fpenta[4,2]` had level 3. There was `r fpenta[5,2]` that had the level 4 so when that is added to the level 0 that makes for `r fpenta.no4[1,2]` or `r (fpenta.no4[1,2]/fpentasum.no4)*100`% that showed zero signs of bleaching. Add level 1 to that and it is `r fpenta.no4[1,2]+fpenta.no4[2,2]` or `r ((fpenta.no4[1,2]+fpenta.no4[2,2])/fpentasum.no4)*100`%.     
+
+There were `r fpenta.distubsum[2,2]` at medium disturbance sites - `r fpenta.disturb[3,3]` of them were healthy (`r (fpenta.disturb[3,3]/fpenta.distubsum[2,2])*100`%), `r fpenta.disturb[6,3]` were fully bleached (level 3) (`r (fpenta.disturb[6,3]/fpenta.distubsum[2,2])*100`%). There were `r fpenta.distubsum[1,2]` at VH sites - `r fpenta.disturb[1,3]` were not bleached and there were none fully bleached. There was only `r fpenta.distubsum[3,2]` at VL sites and it was a level 2 bleaching. 
+
+*With level 4 included in level 0:*      
+* medium sites     
+`r fpenta.disturb.no4[3,3]` of them were level 0 (`r (fpenta.disturb.no4[3,3]/fpenta.distubsum[2,2])*100`%)  
+`r fpenta.disturb.no4[4,3]` were level 1  
+`r fpenta.disturb.no4[5,3]` were level 2  
+`r fpenta.disturb.no4[6,3]` were level 3  
+* vh sites  
+`r fpenta.disturb.no4[1,3]` were level 0  
+`r fpenta.disturb.no4[2,3]` were level 1 
+None were level 2  
+None were level 3  
+* vl site  
+ all were level 2  
+
+
+**Favia spp**   
+
+```{r calculate favia, include=FALSE}
 
 #favia
 nov.tbl.favia <- nov.tbl[nov.tbl$species.comb == "Favia spp", ]
@@ -817,6 +1052,42 @@ favia.distubsum <-  plyr::count(nov15.favia, c("disturb"))
 
 favia <- plyr::count(nov15.favia$bleaching.proportion)
 
+#no 4
+nov.tbl.no4.favia <- nov.tbl.no4[nov.tbl.no4$species.comb == "Favia spp", ]
+
+nov.tbl.no4.favia
+
+faviasum.no4 <- sum(nov.tbl.no4.favia$freq)
+
+favia.disturb.no4 <- plyr::count(nov15.favia, c("disturb", "bleach.prop.no4"))
+
+favia.no4 <- plyr::count(nov15.favia$bleach.prop.no4)
+
+```
+
+ 
+In the photos from Kim Cobb from November 2015 there were `r faviasum` Favia spp. There were `r favia[1,2]` that were not showing any signs of bleaching. That is `r (favia[1,2]/faviasum)*100`% of the Favia. Only `r favia[2,2]` had level 1 bleaching, `r favia[3,2]` had level 2, but `r favia[4,2]` had level 3. There was `r favia[5,2]` that had the level 4 so when that is added to the level 0 that makes for `r favia.no4[1,2]` or `r (favia.no4[1,2]/faviasum.no4)*100`% that showed zero signs of bleaching. Add level 1 to that and it is `r favia.no4[1,2]+favia.no4[2,2]` or `r ((favia.no4[1,2]+favia.no4[2,2])/faviasum.no4)*100`%.     
+
+There were `r favia.distubsum[2,2]` at medium disturbance sites - `r favia.disturb[4,3]` of them were healthy (`r (favia.disturb[4,3]/favia.distubsum[2,2])*100`%), `r favia.disturb[7,3]` were fully bleached (level 3) (`r (favia.disturb[7,3]/favia.distubsum[2,2])*100`%). There were `r favia.distubsum[1,2]` at VH sites - `r favia.disturb[1,3]` were not bleached and there `r favia.disturb[3,3]` fully bleached. There was only `r favia.distubsum[3,2]` at VL sites and it was a level 3 bleaching.   
+
+*With level 4 included in level 0:*      
+* medium sites     
+`r favia.disturb.no4[4,3]` of them were level 0 (`r (favia.disturb.no4[4,3]/favia.distubsum[2,2])*100`%)  
+`r favia.disturb.no4[5,3]` were level 1  
+`r favia.disturb.no4[6,3]` were level 2  
+`r favia.disturb.no4[7,3]` were level 3  
+* vh sites  
+`r favia.disturb.no4[1,3]` were level 0    
+`r favia.disturb.no4[2,3]` were level 1   
+None were level 2    
+`r favia.disturb.no4[3,3]` were level 3    
+* vl site    
+it was level 3  
+
+**Favid**    
+
+```{r calculate favid, include=FALSE}
+
 #favid
 nov.tbl.favid <- nov.tbl[nov.tbl$species.comb == "Favid", ]
 
@@ -832,32 +1103,37 @@ favid.distubsum <-  plyr::count(nov15.favid, c("disturb"))
 
 favid <- plyr::count(nov15.favid$bleaching.proportion)
 
+#no 4
+nov.tbl.no4.favid <- nov.tbl.no4[nov.tbl.no4$species.comb == "Favid", ]
+
+nov.tbl.no4.favid
+
+favidsum.no4 <- sum(nov.tbl.no4.favid$freq)
+
+favid.disturb.no4 <- plyr::count(nov15.favid, c("disturb", "bleach.prop.no4"))
+
+favid.no4 <- plyr::count(nov15.favid$bleach.prop.no4)
+
 ```
 
-**Platy**  
-In the photos from Kim Cobb from November 2015 there were s `r platysum` Platygyra. There were `r platy[1,2]` that were not showing any signs of bleaching. That is `r (platy[1,2]/platysum)*100`% of the Platys. Only `r platy[2,2]` had level 1 bleaching, `r platy[3,2]` had level 2, and `r platy[4,2]` had level 3.   
 
-There were `r platy.disturbsum[1,2]` at medium disturbance sites - `r platy.disturb[1,3]` of them were healthy (`r (platy.disturb[1,3]/platy.disturbsum[1,2])*100`%). Only `r platy.disturb[3,3]` were full bleached (level 3). There were `r platy.disturbsum[2,2]` at VH sites - `r platy.disturb[5,3]` were not bleached and there were none that were fully bleached. There was only `r platy.disturbsum[3,2]` platy at VL sites but it was not bleached. There were not many photos from BOW though. 
-  
-**Hydno**  
-In the photos from Kim Cobb from November 2015 there were s `r hydnosum` Hydnophora. There were `r hydno[1,2]` that were not showing any signs of bleaching. That is `r (hydno[1,2]/hydnosum)*100`% of the hydnos. Only `r hydno[2,2]` had level 1 bleaching, `r hydno[3,2]` had level 2, but `r hydno[4,2]` had level 3.   
+In the photos from Kim Cobb from November 2015 there were `r favidsum` Favid. There were `r favid[1,2]` that were not showing any signs of bleaching. That is `r (favid[1,2]/favidsum)*100`% of the F. pentagona. Only `r favid[2,2]` had level 1 bleaching, `r favid[3,2]` had level 2, but `r favid[4,2]` had level 3. There was `r favid[5,2]` that had the level 4 so when that is added to the level 0 that makes for `r favid.no4[1,2]` or `r (favid.no4[1,2]/favidsum.no4)*100`% that showed zero signs of bleaching. Add level 1 to that and it is `r favid.no4[1,2]+favid.no4[2,2]` or `r ((favid.no4[1,2]+favid.no4[2,2])/favidsum.no4)*100`%.     
 
-There were `r hydno.distubsum[1,2]` at medium disturbance sites - `r hydno.disturb[1,3]` of them were healthy (`r (hydno.disturb[1,3]/hydno.distubsum[1,2])*100`%), `r hydno.disturb[4,3]` were full bleached (level 3) (`r (hydno.disturb[4,3]/hydno.distubsum[1,2])*100`%). There were `r hydno.distubsum[2,2]` at VH sites - `r hydno.disturb[6,3]` were not bleached and there were `r hydno.disturb[8,3]` fully bleached. There was only `r hydno.distubsum[3,2]` at VL sites but they were all fully bleached. There were not many photos from BOW though. 
-  
-**F. pentagona**  
-In the photos from Kim Cobb from November 2015 there were s `r fpentasum` F. pentagona. There were `r fpenta[1,2]` that were not showing any signs of bleaching. That is `r (fpenta[1,2]/fpentasum)*100`% of the F. pentagona. Only `r fpenta[2,2]` had level 1 bleaching, `r fpenta[3,2]` had level 2, but `r fpenta[4,2]` had level 3.   
+There were `r favid.distubsum[2,2]` at medium disturbance sites - `r favid.disturb[5,3]` of them were healthy (`r (favid.disturb[5,3]/favid.distubsum[2,2])*100`%), `r favid.disturb[8,3]` were full bleached (level 3) (`r (favid.disturb[8,3]/favid.distubsum[2,2])*100`%). There were `r favid.distubsum[1,2]` at VH sites - `r favid.disturb[1,3]` were not bleached and there `r favid.disturb[4,3]` fully bleached. There was none at the VL sites.   
 
-There were `r fpenta.distubsum[1,2]` at medium disturbance sites - `r fpenta.disturb[1,3]` of them were healthy (`r (fpenta.disturb[1,3]/fpenta.distubsum[1,2])*100`%), `r fpenta.disturb[4,3]` were full bleached (level 3) (`r (fpenta.disturb[4,3]/fpenta.distubsum[1,2])*100`%). There were `r fpenta.distubsum[2,2]` at VH sites - `r fpenta.disturb[6,3]` were not bleached and there were none fully bleached. There was only `r fpenta.distubsum[3,2]` at VL sites and it was a level 2 bleaching. There were not many photos from BOW though. 
-
-**Favia spp**  
-In the photos from Kim Cobb from November 2015 there were s `r faviasum` Favia spp. There were `r favia[1,2]` that were not showing any signs of bleaching. That is `r (favia[1,2]/faviasum)*100`% of the F. pentagona. Only `r favia[2,2]` had level 1 bleaching, `r favia[3,2]` had level 2, but `r favia[4,2]` had level 3.   
-
-There were `r favia.distubsum[1,2]` at medium disturbance sites - `r favia.disturb[1,3]` of them were healthy (`r (favia.disturb[1,3]/favia.distubsum[1,2])*100`%), `r favia.disturb[4,3]` were full bleached (level 3) (`r (favia.disturb[4,3]/favia.distubsum[1,2])*100`%). There were `r favia.distubsum[2,2]` at VH sites - `r favia.disturb[6,3]` were not bleached and there `r favia.disturb[8,3]` fully bleached. There was only `r favia.distubsum[3,2]` at VL sites and it was a level 3 bleaching. There were not many photos from BOW though. 
-
-**Favia spp**  
-In the photos from Kim Cobb from November 2015 there were s `r favidsum` Favid. There were `r favid[1,2]` that were not showing any signs of bleaching. That is `r (favid[1,2]/favidsum)*100`% of the F. pentagona. Only `r favid[2,2]` had level 1 bleaching, `r favid[3,2]` had level 2, but `r favid[4,2]` had level 3.   
-
-There were `r favid.distubsum[1,2]` at medium disturbance sites - `r favid.disturb[1,3]` of them were healthy (`r (favid.disturb[1,3]/favid.distubsum[1,2])*100`%), `r favid.disturb[4,3]` were full bleached (level 3) (`r (favid.disturb[4,3]/favid.distubsum[1,2])*100`%). There were `r favid.distubsum[2,2]` at VH sites - `r favid.disturb[7,3]` were not bleached and there `r favid.disturb[10,3]` fully bleached. There was none at the VL sites. There were not many photos from BOW though. 
+*With level 4 included in level 0:*      
+* medium sites     
+`r favid.disturb.no4[5,3]` of them were level 0 (`r (favid.disturb.no4[4,3]/favid.distubsum[2,2])*100`%)  
+`r favid.disturb.no4[6,3]` were level 1  
+`r favid.disturb.no4[7,3]` were level 2  
+`r favid.disturb.no4[8,3]` were level 3  
+* vh sites  
+`r favid.disturb.no4[1,3]` were level 0    
+`r favid.disturb.no4[2,3]` were level 1   
+`r favid.disturb.no4[3,3]` were level 2    
+`r favid.disturb.no4[4,3]` were level 3    
+* vl site    
+None   
 
 
 ## table of bleaching proportion in November 2015
@@ -868,9 +1144,22 @@ nov.tbl
 
 ```
 
-## bar plots
+## table of bleaching proportion in November 2015 with 4 turned into 0
 
-### facet wrap by species  
+```{r echo=FALSE, warning=FALSE}
+
+nov.tbl.no4
+
+```
+
+
+## bar plots   
+
+These are all at the colony level and not proportion.  
+
+### with 4 as an individual level
+
+#### facet wrap by species  
 
 ```{r bleaching proportion figure nov 2015 facet by species, echo=FALSE}
 
@@ -882,7 +1171,7 @@ ggplot(nov.tbl, aes(x = site, y = bleach.prop.freq, fill = bleach.prop)) + geom_
 ```
 
 
-### facet wrap by site 
+#### facet wrap by site 
 
 ```{r bleaching proportion figure nov 2015 facet by site, echo=FALSE}
 
@@ -894,9 +1183,62 @@ ggplot(nov.tbl, aes(x = species.comb, y = bleach.prop.freq, fill = bleach.prop))
 
 ```
 
-## statistics
 
-**not bleached = 0   bleached (levels 1, 2, 3) = 1**  
+#### facet wrap by bleaching proportion 
+
+```{r bleaching proportion figure nov 2015 facet by bleaching proportion, echo=FALSE}
+
+ggplot(nov.tbl, aes(x = site, y = bleach.prop.freq, fill = species.comb)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~bleach.prop, scales = "free_y") 
+
+
+```
+
+
+### with 4 combined with 0
+
+#### facet wrap by species  
+
+```{r bleaching proportion figure nov 2015 facet by species no 4, echo=FALSE}
+
+ggplot(nov.tbl.no4, aes(x = site, y = freq, fill = bleach.prop.no4)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~species.comb, scales = "free_y") +
+  scale_fill_manual(values = bleachcols2)
+
+
+```
+
+
+#### facet wrap by site 
+
+```{r bleaching proportion figure nov 2015 facet by site no 4, echo=FALSE}
+
+ggplot(nov.tbl.no4, aes(x = species.comb, y = freq, fill = bleach.prop.no4)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~site, scales = "free_y") +
+  theme(axis.text.x = element_text(angle = 90)) +
+  scale_fill_manual(values = bleachcols2)
+
+
+```
+
+
+#### facet wrap by bleaching proportion 
+
+```{r bleaching proportion figure nov 2015 facet by bleaching proportion no 4, echo=FALSE}
+
+ggplot(nov.tbl.no4, aes(x = site, y = freq, fill = species.comb)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~bleach.prop.no4, scales = "free_y") 
+
+
+```
+
+
+## statistics
+ 
+same question as for the metadata 2015c and 2016a but now with this data  
+ 
+**not bleached (levels 0, 1, 4) = 0**  
+**bleached (levels 2, 3) = 1**    
 
 site not included as random effect due to not enough sites within each disturbance level (it would not converge)  
 
@@ -919,24 +1261,24 @@ summary(lr2)
 
 **important note** 
 
-2015d coral net is only 4 sites - 8, 35, 32, 27....   
-Should I cut down all field seasons to just those four sites to make it actually comparable??  
+2015d coral net is only 4 sites - 8, 35, 32, 27....    
+This first section includes all sites with tagged corals that were sampled (spq) for that year  
+The next section reduces it down to just the 4 sites   
 
-## over time all sites combined   
-requested by SS
 
+## bar plots  
+  
+### over time all sites combined   
+  
 ```{r overall figure coralnet, echo=FALSE}
 
 ggplot(cn.sum, aes(x = Field.Season, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='stack') +
   facet_wrap(~Species, scales = "free_y") +
-  theme(axis.text.x = element_text(angle = 90))
-
-
+  theme(axis.text.x = element_text(angle = 90)) + 
+  scale_fill_manual(values = bleachcols3)
 
 ```
-
-## bar plots  
-
+  
 ### proportion bleached vrs healthy per field season across sites with tagged corals
   
 ```{r prop by site 2015c, echo=FALSE, warning=FALSE}
@@ -945,7 +1287,8 @@ cn.sum.site15c <- cn.sum.site[cn.sum.site$Field.Season == "KI2015c", ]
 
 ggplot(cn.sum.site15c, aes(x = site, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
   facet_wrap(~Species, scales = "free_y") +
-  labs(title = "2015c")
+  labs(title = "2015c")+ 
+  scale_fill_manual(values = bleachcols3)
 
 ```
 
@@ -956,7 +1299,8 @@ cn.sum.site15d <- cn.sum.site[cn.sum.site$Field.Season == "KI2015d", ]
 
 ggplot(cn.sum.site15d, aes(x = site, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
   facet_wrap(~Species, scales = "free_y") +
-  labs(title = "2015d")
+  labs(title = "2015d")+ 
+  scale_fill_manual(values = bleachcols3)
 
 ```
   
@@ -967,7 +1311,8 @@ cn.sum.site16a <- cn.sum.site[cn.sum.site$Field.Season == "KI2016a", ]
 
 ggplot(cn.sum.site16a, aes(x = site, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
   facet_wrap(~Species, scales = "free_y") +
-  labs(title = "2016a")
+  labs(title = "2016a")+ 
+  scale_fill_manual(values = bleachcols3)
 
 ```
 
@@ -980,7 +1325,8 @@ cn.sum.disturb15c <- cn.sum.disturb[cn.sum.disturb$Field.Season == "KI2015c", ]
 
 ggplot(cn.sum.disturb15c, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
   facet_wrap(~Species) +
-  labs(title = "2015c")
+  labs(title = "2015c")+ 
+  scale_fill_manual(values = bleachcols3)
 
 ```
 
@@ -991,7 +1337,8 @@ cn.sum.disturb15d <- cn.sum.disturb[cn.sum.disturb$Field.Season == "KI2015d", ]
 
 ggplot(cn.sum.disturb15d, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
   facet_wrap(~Species) +
-  labs(title = "2015d")
+  labs(title = "2015d")+ 
+  scale_fill_manual(values = bleachcols3)
 
 ```
   
@@ -1002,7 +1349,152 @@ cn.sum.disturb16a <- cn.sum.disturb[cn.sum.disturb$Field.Season == "KI2016a", ]
 
 ggplot(cn.sum.disturb16a, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
   facet_wrap(~Species) +
-  labs(title = "2016a")
+  labs(title = "2016a")+ 
+  scale_fill_manual(values = bleachcols3)
+
+```
+
+## bar plots but with only the 4 sites
+
+```{r include=FALSE}
+
+#by site
+head(cn.sum.site)
+unique(cn.sum.site$site)
+
+cn.sum.site.c <- cn.sum.site[(cn.sum.site$site == "8" | cn.sum.site$site == "35" | cn.sum.site$site == "27" | cn.sum.site$site == "32"), ]
+cn.sum.site.c <- droplevels(cn.sum.site.c)
+unique(cn.sum.site.c$site)
+head(cn.sum.site.c)
+
+
+#by disturbance 
+cn.c <- cn[(cn$site == "8" | cn$site == "35" | cn$site == "27" | cn$site == "32"), ]
+cn.c <- droplevels(cn.c)
+unique(cn.c$site)
+head(cn.c)
+
+cn.sum.c.disturb<-aggregate(Cover ~  Species + Fish.Level + Field.Season + Bleached, cn.c, sum)
+head(cn.sum.c.disturb)
+
+#now to calculate the number of points per disturbance by species
+cn.ptsum.disturb.spec.c<-aggregate(Cover ~ Fish.Level + Field.Season + Species, cn.c, sum)
+head(cn.ptsum.disturb.spec.c)
+
+#add to other df
+cn.ptsum.disturb.spec.c$season.fish.spec <- paste(cn.ptsum.disturb.spec.c$Field.Season, cn.ptsum.disturb.spec.c$Fish.Level, cn.ptsum.disturb.spec.c$Species, sep = ".")
+cn.sum.c.disturb$season.fish.spec <- paste(cn.sum.c.disturb$Field.Season, cn.sum.c.disturb$Fish.Level, cn.sum.c.disturb$Species, sep = ".")
+cn.sum.c.disturb$adj.total.points.fish.spec <- cn.ptsum.disturb.spec.c$Cover[match(cn.sum.c.disturb$season.fish.spec, cn.ptsum.disturb.spec.c$season.fish.spec)]
+head(cn.sum.c.disturb)
+
+#now calculate proportion
+cn.sum.c.disturb$prop <- cn.sum.c.disturb$Cover/cn.sum.c.disturb$adj.total.points.fish.spec
+head(cn.sum.c.disturb)
+
+
+
+#overall
+cn.sum.c <-aggregate(Cover ~  Species + Field.Season + Bleached, cn.c, sum)
+head(cn.sum.c)
+#calculate the number of points at each site for each species (healthy and bleached) so we can get proportion of bleached vr healthy
+cn.sum.c.species <- aggregate(Cover ~ Species + Field.Season, cn.c, sum)
+head(cn.sum.c.species)
+
+#now add to the other dataframe 
+cn.sum.c$season.spec <- paste(cn.sum.c$Field.Season, cn.sum.c$Species, sep = ".")
+cn.sum.c.species$season.spec <- paste(cn.sum.c.species$Field.Season, cn.sum.c.species$Species, sep = ".")
+cn.sum.c$total.season.spec <- cn.sum.c.species$Cover[match(cn.sum.c$season.spec, cn.sum.c.species$season.spec)]
+head(cn.sum.c)
+
+#now calculate proportion
+cn.sum.c$prop <- cn.sum.c$Cover/cn.sum.c$total.season.spec
+head(cn.sum.c)
+
+```
+
+### over time all sites combined   
+  
+```{r overall figure coralnet 4 sites, echo=FALSE}
+
+ggplot(cn.sum.c, aes(x = Field.Season, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='stack') +
+  facet_wrap(~Species, scales = "free_y") +
+  theme(axis.text.x = element_text(angle = 90)) + 
+  scale_fill_manual(values = bleachcols3)
+
+```
+
+### proportion bleached vrs healthy per field season across the 4 sites
+  
+```{r prop by site 2015c with only 4 sites, echo=FALSE, warning=FALSE}
+
+cn.sum.sitec15c <- cn.sum.site.c[cn.sum.site.c$Field.Season == "KI2015c", ]
+
+ggplot(cn.sum.sitec15c, aes(x = site, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species, scales = "free_y") +
+  labs(title = "2015c")+ 
+  scale_fill_manual(values = bleachcols3)
+
+```
+
+    
+```{r prop by site 2015d with only 4 sites, echo=FALSE, warning=FALSE}
+
+cn.sum.sitec15d <- cn.sum.site.c[cn.sum.site.c$Field.Season == "KI2015d", ]
+
+ggplot(cn.sum.sitec15d, aes(x = site, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species, scales = "free_y") +
+  labs(title = "2015d")+ 
+  scale_fill_manual(values = bleachcols3)
+
+```
+  
+  
+```{r prop by site 2016a with only 4 sites, echo=FALSE, warning=FALSE}
+
+cn.sum.sitec16a <- cn.sum.site.c[cn.sum.site.c$Field.Season == "KI2016a", ]
+
+ggplot(cn.sum.sitec16a, aes(x = site, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species, scales = "free_y") +
+  labs(title = "2016a")+ 
+  scale_fill_manual(values = bleachcols3)
+
+```
+
+### across disturbance gradient (again only the four sites)
+
+ 
+```{r prop by disturb 2015c with only 4 sites, echo=FALSE, warning=FALSE}
+
+cn.sum.c.disturb15c <- cn.sum.c.disturb[cn.sum.c.disturb$Field.Season == "KI2015c", ]
+
+ggplot(cn.sum.c.disturb15c, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species) +
+  labs(title = "2015c")+ 
+  scale_fill_manual(values = bleachcols3)
+
+```
+
+    
+```{r prop by disturb 2015d with only 4 sites, echo=FALSE, warning=FALSE}
+
+cn.sum.c.disturb15d <- cn.sum.c.disturb[cn.sum.c.disturb$Field.Season == "KI2015d", ]
+
+ggplot(cn.sum.c.disturb15d, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species) +
+  labs(title = "2015d")+ 
+  scale_fill_manual(values = bleachcols3)
+
+```
+  
+  
+```{r prop by disturb 2016a with only 4 sites, echo=FALSE, warning=FALSE}
+
+cn.sum.c.disturb16a <- cn.sum.c.disturb[cn.sum.c.disturb$Field.Season == "KI2016a", ]
+
+ggplot(cn.sum.c.disturb16a, aes(x = Fish.Level, y = prop, fill = Bleached)) + geom_bar(stat='identity', position='dodge') +
+  facet_wrap(~Species) +
+  labs(title = "2016a")+ 
+  scale_fill_manual(values = bleachcols3)
 
 ```
 
@@ -1114,7 +1606,9 @@ tail(compare)
 
 ```
 
-**there are no Favid from coral net**
+**there are no Favid from coral net**  
+
+So to really compare those the Favia spp., Favid, and Favites spp would need to be combined.   
 
 
 ```{r compare figure for bleaching, echo=FALSE, warning=FALSE}
@@ -1137,6 +1631,51 @@ ggplot(compare.h, aes(x = site, y = prop, fill = type)) + geom_bar(stat='identit
   labs(title = "Healthy proportion")
 
 ```
+
+# v) partial mortality in 2016a of tagged corals  
+  
+I (KT) went through the photos of the tagged corals in 2016a and compared it to the most recent photo of it from before (i.e. so most of them were compared to 2015c but a few were other field seasons). I recorded the year it was compared to, the level of heat stress induced partial mortality (see scale below), if the remaining tissue was healthy (h; bleaching level 0 and 1 from above) or bleaching (b; bleaching level 2 and 3 from above).   
+  
+**currently only of F. pentagona.**   
+   
+**scale**   
+0 - no partial mortality    
+1 - 0-25% of colony died compared to before El Niño    
+2 - 25-50% "  "     
+3 - 50-75% "  "    
+4 - 75-100% "  "   
+5 - healed its self compared to before   
+
+  
+*it was a small dead spot in 2015c but colony 770 at site 32 mostly healed the spot by 2016a hence the creation of a level 5.*   
+
+## table of frequency of each level of partial mortality (with remaining tissue status)  
+```{r echo=FALSE}
+
+pm.table
+
+```
+
+  
+## plot of frequency of each level of partial mortality (with remaining tissue status) 
+
+```{r echo=FALSE}
+
+ggplot(pm.table, aes(x = partialmortality, y = freq, fill = living_tissue_status)) + geom_bar(stat='identity', position='dodge') 
+
+```
+
+## plot of frequency of each level of partial mortality (with remaining tissue status) by site  
+
+```{r echo=FALSE}
+
+ggplot(pm.site.tbl, aes(x = site, y = freq, fill = partialmortality)) + geom_bar(stat='identity', position='dodge')+
+  facet_wrap(~living_tissue_status) +
+  scale_fill_manual(values = pm2)
+
+```
+
+
 
 
 
