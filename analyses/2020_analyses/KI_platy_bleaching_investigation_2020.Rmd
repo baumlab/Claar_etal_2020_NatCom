@@ -1643,16 +1643,15 @@ I (KT) went through the photos of the tagged corals in 2016a and compared it to 
 
 ```{r echo=FALSE}
 
-
-fpenta15c.588 <- image_read(here::here("data/bleachingdata_2020_analysis", "KI2015c_site15_588.jpeg"))
+fpenta15c.588 <- image_read(here::here("data/bleachingdata_2020_analysis", "KI2015c_site15_588_smaller.jpeg"))
 fpenta15c.588
 
 ```
 
 ```{r echo=FALSE}
-fpenta16a.588 <- image_read(here::here("data/bleachingdata_2020_analysis", "KI2016a_site15_588.jpeg"))
-fpenta16a.588
 
+fpenta16a.588 <- image_read(here::here("data/bleachingdata_2020_analysis", "KI2016a_site15_588_smaller.jpeg"))
+fpenta16a.588
 
 ```
    
