@@ -42,5 +42,13 @@ curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fi
 curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
 summary(fit2)
 
+#Plot logistic regression - Bleaching 2015c versus D proportion
+plot(jitter(Bleached_2015C,0.1)~ProportionD_before,data=log.data, las=1, xlab="Proportion Durusdinium",ylab="Proportion bleached (2015c)",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Durusdinium on bleaching")
+fit2<-glm(Bleached_2015C~ProportionD_before,data=log.data,family=binomial(link="logit"))
+curve(predict(fit2,data.frame(ProportionD_before=x),type="resp"),add=TRUE, col="black", lwd=2)
+curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+summary(fit2)
+
 
 

@@ -93,6 +93,7 @@ coraldata <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_sequenc
 nov15 <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_2015d_Merulinidae.csv")) 
 sitedata <- read.csv(here::here("data", "KI_Monitoring_Site_Names_for_Publications_Sept2019.csv"))
 coralnet <- read.csv(here::here("data/bleachingdata_2020_analysis", "Coral_Data_Master.csv")) #taken from bleaching paper git repo
+partialmortality <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_partialmortality_2016a.csv")) 
 
 ```
 
@@ -690,6 +691,50 @@ head(cn.sum.disturb)
 
 ```
   
+```{r prepping partial mortality data, include=FALSE}
+
+head(partialmortality)
+
+#check it to make sure it is nice
+unique(partialmortality$field_season)
+
+unique(partialmortality$site)
+
+unique(partialmortality$coral_tag)
+
+unique(partialmortality$species)
+
+unique(partialmortality$tagcompare_year)
+
+unique(partialmortality$partialmortality)
+
+unique(partialmortality$living_tissue_status)
+
+##all looks good so just rename it to have a smaller name
+
+pm <- partialmortality
+
+##check structure
+str(pm)
+
+pm$partialmortality <- as.character(pm$partialmortality)
+pm$site <- as.character(pm$site)
+
+str(pm)
+
+## make a table 
+
+pm.table <- plyr::count(pm, c("partialmortality", "living_tissue_status") )
+pm.table
+
+## make a table with site
+
+pm.site.tbl <- plyr::count(pm, c("site", "partialmortality", "living_tissue_status"))
+pm.site.tbl
+
+```
+  
+  
 ```{r color set up , include=FALSE}
 
 bleachcols <- c("seagreen4", "seagreen3", "seagreen2", "darkseagreen1")
@@ -697,6 +742,8 @@ bleachcols <- c("seagreen4", "seagreen3", "seagreen2", "darkseagreen1")
 bleachcols2 <- c("seagreen4", "seagreen3", "seagreen2", "darkseagreen1", "deepskyblue3")
 
 bleachcols3 <- c("indianred2", "deepskyblue2")
+
+pm2 <- c("blue", "seagreen4", "seagreen3", "seagreen2", "darkseagreen1", "deepskyblue3")
 
 
 ```
@@ -1584,6 +1631,68 @@ ggplot(compare.h, aes(x = site, y = prop, fill = type)) + geom_bar(stat='identit
   labs(title = "Healthy proportion")
 
 ```
+
+# v) partial mortality in 2016a of tagged corals  
+  
+I (KT) went through the photos of the tagged corals in 2016a and compared it to the most recent photo of it from before (i.e. so most of them were compared to 2015c but a few were other field seasons). I recorded the year it was compared to, the level of heat stress induced partial mortality (see scale below), if the remaining tissue was healthy (h; bleaching level 0 and 1 from above) or bleaching (b; bleaching level 2 and 3 from above).   
+  
+**currently only of F. pentagona.**   
+
+**example photos of a colony bleached in 2015c and then recovered with partial mortality in 2016a**  
+*colony 588 from site 15*  
+
+```{r echo=FALSE}
+
+fpenta15c.588 <- image_read(here::here("data/bleachingdata_2020_analysis", "KI2015c_site15_588_smaller.jpeg"))
+fpenta15c.588
+
+```
+
+```{r echo=FALSE}
+
+fpenta16a.588 <- image_read(here::here("data/bleachingdata_2020_analysis", "KI2016a_site15_588_smaller.jpeg"))
+fpenta16a.588
+
+```
+   
+**scale**   
+0 - no partial mortality    
+1 - 0-25% of colony died compared to before El Niño    
+2 - 25-50% "  "     
+3 - 50-75% "  "    
+4 - 75-100% "  "   
+5 - healed its self compared to before   
+
+  
+*it was a small dead spot in 2015c but colony 770 at site 32 mostly healed the spot by 2016a hence the creation of a level 5.*   
+
+## table of frequency of each level of partial mortality (with remaining tissue status)  
+```{r echo=FALSE}
+
+pm.table
+
+```
+
+  
+## plot of frequency of each level of partial mortality (with remaining tissue status) 
+
+```{r echo=FALSE}
+
+ggplot(pm.table, aes(x = partialmortality, y = freq, fill = living_tissue_status)) + geom_bar(stat='identity', position='dodge') 
+
+```
+
+## plot of frequency of each level of partial mortality (with remaining tissue status) by site  
+
+```{r echo=FALSE}
+
+ggplot(pm.site.tbl, aes(x = site, y = freq, fill = partialmortality)) + geom_bar(stat='identity', position='dodge')+
+  facet_wrap(~living_tissue_status) +
+  scale_fill_manual(values = pm2)
+
+```
+
+
 
 
 
