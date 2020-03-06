@@ -3,8 +3,7 @@ samplelist <- read.csv("analyses/2020_analyses/ASV_ordination/samplelist.csv")
 
 load("data/KI_Platy_f_coral_grouped_ASVs.RData")
 
-D_cols <- c("VeryHigh"="#8c510a", "Medium"="#c7eae5", 
-            "Low"="#5ab4ac", "VeryLow"="#01665e")
+D_cols <- c("VeryHigh"="#8c510a", "Medium"="#c7eae5", "Low"="#5ab4ac", "VeryLow"="#01665e")
 
 ord_samples <- samplelist$ord_sample
 
@@ -21,16 +20,42 @@ fpenta_ord_physeq <- merge_phyloseq(fpenta_ord_physeq0,sample_data(ord_samples2)
 
 colnames(sample_data(fpenta_ord_physeq))[colnames(sample_data(fpenta_ord_physeq))=="samplelist_fpenta.ProposedSurvival_Status"] <- "updated_status"
 
-fpenta_ord_physeq <- subset_samples(fpenta_ord_physeq,
-                                    sample_data(fpenta_ord_physeq)$updated_status!="unknown")
+fpenta_ord_physeq <- subset_samples(fpenta_ord_physeq,sample_data(fpenta_ord_physeq)$updated_status!="unknown")
 
 sample_data(fpenta_ord_physeq)$Dist <- factor(sample_data(fpenta_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
+
+sample_data(fpenta_ord_physeq)$leewind <- sample_data(fpenta_ord_physeq)$site
+sample_data(fpenta_ord_physeq)$leewind <- gsub("35","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("34","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("32","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("30","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("27","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("25","windward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("15","windward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("14","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("8","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("5","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("3","windward",sample_data(fpenta_ord_physeq)$leewind)
+
+sample_data(fpenta_ord_physeq)$region <- sample_data(fpenta_ord_physeq)$site
+sample_data(fpenta_ord_physeq)$region <- gsub("35","west",sample_data(fpenta_ord_physeq)$region)
+sample_data(fpenta_ord_physeq)$region <- gsub("34","west",sample_data(fpenta_ord_physeq)$region)
+sample_data(fpenta_ord_physeq)$region <- gsub("32","west",sample_data(fpenta_ord_physeq)$region)
+sample_data(fpenta_ord_physeq)$region <- gsub("30","west",sample_data(fpenta_ord_physeq)$region)
+sample_data(fpenta_ord_physeq)$region <- gsub("27","west",sample_data(fpenta_ord_physeq)$region)
+sample_data(fpenta_ord_physeq)$region <- gsub("25","north",sample_data(fpenta_ord_physeq)$region)
+sample_data(fpenta_ord_physeq)$region <- gsub("15","east",sample_data(fpenta_ord_physeq)$region)
+sample_data(fpenta_ord_physeq)$region <- gsub("14","south",sample_data(fpenta_ord_physeq)$region)
+sample_data(fpenta_ord_physeq)$region <- gsub("8","west",sample_data(fpenta_ord_physeq)$region)
+sample_data(fpenta_ord_physeq)$region <- gsub("5","south",sample_data(fpenta_ord_physeq)$region)
+sample_data(fpenta_ord_physeq)$region <- gsub("3","north",sample_data(fpenta_ord_physeq)$region)
+
 
 fpenta_ord_physeq <- rarefy_even_depth(fpenta_ord_physeq, 
                                       sample.size = 1000)
 
 fpenta_ord_CAP <- ordinate(fpenta_ord_physeq,method="CAP",
-                          distance="wunifrac",formula= ~ field_season + Dist)
+                          distance="wunifrac",formula= ~ Dist + region)
 
 p1 <- plot_ordination(fpenta_ord_physeq, fpenta_ord_CAP,
                       shape="updated_status", color="Dist",type="samples",title="")
@@ -64,9 +89,10 @@ ord_plot <- p1 +
 ord_plot
 
 # Open a jpg image
-jpeg(file="figures/Figure2c_ASV_fpenta_rare1000.jpg",width = 6, height = 6,units="in",res=300)
-ord_plot
-dev.off()
+# jpeg(file="figures/Figure2c_ASV_updated_rare100.jpg",width = 6, height = 6,units="in",res=300)
+# ord_plot
+# dev.off()
+
 
 # Test ordination
 anova(fpenta_ord_CAP)
@@ -83,8 +109,9 @@ anova.cca(finalmodel.fpenta.AD.before)
 # Test the model terms
 anova.cca(finalmodel.fpenta.AD.before, by="terms")
 
+
 fpenta_ord_CAP_status <- ordinate(fpenta_ord_physeq,method="CAP",
-                           distance="wunifrac",formula= ~ field_season + Status)
+                                 distance="wunifrac",formula= ~ region + Status)
 
 p2 <- plot_ordination(fpenta_ord_physeq, fpenta_ord_CAP_status,
                       shape="updated_status", color="Dist",
@@ -121,5 +148,3 @@ ord_plot
 # Test ordination
 anova(fpenta_ord_CAP_status)
 anova.cca(fpenta_ord_CAP_status, by="terms")
-
-
