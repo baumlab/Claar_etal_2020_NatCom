@@ -1,8 +1,4 @@
-library(ggplot2)
-
 rm(list=ls())
-
-
 samplelist <- read.csv("analyses/2020_analyses/ASV_ordination/samplelist.csv")
 
 load("data/KI_Platy_f_coral_grouped_ASVs.RData")
@@ -18,7 +14,7 @@ ord_samples2 <- data.frame(samplelist_platy$ProposedSurvival_Status,
                            row.names = samplelist_platy$ord_sample)
 
 platy_ord_physeq0 <- subset_samples(phyASV.f.c,
-                            sample_data(phyASV.f.c)$SampleID %in% ord_samples)
+                                    sample_data(phyASV.f.c)$SampleID %in% ord_samples)
 
 platy_ord_physeq <- merge_phyloseq(platy_ord_physeq0,sample_data(ord_samples2))
 
@@ -28,11 +24,38 @@ platy_ord_physeq <- subset_samples(platy_ord_physeq,sample_data(platy_ord_physeq
 
 sample_data(platy_ord_physeq)$Dist <- factor(sample_data(platy_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
+sample_data(platy_ord_physeq)$leewind <- sample_data(platy_ord_physeq)$site
+sample_data(platy_ord_physeq)$leewind <- gsub("35","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("34","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("32","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("30","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("27","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("25","windward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("15","windward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("14","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("8","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("5","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("3","windward",sample_data(platy_ord_physeq)$leewind)
+
+sample_data(platy_ord_physeq)$region <- sample_data(platy_ord_physeq)$site
+sample_data(platy_ord_physeq)$region <- gsub("35","west",sample_data(platy_ord_physeq)$region)
+sample_data(platy_ord_physeq)$region <- gsub("34","west",sample_data(platy_ord_physeq)$region)
+sample_data(platy_ord_physeq)$region <- gsub("32","west",sample_data(platy_ord_physeq)$region)
+sample_data(platy_ord_physeq)$region <- gsub("30","west",sample_data(platy_ord_physeq)$region)
+sample_data(platy_ord_physeq)$region <- gsub("27","west",sample_data(platy_ord_physeq)$region)
+sample_data(platy_ord_physeq)$region <- gsub("25","north",sample_data(platy_ord_physeq)$region)
+sample_data(platy_ord_physeq)$region <- gsub("15","east",sample_data(platy_ord_physeq)$region)
+sample_data(platy_ord_physeq)$region <- gsub("14","south",sample_data(platy_ord_physeq)$region)
+sample_data(platy_ord_physeq)$region <- gsub("8","west",sample_data(platy_ord_physeq)$region)
+sample_data(platy_ord_physeq)$region <- gsub("5","south",sample_data(platy_ord_physeq)$region)
+sample_data(platy_ord_physeq)$region <- gsub("3","north",sample_data(platy_ord_physeq)$region)
+
+
 platy_ord_physeq <- rarefy_even_depth(platy_ord_physeq, 
                                       sample.size = 1000)
 
 platy_ord_CAP <- ordinate(platy_ord_physeq,method="CAP",
-                          distance="wunifrac",formula= ~ field_season + Dist)
+                          distance="wunifrac",formula= ~ Dist + leewind)
 
 p1 <- plot_ordination(platy_ord_physeq, platy_ord_CAP,
                       shape="updated_status", color="Dist",type="samples",title="")
@@ -66,9 +89,9 @@ ord_plot <- p1 +
 ord_plot
 
 # Open a jpg image
-jpeg(file="figures/Figure2c_ASV_updated_rare100.jpg",width = 6, height = 6,units="in",res=300)
-ord_plot
-dev.off()
+# jpeg(file="figures/Figure2c_ASV_updated_rare100.jpg",width = 6, height = 6,units="in",res=300)
+# ord_plot
+# dev.off()
 
 
 # Test ordination
@@ -88,7 +111,7 @@ anova.cca(finalmodel.platy.AD.before, by="terms")
 
 
 platy_ord_CAP_status <- ordinate(platy_ord_physeq,method="CAP",
-                                  distance="wunifrac",formula= ~ field_season + Status)
+                                 distance="wunifrac",formula= ~ leewind + Status)
 
 p2 <- plot_ordination(platy_ord_physeq, platy_ord_CAP_status,
                       shape="updated_status", color="Dist",
