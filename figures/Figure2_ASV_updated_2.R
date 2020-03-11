@@ -98,7 +98,7 @@ ord_plot
 anova(platy_ord_CAP)
 anova.cca(platy_ord_CAP, by="terms")
 # Use ordistep to assess which model terms should be included
-finalmodel.platy.AD.before <- ordistep(platy_ord_CAP, formula= ~ Year + Status +  Dist, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
+finalmodel.platy.AD.before <- ordistep(platy_ord_CAP, formula= ~ Year + updated_status +  Dist, direction = c("both"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE)
 # Look at the ordistep final model
 finalmodel.platy.AD.before
 anova(finalmodel.platy.AD.before)
@@ -111,7 +111,7 @@ anova.cca(finalmodel.platy.AD.before, by="terms")
 
 
 platy_ord_CAP_status <- ordinate(platy_ord_physeq,method="CAP",
-                                 distance="wunifrac",formula= ~ leewind + Status)
+                                 distance="wunifrac",formula= ~ field_season + updated_status)
 
 p2 <- plot_ordination(platy_ord_physeq, platy_ord_CAP_status,
                       shape="updated_status", color="Dist",
@@ -148,3 +148,4 @@ ord_plot
 # Test ordination
 anova(platy_ord_CAP_status)
 anova.cca(platy_ord_CAP_status, by="terms")
+plot(platy_ord_CAP_status)
