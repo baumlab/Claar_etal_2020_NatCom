@@ -600,6 +600,11 @@ cn$site <- ifelse(grepl("e37", cn$Site), "37", cn$site)
 cn$site <- ifelse(grepl("e38", cn$Site), "38", cn$site)
 cn$site <- ifelse(grepl("e40", cn$Site), "40", cn$site)
 
+#check sites in each field season
+plyr::count(cn, c("Field.Season", "Site"))
+tbl <- plyr::count(cn, c("Field.Season", "Site", "Species", "Cover"))
+
+
 #subset for just the species I care about
 unique(cn$coralnet.tag)
 unique(cn$Species)
