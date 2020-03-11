@@ -40,7 +40,7 @@ fit2<-bayesglm(ProportionD_before~Disturbance_sqrt,data=log.data_platy,family=qu
 curve(predict(fit2,data.frame(Disturbance_sqrt=x),type="resp"),add=TRUE, col="black", lwd=2)
 curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
 curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-
+summary(fit2)
 
 #Plot logistic regression - Survival versus D proportion
 plot(jitter(ProposedSurvival_Status,0.1)~ProportionD_before,data=log.data_platy, las=1, xlab="Proportion Durusdinium",ylab="Proportion dead",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Durusdinium on survival")
@@ -103,7 +103,7 @@ log.data_platy$starting<-ifelse(log.data_platy$ProportionD_before>0.5,1,0)
 log.data_platy$starting <- as.factor(log.data_platy$starting)
 
 ##Durusdinium versus Disturbance
-ggplot(data=log.data_platy, aes(y=ProportionD_before, x=Disturbance_sqrt,color=starting) ) +
+P1<-ggplot(data=log.data_platy, aes(y=ProportionD_before, x=Disturbance_sqrt,color=starting) ) +
   geom_jitter(height=0.02,cex=3) +
   theme_classic()+
   stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
@@ -112,8 +112,10 @@ ggplot(data=log.data_platy, aes(y=ProportionD_before, x=Disturbance_sqrt,color=s
   ylab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
   xlab("Human disturbance level")
 
+
+
 ##Durusdinium versus bleaching
-ggplot(data=log.data_platy, aes(x=ProportionD_before, y=Bleached_2015C,color=starting) ) +
+P2<-ggplot(data=log.data_platy, aes(x=ProportionD_before, y=Bleached_2015C,color=starting) ) +
   geom_jitter(height=0.02,cex=3) +
   theme_classic()+
   stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
@@ -124,7 +126,7 @@ ggplot(data=log.data_platy, aes(x=ProportionD_before, y=Bleached_2015C,color=sta
 
 
 ##Durusdinium versus Survival
-ggplot(data=log.data_platy, aes(x=ProportionD_before, y=ProposedSurvival_Status,color=starting) ) +
+P3<-ggplot(data=log.data_platy, aes(x=ProportionD_before, y=ProposedSurvival_Status,color=starting) ) +
   geom_jitter(height=0.02,cex=3) +
   theme_classic()+
   stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
@@ -133,14 +135,14 @@ ggplot(data=log.data_platy, aes(x=ProportionD_before, y=ProposedSurvival_Status,
   xlab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
   ylab("Proportion alive")
 
-
+save(P1,P2,P3,F1,F2,F3, file="Platy_Favites_LogisticPlots.RData")
 
 ######FAVITES
 log.data_Fav$starting<-ifelse(log.data_Fav$ProportionD_before>0.5,1,0)
 log.data_Fav$starting <- as.factor(log.data_Fav$starting)
 
 ##Durusdinium versus Disturbance
-ggplot(data=log.data_Fav, aes(y=ProportionD_before, x=Disturbance_sqrt,color=starting) ) +
+F1<-ggplot(data=log.data_Fav, aes(y=ProportionD_before, x=Disturbance_sqrt,color=starting) ) +
   geom_jitter(height=0.02,cex=3) +
   theme_classic()+
   stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
@@ -150,7 +152,7 @@ ggplot(data=log.data_Fav, aes(y=ProportionD_before, x=Disturbance_sqrt,color=sta
   xlab("Human disturbance level")
 
 ##Durusdinium versus bleaching
-ggplot(data=log.data_Fav, aes(x=ProportionD_before, y=Bleached_2015C,color=starting) ) +
+F2<-ggplot(data=log.data_Fav, aes(x=ProportionD_before, y=Bleached_2015C,color=starting) ) +
   geom_jitter(height=0.02,cex=3) +
   theme_classic()+
   stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
@@ -161,7 +163,7 @@ ggplot(data=log.data_Fav, aes(x=ProportionD_before, y=Bleached_2015C,color=start
 
 
 ##Durusdinium versus Survival
-ggplot(data=log.data_Fav, aes(x=ProportionD_before, y=ProposedSurvival_Status,color=starting) ) +
+F3<-ggplot(data=log.data_Fav, aes(x=ProportionD_before, y=ProposedSurvival_Status,color=starting) ) +
   geom_jitter(height=0.02,cex=3) +
   theme_classic()+
   stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
@@ -172,7 +174,7 @@ ggplot(data=log.data_Fav, aes(x=ProportionD_before, y=ProposedSurvival_Status,co
 
 
 
-
+save(P1,P2,P3,F1,F2,F3, file="Platy_dist_logistic.RData")
 
 
 
