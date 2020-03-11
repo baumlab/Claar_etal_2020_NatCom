@@ -84,6 +84,7 @@ library(dplyr)
 library(reshape2)
 library(stringr)
 library(lme4)
+library(gridExtra)
 
 
 #<-- read in data -->
@@ -1527,6 +1528,109 @@ ggplot(cn.sum.c.disturb16a, aes(x = Fish.Level, y = prop, fill = Bleached)) + ge
   scale_fill_manual(values = bleachcols3)
 
 ```
+
+###across the disturbance gradient but only for platy and fpenta  
+  
+```{r data prep for disturb, include=FALSE}
+
+head(cn.sum.c.disturb)
+
+#take out species not needed
+cn.sum.c.disturb.pub <- cn.sum.c.disturb[(cn.sum.c.disturb$Species == "Platygyra.spp" | cn.sum.c.disturb$Species == "Favites.pentagona"), ]
+cn.sum.c.disturb.pub <- droplevels(cn.sum.c.disturb.pub)
+head(cn.sum.c.disturb.pub)
+str(cn.sum.c.disturb.pub)
+cn.sum.c.disturb.pub$Species <- as.character(levels(cn.sum.c.disturb.pub$Species))[cn.sum.c.disturb.pub$Species]
+cn.sum.c.disturb.pub$Species <- ifelse(cn.sum.c.disturb.pub$Species == "Platygyra.spp", "Platygyra ryukyuensis", cn.sum.c.disturb.pub$Species)
+cn.sum.c.disturb.pub$Species <- ifelse(cn.sum.c.disturb.pub$Species == "Favites.pentagona", "Favites pentagona", cn.sum.c.disturb.pub$Species)
+cn.sum.c.disturb.pub$Species <- as.factor(cn.sum.c.disturb.pub$Species)
+cn.sum.c.disturb.pub$Species<-factor(cn.sum.c.disturb.pub$Species, levels = c("Platygyra ryukyuensis", "Favites pentagona"))
+
+str(cn.sum.c.disturb.pub)
+cn.sum.c.disturb.pub$Fish.Level <- as.character(levels(cn.sum.c.disturb.pub$Fish.Level))[cn.sum.c.disturb.pub$Fish.Level]
+cn.sum.c.disturb.pub$Fish.Level <- ifelse(cn.sum.c.disturb.pub$Fish.Level == "Very.High", "Very High", cn.sum.c.disturb.pub$Fish.Level)
+cn.sum.c.disturb.pub$Fish.Level <- as.factor(cn.sum.c.disturb.pub$Fish.Level)
+cn.sum.c.disturb.pub$Fish.Level<-factor(cn.sum.c.disturb.pub$Fish.Level, levels = c("Very High", "Medium"))
+
+
+head(cn.sum.c.disturb.pub)
+
+```
+
+ 
+```{r prop by disturb platy with only 4 sites platy, echo=FALSE, warning=FALSE}
+
+cn.sum.c.disturb.pub.platy <- cn.sum.c.disturb.pub[cn.sum.c.disturb.pub$Species == "Platygyra ryukyuensis", ]
+cn.sum.c.disturb.pub.platy <- droplevels(cn.sum.c.disturb.pub.platy)
+
+#pdf("figures/Extended_Data/FigureS_proprtion_2015b-2016a_Platy.pdf", width = 12)
+
+platy <- ggplot(cn.sum.c.disturb.pub.platy, aes(x = Field.Season, y = prop, fill = Bleached)) +
+  geom_bar(stat='identity', position='stack', color = "black") +
+  facet_wrap(~Fish.Level, scales = "free_y") +
+  labs(x = "", y = "Proportion of cover", fill = "Status")+
+    scale_fill_manual(values = bleachcols.pub) +
+  scale_x_discrete(labels = c("KI2015b" = "April/May\n2015", "KI2015c" = "July\n2015", "KI2015d" = "November\n2015", "KI2016a" = "March/April\n2016")) +
+  theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
+        panel.background = element_blank(), 
+        strip.background = element_blank(), strip.text = element_text(size = 13),
+        axis.line = element_line(color = "black"), legend.position="bottom", 
+        axis.text = element_text(color="black", size = 12), 
+        legend.text = element_text(size = 12), legend.title = element_text(size = 13),
+        axis.title = element_text(color = "black", size = 13),
+        panel.border = element_blank()) +
+  scale_y_continuous(expand = c(0,0)) + guides(fill=FALSE)
+
+platy
+
+#dev.off()
+
+```
+
+ 
+```{r prop by disturb platy with only 4 sites fpenta, echo=FALSE, warning=FALSE}
+
+cn.sum.c.disturb.pub.fpenta <- cn.sum.c.disturb.pub[cn.sum.c.disturb.pub$Species == "Favites pentagona", ]
+cn.sum.c.disturb.pub.fpenta <- droplevels(cn.sum.c.disturb.pub.fpenta)
+
+#pdf("figures/Extended_Data/FigureS_proprtion_2015b-2016a_Fpenta.pdf", width = 12)
+
+fpenta <- ggplot(cn.sum.c.disturb.pub.fpenta, aes(x = Field.Season, y = prop, fill = Bleached)) +
+  geom_bar(stat='identity', position='stack', color = "black") +
+  facet_wrap(~Fish.Level, scales = "free_y") +
+  labs(x = "", y = "Proportion of cover", fill = "Status")+
+    scale_fill_manual(values = bleachcols.pub) +
+  scale_x_discrete(labels = c("KI2015b" = "April/May\n2015", "KI2015c" = "July\n2015", "KI2015d" = "November\n2015", "KI2016a" = "March/April\n2016")) +
+  theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
+        panel.background = element_blank(), 
+        strip.background = element_blank(), strip.text = element_text(size = 13),
+        axis.line = element_line(color = "black"), legend.position="bottom", 
+        axis.text = element_text(color="black", size = 12), 
+        legend.text = element_text(size = 12), legend.title = element_text(size = 13),
+        axis.title = element_text(color = "black", size = 13),
+        panel.border = element_blank()) +
+  scale_y_continuous(expand = c(0,0)) 
+
+fpenta
+
+#dev.off()
+
+```
+
+
+```{r combine the two , include=FALSE}
+
+pdf("figures/Extended_Data/FigureS_proprotion_disturb_2015b-2016a.pdf", width = 12)
+
+grid.arrange(platy, fpenta, nrow=2, heights = c(0.45, 0.55))
+
+grid.text("Platygyra ryukyuensis", x = unit(0.5, "npc"), y = unit(0.99, "npc"), gp = gpar(fontsize=15))
+grid.text("Favites pentagona", x = unit(0.5, "npc"), y = unit(0.545, "npc"), gp = gpar(fontsize=15))
+
+dev.off()
+
+```
+
 
 
 # iv) Compare coral net 2015d to colony specific data (that KT collected) from photos 2015d
