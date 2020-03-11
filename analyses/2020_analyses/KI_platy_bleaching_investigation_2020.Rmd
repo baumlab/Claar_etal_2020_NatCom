@@ -743,6 +743,8 @@ bleachcols2 <- c("seagreen4", "seagreen3", "seagreen2", "darkseagreen1", "deepsk
 
 bleachcols3 <- c("indianred2", "deepskyblue2")
 
+bleachcols.pub <- c("white", "black")
+
 pm2 <- c("blue", "seagreen4", "seagreen3", "seagreen2", "darkseagreen1", "deepskyblue3")
 
 
@@ -1422,6 +1424,34 @@ ggplot(cn.sum.c, aes(x = Field.Season, y = prop, fill = Bleached)) + geom_bar(st
   scale_fill_manual(values = bleachcols3)
 
 ```
+
+```{r overall figure coralnet 4 sites publication, eval=FALSE, include=FALSE}
+
+cn.sum.c.pub <- cn.sum.c[(cn.sum.c$Species == "Platygyra.spp" | cn.sum.c$Species == "Favites.pentagona"), ]
+cn.sum.c.pub <- droplevels(cn.sum.c.pub)
+cn.sum.c.pub$Species <- as.character(levels(cn.sum.c.pub$Species))[cn.sum.c.pub$Species]
+cn.sum.c.pub$Species <- ifelse(cn.sum.c.pub$Species == "Platygyra.spp", "Platygyra ryukyuensis", cn.sum.c.pub$Species)
+cn.sum.c.pub$Species <- ifelse(cn.sum.c.pub$Species == "Favites.pentagona", "Favites pentagona", cn.sum.c.pub$Species)
+cn.sum.c.pub$Species <- as.factor(cn.sum.c.pub$Species)
+cn.sum.c.pub$Species<-factor(cn.sum.c.pub$Species, levels = c("Platygyra ryukyuensis", "Favites pentagona"))
+
+pdf("figures/Extended_Data/FigureS_proprtion_2015b-2016a.pdf", width = 12)
+
+ggplot(cn.sum.c.pub, aes(x = Field.Season, y = prop, fill = Bleached)) +
+  geom_bar(stat='identity', position='stack', color = "black") +
+  facet_wrap(~Species, scales = "free_y") +
+  labs(x = "", y = "Proportion", fill = "Status")+
+    scale_fill_manual(values = bleachcols.pub) +
+  scale_x_discrete(labels = c("KI2015b" = "April/May\n2015", "KI2015c" = "July\n2015", "KI2015d" = "November\n2015", "KI2016a" = "March/April\n2016")) +
+  theme(axis.text.x = element_text(angle = 90), plot.background=element_blank(), 
+        panel.background = element_blank(), strip.background = element_blank(), 
+        axis.line = element_line(color = "black") ) +
+  scale_y_continuous(expand = c(0,0)) 
+
+dev.off()
+
+```
+
 
 ### proportion bleached vrs healthy per field season across the 4 sites
   

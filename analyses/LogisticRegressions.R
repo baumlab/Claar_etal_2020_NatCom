@@ -22,7 +22,8 @@ log.data$Bleached_2016A<-as.numeric(log.data$Bleached_2016A)
 log.data$Disturbance_sqrt<-as.numeric(log.data$Disturbance_sqrt)
 log.data$Survival_Status_liberal<-as.numeric(log.data$Survival_Status_liberal)
 log.data$Survival_Status_conservative<-as.numeric(log.data$Survival_Status_conservative)
-
+log.data$ProportionC_before<-as.numeric(log.data$ProportionC_before)
+log.data$ProportionC_after<-as.numeric(log.data$ProportionC_after)
 
 log.data_platy<-subset(log.data, Coral_Species=="Platygyra")
 log.data_Fav<-subset(log.data, Coral_Species=="Favites")
@@ -34,12 +35,12 @@ bayesglm(ProposedSurvival_Status~ProportionD_before,data=log.data,
 
 par(mfrow=c(3,1), mar=c(4,4,2.5,1))
 #Plot logistic regression - Proportion D versus human disturbance (Number of people within 2km)
-plot(jitter(ProportionD_before)~Disturbance_sqrt,data=log.data_platy, las=1, ylab="Proportion Durusdinium",xlab="Number of people 2km (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Disturbance on symbionts")
+plot(jitter(ProportionD_before)~Disturbance_sqrt,data=log.data_platy, las=1, ylab="Proportion Durusdinium",xlab="Chronic Disturbance (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Disturbance on symbionts")
 fit2<-bayesglm(ProportionD_before~Disturbance_sqrt,data=log.data_platy,family=quasibinomial(link="logit"))
 curve(predict(fit2,data.frame(Disturbance_sqrt=x),type="resp"),add=TRUE, col="black", lwd=2)
 curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
 curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-
+summary(fit2)
 
 #Plot logistic regression - Survival versus D proportion
 plot(jitter(ProposedSurvival_Status,0.1)~ProportionD_before,data=log.data_platy, las=1, xlab="Proportion Durusdinium",ylab="Proportion dead",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Durusdinium on survival")
@@ -48,14 +49,6 @@ curve(predict(fit2,data.frame(ProportionD_before=x),type="resp"),add=TRUE, col="
 curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
 curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
 fit2 %>% summary()
-
-#Plot logistic regression - Bleaching 2015c versus D proportion
-plot(jitter(Bleached_2015C,0.1)~ProportionD_before,data=log.data_platy, las=1, xlab="Proportion Durusdinium",ylab="Proportion bleached (2015c)",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Durusdinium on bleaching")
-fit2<-bayesglm(Bleached_2015C~ProportionD_before,data=log.data_platy,family=binomial(link="logit"))
-curve(predict(fit2,data.frame(ProportionD_before=x),type="resp"),add=TRUE, col="black", lwd=2)
-curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-summary(fit2)
 
 #Plot logistic regression - Bleaching 2015c versus D proportion
 plot(jitter(Bleached_2015C,0.1)~ProportionD_before,data=log.data_platy, las=1, xlab="Proportion Durusdinium",ylab="Proportion bleached (2015c)",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Durusdinium on bleaching")
@@ -76,7 +69,7 @@ bayesglm(ProposedSurvival_Status~ProportionD_before,data=log.data_Fav,
 
 par(mfrow=c(3,1), mar=c(4,4,2.5,1))
 #Plot logistic regression - Proportion D versus human disturbance (Number of people within 2km)
-plot(jitter(ProportionD_before)~Disturbance_sqrt,data=log.data_Fav, las=1, ylab="Proportion Durusdinium",xlab="Number of people 2km (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Disturbance on symbionts")
+plot(jitter(ProportionD_before)~Disturbance_sqrt,data=log.data_Fav, las=1, ylab="Proportion Durusdinium",xlab="Chronic Disturbance (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Disturbance on symbionts")
 fit2<-bayesglm(ProportionD_before~Disturbance_sqrt,data=log.data_Fav,family=quasibinomial(link="logit"))
 curve(predict(fit2,data.frame(Disturbance_sqrt=x),type="resp"),add=TRUE, col="black", lwd=2)
 curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
@@ -98,6 +91,92 @@ curve(predict(fit2,data.frame(ProportionD_before=x),type="resp"),add=TRUE, col="
 curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
 curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
 summary(fit2)
+
+
+
+##################################################
+###########ggplot logistic regressions############
+##################################################
+
+######PLATYGYRA
+log.data_platy$starting<-ifelse(log.data_platy$ProportionD_before>0.5,1,0)
+log.data_platy$starting <- as.factor(log.data_platy$starting)
+
+##Durusdinium versus Disturbance
+P1<-ggplot(data=log.data_platy, aes(y=ProportionD_before, x=Disturbance_sqrt,color=starting) ) +
+  geom_jitter(height=0.02,cex=3) +
+  theme_classic()+
+  stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
+  scale_color_manual(values=c("#2165AC", "#B63238"))+ 
+  theme(legend.position = "none")+
+  ylab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
+  xlab("Human disturbance level")
+
+
+
+##Durusdinium versus bleaching
+P2<-ggplot(data=log.data_platy, aes(x=ProportionD_before, y=Bleached_2015C,color=starting) ) +
+  geom_jitter(height=0.02,cex=3) +
+  theme_classic()+
+  stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
+  scale_color_manual(values=c("#2165AC", "#B63238"))+ 
+  theme(legend.position = "none")+
+  xlab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
+  ylab("Proportion bleached early")
+
+
+##Durusdinium versus Survival
+P3<-ggplot(data=log.data_platy, aes(x=ProportionD_before, y=ProposedSurvival_Status,color=starting) ) +
+  geom_jitter(height=0.02,cex=3) +
+  theme_classic()+
+  stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
+  scale_color_manual(values=c("#2165AC", "#B63238"))+ 
+  theme(legend.position = "none")+
+  xlab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
+  ylab("Proportion alive")
+
+save(P1,P2,P3,F1,F2,F3, file="Platy_Favites_LogisticPlots.RData")
+
+######FAVITES
+log.data_Fav$starting<-ifelse(log.data_Fav$ProportionD_before>0.5,1,0)
+log.data_Fav$starting <- as.factor(log.data_Fav$starting)
+
+##Durusdinium versus Disturbance
+F1<-ggplot(data=log.data_Fav, aes(y=ProportionD_before, x=Disturbance_sqrt,color=starting) ) +
+  geom_jitter(height=0.02,cex=3) +
+  theme_classic()+
+  stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
+  scale_color_manual(values=c("#2165AC", "#B63238"))+ 
+  theme(legend.position = "none")+
+  ylab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
+  xlab("Human disturbance level")
+
+##Durusdinium versus bleaching
+F2<-ggplot(data=log.data_Fav, aes(x=ProportionD_before, y=Bleached_2015C,color=starting) ) +
+  geom_jitter(height=0.02,cex=3) +
+  theme_classic()+
+  stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
+  scale_color_manual(values=c("#2165AC", "#B63238"))+ 
+  theme(legend.position = "none")+
+  xlab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
+  ylab("Proportion bleached early")
+
+
+##Durusdinium versus Survival
+F3<-ggplot(data=log.data_Fav, aes(x=ProportionD_before, y=ProposedSurvival_Status,color=starting) ) +
+  geom_jitter(height=0.02,cex=3) +
+  theme_classic()+
+  stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
+  scale_color_manual(values=c("#2165AC", "#B63238"))+ 
+  theme(legend.position = "none")+
+  xlab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
+  ylab("Proportion alive")
+
+
+
+save(P1,P2,P3,F1,F2,F3, file="Platy_dist_logistic.RData")
+
+
 
 
 ########Hydnophora
@@ -142,6 +221,96 @@ curve((predict(fit2,data.frame(Bleached_2015C=x),type="resp", se=TRUE)$se.fit*(-
 summary(fit2)
 
 
+###Logistic regressions across disturbance gradient
+
+#Platy
+
+#bayesglm of survival versus proportion D before in 2015c or before
+bayesglm(ProposedSurvival_Status~ProportionD_before,data=log.data,
+         family=binomial(link="logit")) %>% summary()
+
+par(mfrow=c(3,1), mar=c(4,4,2.5,1))
+#Plot logistic regression - Proportion D versus human disturbance (Number of people within 2km)
+plot(jitter(ProportionC_before)~Disturbance_sqrt,data=log.data_platy, las=1, ylab="Proportion Cladocopium",xlab="Chronic Disturbance (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="Before El Nino")
+fit2<-bayesglm(ProportionC_before~Disturbance_sqrt,data=log.data_platy,family=quasibinomial(link="logit"))
+curve(predict(fit2,data.frame(Disturbance_sqrt=x),type="resp"),add=TRUE, col="black", lwd=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+summary(fit2)
+
+plot(jitter(ProportionC_after)~Disturbance_sqrt,data=log.data_platy, las=1, ylab="Proportion Cladocopium",xlab="Chronic Disturbance (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="After El Nino")
+fit2<-bayesglm(ProportionC_after~Disturbance_sqrt,data=log.data_platy,family=quasibinomial(link="logit"))
+curve(predict(fit2,data.frame(Disturbance_sqrt=x),type="resp"),add=TRUE, col="black", lwd=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+summary(fit2)
+
+plot(ProposedSurvival_Status~Disturbance_sqrt,data=log.data_platy, las=1, ylab="Proportion Surviving",xlab="Chronic Disturbance (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="Survival")
+fit2<-bayesglm(ProposedSurvival_Status~Disturbance_sqrt,data=log.data_platy,family=quasibinomial(link="logit"))
+curve(predict(fit2,data.frame(Disturbance_sqrt=x),type="resp"),add=TRUE, col="black", lwd=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+summary(fit2)
+
+plot(Bleached_2015C~Disturbance_sqrt,data=log.data_platy, las=1, ylab="Proportion Surviving",xlab="Chronic Disturbance (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="Survival")
+fit2<-bayesglm(Bleached_2015C~Disturbance_sqrt,data=log.data_platy,family=quasibinomial(link="logit"))
+curve(predict(fit2,data.frame(Disturbance_sqrt=x),type="resp"),add=TRUE, col="black", lwd=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+summary(fit2)
+
+plot(Bleached_2016A~ProportionD_before,data=log.data_platy, las=1, ylab="Proportion Surviving",xlab="Chronic Disturbance (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="Survival")
+fit2<-bayesglm(Bleached_2016A~ProportionD_before,data=log.data_platy,family=quasibinomial(link="logit"))
+curve(predict(fit2,data.frame(ProportionD_before=x),type="resp"),add=TRUE, col="black", lwd=2)
+curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+summary(fit2)
+
+
+
+#Favites
+
+#bayesglm of survival versus proportion D before in 2015c or before
+bayesglm(ProposedSurvival_Status~ProportionD_before,data=log.data,
+         family=binomial(link="logit")) %>% summary()
+
+par(mfrow=c(3,1), mar=c(4,4,2.5,1))
+#Plot logistic regression - Proportion D versus human disturbance (Number of people within 2km)
+plot(jitter(ProportionC_before)~Disturbance_sqrt,data=log.data_Fav, las=1, ylab="Proportion Cladocopium",xlab="Chronic Disturbance (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="Before El Nino")
+fit2<-bayesglm(ProportionC_before~Disturbance_sqrt,data=log.data_Fav,family=quasibinomial(link="logit"))
+curve(predict(fit2,data.frame(Disturbance_sqrt=x),type="resp"),add=TRUE, col="black", lwd=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+summary(fit2)
+
+plot(jitter(ProportionC_after)~Disturbance_sqrt,data=log.data_Fav, las=1, ylab="Proportion Cladocopium",xlab="Chronic Disturbance (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="After El Nino")
+fit2<-bayesglm(ProportionC_after~Disturbance_sqrt,data=log.data_Fav,family=quasibinomial(link="logit"))
+curve(predict(fit2,data.frame(Disturbance_sqrt=x),type="resp"),add=TRUE, col="black", lwd=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+summary(fit2)
+
+plot(ProposedSurvival_Status~Disturbance_sqrt,data=log.data_Fav, las=1, ylab="Proportion Surviving",xlab="Chronic Disturbance (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="Survival")
+fit2<-bayesglm(ProposedSurvival_Status~Disturbance_sqrt,data=log.data_Fav,family=quasibinomial(link="logit"))
+curve(predict(fit2,data.frame(Disturbance_sqrt=x),type="resp"),add=TRUE, col="black", lwd=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+summary(fit2)
+
+
+plot(Bleached_2015C~Disturbance_sqrt,data=log.data_Fav, las=1, ylab="Proportion Surviving",xlab="Chronic Disturbance (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="Survival")
+fit2<-bayesglm(Bleached_2015C~Disturbance_sqrt,data=log.data_Fav,family=quasibinomial(link="logit"))
+curve(predict(fit2,data.frame(Disturbance_sqrt=x),type="resp"),add=TRUE, col="black", lwd=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+summary(fit2)
+
+plot(Bleached_2015C~ProportionD_before,data=log.data_Fav, las=1, ylab="Proportion Surviving",xlab="Chronic Disturbance (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="Survival")
+fit2<-bayesglm(Bleached_2015C~ProportionD_before,data=log.data_Fav,family=quasibinomial(link="logit"))
+curve(predict(fit2,data.frame(ProportionD_before=x),type="resp"),add=TRUE, col="black", lwd=2)
+curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+summary(fit2)
 
 ################################################################################
 ################################HEATMAPS########################################
