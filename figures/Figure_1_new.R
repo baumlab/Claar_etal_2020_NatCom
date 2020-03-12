@@ -3,6 +3,7 @@ library(tidyverse)
 library(imager)
 library(gridExtra)
 library(phyloseq)
+library(patchwork)
 
 ##################################################################################
 ### KI Local Disturbance Map ###
@@ -111,38 +112,41 @@ fpenta_ord_physeq <- subset_samples(fpenta_ord_physeq,
 
 sample_data(fpenta_ord_physeq)$Dist <- factor(sample_data(fpenta_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
+sample_data(fpenta_ord_physeq)$leewind <- sample_data(fpenta_ord_physeq)$site
+sample_data(fpenta_ord_physeq)$leewind <- gsub("35","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("34","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("32","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("30","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("27","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("25","windward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("15","windward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("14","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("8","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("5","leeward",sample_data(fpenta_ord_physeq)$leewind)
+sample_data(fpenta_ord_physeq)$leewind <- gsub("3","windward",sample_data(fpenta_ord_physeq)$leewind)
+
 fpenta_ord_physeq <- rarefy_even_depth(fpenta_ord_physeq, 
                                        sample.size = 1000)
 
 fpenta_ord_CAP <- ordinate(fpenta_ord_physeq,method="CAP",
-                           distance="wunifrac",formula= ~ field_season + Dist)
+                           distance="wunifrac",formula= ~ Dist + leewind)
 
 p1_penta <- plot_ordination(fpenta_ord_physeq, fpenta_ord_CAP,
-                      shape="updated_status", color="Dist",type="samples",title="")
+                      color="Dist",type="samples",title="")
 
 # Format ordination plot
 p_fpenta_CAP <- p1_penta + 
-  theme(legend.position=c(.83, .89),
-        legend.box = "horizontal",legend.background = element_blank(), 
-        legend.title = element_text(size=10),
-        legend.text = element_text(size = 8),legend.key.height=unit(0.3,"line"),
-        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        plot.margin = unit(c(-0.25,0,0.15,0),c("in","in","in","in")),
-        axis.title = element_text(size=8), 
-        axis.text.x = element_text(size=8,margin = margin(b=5, t = 5)),
-        axis.text.y = element_text(size=8,margin = margin(b=5, r = 5)), 
-        axis.title.x = element_text(size=8,margin = margin(b=5, t = 0.1)),
-        axis.title.y = element_text(size=8,margin = margin(b=5, r = 0.1)), 
-        axis.ticks.length=unit(-0.05, "in")) + 
-  geom_point(alpha=0.8,size=1.5) + 
-  scale_shape_manual(name= "Coral Fate", values=c("alive"=19,"dead"=24),
-                     labels=c("Survived","Died")) + 
-  # scale_size_manual(values = c(5,1))+
+  theme_classic()+
+  # theme(axis.title = element_text(size=8),
+  #               axis.text.x = element_text(size=8,margin=margin(b=5,t=5)),
+  #               axis.text.y = element_text(size=8,margin=margin(b=5,r=5)),
+  #               axis.title.x = element_text(size=8,margin=margin(b=5,t=0.1)),
+  #               axis.title.y = element_text(size=8,margin=margin(b=5,r=0.1)),
+  #               axis.ticks.length=unit(-0.05, "in"))+
+  geom_point(size=5,alpha=0.7,shape=18) + 
   scale_color_manual(values=D_cols) +
   scale_fill_manual(values=D_cols) +
-  # guides(color=F) +
-  stat_ellipse(aes(group=updated_status), type = "norm",
-               level=0.8,color=c("darkgray"),lty=2) +
+  guides(color=F) +
   # annotate("text", x = -1.4, y = 4, label = "C",fontface="bold")
   NULL
 p_fpenta_CAP
@@ -165,39 +169,35 @@ platy_ord_physeq <- subset_samples(platy_ord_physeq,sample_data(platy_ord_physeq
 
 sample_data(platy_ord_physeq)$Dist <- factor(sample_data(platy_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
+sample_data(platy_ord_physeq)$leewind <- sample_data(platy_ord_physeq)$site
+sample_data(platy_ord_physeq)$leewind <- gsub("35","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("34","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("32","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("30","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("27","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("25","windward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("15","windward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("14","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("8","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("5","leeward",sample_data(platy_ord_physeq)$leewind)
+sample_data(platy_ord_physeq)$leewind <- gsub("3","windward",sample_data(platy_ord_physeq)$leewind)
+
 platy_ord_physeq <- rarefy_even_depth(platy_ord_physeq, 
                                       sample.size = 1000)
 
 platy_ord_CAP <- ordinate(platy_ord_physeq,method="CAP",
-                          distance="wunifrac",formula= ~ field_season + Dist)
+                          distance="wunifrac",formula= ~ Dist + leewind)
 
 p1_platy <- plot_ordination(platy_ord_physeq, platy_ord_CAP,
-                      shape="updated_status", color="Dist",type="samples",title="")
+                      color="Dist",type="samples",title="")
 
 # Format ordination plot
 p_platy_CAP <- p1_platy + 
-  theme(legend.position=c(.83, .89),
-        legend.box = "horizontal",legend.background = element_blank(), 
-        legend.title = element_text(size=10),
-        legend.text = element_text(size = 8),legend.key.height=unit(0.3,"line"),
-        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        plot.margin = unit(c(-0.25,0,0.15,0),c("in","in","in","in")),
-        axis.title = element_text(size=8), 
-        axis.text.x = element_text(size=8,margin = margin(b=5, t = 5)),
-        axis.text.y = element_text(size=8,margin = margin(b=5, r = 5)), 
-        axis.title.x = element_text(size=8,margin = margin(b=5, t = 0.1)),
-        axis.title.y = element_text(size=8,margin = margin(b=5, r = 0.1)), 
-        axis.ticks.length=unit(-0.05, "in")) + 
-  geom_point(alpha=0.8,size=1.5) + 
-  scale_shape_manual(name= "Coral Fate", values=c("alive"=19,"dead"=24),
-                     labels=c("Survived","Died")) + 
-  # scale_size_manual(values = c(5,1))+
+  theme_classic()+
+  geom_point(size=5,alpha=0.7,shape=18) + 
   scale_color_manual(values=D_cols) +
   scale_fill_manual(values=D_cols) +
-  # guides(color=F) +
-  stat_ellipse(aes(group=updated_status), type = "norm",
-               level=0.8,color=c("darkgray"),lty=2) +
-  # annotate("text", x = -1.4, y = 4, label = "C",fontface="bold")
+  guides(color=F) +
   NULL
 
 p_platy_CAP
@@ -208,32 +208,15 @@ load("figures/Platy_Favites_LogisticPlots.RData")
 # Named: P1, P2 and P3 for Platy and F1, F2 and F3 for Favites
 
 
-# Open a jpg image
-# jpeg(file="figures/Figure1_new.jpg",width = 7.2, height = 2.8,units="in",res=300)
-
-# grid.arrange(arrangeGrob(arrangeGrob(HighDist,VLowDist,nrow=1,ncol=2,
-#                                      widths=unit(c(1.17,1.17),c("in","in"))),
-#                          KImap,
-#                          ord_plot,
-#                          ncol=3,widths=unit(c(1.4,2.8,2.6),
-#                                             c("in","in","in"))),
-#              nrow=1, heights=unit(c(2.6),c("in")),widths=unit(c(7.2),c("in")))
-
-# dev.off()
-
-library("patchwork")
 
 layout <- "
-AADDFF
-AADDFF
-BBEEGG
-CCEEGG
+AADDDFFF
+AADDDFFF
+AADDDFFF
+AADDDFFF
+BBEEEGGG
+CCEEEGGG
 "
-# jpeg(file="figures/Figure1_new.jpg",
-     width = 7.2, height = 5,units="in",res=300)
-(KImap)/(HighDist/VLowDist)|(p_platy_CAP/P1)|(p_fpenta_CAP/F1)+
-  plot_layout(design=layout)
-# dev.off()
 
 (P1)/(P1/F1)|(p_platy_CAP/P1)|(p_fpenta_CAP/F1)+
   plot_layout(design=layout)
