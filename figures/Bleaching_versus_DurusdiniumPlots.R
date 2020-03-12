@@ -69,13 +69,13 @@ Bleached.df<-data.frame(Timepoint, Average, SE)
 
 ###MAKE PLOT
 par(mfrow=c(1,1),mar=c(5,5,1,5))
-stripchart(Average~Timepoint, data=Durusdinium.df, pch=19, cex=2, vertical=TRUE, ylim=c(0,1.1),ylab="Proportion of colonies", xlab="Heat stress timepoint", col=makeTransparent("gold"), las=1)+
-  lines(Average~Timepoint, Durusdinium.df, lwd=3, col="gold")+
-  arrows(c(1:4), Durusdinium.df$Average-1.96*Durusdinium.df$SE,c(1:4), Durusdinium.df$Average+1.96*Durusdinium.df$SE, length=0.1, angle=90, code=3, col="gold")+
-  points(Average~Timepoint, data=Bleached.df, pch=19, cex=2, col=makeTransparent("darkorchid4"))+
-  lines(Average~Timepoint, Bleached.df, lwd=3, col="darkorchid4")+
-  arrows(c(1:4), Bleached.df$Average-1.96*Bleached.df$SE,c(1:4), Bleached.df$Average+1.96*Bleached.df$SE, length=0.1, angle=90, code=3, col="darkorchid4")
-legend(c(1,1.1), col=c("darkorchid4","gold"), pch=c(19,19),  legend=c("Bleached",expression(paste(italic("Durusdinium"), " ","dominated"))),bty="n")
+stripchart(Average~Timepoint, data=Durusdinium.df, pch=19, cex=2, vertical=TRUE, ylim=c(0,1.1),ylab="Proportion of colonies", xlab="Heat stress timepoint", col=makeTransparent("#B63238"), las=1)+
+  lines(Average~Timepoint, Durusdinium.df, lwd=3, col="#B63238")+
+  arrows(c(1:4), Durusdinium.df$Average-1.96*Durusdinium.df$SE,c(1:4), Durusdinium.df$Average+1.96*Durusdinium.df$SE, length=0.1, angle=90, code=3, col="#B63238")+
+  points(Average~Timepoint, data=Bleached.df, pch=19, cex=2, col=makeTransparent("gold"))+
+  lines(Average~Timepoint, Bleached.df, lwd=3, col="gold")+
+  arrows(c(1:4), Bleached.df$Average-1.96*Bleached.df$SE,c(1:4), Bleached.df$Average+1.96*Bleached.df$SE, length=0.1, angle=90, code=3, col="gold")
+legend(c(1,1.1), col=c("gold","#B63238"), pch=c(19,19),  legend=c("Bleached",expression(paste(italic("Durusdinium"), " ","dominated"))),bty="n")
 
 
 
@@ -144,13 +144,12 @@ Bleached.df<-data.frame(Timepoint, Average, SE)
 
 ###MAKE PLOT
 par(mfrow=c(1,1),mar=c(5,5,1,5))
-stripchart(Average~Timepoint, data=Durusdinium.df, pch=19, cex=2, vertical=TRUE, ylim=c(0,1.1), xlab="Heat stress timepoint",ylab="Proportion of colonies", col="gold", las=1)
-lines(Average~Timepoint, Durusdinium.df, lwd=3, col="gold")
-arrows(c(1:4), Durusdinium.df$Average-1.96*Durusdinium.df$SE,c(1:4), Durusdinium.df$Average+1.96*Durusdinium.df$SE, length=0.1, angle=90, code=3, col="gold")
-points(Average~Timepoint, data=Bleached.df, pch=19, cex=2, col="purple")
-lines(Average~Timepoint, Bleached.df, lwd=3, col="purple")
-arrows(c(1:4), Bleached.df$Average-1.96*Bleached.df$SE,c(1:4), Bleached.df$Average+1.96*Bleached.df$SE, length=0.1, angle=90, code=3, col="purple")
-axis(4, las=1)
+stripchart(Average~Timepoint, data=Durusdinium.df, pch=19, cex=2, vertical=TRUE, ylim=c(0,1.1),ylab="Proportion of colonies", xlab="Heat stress timepoint", col=makeTransparent("#B63238"), las=1)+
+  lines(Average~Timepoint, Durusdinium.df, lwd=3, col="#B63238")+
+  arrows(c(1:4), Durusdinium.df$Average-1.96*Durusdinium.df$SE,c(1:4), Durusdinium.df$Average+1.96*Durusdinium.df$SE, length=0.1, angle=90, code=3, col="#B63238")+
+  points(Average~Timepoint, data=Bleached.df, pch=19, cex=2, col=makeTransparent("gold"))+
+  lines(Average~Timepoint, Bleached.df, lwd=3, col="gold")+
+  arrows(c(1:4), Bleached.df$Average-1.96*Bleached.df$SE,c(1:4), Bleached.df$Average+1.96*Bleached.df$SE, length=0.1, angle=90, code=3, col="gold")
 
 
            
