@@ -133,7 +133,8 @@ F. pentagona,1034,BL259,40,High,NA,alive,alive,alive,First in March 2016?,NA
 F. pentagona,1037,BL262,40,High,NA,alive,alive,alive,First in March 2016?,NA
 F. pentagona,1050,BL266,40,High,NA,alive,alive,alive,First in March 2016?,NA
 F. pentagona,412_892,"2014-412, 2015c-427",25,High,0,alive,alive,alive,KI14FSYM412,KI15cFSYM427
-F. pentagona,482_897,"BL10, BG432, OR482",32,VeryHigh,1,alive,alive,alive,KI15bFSYM216,KI15cFSYM432
+F. pentagona,482_897,"BL10, BG432, OR482",32,VeryHigh,1,alive,alive,alive,NA,KI15bFSYM216
+F. pentagona,482b,"BL10, BG432, OR482",32,VeryHigh,1,alive,alive,alive,NA,KI15cFSYM432
 F. pentagona,497_745,"G194, BL6, 2014-497",32,VeryHigh,1,alive,alive,alive,NA,KI15bFSYM194
 F. pentagona,631b,BG144,15,VeryLow,0,unknown,unknown,unknown,"currently in phyasv as just ""631""",KI15cFSYM144
 F. pentagona,500,"208, c-231, OR500, BG455, BL11",32,VeryHigh,0,alive,alive,alive,not in phyasv,NA
