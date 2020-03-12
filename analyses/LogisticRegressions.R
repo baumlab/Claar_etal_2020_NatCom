@@ -1,6 +1,7 @@
 #Load libraries
 library(tidyverse)
 library(readxl)
+library(arm)
 
 ##This is code to make logistic regressions and heatmaps
 ##Written by Sam Starko (Last Updated Mar 6, 2020)
