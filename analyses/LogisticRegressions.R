@@ -26,6 +26,7 @@ log.data$Survival_Status_conservative<-as.numeric(log.data$Survival_Status_conse
 log.data$ProportionC_before<-as.numeric(log.data$ProportionC_before)
 log.data$ProportionC_after<-as.numeric(log.data$ProportionC_after)
 
+
 log.data_platy<-subset(log.data, Coral_Species=="Platygyra")
 log.data_Fav<-subset(log.data, Coral_Species=="Favites")
 log.data_hyd <-subset(log.data, Coral_Species=="Hydnophora")
@@ -75,7 +76,7 @@ fit2<-bayesglm(ProportionD_before~Disturbance_sqrt,data=log.data_Fav,family=quas
 curve(predict(fit2,data.frame(Disturbance_sqrt=x),type="resp"),add=TRUE, col="black", lwd=2)
 curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
 curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-
+summary(fit2)
 
 #Plot logistic regression - Survival versus D proportion
 plot(jitter(ProposedSurvival_Status,0.1)~ProportionD_before,data=log.data_Fav, las=1, xlab="Proportion Durusdinium",ylab="Proportion dead",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Durusdinium on survival")
@@ -332,7 +333,7 @@ hex <- c("white", "lightgrey", "#2165AC", "#B63238", "black", "black", "black","
 ggplot(platy.map.d, aes(Expedition, rev(order), fill= Symbiont)) +
   geom_tile() +
   scale_fill_gradientn(colours = (hex)) +
-  labs(x = "Time point", y = "Species", fill = "Rank") 
+  labs(x = "Time point", y = "Species", fill = "Rank") +scale_y_continuous(position = "right")
 
 #Favites
 fav.map.d<-gather(hm.data.fav, key = "Expedition", value="Symbiont", 8:14, factor_key=TRUE) 
@@ -358,19 +359,26 @@ platy.map.d<-gather(hm.data.platy, key = "Expedition", value="Symbiont", 8:11, f
 ##Danielle, this is the latest version
 hex <- c("white", "lightgrey", "#2165AC", "#B63238", "black", "black", "black","#F8C431","#E77F02","darkorchid4","#93BC9E")
 
-ggplot(platy.map.d, aes(Expedition, rev(order), fill= Symbiont)) +
+g<-ggplot(platy.map.d, aes(Expedition, rev(order), fill= Symbiont)) +
   geom_tile() +
   scale_fill_gradientn(colours = (hex)) +
-  labs(x = "Time period", y = "Colony", fill = "Rank") 
+  labs(x = "Time period", y = "Colony", fill = "Rank") + 
+  scale_y_continuous(position="right")+
+  theme(legend.position = "none") 
+  
+  
 
 #Favites
 fav.map.d<-gather(hm.data.fav, key = "Expedition", value="Symbiont", 8:11, factor_key=TRUE) 
 
-hex <- c("white", "lightgrey", "lightblue", "red", "black", "black", "black","yellow","orange","purple")
-ggplot(fav.map.d, aes(Expedition, rev(order), fill= Symbiont)) +
+hex <- c("white", "lightgrey", "#2165AC", "#B63238", "black", "black", "black","#F8C431","#E77F02","darkorchid4")
+g1<-ggplot(fav.map.d, aes(Expedition, rev(order), fill= Symbiont)) +
   geom_tile() +
   scale_fill_gradientn(colours = (hex)) +
-  labs(x = "Time period", y = "Colony", fill = "Rank") 
+  labs(x = "Time period", y = "Colony", fill = "Rank") + 
+  scale_y_continuous(position="right")+
+  theme(legend.position = "none") 
+
 
 
 
@@ -523,7 +531,6 @@ axis(4, las=1)
 ###Baseline bleaching
 ###Platygyra
 switch<-read_excel(file.choose(),sheet="Switch_figure")
-switch<-subset(switch,Coral_Species=="Platygyra" )
 switch$Bleaching_2014<-as.numeric(switch$Bleaching_2014)
 switch$Bleaching_2014_bin<-ifelse(switch$Bleaching_2014>1,1,0)
 
@@ -538,16 +545,16 @@ switch$Bleached_first_encounter_bin<-ifelse(switch$Bleached_first_encounter>1,1,
 
 ##Bleaching versus Disturbance
 ggplot(data=switch, aes(y=Bleached_first_encounter_bin, x=Disturbance_sqrt) ) +
-  facet_wrap(~Coral_Species)+
+  facet_wrap(~Coral_Species, scales='free')+
   geom_jitter(height=0.02,cex=3) +
-  theme_classic()+
+  theme_cowplot(12)+
   stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
   scale_color_manual(values=c("#2165AC", "#B63238"))+ 
   theme(legend.position = "none")+
   ylab(expression(paste("Proportion Bleached")))+
   xlab("Human disturbance level")
 
-fit2<-bayesglm(as.factor(Bleached_first_encounter_bin)~Disturbance_sqrt,data=switch[switch$Coral_Species=="Platygyra",],family=binomial(link="logit"))
+fit2<-glm(as.factor(Bleached_first_encounter_bin)~Disturbance_sqrt,data=switch[switch$Coral_Species=="Platygyra",],family=binomial(link="logit"))
 summary(fit2)
 
 fit2<-bayesglm(as.factor(Bleached_first_encounter_bin)~Disturbance_sqrt,data=switch[switch$Coral_Species=="Favites",],family=binomial(link="logit"))
