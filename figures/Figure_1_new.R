@@ -92,16 +92,17 @@ load("data/KI_Platy_f_coral_grouped_ASVs.RData")
 D_cols <- c("VeryHigh"="#8c510a", "Medium"="#c7eae5", 
             "Low"="#5ab4ac", "VeryLow"="#01665e")
 
+
 ord_samples <- samplelist$ord_sample
 
-samplelist <- samplelist[!is.na(samplelist$ord_sample),]
-samplelist_fpenta <- samplelist[samplelist$Coral_Species=="F. pentagona",]
+samplelist_noNA <- samplelist[!is.na(samplelist$ord_sample),]
+samplelist_fpenta <- samplelist_noNA[samplelist_noNA$Coral_Species=="F. pentagona",]
 
 ord_samples2 <- data.frame(samplelist_fpenta$ProposedSurvival_Status, 
                            row.names = samplelist_fpenta$ord_sample)
 
 fpenta_ord_physeq0 <- subset_samples(phyASV.f.c,
-                                     sample_data(phyASV.f.c)$SampleID %in% ord_samples)
+                                     sample_data(phyASV.f.c)$SampleID %in% rownames(ord_samples2))
 
 fpenta_ord_physeq <- merge_phyloseq(fpenta_ord_physeq0,sample_data(ord_samples2))
 
@@ -151,21 +152,36 @@ p_fpenta_CAP <- p1_penta +
   NULL
 p_fpenta_CAP
 
+jpeg(file="figures/Figure1_fpenta_CAP.jpg",
+     width = 3, height = 3,units="in",res=300)
+p_fpenta_CAP
+dev.off()
+
+pdf(file="figures/Figure1_fpenta_CAP.pdf",
+     width = 3, height = 3,useDingbats = FALSE)
+p_fpenta_CAP
+dev.off()
+
 ####################################
 
-samplelist_platy <- samplelist[samplelist$Coral_Species=="P. ryukyuensis",]
+ord_samples <- samplelist$ord_sample
+
+samplelist_noNA <- samplelist[!is.na(samplelist$ord_sample),]
+samplelist_platy <- samplelist_noNA[samplelist_noNA$Coral_Species=="P. ryukyuensis",]
 
 ord_samples2 <- data.frame(samplelist_platy$ProposedSurvival_Status, 
                            row.names = samplelist_platy$ord_sample)
 
 platy_ord_physeq0 <- subset_samples(phyASV.f.c,
-                                    sample_data(phyASV.f.c)$SampleID %in% ord_samples)
+                                     sample_data(phyASV.f.c)$SampleID %in%
+                                      rownames(ord_samples2))
 
 platy_ord_physeq <- merge_phyloseq(platy_ord_physeq0,sample_data(ord_samples2))
 
 colnames(sample_data(platy_ord_physeq))[colnames(sample_data(platy_ord_physeq))=="samplelist_platy.ProposedSurvival_Status"] <- "updated_status"
 
-platy_ord_physeq <- subset_samples(platy_ord_physeq,sample_data(platy_ord_physeq)$updated_status!="unknown")
+platy_ord_physeq <- subset_samples(platy_ord_physeq,
+                                    sample_data(platy_ord_physeq0)$updated_status!="unknown")
 
 sample_data(platy_ord_physeq)$Dist <- factor(sample_data(platy_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
@@ -202,11 +218,34 @@ p_platy_CAP <- p1_platy +
 
 p_platy_CAP
 
+jpeg(file="figures/Figure1_platy_CAP.jpg",
+     width = 3, height = 3,units="in",res=300)
+p_platy_CAP
+dev.off()
+
+pdf(file="figures/Figure1_platy_CAP.pdf",
+     width = 3, height = 3,useDingbats = FALSE)
+p_platy_CAP
+dev.off()
 ###################################
 
 load("figures/Platy_Favites_LogisticPlots.RData")
 # Named: P1, P2 and P3 for Platy and F1, F2 and F3 for Favites
 
+jpeg(file="figures/Figure1_platy_reg.jpg",
+     width = 4.5, height = 2.25,units="in",res=300)
+P1
+dev.off()
+
+pdf(file="figures/Figure1_platy_reg.pdf",
+     width = 4.5, height = 2.25,useDingbats = FALSE)
+P1
+dev.off()
+
+pdf(file="figures/Figure1_fpenta_reg.pdf",
+    width = 4.5, height = 2.25,useDingbats = FALSE)
+F1
+dev.off()
 
 
 layout <- "
@@ -218,11 +257,8 @@ BBEEEGGG
 CCEEEGGG
 "
 
-(P1)/(P1/F1)|(p_platy_CAP/P1)|(p_fpenta_CAP/F1)+
-  plot_layout(design=layout)
-
-jpeg(file="figures/Figure1_new.jpg",
-     width = 7.2, height = 5,units="in",res=300)
-KImap+HighDist+VLowDist+p_platy_CAP+P1+p_fpenta_CAP+F1+
-  plot_layout(design=layout)
-dev.off()
+# jpeg(file="figures/Figure1_new.jpg",
+#      width = 7.2, height = 5,units="in",res=300)
+# KImap+HighDist+VLowDist+p_platy_CAP+P1+p_fpenta_CAP+F1+
+#   plot_layout(design=layout)
+# dev.off()

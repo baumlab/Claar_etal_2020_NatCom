@@ -56,7 +56,7 @@ text(-157.592, 2.078, "B", font=2, cex=1.25)
 
 dev.off()
 
-pdf(file="figures/KI_map_platysites_villages.pdf",width = 7.6, height = 7.2)  # just 'village'
+pdf(file="figures/KI_map_platysites_villages.pdf",width = 7.6, height = 7.2,useDingbats = FALSE)  # just 'village'
 source("figures/ki_map_files/KI_base_B&W_bigger.R")
 
 # village markers sized by population
