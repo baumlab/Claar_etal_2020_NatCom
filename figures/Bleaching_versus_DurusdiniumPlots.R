@@ -5,6 +5,19 @@
 ###The data are in "Updated Data" folder in the dropbox
 ###This code is not concise but it works!!!
 
+library(ggplot2)
+library(tidyverse)
+library(readxl)
+
+makeTransparent <- function (someColor, alpha = 100)
+{
+  newColor <- col2rgb(someColor)
+  apply(newColor, 2, function(curcoldata) {
+    rgb(red = curcoldata[1], green = curcoldata[2], blue = curcoldata[3],
+        alpha = alpha, maxColorValue = 255)
+  })
+}
+
 ##Platygyra
 ##Import data and subset
 switch<-read_excel(file.choose(),sheet="Switch_figure2")
@@ -68,6 +81,7 @@ Bleached.df<-data.frame(Timepoint, Average, SE)
 
 
 ###MAKE PLOT
+pdf(file="figures/Figure_3_new_platy.pdf",width=6.75, height=2.6,useDingbats = FALSE)
 par(mfrow=c(1,1),mar=c(5,5,1,5))
 stripchart(Average~Timepoint, data=Durusdinium.df, pch=19, cex=2, vertical=TRUE, ylim=c(0,1.1),ylab="Proportion of colonies", xlab="Heat stress timepoint", col=makeTransparent("#B63238"), las=1)+
   lines(Average~Timepoint, Durusdinium.df, lwd=3, col="#B63238")+
@@ -76,7 +90,7 @@ stripchart(Average~Timepoint, data=Durusdinium.df, pch=19, cex=2, vertical=TRUE,
   lines(Average~Timepoint, Bleached.df, lwd=3, col="gold")+
   arrows(c(1:4), Bleached.df$Average-1.96*Bleached.df$SE,c(1:4), Bleached.df$Average+1.96*Bleached.df$SE, length=0.1, angle=90, code=3, col="gold")
 legend(c(1,1.1), col=c("gold","#B63238"), pch=c(19,19),  legend=c("Bleached",expression(paste(italic("Durusdinium"), " ","dominated"))),bty="n")
-
+dev.off()
 
 
 ####Favites
@@ -143,6 +157,7 @@ Bleached.df<-data.frame(Timepoint, Average, SE)
 
 
 ###MAKE PLOT
+pdf(file="figures/Figure_3_new_fpenta.pdf",width=6.75, height=2.6,useDingbats = FALSE)
 par(mfrow=c(1,1),mar=c(5,5,1,5))
 stripchart(Average~Timepoint, data=Durusdinium.df, pch=19, cex=2, vertical=TRUE, ylim=c(0,1.1),ylab="Proportion of colonies", xlab="Heat stress timepoint", col=makeTransparent("#B63238"), las=1)+
   lines(Average~Timepoint, Durusdinium.df, lwd=3, col="#B63238")+
@@ -150,6 +165,6 @@ stripchart(Average~Timepoint, data=Durusdinium.df, pch=19, cex=2, vertical=TRUE,
   points(Average~Timepoint, data=Bleached.df, pch=19, cex=2, col=makeTransparent("gold"))+
   lines(Average~Timepoint, Bleached.df, lwd=3, col="gold")+
   arrows(c(1:4), Bleached.df$Average-1.96*Bleached.df$SE,c(1:4), Bleached.df$Average+1.96*Bleached.df$SE, length=0.1, angle=90, code=3, col="gold")
-
+dev.off()
 
            
