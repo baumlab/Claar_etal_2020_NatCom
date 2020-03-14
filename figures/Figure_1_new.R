@@ -204,6 +204,8 @@ platy_ord_physeq <- rarefy_even_depth(platy_ord_physeq,
 platy_ord_CAP <- ordinate(platy_ord_physeq,method="CAP",
                           distance="wunifrac",formula= ~ Dist + leewind)
 
+anova(platy_ord_CAP)
+
 p1_platy <- plot_ordination(platy_ord_physeq, platy_ord_CAP,
                       color="Dist",type="samples",title="")
 
