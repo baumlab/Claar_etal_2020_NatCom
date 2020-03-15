@@ -71,6 +71,7 @@ KI2014 <- as.POSIXct("2014-09-01 00:00:00",tz="Pacific/Kiritimati", format="%Y-%
 KI2015a <- as.POSIXct("2015-01-20 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 KI2015b <- as.POSIXct("2015-05-10 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 KI2015c <- as.POSIXct("2015-07-25 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+KI2015d <- as.POSIXct("2015-11-06 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 KI2016a <- as.POSIXct("2016-03-25 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 KI2016b <- as.POSIXct("2016-11-08 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 
@@ -81,25 +82,22 @@ DHW_during_March2016 <- KI_allsites_DHW[546,]
 
 ############# Make tiff file ################
 # Open tiff file
-pdf(file="figures/Figure1_a.pdf",width = 7.2, height = 2.5,useDingbats = FALSE)
+pdf(file="figures/Figure_2/Figure2_a.pdf",width = 7.2, height = 2,useDingbats = FALSE)
 
 # Set both inner and outer margins to 0
 par(oma=c(0,0,0,0),mar=c(1.5,3.5,0.25,2.5))
 # Setup layout for single top panel and 5 bottom panels
-layout(matrix(c(1,1,1,1,1,1,2,3,4,5,6,7), nrow=2, ncol=6, byrow = TRUE), heights=c(0.425,0.25), widths = c(1.18,1,1,1,1,1.18))
+# layout(matrix(c(1,1,1,1,1,1,2,3,4,5,6,7), nrow=2, ncol=6, byrow = TRUE), heights=c(0.425,0.25), widths = c(1.18,1,1,1,1,1.18))
 
 # Plot top panel
 # Plot with the polycurve function
 with(KI_heat, plot(KI_heat$time,KI_heat$dhw, type="l", xlab="", ylab="", ylim=c(0,26),cex.axis=1,cex.lab=1.2,yaxs="i",xaxs="i",lwd=0.5,xaxt='n',yaxt='n', col="gray40",
                    panel.first = # Panel first allows ablines to be plotted before polycurve, looks nicer.
-                     c(#abline(4,0,col=cols[2],lwd=3),
-                       #abline(8,0,col=cols[3],lwd=3),
-                       #abline(12,0,col=cols[4],lwd=3),
-                       #abline(24,0,col=cols[5],lwd=3),
-                       abline(v=KI2014,col="darkgray",lwd=2,lty=2),
+                     c(abline(v=KI2014,col="darkgray",lwd=2,lty=2),
                        abline(v=KI2015a,col="darkgray",lwd=2,lty=2),
                        abline(v=KI2015b,col="darkgray",lwd=2,lty=2),
                        abline(v=KI2015c,col="darkgray",lwd=2,lty=2),
+                       abline(v=KI2015d,col="darkgray",lwd=2,lty=2),
                        abline(v=KI2016a,col="darkgray",lwd=2,lty=2),
                        abline(v=KI2016b,col="darkgray",lwd=2,lty=2),
                        polyCurve(KI_heat$time, KI_heat$dhw, from = from, to = to, miny = 0,
@@ -121,14 +119,13 @@ axis.POSIXct(side=1,at=seq(KI_heat$time[1],KI_heat$time[240],by="month"),KI_heat
 axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0,padj=-1.5)
 Z <- c(26,27,28,29,30,31) # To be used as temperature y-axis values
 axis(side=4,at=Z,cex.axis=0.93,tck=0.03, lwd.ticks=1.5, las=2,hadj=0.95)
-mtext("a",side=2, line=2.5,cex=1.2,las=2,padj=-5,font=2) # Add label for figure, specify size
-mtext("b",side=2, line=2.5,cex=1.2,las=2,padj=8, font=2) # Add label for figure, specify size
-mtext("i",side=2, line=-1.45, cex=1, las=2,padj=-5.6) # Add sampling date label
-mtext("ii",side=2, line=-9.7, cex=1, las=2,padj=-5.6) # Add sampling date label
-mtext("iii",side=2, line=-16.1, cex=1, las=2,padj=-5.6) # Add sampling date label
-mtext("iv",side=2, line=-20.4, cex=1, las=2,padj=-5.6) # Add sampling date label
-mtext("v",side=2, line=-34.6, cex=1, las=2,padj=-5.6) # Add sampling date label
-mtext("vi",side=2, line=-47.9, cex=1, las=2,padj=-5.6) # Add sampling date label
+mtext("i",side=2, line=-0.85, cex=1, las=2,padj=-5.6) # Add sampling date label
+mtext("ii",side=2, line=-5.9, cex=1, las=2,padj=-5.6) # Add sampling date label
+mtext("iii",side=2, line=-9.9, cex=1, las=2,padj=-5.6) # Add sampling date label
+mtext("iv",side=2, line=-12.6, cex=1, las=2,padj=-5.6) # Add sampling date label
+mtext("v",side=2, line=-16.4, cex=1, las=2,padj=-5.6) # Add sampling date label
+mtext("vi",side=2, line=-21.4, cex=1, las=2,padj=-5.6) # Add sampling date label
+mtext("vii",side=2, line=-29.6, cex=1, las=2,padj=-5.6) # Add sampling date label
 mtext("Temperature (°C)",side=4, cex=0.75,line=1.25)
 mtext("Mean Monthly Max.",side=2,line=-47.7,cex=0.72,las=2,padj=0.2) # Label MMM line
 mtext("Bleaching Threshold",side=2,line=-47.7,cex=0.72,las=2,padj=-2.5) # Label bleaching threshold line
