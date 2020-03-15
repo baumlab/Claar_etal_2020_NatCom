@@ -90,4 +90,4 @@ data/temperature/NOAA_5km/*
 figures/*.eps
 
 #Ignore really big .ai file
-figures/Figure_3_new.ai
+figures/Figure_3/Figure_3_new.ai
