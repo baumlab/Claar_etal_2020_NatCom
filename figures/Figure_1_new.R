@@ -132,6 +132,8 @@ fpenta_ord_physeq <- rarefy_even_depth(fpenta_ord_physeq,
 fpenta_ord_CAP <- ordinate(fpenta_ord_physeq,method="CAP",
                            distance="wunifrac",formula= ~ Dist + leewind)
 
+anova(fpenta_ord_CAP)
+
 p1_penta <- plot_ordination(fpenta_ord_physeq, fpenta_ord_CAP,
                       color="Dist",type="samples",title="")
 
