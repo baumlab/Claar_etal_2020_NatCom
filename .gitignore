@@ -88,3 +88,6 @@ data/temperature/NOAA_5km/*
 
 #Ignore .eps
 figures/*.eps
+
+#Ignore really big .ai file
+figures/Figure_3_new.ai
