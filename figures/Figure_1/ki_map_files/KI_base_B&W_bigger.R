@@ -6,7 +6,7 @@ library(RColorBrewer)
  library(rgdal)
 
 
-diva_shp<-readShapePoly("figures/ki_map_files/shapes/diva-gis/KIR_adm0.shp")
+diva_shp<-readShapePoly("figures/Figure_1/ki_map_files/shapes/diva-gis/KIR_adm0.shp")
 
 
 land<-brewer.pal(8, "Greys")[4]
