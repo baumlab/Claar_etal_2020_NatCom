@@ -79,6 +79,7 @@ analyses/~*
 .Rproj.user
 
 figures/global_elnino_map/dhw_1516.mat
+figures/Extended_Data/global_elnino_map/dhw_1516.mat
 
 #Ignore miscellaneous local files
 etc/*
@@ -88,3 +89,8 @@ data/temperature/NOAA_5km/*
 
 #Ignore .eps
 figures/*.eps
+
+#Ignore really big .ai file
+figures/Figure_3/Figure_3_new.ai
+figures/Figure_3/Figure3_v2.ai
+figures/Figure_2/Figure_2_new.ai
