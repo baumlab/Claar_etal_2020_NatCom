@@ -85,7 +85,7 @@ HighDist <- ggplot(df4,aes(x,y)) +
   annotate("text", x = 72, y = 65, label = "A",fontface="bold", color="black")
 
 ###################################
-samplelist <- read.csv("analyses/2020_analyses/ASV_ordination/samplelist.csv")
+samplelist <- read.csv("analyses/2020_analyses/ASV_ordination/samplelist_Fig1.csv")
 
 load("data/KI_Platy_f_coral_grouped_ASVs.RData")
 
@@ -93,6 +93,7 @@ D_cols <- c("VeryHigh"="#8c510a", "Medium"="#c7eae5",
             "Low"="#5ab4ac", "VeryLow"="#01665e")
 
 
+colnames(samplelist)[1] <- "Coral_Species"
 ord_samples <- samplelist$ord_sample
 
 samplelist_noNA <- samplelist[!is.na(samplelist$ord_sample),]
