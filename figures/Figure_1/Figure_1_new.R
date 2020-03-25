@@ -227,8 +227,7 @@ pdf(file="figures/Figure_1/Figure1_platy_CAP.pdf",
 p_platy_CAP
 dev.off()
 ###################################
-
-load("figures/Platy_Favites_LogisticPlots.RData")
+load("figures/Platy_dist_logistic.RData")
 # Named: P1, P2 and P3 for Platy and F1, F2 and F3 for Favites
 
 jpeg(file="figures/Figure_1/Figure1_platy_reg.jpg",
@@ -246,18 +245,3 @@ pdf(file="figures/Figure_1/Figure1_fpenta_reg.pdf",
 F1
 dev.off()
 
-
-# layout <- "
-# AADDDFFF
-# AADDDFFF
-# AADDDFFF
-# AADDDFFF
-# BBEEEGGG
-# CCEEEGGG
-# "
-# 
-# jpeg(file="figures/Figure1_new.jpg",
-#      width = 7.2, height = 5,units="in",res=300)
-# KImap+HighDist+VLowDist+p_platy_CAP+P1+p_fpenta_CAP+F1+
-#   plot_layout(design=layout)
-# dev.off()
