@@ -197,3 +197,14 @@ KI2015c_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[4])-10^(p6b$data[[18]]$ymin[4])
 KI2016a_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[5])-10^(p6b$data[[18]]$ymin[5]))/2)
 KI2016b_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[6])-10^(p6b$data[[18]]$ymin[6]))/2)
 KI2017a_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[7])-10^(p6b$data[[18]]$ymin[7]))/2)
+
+
+metadata.SH.noFQ.AD
+
+library(lme4)
+library(emmeans)
+fit <- lmer(S.H.log10 ~ field_season + Status + (1|coral_tag), data=metadata.SH.noFQ.AD)
+anova(fit)
+# We have to provide the model (here called fit and the factors we want to contrast
+emmeans(fit, list(pairwise ~ field_season), adjust = "tukey")
+
