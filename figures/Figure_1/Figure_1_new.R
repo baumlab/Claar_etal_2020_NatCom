@@ -109,8 +109,8 @@ fpenta_ord_physeq <- merge_phyloseq(fpenta_ord_physeq0,sample_data(ord_samples2)
 
 colnames(sample_data(fpenta_ord_physeq))[colnames(sample_data(fpenta_ord_physeq))=="samplelist_fpenta.ProposedSurvival_Status"] <- "updated_status"
 
-fpenta_ord_physeq <- subset_samples(fpenta_ord_physeq,
-                                    sample_data(fpenta_ord_physeq)$updated_status!="unknown")
+# fpenta_ord_physeq <- subset_samples(fpenta_ord_physeq,
+#                                     sample_data(fpenta_ord_physeq)$updated_status!="unknown")
 
 sample_data(fpenta_ord_physeq)$Dist <- factor(sample_data(fpenta_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
@@ -141,12 +141,6 @@ p1_penta <- plot_ordination(fpenta_ord_physeq, fpenta_ord_CAP,
 # Format ordination plot
 p_fpenta_CAP <- p1_penta + 
   theme_classic()+
-  # theme(axis.title = element_text(size=8),
-  #               axis.text.x = element_text(size=8,margin=margin(b=5,t=5)),
-  #               axis.text.y = element_text(size=8,margin=margin(b=5,r=5)),
-  #               axis.title.x = element_text(size=8,margin=margin(b=5,t=0.1)),
-  #               axis.title.y = element_text(size=8,margin=margin(b=5,r=0.1)),
-  #               axis.ticks.length=unit(-0.05, "in"))+
   geom_point(size=5,alpha=0.7,shape=18) + 
   scale_color_manual(values=D_cols) +
   scale_fill_manual(values=D_cols) +
@@ -183,8 +177,8 @@ platy_ord_physeq <- merge_phyloseq(platy_ord_physeq0,sample_data(ord_samples2))
 
 colnames(sample_data(platy_ord_physeq))[colnames(sample_data(platy_ord_physeq))=="samplelist_platy.ProposedSurvival_Status"] <- "updated_status"
 
-platy_ord_physeq <- subset_samples(platy_ord_physeq,
-                                    sample_data(platy_ord_physeq0)$updated_status!="unknown")
+# platy_ord_physeq <- subset_samples(platy_ord_physeq,
+#                                     sample_data(platy_ord_physeq0)$updated_status!="unknown")
 
 sample_data(platy_ord_physeq)$Dist <- factor(sample_data(platy_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
@@ -201,7 +195,7 @@ sample_data(platy_ord_physeq)$leewind <- gsub("8","leeward",sample_data(platy_or
 sample_data(platy_ord_physeq)$leewind <- gsub("5","leeward",sample_data(platy_ord_physeq)$leewind)
 sample_data(platy_ord_physeq)$leewind <- gsub("3","windward",sample_data(platy_ord_physeq)$leewind)
 
-platy_ord_physeq <- rarefy_even_depth(platy_ord_physeq, 
+platy_ord_physeq<- rarefy_even_depth(platy_ord_physeq, 
                                       sample.size = 1000)
 
 platy_ord_CAP <- ordinate(platy_ord_physeq,method="CAP",
