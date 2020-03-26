@@ -134,8 +134,9 @@ dev.off() # Close
 
 ###############################
 ## Logistic regression plots ##
-load("figures/Platy_Favites_LogisticPlots.RData")
+load("figures/Platy_dist_logistic.RData")
 # Named: P1, P2 and P3 for Platy and F1, F2 and F3 for Favites
+library(arm)
 
 pdf(file="figures/Figure_2/Figure2_platy_reg1.pdf",
     width = 4.5, height = 2,useDingbats = FALSE)
