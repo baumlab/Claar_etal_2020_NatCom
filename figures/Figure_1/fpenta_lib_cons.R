@@ -1,3 +1,4 @@
+rm(list=ls())
 samplelist <- read.csv("analyses/2020_analyses/ASV_ordination/samplelist_Fig1.csv")
 
 load("data/KI_Platy_f_coral_grouped_ASVs.RData")
@@ -27,7 +28,6 @@ fpenta_ord_physeq <- merge_phyloseq(fpenta_ord_physeq0,sample_data(ord_samples2)
 
 colnames(sample_data(fpenta_ord_physeq))[colnames(sample_data(fpenta_ord_physeq))=="samplelist_fpenta.ProposedSurvival_Status"] <- "updated_status"
 
-
 fpenta_ord_physeq00 <- subset_samples(phyASV.f.c,
                                      sample_data(phyASV.f.c)$SampleID %in% rownames(ord_samples3))
 
@@ -42,6 +42,14 @@ fpenta_ord_physeq_lib <- merge_phyloseq(fpenta_ord_physeq000,sample_data(ord_sam
 
 colnames(sample_data(fpenta_ord_physeq_lib))[colnames(sample_data(fpenta_ord_physeq_lib))=="samplelist_fpenta.Survival_Status_liberal"] <- "updated_status_liberal"
 
+fpenta_ord_physeq <- subset_samples(fpenta_ord_physeq,
+                                    sample_data(fpenta_ord_physeq)$updated_status!="unknown")
+fpenta_ord_physeq_lib <- subset_samples(fpenta_ord_physeq_lib,
+                                    sample_data(fpenta_ord_physeq_lib)$updated_status!="unknown")
+fpenta_ord_physeq_cons <- subset_samples(fpenta_ord_physeq_cons,
+                                    sample_data(fpenta_ord_physeq_cons)$updated_status!="unknown")
+
+
 sample_data(fpenta_ord_physeq)$Dist <- factor(sample_data(fpenta_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
 sample_data(fpenta_ord_physeq_cons)$Dist <- factor(sample_data(fpenta_ord_physeq_cons)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
@@ -49,6 +57,7 @@ sample_data(fpenta_ord_physeq_cons)$Dist <- factor(sample_data(fpenta_ord_physeq
 sample_data(fpenta_ord_physeq_lib)$Dist <- factor(sample_data(fpenta_ord_physeq_lib)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
 sample_data(fpenta_ord_physeq)$leewind <- sample_data(fpenta_ord_physeq)$site
+sample_data(fpenta_ord_physeq)$leewind <- gsub("38","leeward",sample_data(fpenta_ord_physeq)$leewind)
 sample_data(fpenta_ord_physeq)$leewind <- gsub("35","leeward",sample_data(fpenta_ord_physeq)$leewind)
 sample_data(fpenta_ord_physeq)$leewind <- gsub("34","leeward",sample_data(fpenta_ord_physeq)$leewind)
 sample_data(fpenta_ord_physeq)$leewind <- gsub("32","leeward",sample_data(fpenta_ord_physeq)$leewind)
@@ -62,6 +71,7 @@ sample_data(fpenta_ord_physeq)$leewind <- gsub("5","leeward",sample_data(fpenta_
 sample_data(fpenta_ord_physeq)$leewind <- gsub("3","windward",sample_data(fpenta_ord_physeq)$leewind)
 
 sample_data(fpenta_ord_physeq_cons)$leewind <- sample_data(fpenta_ord_physeq_cons)$site
+sample_data(fpenta_ord_physeq_cons)$leewind <- gsub("38","leeward",sample_data(fpenta_ord_physeq_cons)$leewind)
 sample_data(fpenta_ord_physeq_cons)$leewind <- gsub("35","leeward",sample_data(fpenta_ord_physeq_cons)$leewind)
 sample_data(fpenta_ord_physeq_cons)$leewind <- gsub("34","leeward",sample_data(fpenta_ord_physeq_cons)$leewind)
 sample_data(fpenta_ord_physeq_cons)$leewind <- gsub("32","leeward",sample_data(fpenta_ord_physeq_cons)$leewind)
@@ -75,6 +85,7 @@ sample_data(fpenta_ord_physeq_cons)$leewind <- gsub("5","leeward",sample_data(fp
 sample_data(fpenta_ord_physeq_cons)$leewind <- gsub("3","windward",sample_data(fpenta_ord_physeq_cons)$leewind)
 
 sample_data(fpenta_ord_physeq_lib)$leewind <- sample_data(fpenta_ord_physeq_lib)$site
+sample_data(fpenta_ord_physeq_lib)$leewind <- gsub("38","leeward",sample_data(fpenta_ord_physeq_lib)$leewind)
 sample_data(fpenta_ord_physeq_lib)$leewind <- gsub("35","leeward",sample_data(fpenta_ord_physeq_lib)$leewind)
 sample_data(fpenta_ord_physeq_lib)$leewind <- gsub("34","leeward",sample_data(fpenta_ord_physeq_lib)$leewind)
 sample_data(fpenta_ord_physeq_lib)$leewind <- gsub("32","leeward",sample_data(fpenta_ord_physeq_lib)$leewind)
