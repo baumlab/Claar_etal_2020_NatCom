@@ -1,5 +1,4 @@
 rm(list=ls())
-
 samplelist <- read.csv("analyses/2020_analyses/ASV_ordination/samplelist_Fig1.csv")
 
 load("data/KI_Platy_f_coral_grouped_ASVs.RData")
@@ -29,7 +28,6 @@ platy_ord_physeq <- merge_phyloseq(platy_ord_physeq0,sample_data(ord_samples2))
 
 colnames(sample_data(platy_ord_physeq))[colnames(sample_data(platy_ord_physeq))=="samplelist_platy.ProposedSurvival_Status"] <- "updated_status"
 
-
 platy_ord_physeq00 <- subset_samples(phyASV.f.c,
                                       sample_data(phyASV.f.c)$SampleID %in% rownames(ord_samples3))
 
@@ -44,6 +42,14 @@ platy_ord_physeq_lib <- merge_phyloseq(platy_ord_physeq000,sample_data(ord_sampl
 
 colnames(sample_data(platy_ord_physeq_lib))[colnames(sample_data(platy_ord_physeq_lib))=="samplelist_platy.Survival_Status_liberal"] <- "updated_status_liberal"
 
+platy_ord_physeq <- subset_samples(platy_ord_physeq,
+                                    sample_data(platy_ord_physeq)$updated_status!="unknown")
+platy_ord_physeq_lib <- subset_samples(platy_ord_physeq_lib,
+                                        sample_data(platy_ord_physeq_lib)$updated_status!="unknown")
+platy_ord_physeq_cons <- subset_samples(platy_ord_physeq_cons,
+                                         sample_data(platy_ord_physeq_cons)$updated_status!="unknown")
+
+
 sample_data(platy_ord_physeq)$Dist <- factor(sample_data(platy_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
 sample_data(platy_ord_physeq_cons)$Dist <- factor(sample_data(platy_ord_physeq_cons)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
@@ -51,6 +57,7 @@ sample_data(platy_ord_physeq_cons)$Dist <- factor(sample_data(platy_ord_physeq_c
 sample_data(platy_ord_physeq_lib)$Dist <- factor(sample_data(platy_ord_physeq_lib)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
 sample_data(platy_ord_physeq)$leewind <- sample_data(platy_ord_physeq)$site
+sample_data(platy_ord_physeq)$leewind <- gsub("38","leeward",sample_data(platy_ord_physeq)$leewind)
 sample_data(platy_ord_physeq)$leewind <- gsub("35","leeward",sample_data(platy_ord_physeq)$leewind)
 sample_data(platy_ord_physeq)$leewind <- gsub("34","leeward",sample_data(platy_ord_physeq)$leewind)
 sample_data(platy_ord_physeq)$leewind <- gsub("32","leeward",sample_data(platy_ord_physeq)$leewind)
@@ -64,6 +71,7 @@ sample_data(platy_ord_physeq)$leewind <- gsub("5","leeward",sample_data(platy_or
 sample_data(platy_ord_physeq)$leewind <- gsub("3","windward",sample_data(platy_ord_physeq)$leewind)
 
 sample_data(platy_ord_physeq_cons)$leewind <- sample_data(platy_ord_physeq_cons)$site
+sample_data(platy_ord_physeq_cons)$leewind <- gsub("38","leeward",sample_data(platy_ord_physeq_cons)$leewind)
 sample_data(platy_ord_physeq_cons)$leewind <- gsub("35","leeward",sample_data(platy_ord_physeq_cons)$leewind)
 sample_data(platy_ord_physeq_cons)$leewind <- gsub("34","leeward",sample_data(platy_ord_physeq_cons)$leewind)
 sample_data(platy_ord_physeq_cons)$leewind <- gsub("32","leeward",sample_data(platy_ord_physeq_cons)$leewind)
@@ -77,6 +85,7 @@ sample_data(platy_ord_physeq_cons)$leewind <- gsub("5","leeward",sample_data(pla
 sample_data(platy_ord_physeq_cons)$leewind <- gsub("3","windward",sample_data(platy_ord_physeq_cons)$leewind)
 
 sample_data(platy_ord_physeq_lib)$leewind <- sample_data(platy_ord_physeq_lib)$site
+sample_data(platy_ord_physeq_lib)$leewind <- gsub("38","leeward",sample_data(platy_ord_physeq_lib)$leewind)
 sample_data(platy_ord_physeq_lib)$leewind <- gsub("35","leeward",sample_data(platy_ord_physeq_lib)$leewind)
 sample_data(platy_ord_physeq_lib)$leewind <- gsub("34","leeward",sample_data(platy_ord_physeq_lib)$leewind)
 sample_data(platy_ord_physeq_lib)$leewind <- gsub("32","leeward",sample_data(platy_ord_physeq_lib)$leewind)
