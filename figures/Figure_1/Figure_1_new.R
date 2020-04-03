@@ -85,6 +85,8 @@ HighDist <- ggplot(df4,aes(x,y)) +
   annotate("text", x = 72, y = 65, label = "A",fontface="bold", color="black")
 
 ###################################
+
+library(vegan)
 samplelist <- read.csv("analyses/2020_analyses/ASV_ordination/samplelist_Fig1.csv")
 
 load("data/KI_Platy_f_coral_grouped_ASVs.RData")
@@ -134,6 +136,14 @@ fpenta_ord_CAP <- ordinate(fpenta_ord_physeq,method="CAP",
                            distance="wunifrac",formula= ~ Dist + leewind)
 
 anova(fpenta_ord_CAP)
+anova.cca(fpenta_ord_CAP,by="terms")
+
+fpenta.finalmodel <- ordistep(fpenta_ord_CAP, formula= ~ Dist + leewind,
+                              direction = c("both"), 
+                              Pin = 0.05, Pout = 0.1, pstep = 100, 
+                              perm.max = 1000, steps = 50, trace = TRUE)
+anova(fpenta.finalmodel)
+anova.cca(fpenta.finalmodel,by="terms")
 
 p1_penta <- plot_ordination(fpenta_ord_physeq, fpenta_ord_CAP,
                       color="Dist",type="samples",title="")
@@ -202,6 +212,15 @@ platy_ord_CAP <- ordinate(platy_ord_physeq,method="CAP",
                           distance="wunifrac",formula= ~ Dist + leewind)
 
 anova(platy_ord_CAP)
+anova.cca(platy_ord_CAP,by="terms")
+
+platy.finalmodel <- ordistep(platy_ord_CAP, formula= ~ Dist + leewind,
+                              direction = c("both"), 
+                              Pin = 0.05, Pout = 0.1, pstep = 100, 
+                              perm.max = 1000, steps = 50, trace = TRUE)
+anova(platy.finalmodel)
+anova.cca(platy.finalmodel,by="terms")
+
 
 p1_platy <- plot_ordination(platy_ord_physeq, platy_ord_CAP,
                       color="Dist",type="samples",title="")
