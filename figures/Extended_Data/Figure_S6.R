@@ -104,3 +104,5 @@ dev.off()
 #   xlab("log(Symbiont:Host Ratio)") +
 #   xlim(0,0.08)
 # p5
+
+metadata.SH.noFQ %>% group_by(field_season) %>% summarize(n=n())
