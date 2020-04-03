@@ -118,3 +118,5 @@ tiff(file="figures/Extended_Data/Figure_S7.tiff",width=16, height=8,units="in", 
 # grid.arrange(p5,p5.2,p5.3,p5.4,nrow=2,ncol=2)
 grid.arrange(p5,p5.2,p4,p5.3,p5.4,nrow=2,ncol=3, widths=c(1,1,2) , layout_matrix = rbind(c(1,2,3),c(4,5,3)))
 dev.off()
+
+metadata.SH.noFQ.AD %>% group_by(field_season) %>% summarize(n=n())
