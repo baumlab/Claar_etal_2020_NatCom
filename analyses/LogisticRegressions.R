@@ -554,6 +554,7 @@ switch$Bleaching_2015b_bin<-ifelse(switch$Bleaching_2015b>1,1,0)
 switch$Bleached_first_encounter<-as.numeric(switch$Bleached_first_encounter)
 switch$Bleached_first_encounter_bin<-ifelse(switch$Bleached_first_encounter>1,1,0)
 
+switch$Coral_Species<-switch$Coral_Species %>% factor(, levels=c("Platygyra", "Favites"))
 ##Bleaching versus Disturbance
 ggplot(data=switch, aes(y=Bleached_first_encounter_bin, x=Disturbance_sqrt) ) +
   facet_wrap(~Coral_Species, scales='free')+
