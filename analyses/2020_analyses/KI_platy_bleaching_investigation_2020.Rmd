@@ -85,6 +85,7 @@ library(reshape2)
 library(stringr)
 library(lme4)
 library(gridExtra)
+library(grid)
 
 
 #<-- read in data -->
@@ -751,6 +752,8 @@ bleachcols3 <- c("indianred2", "deepskyblue2")
 
 bleachcols.pub <- c("white", "black")
 
+bleachcols.pub2 <- c("white", "gray75", "gray50", "black")
+
 pm2 <- c("blue", "seagreen4", "seagreen3", "seagreen2", "darkseagreen1", "deepskyblue3")
 
 
@@ -1239,6 +1242,128 @@ ggplot(nov.tbl.no4, aes(x = site, y = freq, fill = species.comb)) + geom_bar(sta
 
 
 ```
+### plots for ms  
+
+bleaching proportion by proportion of colonies at each disturbance level by species but just for platy and fpenta  
+
+```{r data prep for ms figures, include=FALSE}
+
+head(nov.tbl.no4)
+
+#ok first lets add disturb level to the df
+nov.pub <- nov.tbl.no4
+nov.pub$disturb <- sitedata$pressure.group[match(nov.pub$site, sitedata$site)]
+str(nov.pub)
+nov.pub$disturb <- as.character(levels(nov.pub$disturb))[nov.pub$disturb]
+
+#add in vl for the bow site
+nov.pub$disturb <- ifelse(nov.pub$site == "bow", "Very low", nov.pub$disturb)
+head(nov.pub)
+
+#ok now seperate out platy and fpenta into their own df and summed to the disturbance level by bleaching proportion
+nov.pub.platy <- nov.pub[nov.pub$species.comb == "Platygyra sp.", ]
+nov.pub.platy <- aggregate(freq ~ disturb + bleach.prop.no4, nov.pub.platy, sum)
+head(nov.pub.platy)
+dim(nov.pub.platy)
+nov.pub.fpent <- nov.pub[nov.pub$species.comb == "F. pentagona", ]
+nov.pub.fpent <- aggregate(freq ~ disturb + bleach.prop.no4, nov.pub.fpent, sum)
+head(nov.pub.fpent)
+dim(nov.pub.fpent)
+
+#so now we need to get proportion calculation
+
+#first get a total of each species in each disturbance level
+platy.tot <- aggregate(freq~disturb, nov.pub.platy, sum)
+fpent.tot <- aggregate(freq~disturb, nov.pub.fpent, sum)
+
+#ok add that total to the other df
+nov.pub.platy$disturb.tot <- platy.tot$freq[match(nov.pub.platy$disturb, platy.tot$disturb)]
+nov.pub.platy
+
+nov.pub.fpent$disturb.tot <- fpent.tot$freq[match(nov.pub.fpent$disturb, fpent.tot$disturb)]
+nov.pub.fpent
+
+#now calculate proportion
+nov.pub.platy$prop <- nov.pub.platy$freq/nov.pub.platy$disturb.tot
+nov.pub.platy
+
+nov.pub.fpent$prop <- nov.pub.fpent$freq/nov.pub.fpent$disturb.tot
+nov.pub.fpent
+
+#change structure and orders
+str(nov.pub.platy)
+nov.pub.platy$bleach.prop.no4 <- as.factor(nov.pub.platy$bleach.prop.no4)
+nov.pub.platy$disturb <- as.factor(nov.pub.platy$disturb)
+nov.pub.platy$disturb<-factor(nov.pub.platy$disturb, levels = c("Very high", "Medium", "Very low"))
+
+str(nov.pub.fpent)
+nov.pub.fpent$bleach.prop.no4 <- as.factor(nov.pub.fpent$bleach.prop.no4)
+nov.pub.fpent$disturb <- as.factor(nov.pub.fpent$disturb)
+nov.pub.fpent$disturb<-factor(nov.pub.fpent$disturb, levels = c("Very high", "Medium", "Very low"))
+
+
+```
+
+
+```{r platy figure for ms, echo=FALSE}
+
+platy.nov <- ggplot(nov.pub.platy, aes(x = disturb, y = prop, fill = bleach.prop.no4)) +
+  geom_bar(stat='identity', position='stack', color = "black") +
+  labs(x = "", y = "", fill = "Bleaching Proportion")+
+    scale_fill_manual(values = bleachcols.pub2) +
+  theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
+        panel.background = element_blank(), 
+        strip.background = element_blank(), strip.text = element_text(size = 13),
+        axis.line = element_line(color = "black"), legend.position="bottom", 
+        axis.text = element_text(color="black", size = 12), 
+        legend.text = element_text(size = 12), legend.title = element_text(size = 13),
+        axis.title = element_text(color = "black", size = 13),
+        panel.border = element_blank()) +
+  scale_y_continuous(expand = c(0,0)) + guides(fill=FALSE)
+
+platy.nov
+
+
+```
+
+
+```{r f penta figure for ms, echo=FALSE}
+
+fpenta.nov <- ggplot(nov.pub.fpent, aes(x = disturb, y = prop, fill = bleach.prop.no4)) +
+  geom_bar(stat='identity', position='stack', color = "black") +
+  labs(x = "", y = "", fill = "Bleaching Proportion")+
+    scale_fill_manual(values = bleachcols.pub2) +
+  theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
+        panel.background = element_blank(), 
+        strip.background = element_blank(), strip.text = element_text(size = 13),
+        axis.line = element_line(color = "black"), legend.position="bottom", 
+        axis.text = element_text(color="black", size = 12), 
+        legend.text = element_text(size = 12), legend.title = element_text(size = 13),
+        axis.title = element_text(color = "black", size = 13),
+        panel.border = element_blank()) +
+  scale_y_continuous(expand = c(0,0)) #+ guides(fill=FALSE)
+
+fpenta.nov
+
+
+```
+
+
+
+```{r combine the two figures, include=FALSE}
+
+#pdf("figures/Extended_Data/FigureS_proprotion_disturb_2015d.pdf", width = 12)
+
+grid.arrange(platy.nov, fpenta.nov, nrow=2, heights = c(0.45, 0.55))
+
+grid.text("Proportion of colonies", x = unit(0.02, "npc"), y = unit(0.6, "npc"), gp = gpar(fontsize=15), rot = 90)
+#grid.text("Platygyra ryukyuensis", x = unit(0.5, "npc"), y = unit(0.99, "npc"), gp = gpar(fontsize=15))
+#grid.text("Favites pentagona", x = unit(0.5, "npc"), y = unit(0.545, "npc"), gp = gpar(fontsize=15))
+
+#dev.off()
+
+```
+
 
 
 ## statistics
@@ -1441,20 +1566,74 @@ cn.sum.c.pub$Species <- ifelse(cn.sum.c.pub$Species == "Favites.pentagona", "Fav
 cn.sum.c.pub$Species <- as.factor(cn.sum.c.pub$Species)
 cn.sum.c.pub$Species<-factor(cn.sum.c.pub$Species, levels = c("Platygyra ryukyuensis", "Favites pentagona"))
 
-pdf("figures/Extended_Data/FigureS_proprtion_2015b-2016a.pdf", width = 12)
+#pdf("figures/Extended_Data/FigureS_proprtion_2015b-2016a.pdf", width = 12)
 
-ggplot(cn.sum.c.pub, aes(x = Field.Season, y = prop, fill = Bleached)) +
+coralnet <- ggplot(cn.sum.c.pub, aes(x = Field.Season, y = prop, fill = Bleached)) +
   geom_bar(stat='identity', position='stack', color = "black") +
-  facet_wrap(~Species, scales = "free_y") +
+  facet_wrap(Species ~ ., ncol = 1) +
   labs(x = "", y = "Proportion", fill = "Status")+
     scale_fill_manual(values = bleachcols.pub) +
-  scale_x_discrete(labels = c("KI2015b" = "April/May\n2015", "KI2015c" = "July\n2015", "KI2015d" = "November\n2015", "KI2016a" = "March/April\n2016")) +
-  theme(axis.text.x = element_text(angle = 90), plot.background=element_blank(), 
+  scale_x_discrete(labels = c("KI2015b" = "May 2015", "KI2015c" = "July 2015", "KI2015d" = "November 2015", "KI2016a" = "March 2016")) +
+  theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
         panel.background = element_blank(), strip.background = element_blank(), 
-        axis.line = element_line(color = "black") ) +
+        axis.line = element_line(color = "black"), strip.text = element_blank() ) +
   scale_y_continuous(expand = c(0,0)) 
 
-dev.off()
+coralnet
+
+#dev.off()
+
+```
+
+split into two figures
+
+```{r figure coral net for ms platy, echo=FALSE}
+
+cn.sum.c.pub.platy <- cn.sum.c.pub[cn.sum.c.pub$Species == "Platygyra ryukyuensis", ]
+
+coralnet.platy <- ggplot(cn.sum.c.pub.platy, aes(x = Field.Season, y = prop, fill = Bleached)) +
+  geom_bar(stat='identity', position='stack', color = "black") +
+  labs(x = "", y = "", fill = "Status")+
+    scale_fill_manual(values = bleachcols.pub) +
+  scale_x_discrete(labels = c("KI2015b" = "May 2015", "KI2015c" = "July 2015", "KI2015d" = "November 2015", "KI2016a" = "March 2016")) +
+  theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
+        panel.background = element_blank(), 
+        strip.background = element_blank(), strip.text = element_text(size = 13),
+        axis.line = element_line(color = "black"), legend.position="bottom", 
+        axis.text = element_text(color="black", size = 12), 
+        legend.text = element_text(size = 12), legend.title = element_text(size = 13),
+        axis.title = element_text(color = "black", size = 13),
+        panel.border = element_blank()) +
+  scale_y_continuous(expand = c(0,0)) + guides(fill = FALSE)
+
+coralnet.platy
+
+
+```
+
+
+
+```{r figure coral net for ms fpenta, echo=FALSE}
+
+cn.sum.c.pub.fpent <- cn.sum.c.pub[cn.sum.c.pub$Species == "Favites pentagona", ]
+
+coralnet.fpent <- ggplot(cn.sum.c.pub.fpent, aes(x = Field.Season, y = prop, fill = Bleached)) +
+  geom_bar(stat='identity', position='stack', color = "black") +
+  labs(x = "", y = "", fill = "Status")+
+    scale_fill_manual(values = bleachcols.pub) +
+  scale_x_discrete(labels = c("KI2015b" = "May 2015", "KI2015c" = "July 2015", "KI2015d" = "November 2015", "KI2016a" = "March 2016")) +
+  theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
+        panel.background = element_blank(), 
+        strip.background = element_blank(), strip.text = element_text(size = 13),
+        axis.line = element_line(color = "black"), legend.position="bottom", 
+        axis.text = element_text(color="black", size = 12), 
+        legend.text = element_text(size = 12), legend.title = element_text(size = 13),
+        axis.title = element_text(color = "black", size = 13),
+        panel.border = element_blank()) +
+  scale_y_continuous(expand = c(0,0))  
+
+coralnet.fpent
+
 
 ```
 
@@ -1625,14 +1804,14 @@ fpenta
 
 ```{r combine the two , include=FALSE}
 
-pdf("figures/Extended_Data/FigureS_proprotion_disturb_2015b-2016a.pdf", width = 12)
+#pdf("figures/Extended_Data/FigureS_proprotion_disturb_2015b-2016a.pdf", width = 12)
 
 grid.arrange(platy, fpenta, nrow=2, heights = c(0.45, 0.55))
 
 grid.text("Platygyra ryukyuensis", x = unit(0.5, "npc"), y = unit(0.99, "npc"), gp = gpar(fontsize=15))
 grid.text("Favites pentagona", x = unit(0.5, "npc"), y = unit(0.545, "npc"), gp = gpar(fontsize=15))
 
-dev.off()
+#dev.off()
 
 ```
 
@@ -1833,6 +2012,54 @@ ggplot(pm.site.tbl, aes(x = site, y = freq, fill = partialmortality)) + geom_bar
 
 
 
+# Figures for MS
+
+
+
+```{r combine the 4 figures, include=FALSE}
+
+pdf("figures/Extended_Data/FigureS5_coralnet_nov15.pdf", width = 12)
+
+r <- textGrob("")
+
+grid.arrange(r, r, coralnet.platy, platy.nov, coralnet.fpent,  fpenta.nov, nrow=3, heights = c(0.08,0.45, 0.55))
+
+#add y axis labels
+grid.text("Proportion of random points", x = unit(0.01, "npc"), y = unit(0.56, "npc"), gp = gpar(fontsize=15), rot = 90)
+grid.text("Proportion of colonies", x = unit(0.51, "npc"), y = unit(0.55, "npc"), gp = gpar(fontsize=15), rot = 90)
+
+#add panel lables
+grid.text("a", x = unit(0.05, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, face = "bold"))
+grid.text("b", x = unit(0.55, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, face = "bold"))
+grid.text("c", x = unit(0.05, "npc"), y = unit(0.54, "npc"), gp = gpar(fontsize=18, face = "bold"))
+grid.text("d", x = unit(0.55, "npc"), y = unit(0.54, "npc"), gp = gpar(fontsize=18, face = "bold"))
+
+#add sample sizes
+##panel a
+grid.text("96", x = unit(0.12, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+grid.text("90", x = unit(0.225, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+grid.text("44", x = unit(0.329, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+grid.text("67", x = unit(0.432, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+
+##panel b
+grid.text("19", x = unit(0.64, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+grid.text("88", x = unit(0.775, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+grid.text("1", x = unit(0.91, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+  
+##panel c
+grid.text("22", x = unit(0.12, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+grid.text("77", x = unit(0.225, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+grid.text("20", x = unit(0.329, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+grid.text("10", x = unit(0.432, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+  
+##panel d
+grid.text("4", x = unit(0.64, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+grid.text("31", x = unit(0.775, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+grid.text("1", x = unit(0.91, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+  
+dev.off()
+
+```
 
 
 
