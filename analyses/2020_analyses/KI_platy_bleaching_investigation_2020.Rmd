@@ -1256,50 +1256,100 @@ nov.pub$disturb <- sitedata$pressure.group[match(nov.pub$site, sitedata$site)]
 str(nov.pub)
 nov.pub$disturb <- as.character(levels(nov.pub$disturb))[nov.pub$disturb]
 
-#add in vl for the bow site
-nov.pub$disturb <- ifelse(nov.pub$site == "bow", "Very low", nov.pub$disturb)
+#remove the bow since there is not enough sample size there
+unique(nov.pub$site)
+nov.pub <- nov.pub[!nov.pub$site == "bow", ]
+nov.pub <- droplevels(nov.pub)
+unique(nov.pub$site)
 head(nov.pub)
 
-#ok now seperate out platy and fpenta into their own df and summed to the disturbance level by bleaching proportion
-nov.pub.platy <- nov.pub[nov.pub$species.comb == "Platygyra sp.", ]
-nov.pub.platy <- aggregate(freq ~ disturb + bleach.prop.no4, nov.pub.platy, sum)
-head(nov.pub.platy)
-dim(nov.pub.platy)
-nov.pub.fpent <- nov.pub[nov.pub$species.comb == "F. pentagona", ]
-nov.pub.fpent <- aggregate(freq ~ disturb + bleach.prop.no4, nov.pub.fpent, sum)
-head(nov.pub.fpent)
-dim(nov.pub.fpent)
+#ok so it was originially going to be by the proportion but on 7 apr it changed to binary so just going to change that here
 
-#so now we need to get proportion calculation
+#subset for just platy and fpenta
+nov.pub <- nov.pub[(nov.pub$species.comb == "Platygyra sp."| nov.pub$species.comb == "F. pentagona"), ]
+nov.pub <- droplevels(nov.pub)
+head(nov.pub)
 
-#first get a total of each species in each disturbance level
-platy.tot <- aggregate(freq~disturb, nov.pub.platy, sum)
-fpent.tot <- aggregate(freq~disturb, nov.pub.fpent, sum)
+##add the binary column
+str(nov.pub)
+nov.pub$bleach.bin <- "Healthy"
+nov.pub$bleach.bin <- ifelse((nov.pub$bleach.prop.no4 == "2" | nov.pub$bleach.prop.no4 == "3"), "Bleached", nov.pub$bleach.bin)
+head(nov.pub)
 
-#ok add that total to the other df
-nov.pub.platy$disturb.tot <- platy.tot$freq[match(nov.pub.platy$disturb, platy.tot$disturb)]
-nov.pub.platy
+#sum up number of each species at the two disturbance levels
+nov.pub.sum.disturb <- aggregate(freq ~ species.comb + disturb + bleach.bin, nov.pub, sum)
+nov.pub.sum.disturb
 
-nov.pub.fpent$disturb.tot <- fpent.tot$freq[match(nov.pub.fpent$disturb, fpent.tot$disturb)]
-nov.pub.fpent
+#now the total for each species
+nov.pub.sum <- aggregate(freq ~ species.comb + disturb, nov.pub, sum)
+nov.pub.sum
 
-#now calculate proportion
-nov.pub.platy$prop <- nov.pub.platy$freq/nov.pub.platy$disturb.tot
-nov.pub.platy
+#add that total to the other df
+nov.pub.sum.disturb$species.disturb <- paste(nov.pub.sum.disturb$species.comb, nov.pub.sum.disturb$disturb, sep = ".")
+nov.pub.sum$species.disturb <- paste(nov.pub.sum$species.comb, nov.pub.sum$disturb, sep = ".")
+nov.pub.sum.disturb$disturb.tot <- nov.pub.sum$freq[match(nov.pub.sum.disturb$species.disturb, nov.pub.sum$species.disturb)]
+nov.pub.sum.disturb
 
-nov.pub.fpent$prop <- nov.pub.fpent$freq/nov.pub.fpent$disturb.tot
-nov.pub.fpent
+#now calculate proportions
+nov.pub.sum.disturb$prop <- nov.pub.sum.disturb$freq/nov.pub.sum.disturb$disturb.tot
+nov.pub.sum.disturb
 
 #change structure and orders
-str(nov.pub.platy)
-nov.pub.platy$bleach.prop.no4 <- as.factor(nov.pub.platy$bleach.prop.no4)
-nov.pub.platy$disturb <- as.factor(nov.pub.platy$disturb)
-nov.pub.platy$disturb<-factor(nov.pub.platy$disturb, levels = c("Very high", "Medium", "Very low"))
+str(nov.pub.sum.disturb)
+nov.pub.sum.disturb$bleach.bin <- as.factor(nov.pub.sum.disturb$bleach.bin)
+levels(nov.pub.sum.disturb$bleach.bin)
+nov.pub.sum.disturb$disturb <- as.factor(nov.pub.sum.disturb$disturb)
+levels(nov.pub.sum.disturb$disturb)
+nov.pub.sum.disturb$disturb<-factor(nov.pub.sum.disturb$disturb, levels = c("Very high", "Medium"))
+nov.pub.sum.disturb
 
-str(nov.pub.fpent)
-nov.pub.fpent$bleach.prop.no4 <- as.factor(nov.pub.fpent$bleach.prop.no4)
-nov.pub.fpent$disturb <- as.factor(nov.pub.fpent$disturb)
-nov.pub.fpent$disturb<-factor(nov.pub.fpent$disturb, levels = c("Very high", "Medium", "Very low"))
+#now split into two df for each species
+nov.pub.sum.disturb.platy <- nov.pub.sum.disturb[nov.pub.sum.disturb$species.comb == "Platygyra sp.", ]
+nov.pub.sum.disturb.fpenta <- nov.pub.sum.disturb[nov.pub.sum.disturb$species.comb == "F. pentagona", ]
+
+
+#old code for when it was by bleaching proportion and not binary
+
+# #ok now seperate out platy and fpenta into their own df and summed to the disturbance level by bleaching proportion
+# nov.pub.platy <- nov.pub[nov.pub$species.comb == "Platygyra sp.", ]
+# nov.pub.platy <- aggregate(freq ~ disturb + bleach.prop.no4, nov.pub.platy, sum)
+# head(nov.pub.platy)
+# dim(nov.pub.platy)
+# nov.pub.fpent <- nov.pub[nov.pub$species.comb == "F. pentagona", ]
+# nov.pub.fpent <- aggregate(freq ~ disturb + bleach.prop.no4, nov.pub.fpent, sum)
+# head(nov.pub.fpent)
+# dim(nov.pub.fpent)
+# 
+# #so now we need to get proportion calculation
+# 
+# #first get a total of each species in each disturbance level
+# platy.tot <- aggregate(freq~disturb, nov.pub.platy, sum)
+# fpent.tot <- aggregate(freq~disturb, nov.pub.fpent, sum)
+# 
+# #ok add that total to the other df
+# nov.pub.platy$disturb.tot <- platy.tot$freq[match(nov.pub.platy$disturb, platy.tot$disturb)]
+# nov.pub.platy
+# 
+# nov.pub.fpent$disturb.tot <- fpent.tot$freq[match(nov.pub.fpent$disturb, fpent.tot$disturb)]
+# nov.pub.fpent
+# 
+# #now calculate proportion
+# nov.pub.platy$prop <- nov.pub.platy$freq/nov.pub.platy$disturb.tot
+# nov.pub.platy
+# 
+# nov.pub.fpent$prop <- nov.pub.fpent$freq/nov.pub.fpent$disturb.tot
+# nov.pub.fpent
+# 
+# #change structure and orders
+# str(nov.pub.platy)
+# nov.pub.platy$bleach.prop.no4 <- as.factor(nov.pub.platy$bleach.prop.no4)
+# nov.pub.platy$disturb <- as.factor(nov.pub.platy$disturb)
+# nov.pub.platy$disturb<-factor(nov.pub.platy$disturb, levels = c("Very high", "Medium", "Very low"))
+# 
+# str(nov.pub.fpent)
+# nov.pub.fpent$bleach.prop.no4 <- as.factor(nov.pub.fpent$bleach.prop.no4)
+# nov.pub.fpent$disturb <- as.factor(nov.pub.fpent$disturb)
+# nov.pub.fpent$disturb<-factor(nov.pub.fpent$disturb, levels = c("Very high", "Medium", "Very low"))
 
 
 ```
@@ -1307,10 +1357,10 @@ nov.pub.fpent$disturb<-factor(nov.pub.fpent$disturb, levels = c("Very high", "Me
 
 ```{r platy figure for ms, echo=FALSE}
 
-platy.nov <- ggplot(nov.pub.platy, aes(x = disturb, y = prop, fill = bleach.prop.no4)) +
+platy.nov <- ggplot(nov.pub.sum.disturb.platy, aes(x = disturb, y = prop, fill = bleach.bin)) +
   geom_bar(stat='identity', position='stack', color = "black") +
-  labs(x = "", y = "", fill = "Bleaching Proportion")+
-    scale_fill_manual(values = bleachcols.pub2) +
+  labs(x = "", y = "", fill = "Status")+
+    scale_fill_manual(values = bleachcols.pub) +
   theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
         panel.background = element_blank(), 
         strip.background = element_blank(), strip.text = element_text(size = 13),
@@ -1329,10 +1379,10 @@ platy.nov
 
 ```{r f penta figure for ms, echo=FALSE}
 
-fpenta.nov <- ggplot(nov.pub.fpent, aes(x = disturb, y = prop, fill = bleach.prop.no4)) +
+fpenta.nov <- ggplot(nov.pub.sum.disturb.fpenta, aes(x = disturb, y = prop, fill = bleach.bin)) +
   geom_bar(stat='identity', position='stack', color = "black") +
-  labs(x = "", y = "", fill = "Bleaching Proportion")+
-    scale_fill_manual(values = bleachcols.pub2) +
+  labs(x = "", y = "", fill = "Status")+
+    scale_fill_manual(values = bleachcols.pub) +
   theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
         panel.background = element_blank(), 
         strip.background = element_blank(), strip.text = element_text(size = 13),
@@ -1341,7 +1391,7 @@ fpenta.nov <- ggplot(nov.pub.fpent, aes(x = disturb, y = prop, fill = bleach.pro
         legend.text = element_text(size = 12), legend.title = element_text(size = 13),
         axis.title = element_text(color = "black", size = 13),
         panel.border = element_blank()) +
-  scale_y_continuous(expand = c(0,0)) #+ guides(fill=FALSE)
+  scale_y_continuous(expand = c(0,0)) + guides(fill=FALSE)
 
 fpenta.nov
 
@@ -1543,6 +1593,46 @@ head(cn.sum.c)
 cn.sum.c$prop <- cn.sum.c$Cover/cn.sum.c$total.season.spec
 head(cn.sum.c)
 
+
+
+##make a df of just the medium sites for the publication figure
+head(cn.c)
+unique(cn.c$site)
+cn.c.pub <- cn.c[(cn.c$site == "8" | cn.c$site == "35"), ]
+cn.c.pub <- droplevels(cn.c.pub)
+unique(cn.c.pub$site)
+
+#subset for  just platy and fpenta
+unique(cn.c.pub$Species)
+cn.c.pub <- cn.c.pub[(cn.c.pub$Species == "Platygyra.spp" | cn.c.pub$Species == "Favites.pentagona"), ]
+cn.c.pub <- droplevels(cn.c.pub)
+unique(cn.c.pub$Species)
+head(cn.c.pub)
+
+cn.sum.c.pub <-aggregate(Cover ~  Species + Field.Season + Bleached, cn.c.pub, sum)
+head(cn.sum.c.pub)
+
+#calculate the number of points at each site for each species (healthy and bleached) so we can get proportion of bleached vr healthy
+cn.sum.c.species.pub <- aggregate(Cover ~ Species + Field.Season, cn.c.pub, sum)
+head(cn.sum.c.species.pub)
+
+#now add to the other dataframe 
+cn.sum.c.pub$season.spec <- paste(cn.sum.c.pub$Field.Season, cn.sum.c.pub$Species, sep = ".")
+cn.sum.c.species.pub$season.spec <- paste(cn.sum.c.species.pub$Field.Season, cn.sum.c.species.pub$Species, sep = ".")
+cn.sum.c.pub$total.season.spec <- cn.sum.c.species.pub$Cover[match(cn.sum.c.pub$season.spec, cn.sum.c.species.pub$season.spec)]
+head(cn.sum.c.pub)
+
+#now calculate proportion
+cn.sum.c.pub$prop <- cn.sum.c.pub$Cover/cn.sum.c.pub$total.season.spec
+head(cn.sum.c.pub)
+
+#changing bleaching to bleached
+str(cn.sum.c.pub)
+cn.sum.c.pub$Bleached <- as.character(levels(cn.sum.c.pub$Bleached))[cn.sum.c.pub$Bleached]
+cn.sum.c.pub$Bleached <- ifelse(cn.sum.c.pub$Bleached == "Bleaching", "Bleached", cn.sum.c.pub$Bleached)
+cn.sum.c.pub$Bleached <- as.factor(cn.sum.c.pub$Bleached)
+levels(cn.sum.c.pub$Bleached)
+
 ```
 
 ### over time all sites combined   
@@ -1558,13 +1648,13 @@ ggplot(cn.sum.c, aes(x = Field.Season, y = prop, fill = Bleached)) + geom_bar(st
 
 ```{r overall figure coralnet 4 sites publication, eval=FALSE, include=FALSE}
 
-cn.sum.c.pub <- cn.sum.c[(cn.sum.c$Species == "Platygyra.spp" | cn.sum.c$Species == "Favites.pentagona"), ]
-cn.sum.c.pub <- droplevels(cn.sum.c.pub)
-cn.sum.c.pub$Species <- as.character(levels(cn.sum.c.pub$Species))[cn.sum.c.pub$Species]
-cn.sum.c.pub$Species <- ifelse(cn.sum.c.pub$Species == "Platygyra.spp", "Platygyra ryukyuensis", cn.sum.c.pub$Species)
-cn.sum.c.pub$Species <- ifelse(cn.sum.c.pub$Species == "Favites.pentagona", "Favites pentagona", cn.sum.c.pub$Species)
-cn.sum.c.pub$Species <- as.factor(cn.sum.c.pub$Species)
-cn.sum.c.pub$Species<-factor(cn.sum.c.pub$Species, levels = c("Platygyra ryukyuensis", "Favites pentagona"))
+# cn.sum.c.pub <- cn.sum.c[(cn.sum.c$Species == "Platygyra.spp" | cn.sum.c$Species == "Favites.pentagona"), ]
+# cn.sum.c.pub <- droplevels(cn.sum.c.pub)
+# cn.sum.c.pub$Species <- as.character(levels(cn.sum.c.pub$Species))[cn.sum.c.pub$Species]
+# cn.sum.c.pub$Species <- ifelse(cn.sum.c.pub$Species == "Platygyra.spp", "Platygyra ryukyuensis", cn.sum.c.pub$Species)
+# cn.sum.c.pub$Species <- ifelse(cn.sum.c.pub$Species == "Favites.pentagona", "Favites pentagona", cn.sum.c.pub$Species)
+# cn.sum.c.pub$Species <- as.factor(cn.sum.c.pub$Species)
+# cn.sum.c.pub$Species<-factor(cn.sum.c.pub$Species, levels = c("Platygyra ryukyuensis", "Favites pentagona"))
 
 #pdf("figures/Extended_Data/FigureS_proprtion_2015b-2016a.pdf", width = 12)
 
@@ -1589,7 +1679,7 @@ split into two figures
 
 ```{r figure coral net for ms platy, echo=FALSE}
 
-cn.sum.c.pub.platy <- cn.sum.c.pub[cn.sum.c.pub$Species == "Platygyra ryukyuensis", ]
+cn.sum.c.pub.platy <- cn.sum.c.pub[cn.sum.c.pub$Species == "Platygyra.spp", ]
 
 coralnet.platy <- ggplot(cn.sum.c.pub.platy, aes(x = Field.Season, y = prop, fill = Bleached)) +
   geom_bar(stat='identity', position='stack', color = "black") +
@@ -1615,7 +1705,7 @@ coralnet.platy
 
 ```{r figure coral net for ms fpenta, echo=FALSE}
 
-cn.sum.c.pub.fpent <- cn.sum.c.pub[cn.sum.c.pub$Species == "Favites pentagona", ]
+cn.sum.c.pub.fpent <- cn.sum.c.pub[cn.sum.c.pub$Species == "Favites.pentagona", ]
 
 coralnet.fpent <- ggplot(cn.sum.c.pub.fpent, aes(x = Field.Season, y = prop, fill = Bleached)) +
   geom_bar(stat='identity', position='stack', color = "black") +
@@ -2022,40 +2112,52 @@ pdf("figures/Extended_Data/FigureS5_coralnet_nov15.pdf", width = 12)
 
 r <- textGrob("")
 
-grid.arrange(r, r, coralnet.platy, platy.nov, coralnet.fpent,  fpenta.nov, nrow=3, heights = c(0.08,0.45, 0.55))
+g_legend <-function(a.gplot){
+    tmp <- ggplot_gtable(ggplot_build(a.gplot))
+    leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+    legend <- tmp$grobs[[leg]]
+    return(legend)
+}
+
+legend <- g_legend(coralnet.fpent)
+
+grid.arrange(arrangeGrob(r, coralnet.platy, platy.nov, coralnet.fpent + theme(legend.position = "none"),  fpenta.nov, legend, 
+                         layout_matrix = rbind(c(1,1,1,1),
+                                               c(2,2,3,3),
+                                               c(4,4,5,5),
+                                               c(NA,6,6,NA)), 
+                         heights = rbind((unit(0.5, "in")),(unit(3, "in")), (unit(3, "in")), (unit(0.3, "in")))))
 
 #add y axis labels
-grid.text("Proportion of random points", x = unit(0.01, "npc"), y = unit(0.56, "npc"), gp = gpar(fontsize=15), rot = 90)
+grid.text("Proportion of benthic community", x = unit(0.01, "npc"), y = unit(0.56, "npc"), gp = gpar(fontsize=15), rot = 90)
 grid.text("Proportion of colonies", x = unit(0.51, "npc"), y = unit(0.55, "npc"), gp = gpar(fontsize=15), rot = 90)
 
 #add panel lables
 grid.text("a", x = unit(0.05, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, face = "bold"))
 grid.text("b", x = unit(0.55, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, face = "bold"))
-grid.text("c", x = unit(0.05, "npc"), y = unit(0.54, "npc"), gp = gpar(fontsize=18, face = "bold"))
-grid.text("d", x = unit(0.55, "npc"), y = unit(0.54, "npc"), gp = gpar(fontsize=18, face = "bold"))
+grid.text("c", x = unit(0.05, "npc"), y = unit(0.51, "npc"), gp = gpar(fontsize=18, face = "bold"))
+grid.text("d", x = unit(0.55, "npc"), y = unit(0.51, "npc"), gp = gpar(fontsize=18, face = "bold"))
 
 #add sample sizes
 ##panel a
-grid.text("96", x = unit(0.12, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
-grid.text("90", x = unit(0.225, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
-grid.text("44", x = unit(0.329, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
-grid.text("67", x = unit(0.432, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+grid.text("86", x = unit(0.12, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
+grid.text("89", x = unit(0.225, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
+grid.text("42", x = unit(0.329, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
+grid.text("65", x = unit(0.432, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
 
 ##panel b
-grid.text("19", x = unit(0.64, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
-grid.text("88", x = unit(0.775, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
-grid.text("1", x = unit(0.91, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+grid.text("19", x = unit(0.68, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
+grid.text("88", x = unit(0.877, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
   
 ##panel c
-grid.text("22", x = unit(0.12, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
-grid.text("77", x = unit(0.225, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
-grid.text("20", x = unit(0.329, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
-grid.text("10", x = unit(0.432, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+grid.text("19", x = unit(0.12, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
+grid.text("77", x = unit(0.225, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
+grid.text("16", x = unit(0.329, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
+grid.text("10", x = unit(0.432, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
   
 ##panel d
-grid.text("4", x = unit(0.64, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
-grid.text("31", x = unit(0.775, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
-grid.text("1", x = unit(0.91, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+grid.text("4", x = unit(0.68, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
+grid.text("31", x = unit(0.877, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
   
 dev.off()
 
