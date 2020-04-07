@@ -36,12 +36,10 @@ NOAA_DHW <- ggplot()+
   geom_line(aes(x=date,y=dhw),color="#CC503E",data=dhw_BOW)+
   scale_x_datetime(name=NULL, expand=c(0,0), limits=c(xlim3,xlim4),
                    date_labels = "%b-%Y",date_breaks = "3 months")+
-  scale_y_continuous(name="DHW (ºC-week)",limits=c(0,29),expand=c(0,0), 
-                     breaks = c(0,4,8,12,16,20,24,28))+  
-  annotate("text",x=as.POSIXct("2015/5/1 00:00:00",format="%Y/%m/%d %H:%M:%S",
-                               tz="Pacific/Kiritimati"),y=26, label="Satellite")
+  scale_y_continuous(name="DHW (ºC-week)",limits=c(0,25.6),expand=c(0,0), 
+                     breaks = c(0,4,8,12,16,20,24))
 
 pdf(file = "figures/Extended_Data/KI_DHWs.pdf", 
-    width = 5, height = 4.5, useDingbats = FALSE)
+    width = 5.5, height = 4.5, useDingbats = FALSE)
 NOAA_DHW
 dev.off()
