@@ -2024,13 +2024,39 @@ r <- textGrob("")
 
 grid.arrange(r, r, coralnet.platy, platy.nov, coralnet.fpent,  fpenta.nov, nrow=3, heights = c(0.08,0.45, 0.55))
 
+#add y axis labels
 grid.text("Proportion of random points", x = unit(0.01, "npc"), y = unit(0.56, "npc"), gp = gpar(fontsize=15), rot = 90)
 grid.text("Proportion of colonies", x = unit(0.51, "npc"), y = unit(0.55, "npc"), gp = gpar(fontsize=15), rot = 90)
+
+#add panel lables
 grid.text("a", x = unit(0.05, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, face = "bold"))
 grid.text("b", x = unit(0.55, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, face = "bold"))
 grid.text("c", x = unit(0.05, "npc"), y = unit(0.54, "npc"), gp = gpar(fontsize=18, face = "bold"))
 grid.text("d", x = unit(0.55, "npc"), y = unit(0.54, "npc"), gp = gpar(fontsize=18, face = "bold"))
 
+#add sample sizes
+##panel a
+grid.text("96", x = unit(0.12, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+grid.text("90", x = unit(0.225, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+grid.text("44", x = unit(0.329, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+grid.text("67", x = unit(0.432, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+
+##panel b
+grid.text("19", x = unit(0.64, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+grid.text("88", x = unit(0.775, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+grid.text("1", x = unit(0.91, "npc"), y = unit(0.93, "npc"), gp = gpar(fontsize=12))
+  
+##panel c
+grid.text("22", x = unit(0.12, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+grid.text("77", x = unit(0.225, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+grid.text("20", x = unit(0.329, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+grid.text("10", x = unit(0.432, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+  
+##panel d
+grid.text("4", x = unit(0.64, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+grid.text("31", x = unit(0.775, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+grid.text("1", x = unit(0.91, "npc"), y = unit(0.513, "npc"), gp = gpar(fontsize=12))
+  
 dev.off()
 
 ```
