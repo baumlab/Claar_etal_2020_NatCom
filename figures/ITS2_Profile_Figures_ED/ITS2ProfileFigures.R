@@ -74,7 +74,9 @@ Platygyra.count<-DIV.Platygyra %>%
   summarise(count=count(Dummy))
 Platygyra.count
 
-###Platy
+DIV.Platygyra
+
+###Favites
 DIV.Favites<-DIV.matrix[meta$host_genus=="Favites",]
 Favites.avg<-DIV.Favites[,2:161] %>%
   drop_na() %>%
@@ -106,4 +108,41 @@ Favites.count
 
 
 
+
+
+DIV.Favites<-DIV.matrix[DIV.matrix$host_genus=="Favites"|DIV.matrix$host_genus=="Platygyra",]
+Favites.avg<-DIV.Favites[,2:161] %>%
+  drop_na() %>%
+  group_by(expedition, Disturbance_cat) %>%
+  summarise_all(funs(mean))
+Favites.avg2<-Favites.avg[,3:160]
+Favites.avg3<-drop_na(Favites.avg2)[,colSums(drop_na(Favites.avg2))>0]
+rowSums(Favites.avg3)
+Favites.avg4<-cbind(as.data.frame(Favites.avg[,1:2]),Favites.avg3) 
+Favites.long<-Favites.avg4 %>% gather( key="DIV", value="Abundance", 3:64)
+Favites.long$Disturbance_cat<-factor(Favites.long$Disturbance_cat,levels=c("Very Low", "Low","Medium","High", "Very High"))
+colour.platy<-colour.scheme[colSums(Favites.avg2)>0,]
+colour.platy<-colour.platy[order(colour.platy$Alpha_ID),]
+
+ggplot(Favites.long, aes(fill=DIV, y=Abundance, x=expedition)) + 
+  geom_bar(position="stack", stat="identity")+
+  facet_wrap(~Disturbance_cat)+
+  theme(legend.title = element_text(size = 10),legend.text = element_text(size = 8), axis.text.x = element_text(angle = 45))+
+  scale_fill_manual(values=colour.platy$Color %>% as.vector())+theme_cowplot(10)
+
+
+##Calculating proportion Durusdinium at different time points
+switch<-read_excel(file.choose(), sheet="Switch_figure")
+switch$Proportion_after<-switch$Proportion_after %>% as.numeric()
+switch$ProportionD_before<-switch$ProportionD_before  %>% as.numeric()
+switch.platy<-switch %>% subset(Coral_Species=="Platygyra")
+switch.favites<-switch %>% subset(Coral_Species=="Favites")
+
+library(plotrix)
+switch.summary <- switch %>% 
+  group_by(Disturbance_Level, Coral_Species) %>%
+  summarise(Before=mean(ProportionD_before, na.rm=TRUE),se.b=std.error(ProportionD_before, na.rm=TRUE),
+             After=mean(Proportion_after, na.rm=TRUE), se.a=std.error(Proportion_after, na.rm=TRUE))
+
+switch.summary
 
