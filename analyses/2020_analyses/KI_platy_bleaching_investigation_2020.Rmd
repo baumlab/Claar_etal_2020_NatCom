@@ -2129,7 +2129,7 @@ grid.arrange(arrangeGrob(r, coralnet.platy, platy.nov, coralnet.fpent + theme(le
                          heights = rbind((unit(0.5, "in")),(unit(3, "in")), (unit(3, "in")), (unit(0.3, "in")))))
 
 #add y axis labels
-grid.text("Proportion of benthic community", x = unit(0.01, "npc"), y = unit(0.56, "npc"), gp = gpar(fontsize=15), rot = 90)
+grid.text("Proportion of benthic cover", x = unit(0.01, "npc"), y = unit(0.56, "npc"), gp = gpar(fontsize=15), rot = 90)
 grid.text("Proportion of colonies", x = unit(0.51, "npc"), y = unit(0.55, "npc"), gp = gpar(fontsize=15), rot = 90)
 
 #add panel lables
