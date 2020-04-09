@@ -21,6 +21,7 @@ KI2014 <- as.POSIXct("2014-09-01 00:00:00", format="%Y-%m-%d %H:%M:%S")
 KI2015a <- as.POSIXct("2015-01-20 00:00:00", format="%Y-%m-%d %H:%M:%S")
 KI2015b <- as.POSIXct("2015-05-10 00:00:00", format="%Y-%m-%d %H:%M:%S")
 KI2015c <- as.POSIXct("2015-07-25 00:00:00", format="%Y-%m-%d %H:%M:%S")
+KI2015d <- as.POSIXct("2015-11-06 00:00:00", format="%Y-%m-%d %H:%M:%S")
 KI2016a <- as.POSIXct("2016-03-25 00:00:00", format="%Y-%m-%d %H:%M:%S")
 KI2016b <- as.POSIXct("2016-11-08 00:00:00", format="%Y-%m-%d %H:%M:%S")
 KI2017a <- as.POSIXct("2017-07-15 00:00:00", format="%Y-%m-%d %H:%M:%S")
@@ -48,6 +49,7 @@ insitu_SST <- ggplot()+
   geom_hline(yintercept=28.03,color="#CC503E", alpha=0.4)+
   geom_vline(xintercept=KI2015b,color="darkgray",linetype="dashed")+
   geom_vline(xintercept=KI2015c,color="darkgray",linetype="dashed")+
+  geom_vline(xintercept=KI2015d,color="darkgray",linetype="dashed")+
   geom_vline(xintercept=KI2016a,color="darkgray",linetype="dashed")+
   geom_vline(xintercept=KI2017a,color="darkgray",linetype="dashed")+
   scale_x_datetime(name=NULL, expand=c(0,0), limits=c(xlim3,xlim4),
