@@ -17,7 +17,7 @@ region <- list()
 temp_calcs <- function(region_data){ 
   temp_calcs <- region_data %>% 
   group_by(Daily = as.Date(xi2)) %>% 
-    filter(Daily >= as.Date("2011-01-01"))%>% 
+    filter(Daily >= as.Date("2014-09-09"))%>% 
     filter(Daily <= as.Date("2015-06-09")) %>% 
   summarise_at(c("temperature_1hr"),
                funs(mean=mean(., na.rm = TRUE),
