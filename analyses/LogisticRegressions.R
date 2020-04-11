@@ -60,9 +60,9 @@ fit2 %>% summary()
 #Plot logistic regression - Bleaching 2015c versus D proportion
 plot(jitter(Bleached_2015C,0.1)~ProportionD_before,data=log.data_platy, las=1, xlab="Proportion Durusdinium",ylab="Proportion bleached (2015c)",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Durusdinium on bleaching")
 fit2<-glm(Bleached_2015C~ProportionD_2015c,data=log.data_platy,family=binomial(link="logit"))
-curve(predict(fit2,data.frame(ProportionD_before=x),type="resp"),add=TRUE, col="black", lwd=2)
-curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+curve(predict(fit2,data.frame(ProportionD_2015c=x),type="resp"),add=TRUE, col="black", lwd=2)
+curve((predict(fit2,data.frame(ProportionD_2015c=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
+curve((predict(fit2,data.frame(ProportionD_2015c=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
 summary(fit2)
 
 
@@ -546,14 +546,15 @@ axis(4, las=1)
 ###Platygyra
 switch<-read_excel(file.choose())
 #switch<-read_excel(file.choose(),sheet="Switch_figure")
-switch$Bleaching_2014<-as.numeric(switch$Bleaching_2014)
-switch$Bleaching_2014_bin<-ifelse(switch$Bleaching_2014>1,1,0)
+switch<-log.data
+#switch$Bleaching_2014<-as.numeric(switch$Bleaching_2014)
+#switch$Bleaching_2014_bin<-ifelse(switch$Bleaching_2014>1,1,0)
 
-switch$Bleaching_2015a<-as.numeric(switch$Bleaching_2015a)
-switch$Bleaching_2015a_bin<-ifelse(switch$Bleaching_2015a>1,1,0)
+#switch$Bleaching_2015a<-as.numeric(switch$Bleaching_2015a)
+#switch$Bleaching_2015a_bin<-ifelse(switch$Bleaching_2015a>1,1,0)
 
-switch$Bleaching_2015b<-as.numeric(switch$Bleaching_2015b)
-switch$Bleaching_2015b_bin<-ifelse(switch$Bleaching_2015b>1,1,0)
+#switch$Bleaching_2015b<-as.numeric(switch$Bleaching_2015b)
+#switch$Bleaching_2015b_bin<-ifelse(switch$Bleaching_2015b>1,1,0)
 
 switch$Bleached_first_encounter<-as.numeric(switch$Bleached_first_encounter)
 switch$Bleached_first_encounter_bin<-ifelse(switch$Bleached_first_encounter>1,1,0)
