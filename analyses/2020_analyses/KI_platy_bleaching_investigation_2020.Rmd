@@ -1381,7 +1381,7 @@ platy.nov
 
 fpenta.nov <- ggplot(nov.pub.sum.disturb.fpenta, aes(x = disturb, y = prop, fill = bleach.bin)) +
   geom_bar(stat='identity', position='stack', color = "black") +
-  labs(x = "", y = "", fill = "Status")+
+  labs(x = "Human Disturbance Level", y = "", fill = "Status")+
     scale_fill_manual(values = bleachcols.pub) +
   theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
         panel.background = element_blank(), 
@@ -1709,7 +1709,7 @@ cn.sum.c.pub.fpent <- cn.sum.c.pub[cn.sum.c.pub$Species == "Favites.pentagona", 
 
 coralnet.fpent <- ggplot(cn.sum.c.pub.fpent, aes(x = Field.Season, y = prop, fill = Bleached)) +
   geom_bar(stat='identity', position='stack', color = "black") +
-  labs(x = "", y = "", fill = "Status")+
+  labs(x = "Time point", y = "", fill = "Status")+
     scale_fill_manual(values = bleachcols.pub) +
   scale_x_discrete(labels = c("KI2015b" = "May 2015", "KI2015c" = "July 2015", "KI2015d" = "November 2015", "KI2016a" = "March 2016")) +
   theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
@@ -2122,42 +2122,43 @@ g_legend <-function(a.gplot){
 legend <- g_legend(coralnet.fpent)
 
 grid.arrange(arrangeGrob(r, coralnet.platy, platy.nov, coralnet.fpent + theme(legend.position = "none"),  fpenta.nov, legend, 
-                         layout_matrix = rbind(c(1,1,1,1),
-                                               c(2,2,3,3),
-                                               c(4,4,5,5),
-                                               c(NA,6,6,NA)), 
-                         heights = rbind((unit(0.5, "in")),(unit(3, "in")), (unit(3, "in")), (unit(0.3, "in")))))
+                         layout_matrix = rbind(c(1,1,1,1,1),
+                                               c(1,2,2,3,3),
+                                               c(1,4,4,5,5),
+                                               c(NA,NA,6,6,NA)), 
+                         heights = rbind((unit(0.5, "in")),(unit(3, "in")), (unit(3, "in")), (unit(0.3, "in"))), 
+                         widths = rbind((unit(0.08, "in")), (unit(0.5, "in")),(unit(0.5, "in")),(unit(0.5, "in")),(unit(0.5, "in")))))
 
 #add y axis labels
-grid.text("Proportion of benthic community", x = unit(0.01, "npc"), y = unit(0.56, "npc"), gp = gpar(fontsize=15), rot = 90)
-grid.text("Proportion of colonies", x = unit(0.51, "npc"), y = unit(0.55, "npc"), gp = gpar(fontsize=15), rot = 90)
+grid.text("Proportion of randomly sampled benthic\npoints at Medium disturbance sites", x = unit(0.03, "npc"), y = unit(0.56, "npc"), gp = gpar(fontsize=15), rot = 90)
+grid.text("Proportion of individual colonies in November 2015", x = unit(0.525, "npc"), y = unit(0.55, "npc"), gp = gpar(fontsize=15), rot = 90)
 
 #add panel lables
-grid.text("a", x = unit(0.05, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, face = "bold"))
-grid.text("b", x = unit(0.55, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, face = "bold"))
-grid.text("c", x = unit(0.05, "npc"), y = unit(0.51, "npc"), gp = gpar(fontsize=18, face = "bold"))
-grid.text("d", x = unit(0.55, "npc"), y = unit(0.51, "npc"), gp = gpar(fontsize=18, face = "bold"))
+grid.text("a", x = unit(0.085, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, face = "bold"))
+grid.text("b", x = unit(0.57, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, face = "bold"))
+grid.text("c", x = unit(0.085, "npc"), y = unit(0.51, "npc"), gp = gpar(fontsize=18, face = "bold"))
+grid.text("d", x = unit(0.57, "npc"), y = unit(0.51, "npc"), gp = gpar(fontsize=18, face = "bold"))
 
 #add sample sizes
 ##panel a
-grid.text("86", x = unit(0.12, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
-grid.text("89", x = unit(0.225, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
-grid.text("42", x = unit(0.329, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
-grid.text("65", x = unit(0.432, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
+grid.text("86", x = unit(0.155, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
+grid.text("89", x = unit(0.255, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
+grid.text("42", x = unit(0.355, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
+grid.text("65", x = unit(0.45, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
 
 ##panel b
-grid.text("19", x = unit(0.68, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
-grid.text("88", x = unit(0.877, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
+grid.text("19", x = unit(0.69, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
+grid.text("88", x = unit(0.882, "npc"), y = unit(0.935, "npc"), gp = gpar(fontsize=12))
   
 ##panel c
-grid.text("19", x = unit(0.12, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
-grid.text("77", x = unit(0.225, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
-grid.text("16", x = unit(0.329, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
-grid.text("10", x = unit(0.432, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
+grid.text("19", x = unit(0.155, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
+grid.text("77", x = unit(0.255, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
+grid.text("16", x = unit(0.355, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
+grid.text("10", x = unit(0.45, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
   
 ##panel d
-grid.text("4", x = unit(0.68, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
-grid.text("31", x = unit(0.877, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
+grid.text("4", x = unit(0.69, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
+grid.text("31", x = unit(0.882, "npc"), y = unit(0.495, "npc"), gp = gpar(fontsize=12))
   
 dev.off()
 
