@@ -7,17 +7,19 @@
 
 ##Platygyra
 ##Import data and subset
-switch<-read_excel(file.choose(),sheet="Switch_figure2")
-switch<-subset(switch,Coral_Species=="Platygyra" )
+#switch<-read_excel(file.choose(),sheet="Switch_figure2")
+switch<-read_excel(file.choose())
+
 switch$ProportionD_before<-as.numeric(switch$ProportionD_before)
-switch$ProportionD_early<-as.numeric(switch$ProportionD_early)
-switch$Proportion_late<-as.numeric(switch$Proportion_late)
-switch$Proportion_after<-as.numeric(switch$Proportion_after)
+switch$ProportionD_early<-as.numeric(switch$ProportionD_2015c)
+switch$Proportion_late<-as.numeric(switch$ProportionD_2016a)
+switch$Proportion_after<-as.numeric(switch$ProportionD_after)
 
 switch$Bleached_before<-as.numeric(switch$Bleached_before)
 switch$Bleached_early<-as.numeric(switch$Bleached_early)
-switch$Bleached_late<-as.numeric(switch$Bleached_late)
+switch$Bleached_late<-as.numeric(switch$`Bleached late`)
 switch$Bleached_after<-as.numeric(switch$Bleached_after)
+switch<-subset(switch,Coral_Species=="Platygyra" )
 
 avg.Dbefore<-switch$ProportionD_before %>% as.numeric() %>% mean(,na.rm=TRUE)
 avg.Dearly<-switch$ProportionD_early %>% as.numeric() %>% mean(,na.rm=TRUE)
@@ -82,16 +84,17 @@ legend(c(1,1.1), col=c("gold","#B63238"), pch=c(19,19),  legend=c("Bleached",exp
 
 ####Favites
 ##Import and subset data
-switch<-read_excel(file.choose(),sheet="Switch_figure2")
+switch<-read_excel(file.choose())
 switch<-subset(switch,Coral_Species=="Favites" )
+
 switch$ProportionD_before<-as.numeric(switch$ProportionD_before)
-switch$ProportionD_early<-as.numeric(switch$ProportionD_early)
-switch$Proportion_late<-as.numeric(switch$Proportion_late)
-switch$Proportion_after<-as.numeric(switch$Proportion_after)
+switch$ProportionD_early<-as.numeric(switch$ProportionD_2015c)
+switch$Proportion_late<-as.numeric(switch$ProportionD_2016a)
+switch$Proportion_after<-as.numeric(switch$ProportionD_after)
 
 switch$Bleached_before<-as.numeric(switch$Bleached_before)
 switch$Bleached_early<-as.numeric(switch$Bleached_early)
-switch$Bleached_late<-as.numeric(switch$Bleached_late)
+switch$Bleached_late<-as.numeric(switch$`Bleached late`)
 switch$Bleached_after<-as.numeric(switch$Bleached_after)
 
 avg.Dbefore<-switch$ProportionD_before %>% as.numeric() %>% mean(,na.rm=TRUE)
