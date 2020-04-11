@@ -246,9 +246,9 @@ pdf(file="figures/Figure_1/Figure1_platy_CAP.pdf",
 p_platy_CAP
 dev.off()
 ###################################
-load("figures/Platy_dist_logistic.RData")
+load("figures/Platy_Favites_LogisticPlots.RData")
 # Named: P1, P2 and P3 for Platy and F1, F2 and F3 for Favites
-
+library(arm)
 jpeg(file="figures/Figure_1/Figure1_platy_reg.jpg",
      width = 4.5, height = 2.25,units="in",res=300)
 P1
