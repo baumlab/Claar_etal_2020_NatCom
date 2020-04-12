@@ -59,7 +59,7 @@ fit2 %>% summary()
 
 #Plot logistic regression - Bleaching 2015c versus D proportion
 plot(jitter(Bleached_2015C,0.1)~ProportionD_before,data=log.data_platy, las=1, xlab="Proportion Durusdinium",ylab="Proportion bleached (2015c)",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Durusdinium on bleaching")
-fit2<-glm(Bleached_2015C~ProportionD_2015c,data=log.data_platy,family=binomial(link="logit"))
+fit2<-bayesglm(Bleached_2015C~ProportionD_2015c,data=log.data_platy,family=binomial(link="logit"))
 curve(predict(fit2,data.frame(ProportionD_2015c=x),type="resp"),add=TRUE, col="black", lwd=2)
 curve((predict(fit2,data.frame(ProportionD_2015c=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
 curve((predict(fit2,data.frame(ProportionD_2015c=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
@@ -93,7 +93,7 @@ fit2 %>% summary()
 
 #Plot logistic regression - Bleaching 2015c versus D proportion
 plot(jitter(Bleached_2015C,0.1)~ProportionD_before,data=log.data_Fav, las=1, xlab="Proportion Durusdinium",ylab="Proportion bleached (2015c)",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Durusdinium on bleaching")
-fit2<-glm(Bleached_2015C~ProportionD_2015c,data=log.data_Fav,family=binomial(link="logit"))
+fit2<-bayesglm(Bleached_2015C~ProportionD_2015c,data=log.data_Fav,family=binomial(link="logit"))
 curve(predict(fit2,data.frame(ProportionD_before=x),type="resp"),add=TRUE, col="black", lwd=2)
 curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
 curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
@@ -361,8 +361,9 @@ ggplot(fav.map.d, aes(Expedition, rev(order), fill= Symbiont)) +
 
 #################Heatmaps with just "Before", "Early", "Late" and "After"
 
-hm.data<-read_excel(file.choose(), sheet="HM_data_collapsed")
-hm.data %>% View()
+#hm.data<-read_excel(file.choose(), sheet="HM_data_collapsed")
+hm.data<-read_excel("data/Updated_Starko/HeatmapData.xlsx")
+#hm.data %>% View()
 hm.data.platy<-subset(hm.data, Coral_Species=="Platygyra")
 hm.data.fav<-subset(hm.data, Coral_Species=="Favites")
 
@@ -380,6 +381,7 @@ g<-ggplot(platy.map.d, aes(Expedition, rev(order), fill= Symbiont)) +
   scale_y_continuous(position="right")+
   theme(legend.position = "none") 
   
+g
   
 
 #Favites
@@ -394,6 +396,7 @@ g1<-ggplot(fav.map.d, aes(Expedition, rev(order), fill= Symbiont)) +
   theme(legend.position = "none") 
 
 
+g1
 
 
 
@@ -628,4 +631,15 @@ ggplot(data=switch, aes(y=Bleaching_2015b_bin, x=Disturbance_sqrt) ) +
 fit2<-glm(as.factor(Bleaching_2014)~Disturbance_sqrt,data=switch,family=binomial(link="logit"))
 summary(fit2)
 
-
+####
+mort<-read_excel(file.choose())
+fit<-bayesglm(as.factor(Over10Percent)~ProportionD,data=mort,family=binomial(link="logit"))
+summary(fit)
+ggplot(data=mort, aes(y=as.factor(Over10Percent), x=ProportionD) ) +
+  geom_jitter(height=0.01,cex=3) +
+  theme_classic()+
+  stat_smooth(method="bayesglm", method.args=list(family=binomial), col="black")  +
+  scale_color_manual(values=c("#2165AC", "#B63238"))+ 
+  theme(legend.position = "none")+
+  ylab(expression(paste("Partial mortality")))+
+  xlab("Proportion Durusdinium")
