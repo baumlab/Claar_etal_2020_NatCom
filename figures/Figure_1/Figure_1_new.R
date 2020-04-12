@@ -117,6 +117,7 @@ colnames(sample_data(fpenta_ord_physeq))[colnames(sample_data(fpenta_ord_physeq)
 sample_data(fpenta_ord_physeq)$Dist <- factor(sample_data(fpenta_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
 sample_data(fpenta_ord_physeq)$leewind <- sample_data(fpenta_ord_physeq)$site
+sample_data(fpenta_ord_physeq)$leewind <- gsub("38","windward",sample_data(fpenta_ord_physeq)$leewind)
 sample_data(fpenta_ord_physeq)$leewind <- gsub("35","leeward",sample_data(fpenta_ord_physeq)$leewind)
 sample_data(fpenta_ord_physeq)$leewind <- gsub("34","leeward",sample_data(fpenta_ord_physeq)$leewind)
 sample_data(fpenta_ord_physeq)$leewind <- gsub("32","leeward",sample_data(fpenta_ord_physeq)$leewind)
@@ -193,6 +194,7 @@ colnames(sample_data(platy_ord_physeq))[colnames(sample_data(platy_ord_physeq))=
 sample_data(platy_ord_physeq)$Dist <- factor(sample_data(platy_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
 sample_data(platy_ord_physeq)$leewind <- sample_data(platy_ord_physeq)$site
+sample_data(platy_ord_physeq)$leewind <- gsub("38","windward",sample_data(platy_ord_physeq)$leewind)
 sample_data(platy_ord_physeq)$leewind <- gsub("35","leeward",sample_data(platy_ord_physeq)$leewind)
 sample_data(platy_ord_physeq)$leewind <- gsub("34","leeward",sample_data(platy_ord_physeq)$leewind)
 sample_data(platy_ord_physeq)$leewind <- gsub("32","leeward",sample_data(platy_ord_physeq)$leewind)
