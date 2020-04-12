@@ -180,7 +180,7 @@ dev.off() # Close
 
 ###############################
 ## Logistic regression plots ##
-load("figures/Platy_dist_logistic.RData")
+load("figures/Platy_Favites_LogisticPlots.RData")
 # Named: P1, P2 and P3 for Platy and F1, F2 and F3 for Favites
 library(arm)
 
