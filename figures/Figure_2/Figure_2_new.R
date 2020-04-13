@@ -9,31 +9,64 @@ library(imager)
 
 # Load in Data
 # You will need to be in the KI_Platy directory for this to work
-load("data/temperature/KI_SB_temp_DHW.RData")
-load("data/temperature/KI_satellite_heat.RData")
-load(file="data/temperature/KI_SB_temp_1hr.RData")
-load(file="data/temperature/KI_SB_temp_DHW_allsites.RData")
+# load("data/temperature/KI_SB_temp_DHW.RData")
+# load("data/temperature/KI_satellite_heat.RData")
+# load(file="data/temperature/KI_SB_temp_1hr.RData")
+# load(file="data/temperature/KI_SB_temp_DHW_allsites.RData")
 
 #####################################################################
-# Set up and format data
+load("../KI_temperature_insitu_NOAA/data/KI_SB_temp_DHW_NOAAMMM_minOffsetnoEN.RData") # DHW calculated for temperature paper with in situ offset
+load(file="data/temperature/KI_SB_temp_1hr.RData") # hourly temperature data
+
+meanMMM <- mean(27.6, # VB # All values from temperature paper, 
+                            # Claar et al 2019
+                27.4, # SL
+                27.44, # LF
+                27.36, # NL
+                27.58, # NS
+                28.03)# BOW 
+
+bleaching_threshold <- meanMMM+1 # Bleaching threshold is MMM + 1
+
+# Calculate mean DHW on KI based on in situ data
+KI_meanDHW <- cbind(bayofwrecks_DHW_minOffsetnoEN,
+                    lagoonface_DHW_minOffsetnoEN$DHW,
+                    northlagoon_DHW_minOffsetnoEN$DHW,
+                    northshore_DHW_minOffsetnoEN$DHW,
+                    southlagoon_DHW_minOffsetnoEN$DHW,
+                    vaskesbay_DHW_minOffsetnoEN$DHW)
+colnames(KI_meanDHW) <- c("time","bayofwrecks","lagoonface",
+                          "northlagoon","northshore",
+                          "southlagoon","vaskessbay")
+KI_meanDHW$KI_meanDHW <- rowMeans(KI_meanDHW[2:7],na.rm = TRUE)
+
 # Set a start and end date for plotting
 startdate <- as.POSIXct("2014-08-01 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 enddate <- as.POSIXct("2016-11-19 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-# Truncate the data from startdate to enddate
-KI_heat <- KI_allsites_DHW[which(KI_allsites_DHW$xi3>startdate),]
-KI_heat <- KI_heat[which(KI_heat$xi3<enddate),]
-KI_satellite_heat <- KI_satellite_heat[which(KI_satellite_heat$time>as.Date(startdate)),]
-KI_satellite_heat <- KI_satellite_heat[which(KI_satellite_heat$time<as.Date(enddate)),]
+
+# Truncate time for DHW data
+KI_heat <- KI_meanDHW[which(KI_meanDHW$time>startdate),]
+KI_heat <- KI_heat[which(KI_heat$time<enddate),]
+# Truncate time for temperature data
 KI_allsites_1hr <- KI_allsites_1hr[which(KI_allsites_1hr$xi2>startdate),]
 KI_allsites_1hr <- KI_allsites_1hr[which(KI_allsites_1hr$xi2<enddate),]
 
-# Rename columns
-colnames(KI_heat)<- c("time","dhw")
+# Create new color palette to match old one (but able to take more values)
+heat.palette <- colorRampPalette(c("#ffffff","#ffffc1","#ffff84",
+                                   "#ffff46","#ffff09","#ffed00",
+                                   "#ffd200","#ffb700","#ffa700",
+                                   "#ff9700","#ff8600","#ff7600",
+                                   "#ff6600","#ff5500","#ff4500",
+                                   "#ff3300","#ff2400","#ff1100",
+                                   "#ff0400","#ea0000","#d30000",
+                                   "#bc0000","#a40000","#8c0000",
+                                   "#750000","#5e0000","#460000",
+                                   "#2f0000","#170000","#000000"))
 
-cbar <- read.csv("figures/cmap_enso.csv",header=F)
-dhw.floor <- floor(KI_heat$dhw)+1
-dhw.cc <- cbar[dhw.floor,]
-dhw.cc.rgb <- rgb(dhw.cc)
+dhw.floor <- floor(KI_heat$KI_meanDHW)+1 # Calculate which color goes where by 1 degree increments
+heat.cbar <- heat.palette(32) # create a color palette with 32 colors based on our generated palette
+dhw.cc <- heat.cbar[dhw.floor] # Match the color palette to the DHW values
+
 from <- KI_heat$time-1.75*86400
 to <- KI_heat$time+1.75*86400
 
@@ -64,58 +97,71 @@ polyCurve <- function(x, y, from, to, n = 50, miny,
 #################################################################################
 
 # Colours for shading
-# cols <- c("yellow", "orange", "darkorange", "red", "#7d0000", "red", "darkorange", "orange", "yellow")
-cols <- c(rgb(cbar)[1], rgb(cbar)[4], rgb(cbar)[8], rgb(cbar)[12], rgb(cbar)[24])
+cols <- c(heat.cbar[1], heat.cbar[4], heat.cbar[8], heat.cbar[12], heat.cbar[24])
 
-KI2014 <- as.POSIXct("2014-09-01 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-KI2015a <- as.POSIXct("2015-01-20 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-KI2015b <- as.POSIXct("2015-05-10 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-KI2015c <- as.POSIXct("2015-07-25 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-KI2015d <- as.POSIXct("2015-11-06 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-KI2016a <- as.POSIXct("2016-03-25 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-KI2016b <- as.POSIXct("2016-11-08 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-
-
-DHW_during_March2016 <- KI_allsites_DHW[546,]
+KI2014 <- as.POSIXct("2014-09-01 00:00:00",
+                     tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+KI2015a <- as.POSIXct("2015-01-20 00:00:00",
+                      tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+KI2015b <- as.POSIXct("2015-05-10 00:00:00",
+                      tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+KI2015c <- as.POSIXct("2015-07-25 00:00:00",
+                      tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+KI2015d <- as.POSIXct("2015-11-06 00:00:00",
+                      tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+KI2016a <- as.POSIXct("2016-03-25 00:00:00",
+                      tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+KI2016b <- as.POSIXct("2016-11-08 00:00:00",
+                      tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 
 ###################################################################################
 
 ############# Make tiff file ################
 # Open tiff file
-pdf(file="figures/Figure_2/Figure2_a.pdf",width = 7.2, height = 2,useDingbats = FALSE)
+pdf(file="figures/Figure_2/Figure2_a.pdf",
+    width = 7.2, height = 2,useDingbats = FALSE)
 
 # Set both inner and outer margins to 0
 par(oma=c(0,0,0,0),mar=c(1.5,3.5,0.25,2.5))
-# Setup layout for single top panel and 5 bottom panels
-# layout(matrix(c(1,1,1,1,1,1,2,3,4,5,6,7), nrow=2, ncol=6, byrow = TRUE), heights=c(0.425,0.25), widths = c(1.18,1,1,1,1,1.18))
-
-# Plot top panel
 # Plot with the polycurve function
-with(KI_heat, plot(KI_heat$time,KI_heat$dhw, type="l", xlab="", ylab="", ylim=c(0,26),cex.axis=1,cex.lab=1.2,yaxs="i",xaxs="i",lwd=0.5,xaxt='n',yaxt='n', col="gray40",
+with(KI_heat, plot(KI_heat$time,KI_heat$KI_meanDHW, type="l", 
+                   xlab="", ylab="", ylim=c(0,33),
+                   cex.axis=1,cex.lab=1.2,
+                   yaxs="i",xaxs="i",lwd=0.5,xaxt='n',yaxt='n', 
+                   col="gray40",
                    panel.first = # Panel first allows ablines to be plotted before polycurve, looks nicer.
-                     c(abline(v=KI2014,col="darkgray",lwd=2,lty=2),
-                       abline(v=KI2015a,col="darkgray",lwd=2,lty=2),
-                       abline(v=KI2015b,col="darkgray",lwd=2,lty=2),
-                       abline(v=KI2015c,col="darkgray",lwd=2,lty=2),
-                       abline(v=KI2015d,col="darkgray",lwd=2,lty=2),
-                       abline(v=KI2016a,col="darkgray",lwd=2,lty=2),
-                       abline(v=KI2016b,col="darkgray",lwd=2,lty=2),
-                       polyCurve(KI_heat$time, KI_heat$dhw, from = from, to = to, miny = 0,
-                                 col = dhw.cc.rgb)
+                     c(abline(v=KI2014,col="black",lwd=1,lty=2),
+                       abline(v=KI2015a,col="black",lwd=1,lty=2),
+                       abline(v=KI2015b,col="black",lwd=1,lty=2),
+                       abline(v=KI2015c,col="black",lwd=1,lty=2),
+                       abline(v=KI2015d,col="black",lwd=1,lty=2),
+                       abline(v=KI2016a,col="black",lwd=1,lty=2),
+                       abline(v=KI2016b,col="black",lwd=1,lty=2),
+                       polyCurve(KI_heat$time, KI_heat$KI_meanDHW, 
+                                 from = from, to = to, miny = 0,
+                                 col = dhw.cc)
                      )))
-Y <- c(0,5,10,15,20,25)
+Y <- c(0,5,10,15,20,25,30)
 axis(side=2,at=Y,cex.axis=0.93,tck=0.03, lwd.ticks=1.5, las=2,hadj=0)
 
 par(new=T) # To add the temperature data to the same plot
-plot(KI_allsites_1hr,type='l',ylim=c(25,31.5),xlim=c(startdate,enddate),xlab="",ylab="",xaxs="i",xaxt='n',yaxt="n") # Plot the temperature data
-abline(29.1,0,col=cols[5],lwd=2) # Bleaching threshold
-abline(28.1,0,col="black") # Mean Monthly Maximum - MMM
+plot(KI_allsites_1hr,type='l',col="darkgray",
+     ylim=c(25,31.5),xlim=c(startdate,enddate),
+     xlab="",ylab="",xaxs="i",xaxt='n',yaxt="n") # Plot the temperature data
+abline(bleaching_threshold,0,col=cols[5],lwd=2) # Bleaching threshold
+abline(meanMMM,0,col="black") # Mean Monthly Maximum - MMM
 
 title(ylab="Degree Heating Weeks 
   (°C-weeks)", line=1.2, cex.lab=1.2) # Label y axis
 # Add in time axes (multiple axes added to allow for customization)
-axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0.05,lwd.ticks=2,labels=FALSE)
-axis.POSIXct(side=1,at=seq(KI_heat$time[1],KI_heat$time[240],by="month"),KI_heat$time,tck=0.03,cex.axis=0.93,labels=c("","","Oct","","","","","","Apr","","","Jul","","","Oct","","","","","","Apr","","","Jul","","","Oct",""),lwd.ticks=1.5,padj=-1.5)
+axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,
+             tck=0.05,lwd.ticks=2,labels=FALSE)
+axis.POSIXct(side=1,at=seq(KI_heat$time[1],KI_heat$time[240],
+                           by="month"),KI_heat$time,tck=0.03,
+             cex.axis=0.93,labels=c("","","Oct","","","","","","Apr",
+                                    "","","Jul","","","Oct","","","",
+                                    "","","Apr","","","Jul","","","Oct",""),
+             lwd.ticks=1.5,padj=-1.5)
 axis.POSIXct(side=1,KI_heat$time,cex.axis=0.93,tck=0,padj=-1.5)
 Z <- c(26,27,28,29,30,31) # To be used as temperature y-axis values
 axis(side=4,at=Z,cex.axis=0.93,tck=0.03, lwd.ticks=1.5, las=2,hadj=0.95)
@@ -134,7 +180,7 @@ dev.off() # Close
 
 ###############################
 ## Logistic regression plots ##
-load("figures/Platy_dist_logistic.RData")
+load("figures/Platy_Favites_LogisticPlots.RData")
 # Named: P1, P2 and P3 for Platy and F1, F2 and F3 for Favites
 library(arm)
 
