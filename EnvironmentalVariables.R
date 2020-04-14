@@ -1,6 +1,6 @@
 ####This R script is to test for an effect of environmental variables on symbiont assemblage
 env<-read_excel("KI_env_all.xlsx")
-logist<-read_excel(file.choose(), sheet="Logistic")
+logist<-read_excel("data/Updated_Starko/LogisticData.xlsx")
 colnames(logist)[3]<-"site"
 
 env$visibility_m<-env$visibility_m %>% as.numeric
