@@ -87,6 +87,7 @@ HighDist <- ggplot(df4,aes(x,y)) +
 ###################################
 
 library(vegan)
+set.seed(2020)
 samplelist <- read.csv("analyses/2020_analyses/ASV_ordination/samplelist_Fig1.csv")
 
 load("data/KI_Platy_f_coral_grouped_ASVs.RData")
@@ -248,7 +249,7 @@ pdf(file="figures/Figure_1/Figure1_platy_CAP.pdf",
 p_platy_CAP
 dev.off()
 ###################################
-load("figures/Platy_Favites_LogisticPlots.RData")
+load("Platy_Favites_LogisticPlots.RData")
 # Named: P1, P2 and P3 for Platy and F1, F2 and F3 for Favites
 library(arm)
 jpeg(file="figures/Figure_1/Figure1_platy_reg.jpg",
