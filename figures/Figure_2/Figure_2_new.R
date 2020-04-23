@@ -180,7 +180,7 @@ dev.off() # Close
 
 ###############################
 ## Logistic regression plots ##
-load("figures/Platy_Favites_LogisticPlots.RData")
+load("Platy_Favites_LogisticPlots.RData")
 # Named: P1, P2 and P3 for Platy and F1, F2 and F3 for Favites
 library(arm)
 
@@ -203,3 +203,19 @@ pdf(file="figures/Figure_2/Figure2_fpenta_reg2.pdf",
     width = 4.5, height = 2,useDingbats = FALSE)
 F3
 dev.off()
+
+###########
+# Open tiff file
+pdf(file="figures/Figure_2/Figure2_temponly.pdf",
+    width = 7.2, height = 2,useDingbats = FALSE)
+
+# Set both inner and outer margins to 0
+par(oma=c(0,0,0,0),mar=c(1.5,3.5,0.25,2.5))
+plot(KI_allsites_1hr,type='l',col="darkgray",
+     ylim=c(25,31.5),xlim=c(startdate,enddate),
+     xlab="",ylab="",xaxs="i",xaxt='n',yaxt="n") # Plot the temperature data
+title(ylab="Temperature (°C)", line=1.2, cex.lab=1.2) # Label y axis
+# Add in time axes (multiple axes added to allow for customization)
+Z <- c(26,27,28,29,30,31) # To be used as temperature y-axis values
+axis(side=1,at=Z,cex.axis=0.93,tck=0.03, lwd.ticks=1.5, las=2,hadj=0.95)
+dev.off() # Close

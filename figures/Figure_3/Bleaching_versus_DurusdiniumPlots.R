@@ -28,10 +28,20 @@ switch$ProportionD_early<-as.numeric(switch$ProportionD_2015c)
 switch$Proportion_late<-as.numeric(switch$ProportionD_2016a)
 switch$Proportion_after<-as.numeric(switch$ProportionD_after)
 
+## Calculate n
+n_platy_pD <- c(switch$ProportionD_before,switch$ProportionD_early,
+  switch$Proportion_late,switch$Proportion_after)
+n_platy_pD <- n_platy_pD[!is.na(n_platy_pD)]
+
 switch$Bleached_before<-as.numeric(switch$Bleached_before)
 switch$Bleached_early<-as.numeric(switch$Bleached_2015C)
 switch$Bleached_late<-as.numeric(switch$Bleached_2016a)
 switch$Bleached_after<-as.numeric(switch$Bleached_after)
+
+## Calculate n
+n_platy_B <- c(switch$Bleached_before,switch$Bleached_early,
+               switch$Bleached_late,switch$Bleached_after)
+n_platy_B <- n_platy_B[!is.na(n_platy_B)]
 
 avg.Dbefore<-switch$ProportionD_before %>% as.numeric() %>% mean(,na.rm=TRUE)
 avg.Dearly<-switch$ProportionD_early %>% as.numeric() %>% mean(,na.rm=TRUE)
@@ -103,10 +113,21 @@ switch$ProportionD_early<-as.numeric(switch$ProportionD_2015c)
 switch$Proportion_late<-as.numeric(switch$ProportionD_2016a)
 switch$Proportion_after<-as.numeric(switch$ProportionD_after)
 
+## Calculate n
+n_fpenta_pD <- c(switch$ProportionD_before,switch$ProportionD_early,
+                 switch$Proportion_late,switch$Proportion_after)
+n_fpenta_pD <- n_fpenta_pD[!is.na(n_fpenta_pD)]
+
 switch$Bleached_before<-as.numeric(switch$Bleached_before)
 switch$Bleached_early<-as.numeric(switch$Bleached_2015C)
 switch$Bleached_late<-as.numeric(switch$Bleached_2016a)
 switch$Bleached_after<-as.numeric(switch$Bleached_after)
+
+## Calculate n
+n_fpenta_B <- c(switch$Bleached_before,switch$Bleached_early,
+               switch$Bleached_late,switch$Bleached_after)
+n_fpenta_B <- n_fpenta_B[!is.na(n_fpenta_B)]
+
 
 avg.Dbefore<-switch$ProportionD_before %>% as.numeric() %>% mean(,na.rm=TRUE)
 avg.Dearly<-switch$ProportionD_early %>% as.numeric() %>% mean(,na.rm=TRUE)
