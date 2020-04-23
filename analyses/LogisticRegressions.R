@@ -106,88 +106,90 @@ summary(fit2)
 ##################################################
 
 ######PLATYGYRA
-log.data_platy$starting<-ifelse(log.data_platy$ProportionD_truebefore>0.5,1,0)
+log.data_platy$starting<-ifelse(log.data_platy$ProportionD_before>0.5,1,0)
 log.data_platy$starting <- as.factor(log.data_platy$starting)
 
 ##Durusdinium versus Disturbance
 log.data_platy$starting<-ifelse(log.data_platy$ProportionD_before>0.5,1,0)
 log.data_platy$starting <- as.factor(log.data_platy$starting)
 P1<-ggplot(data=log.data_platy, aes(y=ProportionD_before, x=Disturbance_sqrt,color=starting) ) +
-  geom_jitter(height=0.02,cex=3) +
+  geom_point(cex=3) +
   theme_classic()+
   stat_smooth(method="bayesglm", method.args=list(family=binomial), col="black")  +
-  scale_color_manual(values=c("#2165AC", "#B63238"))+ 
+  scale_color_manual(values=c(makeTransparent("#2165AC"), makeTransparent("#B63238")))+ 
   theme(legend.position = "none")+
   ylab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
   xlab("Human disturbance level")
 
-
+P1
 
 ##Durusdinium versus bleaching
 log.data_platy$starting<-ifelse(log.data_platy$ProportionD_2015c>0.5,1,0)
 log.data_platy$starting <- as.factor(log.data_platy$starting)
 P2<-ggplot(data=log.data_platy, aes(x=ProportionD_2015c, y=Bleached_2015C,color=starting) ) +
-  geom_jitter(height=0.02,cex=3) +
+  geom_point(cex=3) +
   theme_classic()+
   stat_smooth(method="bayesglm", method.args=list(family=binomial), col="black")  +
-  scale_color_manual(values=c("#2165AC", "#B63238"))+ 
+  scale_color_manual(values=c(makeTransparent("#2165AC"), makeTransparent("#B63238")))+ 
   theme(legend.position = "none")+
   xlab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
   ylab("Proportion bleached early")
-
+P2
 
 ##Durusdinium versus Survival
 log.data_platy$starting<-ifelse(log.data_platy$ProportionD_before>0.5,1,0)
 log.data_platy$starting <- as.factor(log.data_platy$starting)
-P3<-ggplot(data=log.data_platy, aes(x=ProportionD_before, y=ProposedSurvival_Status,color=starting) ) +
-  geom_jitter(height=0.02,cex=3) +
+P3<-ggplot(data=log.data_platy, aes(x=ProportionD_before, y=1-ProposedSurvival_Status,color=starting) ) +
+  geom_point(cex=3) +
   theme_classic()+
   stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
-  scale_color_manual(values=c("#2165AC", "#B63238"))+ 
+  scale_color_manual(values=c(makeTransparent("#2165AC"), makeTransparent("#B63238")))+ 
   theme(legend.position = "none")+
   xlab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
-  ylab("Proportion alive")
+  ylab("Proportion dead")
 
-
+P3
 ######FAVITES
 log.data_Fav$starting<-ifelse(log.data_Fav$ProportionD_before>0.5,1,0)
 log.data_Fav$starting <- as.factor(log.data_Fav$starting)
 
 ##Durusdinium versus Disturbance
 F1<-ggplot(data=log.data_Fav, aes(y=ProportionD_before, x=Disturbance_sqrt,color=starting) ) +
-  geom_jitter(height=0.02,cex=3) +
+  geom_point(cex=3) +
   theme_classic()+
   stat_smooth(method="bayesglm", method.args=list(family=quasibinomial), col="black")  +
-  scale_color_manual(values=c("#2165AC", "#B63238"))+ 
+  scale_color_manual(values=c(makeTransparent("#2165AC"), makeTransparent("#B63238")))+ 
   theme(legend.position = "none")+
   ylab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
   xlab("Human disturbance level")
+F1
+
 
 ##Durusdinium versus bleaching
 log.data_Fav$starting<-ifelse(log.data_Fav$ProportionD_2015c>0.5,1,0)
 log.data_Fav$starting <- as.factor(log.data_Fav$starting)
 F2<-ggplot(data=log.data_Fav, aes(x=ProportionD_2015c, y=Bleached_2015C,color=starting) ) +
-  geom_jitter(height=0.02,cex=3) +
+  geom_point(cex=3) +
   theme_classic()+
   stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
-  scale_color_manual(values=c("#2165AC", "#B63238"))+ 
+  scale_color_manual(values=c(makeTransparent("#2165AC"), makeTransparent("#B63238")))+ 
   theme(legend.position = "none")+
   xlab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
   ylab("Proportion bleached early")
 
-
+F2
 ##Durusdinium versus Survival
 log.data_Fav$starting<-ifelse(log.data_Fav$ProportionD_before>0.5,1,0)
 log.data_Fav$starting <- as.factor(log.data_Fav$starting)
-F3<-ggplot(data=log.data_Fav, aes(x=ProportionD_before, y=ProposedSurvival_Status,color=starting) ) +
-  geom_jitter(height=0.02,cex=3) +
+F3<-ggplot(data=log.data_Fav, aes(x=ProportionD_before, y=1-ProposedSurvival_Status,color=starting) ) +
+  geom_point(cex=3) +
   theme_classic()+
-  stat_smooth(method="glm", method.args=list(family=binomial), col="black")  +
-  scale_color_manual(values=c("#2165AC", "#B63238"))+ 
+  stat_smooth(method="glm", method.args=list(family=binomial), col="black", se=FALSE, linetype="dashed")  +
+  scale_color_manual(values=c(makeTransparent("#2165AC"), makeTransparent("#B63238")))+ 
   theme(legend.position = "none")+
   xlab(expression(paste("Proportion", " ",italic("Durusdinium"))))+
-  ylab("Proportion alive")
-
+  ylab("Proportion dead")
+F3
 
 
 save(P1,P2,P3,F1,F2,F3, file="Platy_Favites_LogisticPlots.RData")
