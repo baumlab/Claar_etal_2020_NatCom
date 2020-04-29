@@ -1361,13 +1361,14 @@ platy.nov <- ggplot(nov.pub.sum.disturb.platy, aes(x = disturb, y = prop, fill =
   geom_bar(stat='identity', position='stack', color = "black") +
   labs(x = "", y = "", fill = "Status")+
     scale_fill_manual(values = bleachcols.pub) +
-  theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
+  scale_x_discrete(labels = c("Very high" = "very high", "Medium" = "medium")) +
+  theme(axis.text.x = element_text(angle = 0, face = "italic"), plot.background=element_blank(), 
         panel.background = element_blank(), 
         strip.background = element_blank(), strip.text = element_text(size = 13),
         axis.line = element_line(color = "black"), legend.position="bottom", 
         axis.text = element_text(color="black", size = 12), 
         legend.text = element_text(size = 12), legend.title = element_text(size = 13),
-        axis.title = element_text(color = "black", size = 13),
+        axis.title = element_text(color = "black", size = 14),
         panel.border = element_blank()) +
   scale_y_continuous(expand = c(0,0)) + guides(fill=FALSE)
 
@@ -1381,15 +1382,16 @@ platy.nov
 
 fpenta.nov <- ggplot(nov.pub.sum.disturb.fpenta, aes(x = disturb, y = prop, fill = bleach.bin)) +
   geom_bar(stat='identity', position='stack', color = "black") +
-  labs(x = "Human Disturbance Level", y = "", fill = "Status")+
+  labs(x = "Human Disturbance Category", y = "", fill = "Status")+
     scale_fill_manual(values = bleachcols.pub) +
-  theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
+   scale_x_discrete(labels = c("Very high" = "very high", "Medium" = "medium")) +
+  theme(axis.text.x = element_text(angle = 0, face = "italic"), plot.background=element_blank(), 
         panel.background = element_blank(), 
         strip.background = element_blank(), strip.text = element_text(size = 13),
         axis.line = element_line(color = "black"), legend.position="bottom", 
         axis.text = element_text(color="black", size = 12), 
         legend.text = element_text(size = 12), legend.title = element_text(size = 13),
-        axis.title = element_text(color = "black", size = 13),
+        axis.title = element_text(color = "black", size = 14),
         panel.border = element_blank()) +
   scale_y_continuous(expand = c(0,0)) + guides(fill=FALSE)
 
@@ -1692,7 +1694,7 @@ coralnet.platy <- ggplot(cn.sum.c.pub.platy, aes(x = Field.Season, y = prop, fil
         axis.line = element_line(color = "black"), legend.position="bottom", 
         axis.text = element_text(color="black", size = 12), 
         legend.text = element_text(size = 12), legend.title = element_text(size = 13),
-        axis.title = element_text(color = "black", size = 13),
+        axis.title = element_text(color = "black", size = 14),
         panel.border = element_blank()) +
   scale_y_continuous(expand = c(0,0)) + guides(fill = FALSE)
 
@@ -1709,7 +1711,7 @@ cn.sum.c.pub.fpent <- cn.sum.c.pub[cn.sum.c.pub$Species == "Favites.pentagona", 
 
 coralnet.fpent <- ggplot(cn.sum.c.pub.fpent, aes(x = Field.Season, y = prop, fill = Bleached)) +
   geom_bar(stat='identity', position='stack', color = "black") +
-  labs(x = "Time point", y = "", fill = "Status")+
+  labs(x = "Time Point", y = "", fill = "Status")+
     scale_fill_manual(values = bleachcols.pub) +
   scale_x_discrete(labels = c("KI2015b" = "May 2015", "KI2015c" = "July 2015", "KI2015d" = "November 2015", "KI2016a" = "March 2016")) +
   theme(axis.text.x = element_text(angle = 0), plot.background=element_blank(), 
@@ -1718,7 +1720,7 @@ coralnet.fpent <- ggplot(cn.sum.c.pub.fpent, aes(x = Field.Season, y = prop, fil
         axis.line = element_line(color = "black"), legend.position="bottom", 
         axis.text = element_text(color="black", size = 12), 
         legend.text = element_text(size = 12), legend.title = element_text(size = 13),
-        axis.title = element_text(color = "black", size = 13),
+        axis.title = element_text(color = "black", size = 14),
         panel.border = element_blank()) +
   scale_y_continuous(expand = c(0,0))  
 
@@ -2130,14 +2132,18 @@ grid.arrange(arrangeGrob(r, coralnet.platy, platy.nov, coralnet.fpent + theme(le
                          widths = rbind((unit(0.08, "in")), (unit(0.5, "in")),(unit(0.5, "in")),(unit(0.5, "in")),(unit(0.5, "in")))))
 
 #add y axis labels
-grid.text("Proportion of randomly sampled benthic\npoints at Medium disturbance sites", x = unit(0.03, "npc"), y = unit(0.56, "npc"), gp = gpar(fontsize=15), rot = 90)
+line_1 <- expression("Proportion of randomly sampled benthic")
+line_2 <- expression(paste("points at ", italic("medium"), " disturbance sites"))
+#grid.text(expression(paste(atop("Proportion of randomly sampled", atop("benthic points at ",italic("medium")," disturbance sites"))), x = unit(0.03, "npc"), y = unit(0.56, "npc"), gp = gpar(fontsize=15), rot = 90)
+grid.text(line_1, x = unit(0.025, "npc"), y = unit(0.56, "npc"), gp = gpar(fontsize=15), rot = 90 )
+grid.text(line_2, x = unit(0.046, "npc"), y = unit(0.56, "npc"), gp = gpar(fontsize=15), rot = 90 )
 grid.text("Proportion of individual colonies in November 2015", x = unit(0.525, "npc"), y = unit(0.55, "npc"), gp = gpar(fontsize=15), rot = 90)
 
 #add panel lables
-grid.text("a", x = unit(0.085, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, face = "bold"))
-grid.text("b", x = unit(0.57, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, face = "bold"))
-grid.text("c", x = unit(0.085, "npc"), y = unit(0.51, "npc"), gp = gpar(fontsize=18, face = "bold"))
-grid.text("d", x = unit(0.57, "npc"), y = unit(0.51, "npc"), gp = gpar(fontsize=18, face = "bold"))
+grid.text("a", x = unit(0.085, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, fontface = "bold"))
+grid.text("b", x = unit(0.57, "npc"), y = unit(0.96, "npc"), gp = gpar(fontsize=18, fontface = "bold"))
+grid.text("c", x = unit(0.085, "npc"), y = unit(0.51, "npc"), gp = gpar(fontsize=18, fontface = "bold"))
+grid.text("d", x = unit(0.57, "npc"), y = unit(0.51, "npc"), gp = gpar(fontsize=18, fontface = "bold"))
 
 #add sample sizes
 ##panel a
