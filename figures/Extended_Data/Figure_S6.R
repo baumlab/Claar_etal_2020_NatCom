@@ -106,3 +106,4 @@ dev.off()
 # p5
 
 metadata.SH.noFQ %>% group_by(field_season) %>% summarize(n=n())
+unique(metadata.SH.noFQ$coral_tag)

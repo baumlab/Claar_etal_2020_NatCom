@@ -198,6 +198,8 @@ KI2016a_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[5])-10^(p6b$data[[18]]$ymin[5])
 KI2016b_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[6])-10^(p6b$data[[18]]$ymin[6]))/2)
 KI2017a_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[7])-10^(p6b$data[[18]]$ymin[7]))/2)
 
+nrow(metadata.SH.noFQ.AD)
+unique(metadata.SH.noFQ.AD$coral_tag)
 
 metadata.SH.noFQ.AD
 
