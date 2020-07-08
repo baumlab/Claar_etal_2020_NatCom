@@ -210,3 +210,11 @@ anova(fit)
 # We have to provide the model (here called fit and the factors we want to contrast
 emmeans(fit, list(pairwise ~ field_season), adjust = "tukey")
 
+metadata.SH.noFQ.AD %>% filter(Year_Pre_Post != "KI2016a", Year_Pre_Post != "KI2016b", Year_Pre_Post != "KI2017a") %>% group_by(coral_tag) %>% filter(dom=="C") %>% tally(D.PaxC > 0) 
+
+metadata.SH.noFQ.AD %>% filter(Year_Pre_Post != "KI2016a", Year_Pre_Post != "KI2016b", Year_Pre_Post != "KI2017a") %>% group_by(coral_tag) %>% filter(dom=="C") %>% tally() 
+
+metadata.SH.noFQ.AD %>% group_by(Year_Pre_Post) %>% filter(dom=="C") %>% tally(D.PaxC == 0)
+
+metadata.SH.noFQ.AD %>% group_by(Year_Pre_Post) %>% tally(D.PaxC == 0)
+metadata.SH.noFQ.AD %>% tally() # total # colonies

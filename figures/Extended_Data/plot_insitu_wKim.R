@@ -41,12 +41,12 @@ insitu_SST <- ggplot()+
             data=northshore_1d_wKim)+
   geom_line(aes(x=xi3,y=temperature_1d),color="#CC503E",
             data=bayofwrecks_1d_wKim)+
-  geom_hline(yintercept=27.6,color="#5F4690", alpha=0.4)+
-  geom_hline(yintercept=27.4,color="#1D6996", alpha=0.4)+
-  geom_hline(yintercept=27.44,color="#0F8554", alpha=0.4)+
-  geom_hline(yintercept=27.36,color="#EDAD08", alpha=0.4)+
-  geom_hline(yintercept=27.58,color="#E17C05", alpha=0.4)+
-  geom_hline(yintercept=28.03,color="#CC503E", alpha=0.4)+
+  geom_hline(yintercept=27.6+1,color="#5F4690", alpha=0.4)+
+  geom_hline(yintercept=27.4+1,color="#1D6996", alpha=0.4)+
+  geom_hline(yintercept=27.44+1,color="#0F8554", alpha=0.4)+
+  geom_hline(yintercept=27.36+1,color="#EDAD08", alpha=0.4)+
+  geom_hline(yintercept=27.58+1,color="#E17C05", alpha=0.4)+
+  geom_hline(yintercept=28.03+1,color="#CC503E", alpha=0.4)+
   geom_vline(xintercept=KI2015b,color="darkgray",linetype="dashed")+
   geom_vline(xintercept=KI2015c,color="darkgray",linetype="dashed")+
   geom_vline(xintercept=KI2015d,color="darkgray",linetype="dashed")+
