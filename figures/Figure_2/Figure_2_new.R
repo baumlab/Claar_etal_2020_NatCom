@@ -1,9 +1,3 @@
-# Reset graphical parameters
-dev.off()
-
-# Clear your environment
-rm(list=ls())
-
 # Load necessary packages
 library(imager)
 
@@ -99,6 +93,7 @@ polyCurve <- function(x, y, from, to, n = 50, miny,
 # Colours for shading
 cols <- c(heat.cbar[1], heat.cbar[4], heat.cbar[8], heat.cbar[12], heat.cbar[24])
 
+# Set dates for each field season
 KI2014 <- as.POSIXct("2014-09-01 00:00:00",
                      tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 KI2015a <- as.POSIXct("2015-01-20 00:00:00",
@@ -141,7 +136,8 @@ with(KI_heat, plot(KI_heat$time,KI_heat$KI_meanDHW, type="l",
                                  from = from, to = to, miny = 0,
                                  col = dhw.cc)
                      )))
-Y <- c(0,5,10,15,20,25,30)
+Y <- c(0,5,10,15,20,25,30) # Set up y axis
+# Add 2nd y axis
 axis(side=2,at=Y,cex.axis=0.93,tck=0.03, lwd.ticks=1.5, las=2,hadj=0)
 
 par(new=T) # To add the temperature data to the same plot
@@ -203,19 +199,3 @@ pdf(file="figures/Figure_2/Figure2_fpenta_reg2.pdf",
     width = 4.5, height = 2,useDingbats = FALSE)
 F3
 dev.off()
-
-###########
-# Open tiff file
-pdf(file="figures/Figure_2/Figure2_temponly.pdf",
-    width = 7.2, height = 2,useDingbats = FALSE)
-
-# Set both inner and outer margins to 0
-par(oma=c(0,0,0,0),mar=c(1.5,3.5,0.25,2.5))
-plot(KI_allsites_1hr,type='l',col="darkgray",
-     ylim=c(25,31.5),xlim=c(startdate,enddate),
-     xlab="",ylab="",xaxs="i",xaxt='n',yaxt="n") # Plot the temperature data
-title(ylab="Temperature (°C)", line=1.2, cex.lab=1.2) # Label y axis
-# Add in time axes (multiple axes added to allow for customization)
-Z <- c(26,27,28,29,30,31) # To be used as temperature y-axis values
-axis(side=1,at=Z,cex.axis=0.93,tck=0.03, lwd.ticks=1.5, las=2,hadj=0.95)
-dev.off() # Close
