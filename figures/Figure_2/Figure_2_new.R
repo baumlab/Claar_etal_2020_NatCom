@@ -9,11 +9,11 @@ library(imager)
 # load(file="data/temperature/KI_SB_temp_DHW_allsites.RData")
 
 #####################################################################
-load("../KI_temperature_insitu_NOAA/data/KI_SB_temp_DHW_NOAAMMM_minOffsetnoEN.RData") # DHW calculated for temperature paper with in situ offset
+load("data/temperature/KI_SB_temp_DHW_NOAAMMM_minOffsetnoEN.RData") # DHW calculated in [Claar et al. 2019 Coral Reefs] with in situ offset
 load(file="data/temperature/KI_SB_temp_1hr.RData") # hourly temperature data
 
 meanMMM <- mean(27.6, # VB # All values from temperature paper, 
-                            # Claar et al 2019
+                            # Claar et al 2019 Coral Reefs
                 27.4, # SL
                 27.44, # LF
                 27.36, # NL
@@ -35,8 +35,10 @@ colnames(KI_meanDHW) <- c("time","bayofwrecks","lagoonface",
 KI_meanDHW$KI_meanDHW <- rowMeans(KI_meanDHW[2:7],na.rm = TRUE)
 
 # Set a start and end date for plotting
-startdate <- as.POSIXct("2014-08-01 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
-enddate <- as.POSIXct("2016-11-19 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+startdate <- as.POSIXct("2014-08-01 00:00:00",tz="Pacific/Kiritimati", 
+                        format="%Y-%m-%d %H:%M:%S")
+enddate <- as.POSIXct("2016-11-19 00:00:00",tz="Pacific/Kiritimati", 
+                      format="%Y-%m-%d %H:%M:%S")
 
 # Truncate time for DHW data
 KI_heat <- KI_meanDHW[which(KI_meanDHW$time>startdate),]
@@ -91,7 +93,8 @@ polyCurve <- function(x, y, from, to, n = 50, miny,
 #################################################################################
 
 # Colours for shading
-cols <- c(heat.cbar[1], heat.cbar[4], heat.cbar[8], heat.cbar[12], heat.cbar[24])
+cols <- c(heat.cbar[1], heat.cbar[4], heat.cbar[8], 
+          heat.cbar[12], heat.cbar[24])
 
 # Set dates for each field season
 KI2014 <- as.POSIXct("2014-09-01 00:00:00",

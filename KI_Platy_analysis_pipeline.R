@@ -26,3 +26,16 @@ source("figures/Figure_1/ki_map_files/KI_maps_platyms.R")
 # LOAD "figures/Figure_1/ki_map_files/KI_base_B&W_bigger.R"
 # MAKE "figures/Figure_1/KI_map_platysites_villages.jpg"
 # MAKE "figures/Figure_1/KI_map_platysites_villages.pdf"
+
+# Figure 2
+source("figures/Figure_2/Figure_2_new.R")
+# LOAD "data/temperature/KI_SB_temp_DHW_NOAAMMM_minOffsetnoEN.RData"
+# LOAD "data/temperature/KI_SB_temp_1hr.RData"
+# MAKE "figures/Figure_2/Figure2_a.pdf"
+# LOAD "Platy_Favites_LogisticPlots.RData"
+# MAKE "figures/Figure_2/Figure2_platy_reg1.pdf"
+# MAKE "figures/Figure_2/Figure2_fpenta_reg1.pdf"
+# MAKE "figures/Figure_2/Figure2_platy_reg2.pdf"
+# MAKE "figures/Figure_2/Figure2_fpenta_reg2.pdf"
+# All these intermediate files were manually panelled in Illustrator
+ 
