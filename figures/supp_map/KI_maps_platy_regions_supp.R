@@ -1,7 +1,7 @@
 # Plotting map showing regions
 
 ### site data
-sites<-read.csv('figures/Figure_1/ki_map_files/ki_sites_platy.csv')
+sites<-read.csv('figures/Figure_1/ki_map_files/ki_sites_updated2019.csv')
 
 ### reordering levels for colouring plot
 levels(sites$region) # VB,SL,LF,NL,NS,BOW
