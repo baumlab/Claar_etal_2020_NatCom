@@ -11,9 +11,7 @@ library(patchwork)
 # Load in and format KI map showing local human disturbance
 # Use imager to load the image
 img_KImap <- load.image('figures/Figure_1/KI_map_platysites_villages.jpg')
-# was previously ...jpeg which made imager very mad and it didn't work.
-# # Check that the data is in the correct format for the next step
-# as.data.frame(img_KImap,wide="c") %>% head
+
 # Mutate image data to be able to plot it using GridExtra/ggplot2
 df2 <- as.data.frame(img_KImap,wide="c") %>% mutate(rgb.val=rgb(c.1,c.2,c.3))
 # # Double check that it worked
@@ -95,28 +93,34 @@ load("data/KI_Platy_f_coral_grouped_ASVs.RData")
 D_cols <- c("VeryHigh"="#8c510a", "Medium"="#c7eae5", 
             "Low"="#5ab4ac", "VeryLow"="#01665e")
 
-
+# Rename column
 colnames(samplelist)[1] <- "Coral_Species"
+# Extract samples for ordination
 ord_samples <- samplelist$ord_sample
 
+# Remove NAs
 samplelist_noNA <- samplelist[!is.na(samplelist$ord_sample),]
+# Subset only F. pentaona
 samplelist_fpenta <- samplelist_noNA[samplelist_noNA$Coral_Species=="F. pentagona",]
 
+# Subset F. pentagona samples to ordinate
 ord_samples2 <- data.frame(samplelist_fpenta$ProposedSurvival_Status, 
                            row.names = samplelist_fpenta$ord_sample)
-
 fpenta_ord_physeq0 <- subset_samples(phyASV.f.c,
-                                     sample_data(phyASV.f.c)$SampleID %in% rownames(ord_samples2))
+                                     sample_data(phyASV.f.c)$SampleID %in%
+                                       rownames(ord_samples2))
 
-fpenta_ord_physeq <- merge_phyloseq(fpenta_ord_physeq0,sample_data(ord_samples2))
+# Merge phyloseq for ordination
+fpenta_ord_physeq <- merge_phyloseq(fpenta_ord_physeq0,
+                                    sample_data(ord_samples2))
 
+# Update survival status based on subsequent field seasons
 colnames(sample_data(fpenta_ord_physeq))[colnames(sample_data(fpenta_ord_physeq))=="samplelist_fpenta.ProposedSurvival_Status"] <- "updated_status"
 
-# fpenta_ord_physeq <- subset_samples(fpenta_ord_physeq,
-#                                     sample_data(fpenta_ord_physeq)$updated_status!="unknown")
-
+# Order factor levels of Disturbance
 sample_data(fpenta_ord_physeq)$Dist <- factor(sample_data(fpenta_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
+# Define leeward/windward for each site on KI
 sample_data(fpenta_ord_physeq)$leewind <- sample_data(fpenta_ord_physeq)$site
 sample_data(fpenta_ord_physeq)$leewind <- gsub("38","windward",sample_data(fpenta_ord_physeq)$leewind)
 sample_data(fpenta_ord_physeq)$leewind <- gsub("35","leeward",sample_data(fpenta_ord_physeq)$leewind)
@@ -131,22 +135,27 @@ sample_data(fpenta_ord_physeq)$leewind <- gsub("8","leeward",sample_data(fpenta_
 sample_data(fpenta_ord_physeq)$leewind <- gsub("5","leeward",sample_data(fpenta_ord_physeq)$leewind)
 sample_data(fpenta_ord_physeq)$leewind <- gsub("3","windward",sample_data(fpenta_ord_physeq)$leewind)
 
+# Rarefy to even depth of 1000 sequences
 fpenta_ord_physeq <- rarefy_even_depth(fpenta_ord_physeq, 
                                        sample.size = 1000)
 
+# Conduct constrained ordination with Disturbance and leeward/windward
 fpenta_ord_CAP <- ordinate(fpenta_ord_physeq,method="CAP",
                            distance="wunifrac",formula= ~ Dist + leewind)
-
+# Run anova
 anova(fpenta_ord_CAP)
 anova.cca(fpenta_ord_CAP,by="terms")
 
+# Use ordistep to conduct backward stepwise model selection
 fpenta.finalmodel <- ordistep(fpenta_ord_CAP, formula= ~ Dist + leewind,
                               direction = c("both"), 
                               Pin = 0.05, Pout = 0.1, pstep = 100, 
                               perm.max = 1000, steps = 50, trace = TRUE)
+# Run anova
 anova(fpenta.finalmodel)
 anova.cca(fpenta.finalmodel,by="terms")
 
+# Plot the ordination
 p1_penta <- plot_ordination(fpenta_ord_physeq, fpenta_ord_CAP,
                       color="Dist",type="samples",title="")
 
@@ -157,10 +166,10 @@ p_fpenta_CAP <- p1_penta +
   scale_color_manual(values=D_cols) +
   scale_fill_manual(values=D_cols) +
   guides(color=F) +
-  # annotate("text", x = -1.4, y = 4, label = "C",fontface="bold")
   NULL
 p_fpenta_CAP
 
+# Make figures
 jpeg(file="figures/Figure_1/Figure1_fpenta_CAP.jpg",
      width = 3, height = 3,units="in",res=300)
 p_fpenta_CAP
@@ -172,7 +181,7 @@ p_fpenta_CAP
 dev.off()
 
 ####################################
-
+# Same as above for F. pentagona, but for P. ryukyuensis
 ord_samples <- samplelist$ord_sample
 
 samplelist_noNA <- samplelist[!is.na(samplelist$ord_sample),]
@@ -188,9 +197,6 @@ platy_ord_physeq0 <- subset_samples(phyASV.f.c,
 platy_ord_physeq <- merge_phyloseq(platy_ord_physeq0,sample_data(ord_samples2))
 
 colnames(sample_data(platy_ord_physeq))[colnames(sample_data(platy_ord_physeq))=="samplelist_platy.ProposedSurvival_Status"] <- "updated_status"
-
-# platy_ord_physeq <- subset_samples(platy_ord_physeq,
-#                                     sample_data(platy_ord_physeq0)$updated_status!="unknown")
 
 sample_data(platy_ord_physeq)$Dist <- factor(sample_data(platy_ord_physeq)$Dist,levels=c("VeryLow","Low","Medium","VeryHigh"))
 
@@ -239,6 +245,7 @@ p_platy_CAP <- p1_platy +
 
 p_platy_CAP
 
+# Make figure
 jpeg(file="figures/Figure_1/Figure1_platy_CAP.jpg",
      width = 3, height = 3,units="in",res=300)
 p_platy_CAP
@@ -248,6 +255,8 @@ pdf(file="figures/Figure_1/Figure1_platy_CAP.pdf",
      width = 3, height = 3,useDingbats = FALSE)
 p_platy_CAP
 dev.off()
+
+
 ###################################
 load("Platy_Favites_LogisticPlots.RData")
 # Named: P1, P2 and P3 for Platy and F1, F2 and F3 for Favites
