@@ -56,5 +56,5 @@ source("figures/supp_map/KI_maps_platy_regions_supp.R")
 # LOAD 'figures/Figure_1/ki_map_files/ki_sites_updated2019.csv'
 # SOURCE "figures/Figure_1/ki_map_files/KI_base_B&W_bigger.R"
 # SOURCE "figures/Figure_1/ki_map_files/KI_base_inset_forbigger.R"
-# MAKE "figures/supp_map/KI_map_platy_regions_inset_bigger.pdf"
-# MAKE "figures/supp_map/KI_map_platy_regions_inset_bigger.jpg"
+# MAKE "figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.pdf"
+# MAKE "figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.jpg"
