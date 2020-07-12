@@ -23,7 +23,7 @@ source("figures/Figure_1/Figure_1_new.R")
 # Map for Figure 1
 source("figures/Figure_1/ki_map_files/KI_maps_platyms.R")
 # LOAD 'figures/Figure_1/ki_map_files/ki_sites_updated2019.csv'
-# LOAD "figures/Figure_1/ki_map_files/KI_base_B&W_bigger.R"
+# SOURCE "figures/Figure_1/ki_map_files/KI_base_B&W_bigger.R"
 # MAKE "figures/Figure_1/KI_map_platysites_villages.jpg"
 # MAKE "figures/Figure_1/KI_map_platysites_villages.pdf"
 
@@ -39,3 +39,22 @@ source("figures/Figure_2/Figure_2_new.R")
 # MAKE "figures/Figure_2/Figure2_fpenta_reg2.pdf"
 # All these intermediate files were manually panelled in Illustrator
  
+# Figure 3
+source("figures/Figure_3/Figure3_qpcr.R")
+# LOAD load(file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
+# LOAD load("data/temperature/KI_SB_temp_DHW.RData")
+# LOAD load("data/temperature/KI_SB_temp_DHW_allsites.RData")
+# MAKE "figures/Figure_3/Figure3a.pdf"
+source("figures/Figure_3/Bleaching_versus_DurusdiniumPlots.R")
+# Sam please fill this in
+# LOAD
+# MAKE 
+# All these intermediate files were manually panelled in Illustrator
+
+# Supplementary map
+source("figures/supp_map/KI_maps_platy_regions_supp.R")
+# LOAD 'figures/Figure_1/ki_map_files/ki_sites_updated2019.csv'
+# SOURCE "figures/Figure_1/ki_map_files/KI_base_B&W_bigger.R"
+# SOURCE "figures/Figure_1/ki_map_files/KI_base_inset_forbigger.R"
+# MAKE "figures/supp_map/KI_map_platy_regions_inset_bigger.pdf"
+# MAKE "figures/supp_map/KI_map_platy_regions_inset_bigger.jpg"
