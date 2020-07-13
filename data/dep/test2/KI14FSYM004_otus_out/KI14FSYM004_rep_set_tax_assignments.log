@@ -1,9 +1,0 @@
-BlastTaxonAssigner parameters:
-Application:blastn/megablast
-Max E value:1e-20
-Min percent identity:90.0
-id_to_taxonomy_filepath:/Users/Danielle/Documents/Research/HIMB_2014/AmSam/AmSam_Data_Files/ReferenceData/id_to_taxonomy_subtype_mod.txt
-reference_seqs_filepath:/Users/Danielle/Documents/Data_Analysis/Resources/ITS2_Database_04_23_13.fas
-Number of sequences inspected: 45
-Number with no blast hits: 40
-Result path: /tmp/assign-taxKozFRf

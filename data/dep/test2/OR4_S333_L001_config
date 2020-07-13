@@ -1,9 +1,0 @@
-[general]
-project_name = KI_Platy_OR4_S333_L001
-researcher_email = dclaar@uvic.ca
-input_directory = /Users/Danielle/Desktop/test2/KI14FSYM004-39355724/Data/Intensities/BaseCalls
-output_directory = /Users/Danielle/Desktop/test2/KI14FSYM004-39355724/Data/Intensities/BaseCalls
-
-[files]
-pair_1= /Users/Danielle/Desktop/test2/KI14FSYM004-39355724/Data/Intensities/BaseCalls/OR4_S333_L001_R1_001.fastq
-pair_2= /Users/Danielle/Desktop/test2/KI14FSYM004-39355724/Data/Intensities/BaseCalls/OR4_S333_L001_R2_001.fastq
