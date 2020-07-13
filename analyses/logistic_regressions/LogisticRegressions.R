@@ -192,51 +192,9 @@ F3<-ggplot(data=log.data_Fav, aes(x=ProportionD_before, y=1-ProposedSurvival_Sta
 F3
 
 
-save(P1,P2,P3,F1,F2,F3, file="Platy_Favites_LogisticPlots.RData")
+save(P1,P2,P3,F1,F2,F3, file="analyses/logistic_regressions/Platy_Favites_LogisticPlots.RData")
 
 
-
-
-########Hydnophora
-
-
-#bayesglm of survival versus proportion D before in 2015c or before
-bayesglm(ProposedSurvival_Status~ProportionD_before,data=log.data_hyd,
-    family=binomial(link="logit")) %>% summary()
-
-par(mfrow=c(3,1), mar=c(4,4,2.5,1))
-#Plot logistic regression - Proportion D versus human disturbance (Number of people within 2km)
-plot(jitter(ProportionD_before)~Disturbance_sqrt,data=log.data_hyd, las=1, ylab="Proportion Durusdinium",xlab="Number of people 2km (sqrt)",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Disturbance on symbionts")
-fit2<-bayesglm(ProportionD_before~Disturbance_sqrt,data=log.data_hyd,family=quasibinomial(link="logit"))
-curve(predict(fit2,data.frame(Disturbance_sqrt=x),type="resp"),add=TRUE, col="black", lwd=2)
-curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-curve((predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(Disturbance_sqrt=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-summary(fit2)
-
-#Plot logistic regression - Survival versus D proportion
-plot(jitter(ProposedSurvival_Status,0.1)~ProportionD_before,data=log.data_hyd, las=1, xlab="Proportion Durusdinium",ylab="Proportion dead",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Durusdinium on survival")
-fit2<-bayesglm(ProposedSurvival_Status~ProportionD_before,data=log.data_hyd,family=binomial(link="logit"))
-curve(predict(fit2,data.frame(ProportionD_before=x),type="resp"),add=TRUE, col="black", lwd=2)
-curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-fit2 %>% summary()
-
-#Plot logistic regression - Bleaching 2015c versus D proportion
-plot(jitter(Bleached_2015C,0.1)~ProportionD_before,data=log.data_hyd, las=1, xlab="Proportion Durusdinium",ylab="Proportion bleached (2015c)",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Durusdinium on bleaching")
-fit2<-bayesglm(Bleached_2015C~ProportionD_before,data=log.data_hyd,family=binomial(link="logit"))
-curve(predict(fit2,data.frame(ProportionD_before=x),type="resp"),add=TRUE, col="black", lwd=2)
-curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-curve((predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-summary(fit2)
-
-
-#Plot logistic regression - Bleaching 2015c versus D proportion
-plot(jitter(ProposedSurvival_Status,0.1)~Bleached_2015C,data=log.data_hyd, las=1, xlab="Proportion Durusdinium",ylab="Proportion bleached (2015c)",col="black",pch=19, cex=0.8, lwd=3, main="Effect of Durusdinium on bleaching")
-fit2<-bayesglm(ProportionD_before~Bleached_2015C,data=log.data_hyd,family=quasibinomial(link="logit"))
-curve(predict(fit2,data.frame(Bleached_2015C=x),type="resp"),add=TRUE, col="black", lwd=2)
-curve((predict(fit2,data.frame(Bleached_2015C=x),type="resp", se=TRUE)$se.fit*1+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-curve((predict(fit2,data.frame(Bleached_2015C=x),type="resp", se=TRUE)$se.fit*(-1)+predict(fit2,data.frame(ProportionD_before=x),type="resp", se=TRUE)$fit),add=TRUE, col="black", lwd=1, lty=2)
-summary(fit2)
 
 
 ###Logistic regressions across disturbance gradient
