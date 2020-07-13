@@ -27,7 +27,8 @@ allOrients <- function(primer) {
   # Create all orientations of the input sequence
   require(Biostrings)
   dna <- DNAString(primer)  # The Biostrings works w/ DNAString objects rather than character vectors
-  orients <- c(Forward = dna, Complement = complement(dna), Reverse = reverse(dna), 
+  orients <- c(Forward = dna, Complement = complement(dna), 
+               Reverse = reverse(dna), 
                RevComp = reverseComplement(dna))
   return(sapply(orients, toString))  # Convert back to character vector
 }
@@ -45,13 +46,19 @@ filterAndTrim(fnFs, fnFs.filtN, fnRs, fnRs.filtN, maxN = 0, # dada does not allo
 # Count the number of times the primers appear in the forward and reverse read, while considering all possible primer orientations.
 primerHits <- function(primer, fn) {
   # Counts number of reads in which the primer is found
-  nhits <- vcountPattern(primer, ShortRead::sread(ShortRead::readFastq(fn)), fixed = FALSE)
+  nhits <- vcountPattern(primer, 
+                         ShortRead::sread(ShortRead::readFastq(fn)), 
+                         fixed = FALSE)
   return(sum(nhits > 0))
 }
-rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.filtN[[1]]), 
-      FWD.ReverseReads = sapply(FWD.orients, primerHits, fn = fnRs.filtN[[1]]), 
-      REV.ForwardReads = sapply(REV.orients, primerHits, fn = fnFs.filtN[[1]]), 
-      REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.filtN[[1]]))
+rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, 
+                                fn = fnFs.filtN[[1]]), 
+      FWD.ReverseReads = sapply(FWD.orients, primerHits, 
+                                fn = fnRs.filtN[[1]]), 
+      REV.ForwardReads = sapply(REV.orients, primerHits, 
+                                fn = fnFs.filtN[[1]]), 
+      REV.ReverseReads = sapply(REV.orients, primerHits, 
+                                fn = fnRs.filtN[[1]]))
 # Check to make sure that something shows up for both forward and reverse - this can be a good "spell check", the first time I did it I didn't get any in forward, due to a typo.
 
 # Use cutadapt to remove primers
@@ -98,7 +105,7 @@ filtFs <- file.path(path.cut, "filtered", basename(cutFs))
 filtRs <- file.path(path.cut, "filtered", basename(cutRs))
 
 # ref_seqs <- readDNAStringSet(filepath = "ITS2db_fromSymPortal2.fasta")
-ref_seqs <- readDNAStringSet(filepath = "ITS2db_trimmed_derep_dada.fasta")
+ref_seqs <- readDNAStringSet(filepath = "analyses/dada2/ITS2db_trimmed_derep_dada.fasta")
 min(width(ref_seqs))
 max(width(ref_seqs))
 
@@ -140,24 +147,26 @@ seqtab <- makeSequenceTable(mergers)
 dim(seqtab)
 
 # Remove chimeras
-seqtab.nochim <- removeBimeraDenovo(seqtab, method="consensus", multithread=TRUE, verbose=TRUE)
+seqtab.nochim <- removeBimeraDenovo(seqtab, method="consensus", 
+                                    multithread=TRUE, verbose=TRUE)
 # Inspect distribution of sequence lengths:
 table(nchar(getSequences(seqtab.nochim)))
 
 # Track reads through the pipeline - inspect the # of reads that made it through each step in the pipeline to verify everything worked as expected.
 getN <- function(x) sum(getUniques(x))
-track <- cbind(out, sapply(dadaFs, getN), sapply(dadaRs, getN), sapply(mergers, 
-                                                                       getN), rowSums(seqtab.nochim))
+track <- cbind(out, sapply(dadaFs, getN), sapply(dadaRs, getN), 
+               sapply(mergers, getN), rowSums(seqtab.nochim))
 colnames(track) <- c("input", "filtered", "denoisedF", "denoisedR", "merged", 
                      "nonchim")
 rownames(track) <- sample.names
 head(track)
 
 # Assign taxonomy
-sym.ref <- "ITS2db_trimmed_derep_dada.fasta" 
+sym.ref <- "analyses/dada2/ITS2db_trimmed_derep_dada.fasta" 
 
 # Try with in-house reference database down to Genus
-taxa <- assignTaxonomy(seqtab.nochim, sym.ref, multithread = TRUE, tryRC = TRUE, minBoot = 80, verbose = TRUE)
+taxa <- assignTaxonomy(seqtab.nochim, sym.ref, multithread = TRUE, 
+                       tryRC = TRUE, minBoot = 80, verbose = TRUE)
 taxa.print <- taxa  # Removing sequence rownames for display only
 rownames(taxa.print) <- NULL
 head(taxa.print)
@@ -165,17 +174,9 @@ tp <- data.frame(taxa.print)
 tp$Genus
 unique(tp$Genus)
 
-# # Try with SymPortal database
-# taxa2 <- assignTaxonomy(seqtab.nochim, sym.ref2, multithread = TRUE, tryRC = TRUE, minBoot = 80, verbose = TRUE)
-# taxa.print2 <- taxa2  # Removing sequence rownames for display only
-# rownames(taxa.print2) <- NULL
-# head(taxa.print2)
-# tp2 <- data.frame(taxa.print2)
-# tp2$Genus
-# unique(tp2$Genus)
-
 # Import to phyloseq
-samdf <- read.table("data/mapping_file_dada.txt",header = TRUE) # Read in sample data
+samdf <- read.table("analyses/dada2/mapping_file_dada.txt",
+                    header = TRUE) # Read in sample data
 rownames(samdf) <- samdf$SampleID
 head(samdf)
 
@@ -184,12 +185,18 @@ ps <- phyloseq(otu_table(seqtab.nochim, taxa_are_rows=FALSE),
                sample_data(samdf), 
                tax_table(taxa))
 
-# It is more convenient to use short names for our ASVs (e.g. ASV21) rather than the full DNA sequence 
-# when working with some of the tables and visualizations from phyloseq, but we want to keep the full DNA 
-# sequences for other purposes like merging with other datasets or indexing into reference databases like the 
-# Earth Microbiome Project. For that reason we’ll store the DNA sequences of our ASVs in the refseq slot of the 
-# phyloseq object, and then rename our taxa to a short string. That way, the short new taxa names will appear 
-# in tables and plots, and we can still recover the DNA sequences corresponding to each ASV as needed with refseq(ps).
+# It is more convenient to use short names for our ASVs 
+# (e.g. ASV21) rather than the full DNA sequence 
+# when working with some of the tables and visualizations 
+# from phyloseq, but we want to keep the full DNA 
+# sequences for other purposes like merging with other 
+# datasets or indexing into reference databases like the 
+# Earth Microbiome Project. For that reason we’ll store 
+# the DNA sequences of our ASVs in the refseq slot of the 
+# phyloseq object, and then rename our taxa to a short string. 
+# That way, the short new taxa names will appear 
+# in tables and plots, and we can still recover the DNA sequences 
+# corresponding to each ASV as needed with refseq(ps).
 
 dna <- Biostrings::DNAStringSet(taxa_names(ps))
 names(dna) <- taxa_names(ps)

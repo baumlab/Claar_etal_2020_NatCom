@@ -1,5 +1,12 @@
 # Analyses and figures for Claar et al. 2020
 
+# dada2
+source("analyses/dada2/dada2.R")
+# LOAD sequences in "data/Bioinf/sequences/KI_Platy_sequences/"
+## Need to download sequences separately from NCBI and put them in this folder
+# LOAD "analyses/dada2/ITS2db_trimmed_derep_dada.fasta"
+# MAKE "analyses/2019_analyses/dada2/KI_Platy_dada.RData"
+
 
 ### Figures
 
