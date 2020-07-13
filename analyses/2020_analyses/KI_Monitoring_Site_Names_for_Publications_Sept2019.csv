@@ -1,0 +1,43 @@
+﻿site,area,old.pub.name,pub.name,pressure.group,level,smw.region,PMQ,lat,lon,lat_mpq,lon_mpq,continous.pressure.2km,region
+1,Captain cook,H5,M10,Medium,3,NOR,NA,1.99588,-157.35986,1.99588,-157.35986,1613.276063,North Shore
+2,Captain cook,L6,L6,Low,2,NOR,X,2.01156,-157.39442,2.01156,-157.39442,808.5521265,North Shore
+3,North-west,L1,L1,Low,2,NOR,X,2.0519,-157.45602,2.0684,-157.45602,808.5521265,North Shore
+4,South bay,L7,L7,Low,2,VAS,NA,1.853,-157.507,1.853,-157.507,808.5521265,Vaskess Bay
+5,Vaskess Bay,VL3,VL3,Very low,1,VAS,X,1.84,-157.481,1.833,-157.497,0,Vaskess Bay
+6,Poland,H4,M6,Medium,3,POL,NA,1.86079,-157.55716,1.85,-157.57,1563.82819,Not Assigned
+7,Poland,M8,M7,Medium,3,POL,NA,1.84306,-157.53719,1.84306,-157.53719,1212.82819,Vaskess Bay
+8,South west,M1,M1,Medium,3,LON,X,1.886,-157.552,1.898,-157.564,1212.82819,South Lagoon
+9,South west,L4,L4,Low,2,LON,X,1.92581,-157.50996,1.92781,-157.52646,808.5521265,Mid Lagoon
+10,Bay of wrecks,VL6,VL6,Very low,1,BOW,NA,1.94902,-157.30957,1.94902,-157.30957,0,Bay of Wrecks
+11,Bay of wrecks,VL9,VL9,Very low,1,BOW,NA,1.914,-157.341,1.914,-157.341,0,Bay of Wrecks
+12,Vaskess Bay,M6,M11,Medium,3,VAS,NA,1.85165,-157.51447,1.836,-157.51447,1212.82819,Vaskess Bay
+13,Vaskess Bay,M7,M8,Medium,3,VAS,NA,1.848,-157.526,1.848,-157.526,1212.82819,Vaskess Bay
+14,South west/poland,M4,M4,Medium,3,POL,NA,1.87482,-157.56383,1.87482,-157.56383,1159.552126,Not Assigned
+15,North wang,VL1,VL1,Very low,1,BOW,X,1.82843,-157.32182,1.84243,-157.31182,0,Bay of Wrecks
+16,North wang,VL11,VL11,Very low,1,BOW,NA,1.84793,-157.34068,1.84793,-157.34068,0,Bay of Wrecks
+17,North wang,VL13,VL13,Very low,1,NWA,NA,1.77606,-157.21608,1.77606,-157.21608,0,Bay of Wrecks
+18,North wang,VL8,VL8,Very low,1,NWA,NA,1.79129,-157.24971,1.79129,-157.24971,0,Bay of Wrecks
+19,North wang,VL2,VL2,Very low,1,NWA,X,1.80255,-157.27339,1.818,-157.26639,0,Bay of Wrecks
+20,Bay of wrecks,VL5,VL5,Very low,1,BOW,NA,1.864,-157.343,1.864,-157.327,0,Bay of Wrecks
+21,Bay of wrecks,VL10,VL10,Very low,1,BOW,NA,1.944,-157.319,1.944,-157.319,0,Bay of Wrecks
+22,Captain cook,M9,M9,Medium,3,NOR,NA,1.99958,-157.37544,2.1,-157.37544,1116.031547,North Shore
+23,Captain cook,L5,L5,Low,2,NOR,NA,1.99243,-157.33113,1.99243,-157.33113,404.2760632,North Shore
+24,North-west,L3,L3,Low,2,NOR,NA,2.03144,-157.41678,2.03144,-157.41678,808.5521265,North Shore
+25,North-west,H1,M5,Medium,3,NOR,X,2.05002,-157.48611,2.06652,-157.48611,1616.723937,North Shore
+26,London,H2,H2,High,4,LON,X,2.03889,-157.49905,2.03889,-157.49905,2074.674393,Not Assigned
+27,London,VH1,VH1,Very high,5,LON,X,2.00973,-157.48941,2.00973,-157.50591,7276,North Lagoon
+28,South wang,VL15,VL15,Very low,1,KWR,NA,1.715,-157.251,1.715,-157.251,0,Not Assigned
+29,South wang,VL14,VL14,Very low,1,KWR,NA,1.719,-157.254,1.719,-157.254,0,Not Assigned
+30,London,VH3,VH3,Very high,5,LON,X,2.02572,-157.498,2.02572,-157.5145,5085.684783,North Lagoon
+31,Lagoon mouth/london,VH4,VH4,Very high,5,LON,NA,1.9921,-157.48289,1.9921,-157.48289,5328.680152,Not Assigned
+32,Lagoon mouth/london,VH2,VH2,Very high,5,LON,X,1.984,-157.482,1.984,-157.4985,4860.745702,Mid Lagoon
+33,Lagoon mouth/south west,M5,M12,Medium,3,LON,NA,1.93884,-157.49638,1.941,-157.512,1212.82819,Mid Lagoon
+34,South west,M3,M3,Medium,3,LON,X,1.90992,-157.53456,1.91992,-157.54856,1212.82819,South Lagoon
+35,South west,M2,M2,Medium,3,LON,X,1.89417,-157.54283,1.90617,-157.55483,1212.82819,South Lagoon
+36,Vaskess Bay,VL7,VL7,Very low,1,VAS,NA,1.84967,-157.49196,1.84967,-157.49196,0,Vaskess Bay
+37,Vaskess Bay,VL4,VL4,Very low,1,VAS,X,1.82799,-157.47693,1.82799,-157.49293,0,Vaskess Bay
+38,North-west,L2,L2,Low,2,NOR,NA,2.04572,-157.43373,2.04572,-157.43373,808.5521265,North Shore
+39,North wang,VL12,VL12,Very low,1,NWA,NA,1.81111,-157.30023,1.81111,-157.30023,0,Bay of Wrecks
+40,Lagoon mouth,H3,H1,High,4,LON,X,1.96364,-157.48775,1.96364,-157.50425,2425.276063,Mid Lagoon
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,

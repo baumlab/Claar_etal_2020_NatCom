@@ -14,6 +14,17 @@ source("analyses/dada2/KI_Platy_filter_samples_dada.R")
 # MAKE "data/KI_Platy_f_coral_grouped_ASVs.RData"
 # MAKE "data/KI_Platy_phyASVfcp_ASVs.RData"
 
+# Process metadata
+source("data/Coralphoto__Metadata/process_coral_metadata.R")
+# LOAD "data/qPCR/qPCR.RData"
+# LOAD "data/Coralphoto__Metadata/KI_Coralphoto_Metadata_through2017_ALLDONE.csv"
+# LOAD "data/Coralphoto__Metadata/mapping_file.txt"
+# LOAD "data/Coralphoto__Metadata/mapping_file2.txt"
+# MAKE "data/Coralphoto__Metadata/KI_Platy_metadata.csv"
+# MAKE "data/Coralphoto__Metadata/KI_Platy_metadataSH.csv"
+# MAKE "data/Coralphoto__Metadata/KI_Platy_metadataSH.tsv"
+# MAKE "data/Coralphoto__Metadata/KI_Platy_metadataSH.RData"
+
 ### Figures
 
 # FIGURE 1

@@ -93,7 +93,7 @@ taggedcorals <- read.csv(here::here("data/bleachingdata_2020_analysis","KI_tagge
 metadata <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_Coralphoto_Metadata_20Jan20_2019DONE.csv")) #taken from bleaching paper git repo
 coraldata <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_sequencing_runs_fromdropbox27Feb20.csv")) #taken from sequencing dropbox 
 nov15 <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_2015d_Merulinidae.csv")) 
-sitedata <- read.csv(here::here("data", "KI_Monitoring_Site_Names_for_Publications_Sept2019.csv"))
+sitedata <- read.csv(here::here("analyses/2020_analyses", "KI_Monitoring_Site_Names_for_Publications_Sept2019.csv"))
 coralnet <- read.csv(here::here("data/bleachingdata_2020_analysis", "Coral_Data_Master.csv")) #taken from bleaching paper git repo
 partialmortality <- read.csv(here::here("data/bleachingdata_2020_analysis", "KI_partialmortality_2016a.csv")) 
 

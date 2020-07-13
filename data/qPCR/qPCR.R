@@ -3,9 +3,6 @@ library(devtools)
 library(reshape2)
 library(stringr)
 
-# Clear working environment
-rm(list=ls())
-
 # Source Ross Cunning's steponeR script to get data from qPCR software into R
 devtools::source_url("https://raw.githubusercontent.com/jrcunning/steponeR/master/steponeR.R")
 
