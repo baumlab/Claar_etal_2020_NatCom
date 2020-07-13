@@ -7,15 +7,13 @@ library(phangorn)
 library(caroline)
 library(DECIPHER)
 
-
-# Clear workspace
-rm(list=ls())
-
-# Load filtered RData object from output of filter_notsym.R script
+# Load necessary data
 load("analyses/dada2/KI_Platy_dada.RData")
 
+# Rename for simplicity
 phy.f <- ps
 
+# Rename field seasons
 sample_data(phy.f)$field_season <- sample_data(phy.f)$Year_Pre_Post
 sample_data(phy.f)$field_season <- as.character(sample_data(phy.f)$field_season)
 sample_data(phy.f)$field_season <- replace(sample_data(phy.f)$field_season, sample_data(phy.f)$field_season=="2014", "KI2014")
@@ -27,15 +25,19 @@ sample_data(phy.f)$field_season <- replace(sample_data(phy.f)$field_season, samp
 
 colnames(sample_data(phy.f))[colnames(sample_data(phy.f))=="Site"] <- "site"
 
-################################### Filtering ######################################
+################################ Filtering ###################################
+# Remove spurious samples (i.e., wrong species, wrong tag)
 phy.f <- subset_samples(phy.f, Coral_Species!="lobata")
-phy.f <- subset_samples(phy.f, as.data.frame(sample_data(phy.f))$CoralTag != "1005")
-phy.f <- subset_samples(phy.f, as.data.frame(sample_data(phy.f))$CoralTag != "1011")
-phy.f <- subset_samples(phy.f, as.data.frame(sample_data(phy.f))$CoralTag != "1013")
-phy.f <- subset_samples(phy.f, as.data.frame(sample_data(phy.f))$CoralTag != "1017")
+phy.f <- subset_samples(phy.f, 
+                        as.data.frame(sample_data(phy.f))$CoralTag != "1005")
+phy.f <- subset_samples(phy.f, 
+                        as.data.frame(sample_data(phy.f))$CoralTag != "1011")
+phy.f <- subset_samples(phy.f, 
+                        as.data.frame(sample_data(phy.f))$CoralTag != "1013")
+phy.f <- subset_samples(phy.f, 
+                        as.data.frame(sample_data(phy.f))$CoralTag != "1017")
 
-
-############################## Site Formatting ####################################
+########################### Site Formatting #################################
 
 # Characterize sites by disturbance level
 VeryHigh <- c(30,31,32,27)
@@ -78,15 +80,10 @@ for (i in VeryLow){
 # Order levels
 levels(sample_data(phy.f)$Dist) <- c("VeryHigh","High","Medium","Low","VeryLow")
 
-###################### Physeq formatting and tree #####################################
+################### Physeq formatting and tree ##############################
 # Assign new name for clarity
 phyASV.f.c <- phy.f
 phyASV.f.c <- prune_taxa(taxa_sums(phyASV.f.c)>0,phyASV.f.c)
-
-# Write tax table for phylogenetically-informed diversity
-# write.table(data.frame(tax_table(phyASV.f.c)), "data/tax_table.txt", row.names=T, quote=F)
-# Write otu table for phylogenetically-informed diversity
-# write.delim(data.frame(otu_table(phyASV.f.c)), "data/otu_table.tsv", quote = FALSE, row.names = T, sep = "\t")
 
 ASV.As <- subset_taxa(phyASV.f.c,Genus=="g__Symbiodinium")
 # ASV.Bs <- subset_taxa(phyASV.f.c,Genus=="g__Breviolum")
@@ -219,26 +216,6 @@ phyASV.f.c.platy.p <- transform_sample_counts(phyASV.f.c.platy, function(x) x/su
 phyASV.f.c.platy.AD.before <- subset_samples(phyASV.f.c.platy.AD,field_season!="KI2016a", prune=TRUE)
 phyASV.f.c.platy.AD.before <- subset_samples(phyASV.f.c.platy.AD.before,field_season!="KI2015c", prune=TRUE)
 phyASV.f.c.platy.AD.after <- subset_samples(phyASV.f.c.platy.AD,field_season=="KI2016a", prune=TRUE)
-
-############################### Subset by coral species/disturbance ##########################
-# Subset by coral species and disturbance level
-# phyASV.f.c.coral.Peyd <- subset_samples(phyASV.f.c.coral,sample_data(phyASV.f.c.coral)$Coral_Species=="Pocillopora_eydouxi")
-# phyASV.f.c.coral.Peyd <- prune_taxa(taxa_sums(phyASV.f.c.coral.Peyd)>0,phyASV.f.c.coral.Peyd)
-# phyASV.f.c.coral.MAeq <- subset_samples(phyASV.f.c.coral,sample_data(phyASV.f.c.coral)$Coral_Species=="Montipora_foliosa")
-# phyASV.f.c.coral.MAeq <- prune_taxa(taxa_sums(phyASV.f.c.coral.MAeq)>0,phyASV.f.c.coral.MAeq)
-# phyASV.f.c.coral.Plob <- subset_samples(phyASV.f.c.coral,sample_data(phyASV.f.c.coral)$Coral_Species=="Porites_lobata")
-# phyASV.f.c.coral.Plob <- prune_taxa(taxa_sums(phyASV.f.c.coral.Plob)>0,phyASV.f.c.coral.Plob)
-
-############################# Subset by Field Season #################################
-# Subset by field season
-# coral.before <- subset_samples(phyASV.f.c.coral, data.frame(sample_data(phyASV.f.c.coral))$field_season == "KI2014",prune=TRUE)
-# coral.before <- subset_taxa(coral.before, taxa_sums(coral.before) > 0, prune=TRUE)
-# 
-# coral.storm <- subset_samples(phyASV.f.c.coral, data.frame(sample_data(phyASV.f.c.coral))$field_season == "KI2015a_Post", prune=TRUE)
-# coral.storm <- subset_taxa(coral.storm, taxa_sums(coral.storm) > 0, prune=TRUE)
-# 
-# coral.after <- subset_samples(phyASV.f.c.coral, data.frame(sample_data(phyASV.f.c.coral))$field_season == "KI2015b", prune=TRUE)
-# coral.after <- subset_taxa(coral.after, taxa_sums(coral.after) > 0, prune=TRUE)
 
 ############################ ASVs by compartment #########################
 n.all.ASVs <- nrow(data.frame(tax_table(phyASV.f.c)))
