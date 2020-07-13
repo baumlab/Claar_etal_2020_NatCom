@@ -37,7 +37,8 @@ img_VLowDist <- load.image('figures/Figure_1/site15_jan15_DanielleClaar_IMG_4926
 # # Check that the data is in the correct format for the next step
 # as.data.frame(img_VLowDist,wide="c") %>% head
 # Mutate image data to be able to plot it using GridExtra/ggplot2
-df3 <- as.data.frame(img_VLowDist,wide="c") %>% mutate(rgb.val=rgb(c.1,c.2,c.3))
+df3 <- as.data.frame(img_VLowDist,wide="c") %>% 
+  mutate(rgb.val=rgb(c.1,c.2,c.3))
 # # Double check that it worked
 # head(df3,3)
 
@@ -47,7 +48,10 @@ VLowDist <- ggplot(df3,aes(x,y)) +
   scale_x_continuous(expand=c(0,0)) +
   scale_fill_identity()+scale_y_reverse(expand=c(0,0)) + 
   theme(axis.line=element_blank(),axis.text.x=element_blank(),
-        axis.text.y=element_blank(),axis.ticks=element_blank(),                                         axis.title.x=element_blank(),                                                                   axis.title.y=element_blank(),legend.position="none",                                            panel.border=element_rect(colour="black",fill=NA,size=1,linetype = "solid"),
+        axis.text.y=element_blank(),axis.ticks=element_blank(),                                         axis.title.x=element_blank(),                                                                   axis.title.y=element_blank(),
+        legend.position="none", 
+        panel.border=element_rect(colour="black",fill=NA,size=1,
+                                  linetype = "solid"),
         panel.background=element_blank(),
         panel.grid.major=element_blank(),panel.grid.minor=element_blank(),
         plot.background=element_blank(),
@@ -63,7 +67,8 @@ img_HighDist <- load.image('figures/Figure_1/highdisturbance_KI.jpg')
 # # Check that the data is in the correct format for the next step
 # as.data.frame(img_HighDist,wide="c") %>% head
 # Mutate image data to be able to plot it using GridExtra/ggplot2
-df4 <- as.data.frame(img_HighDist,wide="c") %>% mutate(rgb.val=rgb(c.1,c.2,c.3))
+df4 <- as.data.frame(img_HighDist,wide="c") %>% 
+  mutate(rgb.val=rgb(c.1,c.2,c.3))
 # # Double check that it worked
 # head(df4,3)
 
@@ -79,7 +84,8 @@ HighDist <- ggplot(df4,aes(x,y)) +
         panel.grid.major=element_blank(),panel.grid.minor=element_blank(),
         plot.background=element_blank(),plot.title = element_text("B"),
         plot.margin = unit(c(-0.17,0,0.1,-0.1),c("in","in","in","in"))) +  
-  annotate("rect", xmin=0, ymin=0, xmax=120, ymax=130,color="white",fill="white") + 
+  annotate("rect", xmin=0, ymin=0, xmax=120, ymax=130,
+           color="white",fill="white") + 
   annotate("text", x = 72, y = 65, label = "A",fontface="bold", color="black")
 
 ###################################
@@ -87,6 +93,7 @@ HighDist <- ggplot(df4,aes(x,y)) +
 library(vegan)
 set.seed(2020)
 samplelist <- read.csv("analyses/2020_analyses/ASV_ordination/samplelist_Fig1.csv")
+# Also produces stats for Supplementary Table 2
 
 load("data/KI_Platy_f_coral_grouped_ASVs.RData")
 
