@@ -39,19 +39,7 @@ vignettes/*.pdf
 .ipynb_checkpoints
 
 # Ignore intermediate clustering files
-data/otus_97_bysample/KI*
-data/fasta/*
 data/merge/*
-data/rawdata/*
-data/otus_97_bysample/97_otus_bysample.biom
-data/otus_97_bysample/all_97_otus.txt
-data/otus_97_bysample/all_rep_set.fasta
-data/otus_97_bysample/all_rep_set_clusters.uc
-data/otus_97_bysample/all_rep_set_otus.log
-data/otus_97_bysample/all_rep_set_otus.txt
-data/otus_97_bysample/merged_otu_map.txt
-data/otus_97_bysample/nosingles_otus.txt
-data/Bioinf/clust/KI*
 
 # Ignore raw data files
 data/Bioinf/sequences/KI*
@@ -78,12 +66,6 @@ analyses/~*
 
 .Rproj.user
 
-figures/global_elnino_map/dhw_1516.mat
-figures/Extended_Data/global_elnino_map/dhw_1516.mat
-
-#Ignore miscellaneous local files
-etc/*
-
 #Ignore raw NOAA data (very large)
 data/temperature/NOAA_5km/*
 
@@ -91,8 +73,4 @@ data/temperature/NOAA_5km/*
 figures/*.eps
 
 #Ignore really big .ai files
-figures/Figure_3/Figure_3_new.ai
-figures/Figure_3/Figure3_v2.ai
-figures/Figure_2/Figure_2_new.ai
-figures/Extended_Data/Figure_S7.ai
-figures/Extended_Data/ED_temperature_multipanel.ai
+*.ai
