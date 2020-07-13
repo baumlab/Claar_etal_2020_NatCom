@@ -83,6 +83,12 @@ source("figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_maps_platy_regi
 # MAKE "figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.pdf"
 # MAKE "figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.jpg"
 
+# Extended Data Figure 6
+source("figures/Extended_Data/Extended_Data_Figure_6/Extended_Data_Figure_6.R")
+# LOAD "data/Coralphoto__Metadata/KI_Platy_metadataSH.RData"
+# MAKE "figures/Extended_Data/Extended_Data_Figure_6/Extended_Data_Figure_6.tiff"
+# MAKE "figures/Extended_Data/Extended_Data_Figure_6/Extended_Data_Figure_6.pdf"
+
 # Extended Data Table 3
 source("figures/Extended_Data/Extended_Data_Table_3/env_summ_KI_Platy.R")
 # READ "data/environmental_parameters/KI_env_all_KI_Platy.csv"

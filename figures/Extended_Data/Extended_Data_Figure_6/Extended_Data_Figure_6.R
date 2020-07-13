@@ -1,34 +1,24 @@
+# Load necessary libraries
 library(ggplot2)
 library(gridExtra)
 
-rm(list=ls())
-
+# Load necessary data
 load(file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
+
+# Set ggplot theme
 theme_set(theme_bw())
 
+# Set colors for field season
 timecols <- c("#2b83ba","#abdda4","#e6f598","#fdae61","#d7191c")
 
+# Set field season names
 fsnames <- c("KI2015b" = "May 2015",
              "KI2015c" = "July 2015",
              "KI2016a" = "March 2016",
              "KI2016b" = "November 2016",
              "KI2017a" = "July 2017")
 
-p1 <- ggplot(aes(x = S.H.log, fill=field_season), data = metadata.SH.noFQ) + 
-  theme(legend.position = c(0.2,0.7),
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank()) +
-  geom_histogram(bins=30) + 
-  scale_fill_manual(values=c(timecols[c(1,4,5,3,2)]),
-                    name ="Field Season",
-                    labels=c("May 2015","July 2015","March 2016",
-                             "November 2016","July 2017")) +
-  ylab("Count") +
-  xlab("log(Symbiont:Host Ratio)") +
-  xlim(-11,-1)
-p1  
-
-
+# Make plot
 p2 <- ggplot(aes(x = S.H.log, fill=field_season), data = metadata.SH.noFQ) + 
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
@@ -74,14 +64,13 @@ grid.arrange(p2,p3)
 dev.off()
 
 tiff(file="figures/Extended_Data/Extended_Data_Figure_6/Extended_Data_Figure_6.tiff",width=10, height=8,units="in", res=300)
-# grid.arrange(p1,p2,p3)
 grid.arrange(p2,p3)
 dev.off()
 
 pdf(file="figures/Extended_Data/Extended_Data_Figure_6/Extended_Data_Figure_6.pdf",width=10, height=8)
-# grid.arrange(p1,p2,p3)
 grid.arrange(p2,p3)
 dev.off()
 
+# Count number of samples and colonies
 metadata.SH.noFQ %>% group_by(field_season) %>% summarize(n=n())
 unique(metadata.SH.noFQ$coral_tag)
