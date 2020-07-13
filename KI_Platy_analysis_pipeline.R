@@ -61,4 +61,10 @@ source("figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_maps_platy_regi
 
 # Supplementary Table 6
 source("figures/Supplementary_Materials/Supp_Tables_2and8/fpenta_lib_cons.R")
+# LOAD "analyses/2020_analyses/ASV_ordination/samplelist_Fig1.csv"
+# LOAD "data/KI_Platy_f_coral_grouped_ASVs.RData"
+# Manually extract model outputs
 source("figures/Supplementary_Materials/Supp_Tables_2and8/platy_lib_cons.R")
+# LOAD "analyses/2020_analyses/ASV_ordination/samplelist_Fig1.csv"
+# LOAD "data/KI_Platy_f_coral_grouped_ASVs.RData"
+# Manually extract model outputs
