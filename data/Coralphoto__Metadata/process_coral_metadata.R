@@ -1,35 +1,42 @@
-rm(list=ls())
+# This code is a mess, and is the result of many iterations. It does what it needs to, but I wouldn't suggest using it yourself.
 
+# Load necessary libraries
 library(plyr)
 
+# Load necessary data
 load("data/qPCR/qPCR.RData")
-
 meta <- read.csv("data/Coralphoto__Metadata/KI_Coralphoto_Metadata_through2017_ALLDONE.csv",header=T)
+
+# Format field season column
 meta$before.after <- gsub("before","_Pre",meta$before.after)
 meta$before.after <- gsub("after","_Post",meta$before.after)
 meta$before.after <- gsub("during but not affectd","_Pre",meta$before.after)
 meta$before.after[which(meta$before.after=="1")] <- ""
 meta$Year_Pre_Post <- paste(meta$field_season,meta$before.after, sep="")
 
+# Update retagged colonies
 meta$coral_tag[which(meta$coral_tag==248)] <- "248_696"
-# meta$coral_tag[which(meta$coral_tag==338)] <- "338_1168"
 meta$coral_tag[which(meta$coral_tag==410)] <- "410_893"
 meta$coral_tag[which(meta$coral_tag=="754_899")] <- "754_899_1060"
 meta$coral_tag[which(meta$coral_tag==1060)] <- "754_899_1060"
 
-
+# Make a reference name for concatenating
 meta$ref <- paste(meta$Year_Pre_Post,".tag",meta$coral_tag, sep="")
 meta.forcat <- meta[,c(1:23,25:26)]
 count(duplicated(meta.forcat$ref))
 meta.forcat <- meta.forcat[which(!duplicated(meta.forcat$ref)),] # Remove duplicates
-# meta.forcat[which(meta.forcat$ref=="KI2014.tag394"),] 
 
 
-map1 <- read.table("data/mapping_file.txt",stringsAsFactors = FALSE)
-map2 <- read.table("data/mapping_file2.txt",stringsAsFactors = FALSE,sep="\t")
+map1 <- read.table("data/Coralphoto__Metadata/mapping_file.txt",
+                   stringsAsFactors = FALSE)
+map2 <- read.table("data/Coralphoto__Metadata/mapping_file2.txt",
+                   stringsAsFactors = FALSE,sep="\t")
 map <- rbind(map1,map2)
-colnames(map) <- c("SampleID", "InputFileName", "coral_tag","SampleType", "Year", "TubeNumber", "Coral_Species","Site","Status","Year_Pre_Post")
+colnames(map) <- c("SampleID", "InputFileName", "coral_tag",
+                   "SampleType", "Year", "TubeNumber", 
+                   "Coral_Species","Site","Status","Year_Pre_Post")
 
+# Format field season column
 fs2014 <- which(map$Year==2014)
 map$Year[fs2014] <- "KI2014"
 fs2015aa <- which(map$Year_Pre_Post=="2015Jan_Pre")
@@ -47,9 +54,9 @@ map$Year[fs2016b] <- "KI2016b"
 fs2017a <- which(map$Year=="2017Jul")
 map$Year[fs2017a] <- "KI2017a"
 
-# map$ref <- paste(map$V5,"FSYM",map$V3,sep="")
 map.platy <- map
 
+# Renames columns
 names(map.platy)[names(map.platy)=="Year"] <- "field_season"
 names(map.platy)[names(map.platy)=="Site"] <- "site"
 # Sampled the same coral colony twice during one field season
@@ -64,58 +71,50 @@ map.platy$coral_tag[which(map.platy$coral_tag=="754_899")] <- "754_899_1060"
 map.platy$coral_tag[which(map.platy$coral_tag==1060)] <- "754_899_1060"
 map.platy$coral_tag[which(map.platy$coral_tag==754)] <- "754_899_1060"
 
+# Make ref for concatenating
 map.platy$ref <- paste(map.platy$field_season,".tag",map.platy$coral_tag, sep="")
-# duplicated(map.platy)
-# map.platy
-
+# Select columns
 map.platy.forcat <- map.platy[,c(1,3:5,7:9,11)]
 
-
+# Join two data sources
 metadata <- join_all(list(map.platy.forcat,meta.forcat),by='ref',match='all')
 names(metadata)
-# metadata <- metadata[which(!(metadata$SampleID=="KI16aFSYM101" & metadata$annotator == "HD")),]
-# metadata <- metadata[which(!(metadata$SampleID=="KI15cFSYM104" & metadata$date_annotated == "27-01-2015")),]
 rownames(metadata) <- metadata[,1] # Make rownames from SampleID
-# Current problem : non-unique values when setting 'row.names': ‘KI15cFSYM104’, ‘KI16aFSYM101’ 
-# metadata<-subset(metadata,select=-c(SampleID)) # Remove SampleID column
 
-
-# platy[which(is.na(platy$Tag)),]
+# Fix tags
 platy$Tag[which(platy$Sample.Name == "KI16bFMD068")] <- "820"
 platy$ref[which(platy$Sample.Name == "KI16bFMD068")] <- "KI2016b.tag820"
 
+# Join all
 metadata <- join_all(list(metadata,platy),by="ref",match="all")
 
-# S.H <- data.frame(ref = platy$ref, S.H = platy$S.H)
-# 
-# metadata <- join_all(list(metadata,S.H),by="ref",match="all") 
-
+# Subset Platy
 metadata <- metadata[which(metadata$Coral_Species=="Platygyra_sp"),]
 
+# Count number with S:H ratios
 count(!is.na(metadata$S.H))
 
+# Subset only samples with S:H ratios
 metadata.SH <- metadata[which(!is.na(metadata$S.H)),]
-
+# Check for duplicates
 metadata.SH[which(duplicated(metadata.SH$SampleID)),]
-# "248_696" %in% metadata.SH$coral_tag
 
 # Clean up columns in this metadata
 metadata.SH <- metadata.SH[,c(1:8,10:48,50:51)]
 metadata.SH <- metadata.SH[,c(1:8,11:46,48:49)]
 names(metadata.SH)
 
-# dups <- metadata.SH[which(duplicated(metadata.SH$SampleID) | duplicated(metadata.SH$SampleID, fromLast = TRUE)),]
-
 # Remove duplicates, keeping later runs and discarding earlier runs
-# This is clunky and error-prone...try to change later.
 metadata.SH <- metadata.SH[which(!duplicated(metadata.SH$SampleID, fromLast = TRUE)),]
 
+# Check what is in one but not the other
 platy[which(!platy$ref %in% metadata.SH$ref),]
 platy[which(!metadata.SH$ref %in% platy$ref),]
 
-
+# Make column with C/D dominance
 metadata.SH$dom <- ifelse(metadata.SH$C.PaxC > metadata.SH$D.PaxC,"C","D")
 
+# Calculate logs of symbiont, host, and S:H
 metadata.SH$S.H.log <- log(metadata.SH$S.H)
 metadata.SH$C.PaxC.log <- log(metadata.SH$C.PaxC+6.107637e-08)
 metadata.SH$D.PaxC.log <- log(metadata.SH$D.PaxC+6.107637e-08)
@@ -127,22 +126,33 @@ metadata.SH$C.PaxC.log10 <- log10(metadata.SH$C.PaxC+6.107637e-08)
 metadata.SH$D.PaxC.log10 <- log10(metadata.SH$D.PaxC+6.107637e-08)
 metadata.SH$CtoD <- metadata.SH$C.PaxC.log10 / metadata.SH$D.PaxC.log10
 
+# Rename field season
 metadata.SH$field_season[which(metadata.SH$field_season=="KI2015a_Pre")] <- "KI2015a"
-# But then collapse field seasons into before/during/after
+# Then collapse field seasons into before/during/after
 metadata.SH$before.after <- metadata.SH$field_season
 metadata.SH$before.after <- gsub("KI2014","before",metadata.SH$before.after)
 metadata.SH$before.after <- gsub("KI2015a","before",metadata.SH$before.after)
 metadata.SH$before.after <- gsub("KI2015b","before",metadata.SH$before.after)
 metadata.SH$before.after <- gsub("KI2015c","during",metadata.SH$before.after)
 metadata.SH$before.after <- gsub("KI2016a","after",metadata.SH$before.after)
-metadata.SH$before.after <- gsub("KI2016b","recovery1",metadata.SH$before.after)
-metadata.SH$before.after <- gsub("KI2017a","recovery2",metadata.SH$before.after)
-metadata.SH$bleaching_proportion <- gsub("NONE","FALSE",metadata.SH$bleaching_proportion)
-metadata.SH$bleaching_proportion <- gsub("1","FALSE",metadata.SH$bleaching_proportion)
-metadata.SH$bleaching_proportion <- gsub("2","2",metadata.SH$bleaching_proportion)
-metadata.SH$bleaching_proportion <- gsub("3","3",metadata.SH$bleaching_proportion)
-metadata.SH$bleaching_proportion <- gsub(" ","",metadata.SH$bleaching_proportion)
+metadata.SH$before.after <- gsub("KI2016b","recovery1",
+                                 metadata.SH$before.after)
+metadata.SH$before.after <- gsub("KI2017a","recovery2",
+                                 metadata.SH$before.after)
 
+# Update bleaching proportion
+metadata.SH$bleaching_proportion <- gsub("NONE","FALSE",
+                                         metadata.SH$bleaching_proportion)
+metadata.SH$bleaching_proportion <- gsub("1","FALSE",
+                                         metadata.SH$bleaching_proportion)
+metadata.SH$bleaching_proportion <- gsub("2","2",
+                                         metadata.SH$bleaching_proportion)
+metadata.SH$bleaching_proportion <- gsub("3","3",
+                                         metadata.SH$bleaching_proportion)
+metadata.SH$bleaching_proportion <- gsub(" ","",
+                                         metadata.SH$bleaching_proportion)
+
+# Look for samples from FQ (vs. FSYM)
 metadata.SH.FQ <- metadata.SH[grepl("FQ", metadata.SH$Sample.Name),]
 metadata.SH.noFQ <- metadata.SH[!grepl("FQ", metadata.SH$Sample.Name),]
 
@@ -155,7 +165,9 @@ metadata.SH$bleaching2Plus <- gsub("2","2",metadata.SH$bleaching2Plus)
 metadata.SH$bleaching2Plus <- gsub("3","3",metadata.SH$bleaching2Plus)
 metadata.SH$bleaching2Plus <- gsub(" ","",metadata.SH$bleaching2Plus)
 
-metadata.SH.noFQ$date <- as.POSIXct("2010-01-01 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
+# Set dates for field seasons
+metadata.SH.noFQ$date <- as.POSIXct("2010-01-01 00:00:00",
+                                    tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2014")] <- as.POSIXct("2014-09-01 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2015a")] <- as.POSIXct("2015-01-20 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2015b")] <- as.POSIXct("2015-05-10 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
@@ -164,11 +176,16 @@ metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2016a")] <- as.POS
 metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2016b")] <- as.POSIXct("2016-11-08 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 metadata.SH.noFQ$date[which(metadata.SH.noFQ$field_season=="KI2017a")] <- as.POSIXct("2017-07-15 00:00:00",tz="Pacific/Kiritimati", format="%Y-%m-%d %H:%M:%S")
 
-
-write.csv(metadata, file="data/Coralphoto__Metadata/KI_Platy_metadata.csv")
-write.table(metadata, file="data/Coralphoto__Metadata/KI_Platy_metadata.tsv", quote=FALSE, sep="\t", col.names = NA)
-
-write.csv(metadata.SH, file="data/Coralphoto__Metadata/KI_Platy_metadataSH.csv")
-write.table(metadata.SH, file="data/Coralphoto__Metadata/KI_Platy_metadataSH.tsv", quote=FALSE, sep="\t", col.names = NA)
-
-save(metadata.SH,metadata.SH.FQ,metadata.SH.noFQ,file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
+# Write/export everything for downstream use
+write.csv(metadata, 
+          file="data/Coralphoto__Metadata/KI_Platy_metadata.csv")
+write.table(metadata, 
+            file="data/Coralphoto__Metadata/KI_Platy_metadata.tsv",
+            quote=FALSE, sep="\t", col.names = NA)
+write.csv(metadata.SH, 
+          file="data/Coralphoto__Metadata/KI_Platy_metadataSH.csv")
+write.table(metadata.SH, 
+            file="data/Coralphoto__Metadata/KI_Platy_metadataSH.tsv", 
+            quote=FALSE, sep="\t", col.names = NA)
+save(metadata.SH,metadata.SH.FQ,metadata.SH.noFQ,
+     file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
