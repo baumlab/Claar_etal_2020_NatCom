@@ -59,6 +59,17 @@ source("figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_maps_platy_regi
 # MAKE "figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.pdf"
 # MAKE "figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.jpg"
 
+# Extended Data Table 3
+source("figures/Extended_Data/Extended_Data_Table_3/env_summ_KI_Platy.R")
+# READ "data/environmental_parameters/KI_env_all_KI_Platy.csv"
+# MAKE "figures/Extended_Data/Extended_Data_Table_3/env_summ_KI_Platy_alltimes.csv"
+
+# Supplementary Table 3
+source("figures/Supplementary_Materials/Supp_Table_3_env_logistic/EnvironmentalVariables.R")
+# LOAD "data/Updated_Starko/LogisticData.xlsx"
+# LOAD "data/environmental_parameters/KI_env_all.xlsx"
+# Manually extract model outputs
+
 # Supplementary Table 6
 source("figures/Supplementary_Materials/Supp_Tables_2and8/fpenta_lib_cons.R")
 # LOAD "analyses/2020_analyses/ASV_ordination/samplelist_Fig1.csv"
@@ -67,4 +78,4 @@ source("figures/Supplementary_Materials/Supp_Tables_2and8/fpenta_lib_cons.R")
 source("figures/Supplementary_Materials/Supp_Tables_2and8/platy_lib_cons.R")
 # LOAD "analyses/2020_analyses/ASV_ordination/samplelist_Fig1.csv"
 # LOAD "data/KI_Platy_f_coral_grouped_ASVs.RData"
-# Manually extract model outputs
+v
