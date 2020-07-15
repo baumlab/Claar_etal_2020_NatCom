@@ -38,7 +38,7 @@ NOAA_DHW <- ggplot()+
                      breaks = c(0,4,8,12,16,20,24))
 
 # Make pdf
-pdf(file = "figures/Extended_Data/Extended_Data_Figure_2/KI_DHWs.pdf", 
+pdf(file = "figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2g_KI_DHWs.pdf", 
     width = 5.5, height = 4.5, useDingbats = FALSE)
 NOAA_DHW
 dev.off()
