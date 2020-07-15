@@ -1,6 +1,3 @@
-# Clear working environment
-rm(list=ls())
-
 # Load necessary packages
 library(ggplot2)
 library(gridExtra)

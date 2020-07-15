@@ -31,6 +31,9 @@ source("data/temperature/NOAA_5km_extract.R")
 # READ "data/temperature/NOAA_5km/" 
        # All NOAA 5km files need to be in this folder
 # MAKE "data/temperature/NOAA_5km.RData"
+source("data/temperature/create_KI_allsites_DHW.R")
+# LOAD "data/temperature/KI_SB_temp_DHW.RData"
+# MAKE "data/temperature/KI_SB_temp_DHW_allsites.RData"
 
 
 ### Figures
