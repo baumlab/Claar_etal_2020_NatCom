@@ -5,7 +5,8 @@ library(lubridate)
 library(tidyverse)
 
 # Load necessary data
-load("../KI_temperature_insitu_NOAA/data/KI_SB_temp_wKim_1hr.RData")
+load("data/temperature/KI_SB_temp_wKim_1hr.RData") # From https://github.com/daniclaar/KI_temperature_insitu_NOAA/blob/master/data/KI_SB_Kim_temp_1hr.RData
+
 region.cols<-c("VaskessBay" = "#5F4690","SouthLagoon"="#1D6996",
                "MidLagoon"="#0F8554","NorthLagoon"="#EDAD08",
                "NorthShore"="#E17C05","BayofWrecks"="#CC503E")
@@ -62,18 +63,7 @@ pdf(file = "figures/Extended_Data/KI_insitu_daily_var_nonEN.pdf",
 daily_var_nonEN
 dev.off()
 
-###########
-# BOW_temp_calcs <- bayofwrecks_1hr_wKim %>% 
-#   group_by(Daily = as.Date(xi2)) %>% 
-#   summarise_at(c("temperature_1hr"),funs(mean=mean(., na.rm = TRUE),
-#                       min=(min(., na.rm = TRUE)),
-#                       max=(min(., na.rm = TRUE)),
-#                       range=(max(., na.rm = TRUE)-min(., na.rm = TRUE))))
-# BOW_temp_calcs$range[BOW_temp_calcs$range=="-Inf"] <- NaN
-# 
-# BOW_range_mean <- mean(BOW_temp_calcs$range,na.rm=TRUE)
-# BOW_range_sd <- sd(BOW_temp_calcs$range,na.rm=TRUE)
-
+# Same thing, but during El Niño
 temp_calcs_EN <- function(region_data){ 
   temp_calcs <- region_data %>% 
     group_by(Daily = as.Date(xi2)) %>% 
