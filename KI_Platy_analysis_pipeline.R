@@ -97,14 +97,14 @@ source("figures/Extended_Data/Extended_Data_Figure_2/supp_map/Fig_ED2a_KI_maps_p
 # Extended Data Figure 2 - daily variation
 source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2bc_temperature_variation.R")
 # LOAD "data/temperature/KI_SB_temp_wKim_1hr.RData"
-# MAKE "figures/Extended_Data/KI_insitu_daily_var_nonEN.pdf"
-# MAKE "figures/Extended_Data/KI_insitu_daily_var_EN.pdf"
+# MAKE "figures/Extended_Data/Fig_ED2b_KI_insitu_daily_var_nonEN.pdf"
+# MAKE "figures/Extended_Data/Fig_ED2c_KI_insitu_daily_var_EN.pdf"
 
 # Extended Data Figure 2 - in situ illustration
 source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2de_plot_insitu_illustration.R")
 # LOAD "data/temperature/KI_SB_temp_wKim_1d.RData"
-# MAKE "figures/Extended_Data/Extended_Data_Figure_2/KI_insitu_ill_EN.pdf"
-# MAKE "figures/Extended_Data/Extended_Data_Figure_2/KI_insitu_SST_ill_nonEN.pdf"
+# MAKE "figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2e_KI_insitu_ill_EN.pdf"
+# MAKE "figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2d_KI_insitu_SST_ill_nonEN.pdf"
 
 
 # Extended Data Figure 2 - NOAA DHWs
