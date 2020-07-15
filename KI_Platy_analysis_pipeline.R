@@ -119,7 +119,11 @@ source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2g_plot_dhws_platy.R"
 # LOAD "data/temperature/NOAA_DHW_5km.RData"
 # MAKE "figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2g_KI_DHWs.pdf"
 
-
+# Extended Data Figure 5
+source("figures/Extended_Data/Extended_Data_Figure_5/Fig_ED5_bleaching.R")
+# READ "data/Bleaching/KI_2015d_Merulinidae.csv"
+# READ "data/Bleaching/Coral_Data_Master.csv"
+# MAKE "figures/Extended_Data/Extended_Data_Figure_5/Fig_ED5.pdf"
 
 # Extended Data Figure 6
 source("figures/Extended_Data/Extended_Data_Figure_6/Extended_Data_Figure_6.R")
