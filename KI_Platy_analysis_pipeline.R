@@ -87,12 +87,26 @@ source("figures/Figure_3/Bleaching_versus_DurusdiniumPlots.R")
 # All these intermediate files were manually panelled in Illustrator
 
 # Extended Data Figure 2 - map
-source("figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_maps_platy_regions_supp.R")
+source("figures/Extended_Data/Extended_Data_Figure_2/supp_map/Fig_ED2a_KI_maps_platy_regions_supp.R")
 # LOAD 'figures/Figure_1/ki_map_files/ki_sites_updated2019.csv'
 # SOURCE "figures/Figure_1/ki_map_files/KI_base_B&W_bigger.R"
 # SOURCE "figures/Figure_1/ki_map_files/KI_base_inset_forbigger.R"
 # MAKE "figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.pdf"
 # MAKE "figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.jpg"
+
+# Extended Data Figure 2 - daily variation
+source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2bc_temperature_variation.R")
+# LOAD "data/temperature/KI_SB_temp_wKim_1hr.RData"
+# MAKE "figures/Extended_Data/KI_insitu_daily_var_nonEN.pdf"
+# MAKE "figures/Extended_Data/KI_insitu_daily_var_EN.pdf"
+
+# Extended Data Figure 2 - NOAA DHWs
+source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2g_plot_dhws_platy.R")
+# LOAD "data/temperature/DHW_all.RData"
+# LOAD "data/temperature/NOAA_DHW_5km.RData"
+# MAKE "figures/Extended_Data/Extended_Data_Figure_2/KI_DHWs.pdf"
+
+
 
 # Extended Data Figure 6
 source("figures/Extended_Data/Extended_Data_Figure_6/Extended_Data_Figure_6.R")
