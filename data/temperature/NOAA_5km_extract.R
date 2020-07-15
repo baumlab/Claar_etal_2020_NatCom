@@ -1,4 +1,3 @@
-
 # Load necessary packages
 library(ncdf4)
 library(chron)
@@ -6,28 +5,26 @@ library(lattice)
 library(RColorBrewer)
 require(svMisc)
 
-# Clear the working environment
-rm(list=ls())
-
+# Load necessary data/files
 latlon <- read.csv("data/temperature/disturbance_latlons.csv")
 files=list.files("data/temperature/NOAA_5km/",full.names = TRUE)
 
-nc <- nc_open("data/temperature/NOAA_5km/b5km_dhw_20150101.nc")
-dhw_full <- ncvar_get( nc, "CRW_DHW")
-# get longitude and latitude
-lon <- ncvar_get(nc,"lon")
-nlon <- dim(lon)
-head(lon)
-lat <- ncvar_get(nc,"lat")
-nlat <- dim(lat)
-head(lat)
-nc_close(nc)
+## This is a test to open one file and make sure this works
+# nc <- nc_open("data/temperature/NOAA_5km/b5km_dhw_20150101.nc")
+# dhw_full <- ncvar_get( nc, "CRW_DHW")
+# # get longitude and latitude
+# lon <- ncvar_get(nc,"lon")
+# nlon <- dim(lon)
+# head(lon)
+# lat <- ncvar_get(nc,"lat")
+# nlat <- dim(lat)
+# head(lat)
+# nc_close(nc)
 
-# dhw_slice <- dhw_full[452,1841]
-# lon[451]
-# lat[1760]
+#############################################
+
+## Extract DHW from each region on KI
 ##########################################HIGH#################################
-
 LonIdx <- 452 # High -157.45
 LatIdx <- 1760 # High 2.025 
 
@@ -182,54 +179,3 @@ colnames(dhw_dist)[6] <- "dhw_very_low"
 
 
 save.image(file="data/temperature/NOAA_5km.RData")
-
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# # Look at the netcdf file metadata
-# print(nc)
-# # Choose a lat/lon pair to extract data from
-# #LonIdx <- which( nc$dim$lon$vals < -157.42) # Data is weird in this netcdf and can't subset this way. Doing it manually for the moment...
-# #nc$dim$lon$vals[452]
-# LonIdx <- 452
-# #LatIdx <- which( nc$dim$lat$vals == 2.025)
-# LatIdx <- 1841
-# TimeIdx <- nc$dim$time$vals
-# TimeIdx <- 1
-# # DayIdx <- which( nc$dim$day$vals > 10 & nc$dim$day$vals < 20)
-# dhw <- ncvar_get( nc, "CRW_DHW")[LonIdx, LatIdx]
-# 
-# # Close the netcdf file --!!IMPORTANT!! otherwise you might corrupt your netcfd file
-# nc_close(nc)
-# 
-# 
-# 
-# 
-# dhw_full <- ncvar_get( nc, "CRW_DHW")
-# # get longitude and latitude
-# lon <- ncvar_get(nc,"lon")
-# nlon <- dim(lon)
-# head(lon)
-# lat <- ncvar_get(nc,"lat")
-# nlat <- dim(lat)
-# head(lat)
-# nc_close(nc)
-# 
-# dhw_slice <- dhw_full[452,1841]
-# 

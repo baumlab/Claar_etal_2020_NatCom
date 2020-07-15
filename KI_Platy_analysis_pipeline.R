@@ -25,6 +25,14 @@ source("data/Coralphoto__Metadata/process_coral_metadata.R")
 # MAKE "data/Coralphoto__Metadata/KI_Platy_metadataSH.tsv"
 # MAKE "data/Coralphoto__Metadata/KI_Platy_metadataSH.RData"
 
+# Temperature data
+source("data/temperature/NOAA_5km_extract.R")
+# LOAD "data/temperature/disturbance_latlons.csv"
+# READ "data/temperature/NOAA_5km/" 
+       # All NOAA 5km files need to be in this folder
+# MAKE "data/temperature/NOAA_5km.RData"
+
+
 ### Figures
 
 # FIGURE 1
