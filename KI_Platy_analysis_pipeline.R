@@ -106,12 +106,18 @@ source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2de_plot_insitu_illus
 # MAKE "figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2e_KI_insitu_ill_EN.pdf"
 # MAKE "figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2d_KI_insitu_SST_ill_nonEN.pdf"
 
+# Extended Data Figure 2 - in situ
+source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2f_plot_insitu_wKim.R")
+# LOAD "data/temperature/KI_SB_temp_wKim_1d.RData"
+# LOAD "data/temperature/NOAA_CoralTemp_2011_2018.RData"
+# MAKE "figures/Extended_Data/Fig_ED2f_KI_insitu_wKim.pdf"
+
 
 # Extended Data Figure 2 - NOAA DHWs
 source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2g_plot_dhws_platy.R")
 # LOAD "data/temperature/DHW_all.RData"
 # LOAD "data/temperature/NOAA_DHW_5km.RData"
-# MAKE "figures/Extended_Data/Extended_Data_Figure_2/KI_DHWs.pdf"
+# MAKE "figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2g_KI_DHWs.pdf"
 
 
 
