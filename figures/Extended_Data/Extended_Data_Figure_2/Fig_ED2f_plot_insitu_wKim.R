@@ -1,13 +1,10 @@
-# Clear working environment
-rm(list=ls())
-
 # Load necessary packages
 library(ggplot2)
 library(gridExtra)
 
 # Load necessary data
-load("../KI_temperature_insitu_NOAA/data/KI_SB_temp_wKim_1d.RData")
-load("../KI_temperature_insitu_NOAA/data/NOAA_CoralTemp_2011_2018.RData")
+load("data/temperature/KI_SB_temp_wKim_1d.RData") # From https://github.com/daniclaar/KI_temperature_insitu_NOAA/blob/master/data/KI_SB_temp_wKim_1d.RData
+load("data/temperature/NOAA_CoralTemp_2011_2018.RData") # From https://github.com/daniclaar/KI_temperature_insitu_NOAA/blob/master/data/NOAA_CoralTemp_2011_2018.RData
 
 region.cols<-c("VaskessBay" = "#5F4690","SouthLagoon"="#1D6996",
                "MidLagoon"="#0F8554","NorthLagoon"="#EDAD08",
@@ -59,7 +56,7 @@ insitu_SST <- ggplot()+
 insitu_SST
 
 
-pdf(file = "figures/Extended_Data/KI_insitu_wKim.pdf", 
+pdf(file = "figures/Extended_Data/Fig_ED2f_KI_insitu_wKim.pdf", 
     width = 9.5, height = 3.25, useDingbats = FALSE)
 insitu_SST
 dev.off()
