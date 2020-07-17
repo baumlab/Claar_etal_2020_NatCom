@@ -17,7 +17,7 @@ library(grid)
 
 #<--read in data-->
 nov15 <- read.csv(here::here("data/Bleaching", "KI_2015d_Merulinidae.csv"))
-coralnet <- read.csv(here::here("data/Bleaching", "Coral_Data_Master.csv")) 
+coralnet <- read.csv(here::here("data/Bleaching", "data_ED_Figure5.csv")) 
 
 #<---------------------------------
 #<--set up color schemes for figures-->
@@ -229,37 +229,18 @@ fpenta.nov
 #<---------------------------------
 
 head(coralnet)
+cn <- coralnet
 
-#take out some columns I dont care about
-cn <- subset(coralnet, select = c("Field.Season", "Site", "Quadrat", "adj.total.points.quadrat", "coralnet.tag", "Cover", "Bleached", "Species", "Fish.Level", "adj.total.points.site"))
-
-#subset for 2015b, 2015c, 2015d, and 2016a
-cn <- cn[(cn$Field.Season == "KI2015b" | cn$Field.Season == "KI2015c" | cn$Field.Season == "KI2015d" | cn$Field.Season == "KI2016a"), ]
-cn <- droplevels(cn)
 unique(cn$Field.Season)
-
-#subset just medium sites
 unique(cn$Site)
-sitestokeep <- c("site35", "site8" )
-cn <- cn[cn$Site%in%sitestokeep, ]
-cn <- droplevels(cn)
-unique(cn$Site)
+unique(cn$Species)
 
 #take site out of site column
 cn$site <- cn$Site
 str(cn$site)
-cn$site <- as.character(levels(cn$site))[cn$site]
 unique(cn$site)
 cn$site <- ifelse(grepl("e8", cn$Site), "8", cn$site)
 cn$site <- ifelse(grepl("e35", cn$Site), "35", cn$site)
-
-#subset for just the species I care about
-unique(cn$coralnet.tag)
-unique(cn$Species)
-coralstokeep <- c("Platygyra.spp", "Favites.pentagona")
-cn <- cn[cn$Species%in%coralstokeep, ]
-cn <- droplevels(cn)
-unique(cn$Species)
 
 head(cn)
 
