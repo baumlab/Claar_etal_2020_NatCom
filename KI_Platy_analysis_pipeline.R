@@ -122,7 +122,7 @@ source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2g_plot_dhws_platy.R"
 # Extended Data Figure 5
 source("figures/Extended_Data/Extended_Data_Figure_5/Fig_ED5_bleaching.R")
 # READ "data/Bleaching/KI_2015d_Merulinidae.csv"
-# READ "data/Bleaching/Coral_Data_Master.csv"
+# READ "data/Bleaching/data_ED_Figure5.csv"
 # MAKE "figures/Extended_Data/Extended_Data_Figure_5/Fig_ED5.pdf"
 
 # Extended Data Figure 6
