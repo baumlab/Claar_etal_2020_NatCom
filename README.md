@@ -1,7 +1,7 @@
-# Claar_etal_2020_NCC  
+# Claar_etal_2020 
   
-NOTE: We are actively cleaning up this repo (as of 7/13/2020)  
-We hope to have it completed by 7/17/2020 - please come back then if you'd like to review our organized code.  
-Thanks for your understanding!
-
+GitHub repository for "Dynamic symbioses reveal pathways to coral survival 
+through prolonged heatwaves" by Claar DC, Starko S, Tietjen KL, Epstein HE, Cunning JR, Cobb KM, Baker AC, Gates RD, Baum JK  
+  
+  
 

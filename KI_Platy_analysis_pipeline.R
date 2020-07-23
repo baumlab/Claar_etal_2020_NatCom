@@ -174,4 +174,9 @@ source("figures/Supplementary_Materials/Supp_Tables_2and8/fpenta_lib_cons.R")
 source("figures/Supplementary_Materials/Supp_Tables_2and8/platy_lib_cons.R")
 # LOAD "figures/Figure_1/samplelist_Fig1.csv"
 # LOAD "data/KI_Platy_f_coral_grouped_ASVs.RData"
-v
+
+# Supplementary Figure 1
+source("figures/Supplementary_Materials/Supp_Figure_1/EnvironmentalVariables_Fig_S1.R")
+# LOAD "data/environmental_parameters/KI_env_all.xlsx"
+# LOAD "data/Logistic_regression_data/LogisticData.xlsx"
+# manually export figures 
