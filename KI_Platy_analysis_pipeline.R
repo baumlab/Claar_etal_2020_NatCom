@@ -82,9 +82,15 @@ source("figures/Figure_3/Figure3_qpcr.R")
 # MAKE "figures/Figure_3/Figure3a.pdf"
 source("figures/Figure_3/Bleaching_versus_DurusdiniumPlots.R")
 # Sam please fill this in
-# LOAD
-# MAKE 
+# LOAD read_excel("data/Logistic_regression_data/LogisticData.xlsx")
+# MAKE "figures/Figure_3/Figure_3_new_platy.pdf
+# MAKE  "figures/Figure_3/Figure_3_new_fpenta.pdf"
 # All these intermediate files were manually panelled in Illustrator
+
+# Figure 4
+source("figures/Figure_4/HeatmapFigureScript.R")
+# LOAD "data/Heatmap_datasheets/HM_data.csv"
+# Plots exported manually, edited and combined elsewhere
 
 # Extended Data Figure 2 - map
 source("figures/Extended_Data/Extended_Data_Figure_2/supp_map/Fig_ED2a_KI_maps_platy_regions_supp.R")
@@ -118,6 +124,17 @@ source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2g_plot_dhws_platy.R"
 # LOAD "data/temperature/DHW_all.RData"
 # LOAD "data/temperature/NOAA_DHW_5km.RData"
 # MAKE "figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2g_KI_DHWs.pdf"
+
+#Extended Data Figure 3 - ITS2 Profile barplots
+source("figures/Extended_Data/Extended_Data_Figure_3/ITS2_Profile_Figures_ED/ITS2ProfileFigures.R")
+# LOAD "data/SymPortal/Metadata.csv"
+# LOAD "data/SymPortal/By_genus.csv"
+# LOAD "data/SymPortal/RawRead_matrix.csv"
+# LOAD "data/SymPortal/tags.csv"
+# LOAD "data/SymPortal/Colour_scheme.csv"
+# MAKE "figures/Extended_Data/Extended_Data_Figure_3/ITS2_Profile_Figures_ED/Platygyra_ITS2Profiles.pdf"
+# MAKE "figures/Extended_Data/Extended_Data_Figure_3/ITS2_Profile_Figures_ED/Favites_ITS2Profiles.pdf"
+
 
 # Extended Data Figure 5
 source("figures/Extended_Data/Extended_Data_Figure_5/Fig_ED5_bleaching.R")
