@@ -2,13 +2,13 @@
 ####This script is to make the figures showing proportion of colonies bleaching versus 
 ###dominated by Durusdinium
 ###By Sam Starko - Mar 12, 2020
-###The data are in "Updated Data" folder in the dropbox
-###This code is not concise but it works!!!
+
 
 library(ggplot2)
 library(tidyverse)
 library(readxl)
 
+##Function to make colours semi-transparent; this function is from the "bayou" package which has some functions that conflict with the tidyverse package and so this is loaded in manually
 makeTransparent <- function (someColor, alpha = 100)
 {
   newColor <- col2rgb(someColor)
@@ -21,7 +21,7 @@ makeTransparent <- function (someColor, alpha = 100)
 
 ##Platygyra
 ##Import data and subset
-switch<-read_excel("data/Updated_Starko/LogisticData.xlsx")
+switch<-read_excel("data/Logistic_regression_data/LogisticData.xlsx")
 switch<-subset(switch,Coral_Species=="Platygyra" )
 switch$ProportionD_before<-as.numeric(switch$ProportionD_before)
 switch$ProportionD_early<-as.numeric(switch$ProportionD_2015c)
@@ -106,7 +106,7 @@ dev.off()
 
 ####Favites
 ##Import and subset data
-switch<-read_excel("data/Updated_Starko/LogisticData.xlsx")
+switch<-read_excel("data/Logistic_regression_data//LogisticData.xlsx")
 switch<-subset(switch,Coral_Species=="Favites" )
 switch$ProportionD_before<-as.numeric(switch$ProportionD_before)
 switch$ProportionD_early<-as.numeric(switch$ProportionD_2015c)
