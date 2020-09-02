@@ -158,7 +158,8 @@ p6 <- ggplot()+
   Durusdinium")+
   annotate("text",x=as.POSIXct("2017-06-01"), y =-2.28,label="100% 
   Cladocopium")+
-  annotate("text",x=as.POSIXct("2015-11-6"), y =-1.05,label="El Niño",size=6)+
+  annotate("text",x=as.POSIXct("2015-11-6"), y =-1.05,
+           label="El Niño",size=6)+
   annotate("text",x=KI2015b, y =-1,label="iii",size=4)+
   annotate("text",x=KI2015c, y =-1,label="iv",size=4)+
   annotate("text",x=KI2016a, y =-1,label="v",size=4)+
@@ -169,8 +170,8 @@ p6 <- ggplot()+
   annotate(geom = "text", x = c(as.POSIXct("2015-06-15"),
                                 as.POSIXct("2016-01-01"),
                                 as.POSIXct("2017-01-01")), 
-           y = -10.6, label = unique(format(metadata.SH.noFQ.AD$date,"%Y")),
-           size = 4)+
+           y = -10.6, label = unique(format(metadata.SH.noFQ.AD$date,
+                                            "%Y")), size = 4)+
   geom_ribbon(aes(x=xfit2,ymin=fit2-sefit,ymax=fit2+sefit), 
               data=df1, alpha=0.2)+ # add in fitted data
   geom_ribbon(aes(x=xfit2D,ymin=fit2D-sefitD,ymax=fit2D+sefitD), 
@@ -187,7 +188,8 @@ p6 <- ggplot()+
              position=pd,cex=4) +
   geom_errorbar(aes(x=as.POSIXct(date, origin="1970-01-01"), # add error bars
                     group=Status,
-                    ymin=S.H.log10-S.H.log10.se,ymax=S.H.log10+S.H.log10.se, 
+                    ymin=S.H.log10-S.H.log10.se,
+                    ymax=S.H.log10+S.H.log10.se, 
                     width=1000000),
                 data=summ_means_df,position = pd) +
   scale_shape_manual(name= "Coral Fate",values=c("alive"=21,"dead"=24),
@@ -231,11 +233,76 @@ nrow(metadata.SH.noFQ.AD)
 # Total number of colonies
 unique(metadata.SH.noFQ.AD$coral_tag)
 
+metadata.SH.noFQ.AD$start_dom <- NA
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="62"]<-"D"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="99"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="328"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="466"]<-"D"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="594"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="612"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="618"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="637"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="742"]<-"D"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="745_899_1060"]<-"D"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="762"]<-"D"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="766"]<-"D"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="768"]<-"D"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="788"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="792"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="807"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="813"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="820"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="824"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="850"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="857"]<-"C"
+metadata.SH.noFQ.AD$start_dom[metadata.SH.noFQ.AD$coral_tag=="783"]<-"C"
+
+
+metadata.SH.noFQ.AD.C <- metadata.SH.noFQ.AD %>% 
+  filter(dom=="C")
+metadata.SH.noFQ.AD.D <- metadata.SH.noFQ.AD %>% 
+  filter(dom=="D")
+metadata.SH.noFQ.AD.before <- metadata.SH.noFQ.AD %>% 
+  filter(field_season %in% c("KI2014","KI2015a","KI2015b","KI2015c"))
+
+metadata.SH.noFQ.AD.before %>% select("coral_tag","field_season","dom")
+
 # Test for differences among field season and status
 fit <- lmer(S.H.log10 ~ field_season + Status + (1|coral_tag), data=metadata.SH.noFQ.AD)
 anova(fit)
+fit2 <- lmer(S.H.log10 ~ field_season*Status + (1|coral_tag), data=metadata.SH.noFQ.AD)
+anova(fit2)
+
+fitC <- lmer(S.H.log10 ~ field_season + (1|coral_tag), data=metadata.SH.noFQ.AD.C)
+anova(fitC)
+fitD <- lmer(S.H.log10 ~ field_season + (1|coral_tag), data=metadata.SH.noFQ.AD)
+anova(fitD)
+fitstart <- lmer(S.H.log10 ~ field_season + start_dom + (1|coral_tag), data=metadata.SH.noFQ.AD)
+anova(fitstart)
+
+fitalive <- lmer(S.H.log10 ~ field_season + (1|coral_tag), data=metadata.SH.noFQ.A)
+anova(fitalive)
+
+metadata.SH.noFQ.Df <- metadata.SH.noFQ.D %>% filter(coral_tag!="766")
+
+fitdead <- lmer(S.H.log10 ~ field_season + (1|coral_tag), data=metadata.SH.noFQ.Df)
+anova(fitdead)
+
+metadata.SH.noFQ.Df15b <- metadata.SH.noFQ.Df %>% filter(field_season=="KI2015b")
+metadata.SH.noFQ.Df15c <- metadata.SH.noFQ.Df %>% filter(field_season=="KI2015c")
+
+t.test(metadata.SH.noFQ.Df15b$S.H.log10, 
+       metadata.SH.noFQ.Df15c$S.H.log10, paired = TRUE, 
+       alternative = "two.sided")
+
 # We have to provide the model (here called fit and the factors we want to contrast
-emmeans(fit, list(pairwise ~ field_season), adjust = "tukey")
+emmeans(fit, list(pairwise ~ field_season+Status), adjust = "tukey")
+emmeans(fitC, list(pairwise ~ field_season), adjust = "tukey")
+emmeans(fitD, list(pairwise ~ field_season), adjust = "tukey")
+emmeans(fitstart, list(pairwise ~ field_season+start_dom), adjust = "tukey")
+emmeans(fit2, list(pairwise ~ field_season*Status), adjust = "tukey")
+emmeans(fitalive, list(pairwise ~ field_season), adjust = "tukey")
+emmeans(fitdead, list(pairwise ~ field_season), adjust = "tukey")
 
 # Tally the number of corals from 2016a onwards that were dominated by C, 
 # but had >0 D

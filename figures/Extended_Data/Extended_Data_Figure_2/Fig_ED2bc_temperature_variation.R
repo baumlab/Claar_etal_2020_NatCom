@@ -25,6 +25,7 @@ temp_calcs <- function(region_data){
   temp_calcs$range[temp_calcs$range=="-Inf"] <- NaN
   region["mean"] <- mean(temp_calcs$range,na.rm=TRUE)
   region["sd"] <- sd(temp_calcs$range,na.rm=TRUE)
+  region["n"] <- length(which(!is.na(temp_calcs$range)))
   region
 }
 
@@ -77,6 +78,7 @@ temp_calcs_EN <- function(region_data){
   temp_calcs$range[temp_calcs$range=="-Inf"] <- NaN
   region["mean"] <- mean(temp_calcs$range,na.rm=TRUE)
   region["sd"] <- sd(temp_calcs$range,na.rm=TRUE)
+  region["n"] <- length(which(!is.na(temp_calcs$range)))
   region
 }
 
