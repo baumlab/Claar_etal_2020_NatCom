@@ -17,7 +17,7 @@ library(grid)
 
 #<--read in data-->
 nov15 <- read.csv(here::here("data/Bleaching", "KI_2015d_Merulinidae.csv"))
-coralnet <- read.csv(here::here("data/Bleaching", "data_ED_Figure5.csv")) 
+coralnet <- read.csv(here::here("data/Bleaching", "data_Supplementary_Figure_8.csv")) 
 
 #<---------------------------------
 #<--set up color schemes for figures-->
@@ -327,7 +327,7 @@ coralnet.fpent
 #<---------------------------------
 
 ### open pdf
-pdf("figures/Extended_Data/Extended_Data_Figure_5/Fig_ED5.pdf", width = 12)
+pdf("figures/Supplementary_Materials/Supplementary_Figure_8/Supplementary_Figure_8.pdf", width = 12)
 
 ### make a blank thing to add extra space to top of figure so panel labels fit nicely
 r <- textGrob("")

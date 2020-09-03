@@ -59,7 +59,7 @@ daily_var_nonEN <- ggplot(all_regions)+
   scale_y_continuous(name="Temperature (ºC)",limits=c(0,0.8))
 daily_var_nonEN
 
-pdf(file = "figures/Extended_Data/Fig_ED2b_KI_insitu_daily_var_nonEN.pdf", 
+pdf(file = "figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2b_KI_insitu_daily_var_nonEN.pdf", 
     width = 4.5, height = 2.5, useDingbats = FALSE)
 daily_var_nonEN
 dev.off()
@@ -113,7 +113,7 @@ daily_var_EN <- ggplot(all_regions_EN)+
   scale_y_continuous(name="Temperature (ºC)",limits=c(0,0.8))
 daily_var_EN
 
-pdf(file = "figures/Extended_Data/Fig_ED2c_KI_insitu_daily_var_EN.pdf", 
+pdf(file = "figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2c_KI_insitu_daily_var_EN.pdf", 
     width = 4.5, height = 2.5, useDingbats = FALSE)
 daily_var_EN
 dev.off()

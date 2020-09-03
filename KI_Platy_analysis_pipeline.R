@@ -75,12 +75,7 @@ source("figures/Figure_2/Figure_2_new.R")
 # All these intermediate files were manually panelled in Illustrator
  
 # Figure 3
-source("figures/Figure_3/Figure3_qpcr.R")
-# LOAD load(file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
-# LOAD load("data/temperature/KI_SB_temp_DHW.RData")
-# LOAD load("data/temperature/KI_SB_temp_DHW_allsites.RData")
-# MAKE "figures/Figure_3/Figure3a.pdf"
-source("figures/Figure_3/Bleaching_versus_DurusdiniumPlots.R")
+source("figures/Figure_3/Figure_3_Bleaching_versus_DurusdiniumPlots.R")
 # Sam please fill this in
 # LOAD read_excel("data/Logistic_regression_data/LogisticData.xlsx")
 # MAKE "figures/Figure_3/Figure_3_new_platy.pdf
@@ -88,95 +83,103 @@ source("figures/Figure_3/Bleaching_versus_DurusdiniumPlots.R")
 # All these intermediate files were manually panelled in Illustrator
 
 # Figure 4
-source("figures/Figure_4/HeatmapFigureScript.R")
+source("figures/Figure_4/Figure_4_qpcr.R")
+# LOAD load(file="data/Coralphoto__Metadata/KI_Platy_metadataSH.RData")
+# LOAD load("data/temperature/KI_SB_temp_DHW.RData")
+# LOAD load("data/temperature/KI_SB_temp_DHW_allsites.RData")
+# MAKE "figures/Figure_4/Figure4.pdf"
+
+# Figure 5
+source("figures/Figure_5/HeatmapFigureScript.R")
 # LOAD "data/Heatmap_datasheets/HM_data.csv"
 # Plots exported manually, edited and combined elsewhere
 
-# Extended Data Figure 2 - map
-source("figures/Extended_Data/Extended_Data_Figure_2/supp_map/Fig_ED2a_KI_maps_platy_regions_supp.R")
+# Supplementary Figure 2 - map
+source("figures/Supplementary_Materials/Supplementary_Figure_2/supp_map/Supplementary_Figure_2_KI_maps_platy_regions_supp.R")
 # LOAD 'figures/Figure_1/ki_map_files/ki_sites_updated2019.csv'
 # SOURCE "figures/Figure_1/ki_map_files/KI_base_B&W_bigger.R"
 # SOURCE "figures/Figure_1/ki_map_files/KI_base_inset_forbigger.R"
-# MAKE "figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.pdf"
-# MAKE "figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.jpg"
+# MAKE "figures/Supplementary_Figures/Supplementary_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.pdf"
+# MAKE "figures/Supplementary_Figures/Supplementary_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.jpg"
 
-# Extended Data Figure 2 - daily variation
-source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2bc_temperature_variation.R")
+# Supplementary Figure 2 - daily variation
+source("figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2bc_temperature_variation.R")
 # LOAD "data/temperature/KI_SB_temp_wKim_1hr.RData"
-# MAKE "figures/Extended_Data/Fig_ED2b_KI_insitu_daily_var_nonEN.pdf"
-# MAKE "figures/Extended_Data/Fig_ED2c_KI_insitu_daily_var_EN.pdf"
+# MAKE "figures/ESupplementary_Materials/Supplementary_Figure_2/Fig_S2b_KI_insitu_daily_var_nonEN.pdf"
+# MAKE "figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2c_KI_insitu_daily_var_EN.pdf"
 
-# Extended Data Figure 2 - in situ illustration
-source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2de_plot_insitu_illustration.R")
+# Supplementary Figure 2 - in situ illustration
+source("figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2de_plot_insitu_illustration.R")
 # LOAD "data/temperature/KI_SB_temp_wKim_1d.RData"
-# MAKE "figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2e_KI_insitu_ill_EN.pdf"
-# MAKE "figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2d_KI_insitu_SST_ill_nonEN.pdf"
+# MAKE "figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2e_KI_insitu_ill_EN.pdf"
+# MAKE "figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2d_KI_insitu_SST_ill_nonEN.pdf"
 
-# Extended Data Figure 2 - in situ
-source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2f_plot_insitu_wKim.R")
+# Supplementary Figure 2 - in situ
+source("figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2f_plot_insitu_wKim.R")
 # LOAD "data/temperature/KI_SB_temp_wKim_1d.RData"
 # LOAD "data/temperature/NOAA_CoralTemp_2011_2018.RData"
-# MAKE "figures/Extended_Data/Fig_ED2f_KI_insitu_wKim.pdf"
+# MAKE "figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2f_KI_insitu_wKim.pdf"
 
 
-# Extended Data Figure 2 - NOAA DHWs
-source("figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2g_plot_dhws_platy.R")
+# Supplementary Figure 2 - NOAA DHWs
+source("figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2g_plot_dhws_platy.R")
 # LOAD "data/temperature/DHW_all.RData"
 # LOAD "data/temperature/NOAA_DHW_5km.RData"
-# MAKE "figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2g_KI_DHWs.pdf"
+# MAKE "figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2g_KI_DHWs.pdf"
 
-#Extended Data Figure 3 - ITS2 Profile barplots
-source("figures/Extended_Data/Extended_Data_Figure_3/ITS2_Profile_Figures_ED/ITS2ProfileFigures.R")
+# Supplementary Figure 3 - ITS2 Profile barplots
+source("figures/Supplementary_Materials/Supplementary_Figure_3/ITS2_Profile_Figures_ED/ITS2ProfileFigures.R")
 # LOAD "data/SymPortal/Metadata.csv"
 # LOAD "data/SymPortal/By_genus.csv"
 # LOAD "data/SymPortal/RawRead_matrix.csv"
 # LOAD "data/SymPortal/tags.csv"
 # LOAD "data/SymPortal/Colour_scheme.csv"
-# MAKE "figures/Extended_Data/Extended_Data_Figure_3/ITS2_Profile_Figures_ED/Platygyra_ITS2Profiles.pdf"
-# MAKE "figures/Extended_Data/Extended_Data_Figure_3/ITS2_Profile_Figures_ED/Favites_ITS2Profiles.pdf"
+# MAKE "figures/Supplementary_Materials/Supplementary_Figure_3/ITS2_Profile_Figures_ED/Platygyra_ITS2Profiles.pdf"
+# MAKE "figures/Supplementary_Materials/Supplementary_Figure_3/ITS2_Profile_Figures_ED/Favites_ITS2Profiles.pdf"
+
+# Supplementary Figure 4
+source("figures/Supplementary_Materials/Supplementary_Figure_4/EnvironmentalVariables_Fig_S4.R")
+# LOAD "data/environmental_parameters/KI_env_all.xlsx"
+# LOAD "data/Logistic_regression_data/LogisticData.xlsx"
+# manually export figures 
+
+# Supplementary Figure 6
+source("figures/Supplementary_Materials/Supplementary_Figure_6/Supplementary_Figure_6.R")
+# LOAD "data/Coralphoto__Metadata/KI_Platy_metadataSH.RData"
+# MAKE "figures/Supplementary_Materials/Supplementary_Figure_6/Supplementary_Figure_6.pdf"
 
 
-# Extended Data Figure 5
-source("figures/Extended_Data/Extended_Data_Figure_5/Fig_ED5_bleaching.R")
+# Supplementary Figure 7
+source("figures/Supplementary_Materials/Supplementary_Figure_7/Figure_S7.R")
+# LOAD "data/Coralphoto__Metadata/KI_Platy_metadataSH.RData"
+# MAKE "figures/Supplementary_Materials/Supplementary_Figure_7/Figure_S7.jpg
+# MAKE "figures/Supplementary_Materials/Supplementary_Figure_7/Figure_S7.tiff"
+# MAKE "figures/Supplementary_Materials/Supplementary_Figure_7/Figure_S7.pdf"
+
+# Supplementary Figure 8
+source("figures/Supplementary_Materials/Supplementary_Figure_8/Supplementary_Figure_8_bleaching.R")
 # READ "data/Bleaching/KI_2015d_Merulinidae.csv"
-# READ "data/Bleaching/data_ED_Figure5.csv"
-# MAKE "figures/Extended_Data/Extended_Data_Figure_5/Fig_ED5.pdf"
+# READ "data/Bleaching/data_Supplementary_Figure_8.csv"
+# MAKE "figures/Supplementary_Materials/Supplementary_Figure_8/Supplementary_Figure_8.pdf"
 
-# Extended Data Figure 6
-source("figures/Extended_Data/Extended_Data_Figure_6/Extended_Data_Figure_6.R")
-# LOAD "data/Coralphoto__Metadata/KI_Platy_metadataSH.RData"
-# MAKE "figures/Extended_Data/Extended_Data_Figure_6/Extended_Data_Figure_6.tiff"
-# MAKE "figures/Extended_Data/Extended_Data_Figure_6/Extended_Data_Figure_6.pdf"
-
-# Extended Data Figure 7
-source("figures/Extended_Data/Extended_Data_Figure_7/Figure_S7.R")
-# LOAD "data/Coralphoto__Metadata/KI_Platy_metadataSH.RData"
-# MAKE "figures/Extended_Data/Figure_S7.jpg
-# MAKE "figures/Extended_Data/Figure_S7.tiff"
-# MAKE "figures/Extended_Data/Figure_S7.pdf"
-
-# Extended Data Table 3
-source("figures/Extended_Data/Extended_Data_Table_3/env_summ_KI_Platy.R")
+# Supplementary Table 2
+source("figures/Supplementary_Materials/Supplementary_Table_2/env_summ_KI_Platy.R")
 # READ "data/environmental_parameters/KI_env_all_KI_Platy.csv"
-# MAKE "figures/Extended_Data/Extended_Data_Table_3/env_summ_KI_Platy_alltimes.csv"
+# MAKE "figures/Supplementary_Materials/Supplementary_Table_2/env_summ_KI_Platy_alltimes.csv"
 
-# Supplementary Table 3
-source("figures/Supplementary_Materials/Supp_Table_3_env_logistic/EnvironmentalVariables.R")
+# Supplementary Table 6
+source("figures/Supplementary_Materials/Supp_Table_6_env_logistic/EnvironmentalVariables.R")
 # LOAD "data/Updated_Starko/LogisticData.xlsx"
 # LOAD "data/environmental_parameters/KI_env_all.xlsx"
 # Manually extract model outputs
 
-# Supplementary Table 6
-source("figures/Supplementary_Materials/Supp_Tables_2and8/fpenta_lib_cons.R")
+# Supplementary Table 3 and 13
+source("figures/Supplementary_Materials/Supp_Table_3and13_survival_ord/fpenta_lib_cons.R")
 # LOAD "figures/Figure_1/samplelist_Fig1.csv"
 # LOAD "data/KI_Platy_f_coral_grouped_ASVs.RData"
 # Manually extract model outputs
-source("figures/Supplementary_Materials/Supp_Tables_2and8/platy_lib_cons.R")
+source("figures/Supplementary_Materials/Supp_Table_3and13_survival_ord//platy_lib_cons.R")
 # LOAD "figures/Figure_1/samplelist_Fig1.csv"
 # LOAD "data/KI_Platy_f_coral_grouped_ASVs.RData"
 
-# Supplementary Figure 1
-source("figures/Supplementary_Materials/Supp_Figure_1/EnvironmentalVariables_Fig_S1.R")
-# LOAD "data/environmental_parameters/KI_env_all.xlsx"
-# LOAD "data/Logistic_regression_data/LogisticData.xlsx"
-# manually export figures 
+

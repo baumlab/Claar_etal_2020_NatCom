@@ -203,7 +203,7 @@ p6 <- ggplot()+
 p6 # show plot
 
 # Open a jpg image
-pdf(file="figures/Figure_3/Figure3a.pdf",width = 7.2, height = 4,useDingbats = FALSE)
+pdf(file="figures/Figure_4/Figure4.pdf",width = 7.2, height = 4,useDingbats = FALSE)
 p6
 dev.off()
 

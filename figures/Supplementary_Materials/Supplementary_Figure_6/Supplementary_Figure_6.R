@@ -58,16 +58,12 @@ p3 <- ggplot(aes(x = S.H.log, fill=field_season), data = metadata.SH.noFQ) +
 
 p3
 
-jpeg(file="figures/Extended_Data/Extended_Data_Figure_6/Extended_Data_Figure_6.jpg",width=10, height=8,units="in", res=300)
+jpeg(file="figures/Supplementary_Materials/Supplementary_Figure_6/Supplementary_Figure_6.jpg",width=10, height=8,units="in", res=300)
 # grid.arrange(p1,p2,p3)
 grid.arrange(p2,p3)
 dev.off()
 
-tiff(file="figures/Extended_Data/Extended_Data_Figure_6/Extended_Data_Figure_6.tiff",width=10, height=8,units="in", res=300)
-grid.arrange(p2,p3)
-dev.off()
-
-pdf(file="figures/Extended_Data/Extended_Data_Figure_6/Extended_Data_Figure_6.pdf",width=10, height=8)
+pdf(file="figures/Supplementary_Materials/Supplementary_Figure_6/Supplementary_Figure_6.pdf",width=10, height=8)
 grid.arrange(p2,p3)
 dev.off()
 
