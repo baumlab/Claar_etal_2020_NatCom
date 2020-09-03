@@ -19,7 +19,7 @@ levels(sites$region) <- c("Vaskess Bay", "South Lagoon", "Mid Lagoon",
                           "North Lagoon", "North Shore", "Bay of Wrecks")
 
 # Open pdf
-pdf(file="figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.pdf", 
+pdf(file="figures/Supplementary_Materials/Supplementary_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.pdf", 
     width = 7.5, height =7, useDingbats = FALSE)
 # Source the base map
 source("figures/Figure_1/ki_map_files/KI_base_B&W_bigger.R")
@@ -41,7 +41,7 @@ source("figures/Figure_1/ki_map_files/KI_base_inset_forbigger.R")
 dev.off() # close pdf
 
 # Open jpeg
-jpeg(filename = "figures/Extended_Data/Extended_Data_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.jpg", width = 7.5, height =7, units="in", res=300)
+jpeg(filename = "figures/Supplementary_Materials/Supplementary_Figure_2/supp_map/KI_map_platy_regions_inset_bigger.jpg", width = 7.5, height =7, units="in", res=300)
 # Source the base map
 source("figures/Figure_1/ki_map_files/KI_base_B&W_bigger.R")
 # Add sites

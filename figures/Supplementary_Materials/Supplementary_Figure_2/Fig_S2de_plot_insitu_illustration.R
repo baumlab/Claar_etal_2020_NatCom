@@ -38,7 +38,7 @@ insitu_SST_ill_EN <- ggplot()+
                      breaks = c(24,25,26,27,28,29,30,31,32))
 insitu_SST_ill_EN
 
-pdf(file = "figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2e_KI_insitu_ill_EN.pdf", 
+pdf(file = "figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2e_KI_insitu_ill_EN.pdf", 
     width = 4.5, height = 3, useDingbats = FALSE)
 insitu_SST_ill_EN
 dev.off()
@@ -64,7 +64,7 @@ insitu_SST_ill_nonEN <- ggplot()+
                      breaks = c(24,25,26,27,28,29,30,31,32))
 insitu_SST_ill_nonEN
 
-pdf(file = "figures/Extended_Data/Extended_Data_Figure_2/Fig_ED2d_KI_insitu_SST_ill_nonEN.pdf", 
+pdf(file = "figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2d_KI_insitu_SST_ill_nonEN.pdf", 
     width = 4.5, height = 3, useDingbats = FALSE)
 insitu_SST_ill_nonEN
 dev.off()

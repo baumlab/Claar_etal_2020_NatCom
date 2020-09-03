@@ -56,7 +56,7 @@ insitu_SST <- ggplot()+
 insitu_SST
 
 
-pdf(file = "figures/Extended_Data/Fig_ED2f_KI_insitu_wKim.pdf", 
+pdf(file = "figures/Supplementary_Materials/Supplementary_Figure_2/Fig_S2f_KI_insitu_wKim.pdf", 
     width = 9.5, height = 3.25, useDingbats = FALSE)
 insitu_SST
 dev.off()
