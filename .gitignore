@@ -74,4 +74,3 @@ figures/*.eps
 
 #Ignore really big .ai files
 *.ai
-figures/Figure_1/Figure1_new_multipanel.ai
