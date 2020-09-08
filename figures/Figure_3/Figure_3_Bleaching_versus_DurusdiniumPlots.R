@@ -106,7 +106,7 @@ dev.off()
 
 ####Favites
 ##Import and subset data
-switch<-read_excel("data/Logistic_regression_data//LogisticData.xlsx")
+switch<-read_excel("data/Logistic_regression_data/LogisticData.xlsx")
 switch<-subset(switch,Coral_Species=="Favites" )
 switch$ProportionD_before<-as.numeric(switch$ProportionD_before)
 switch$ProportionD_early<-as.numeric(switch$ProportionD_2015c)
