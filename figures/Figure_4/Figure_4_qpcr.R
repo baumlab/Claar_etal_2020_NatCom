@@ -268,6 +268,21 @@ metadata.SH.noFQ.AD.before <- metadata.SH.noFQ.AD %>%
 metadata.SH.noFQ.AD.before %>% select("coral_tag","field_season","dom")
 
 # Test for differences among field season and status
+<<<<<<< HEAD:figures/Figure_4/Figure_4_qpcr.R
+=======
+fit <- lmer(S.H.log10 ~ field_season + Status + (1|coral_tag), data=metadata.SH.noFQ.AD)
+anova(fit)
+fit2 <- lmer(S.H.log10 ~ field_season*Status + (1|coral_tag), data=metadata.SH.noFQ.AD)
+anova(fit2)
+
+fitC <- lmer(S.H.log10 ~ field_season + (1|coral_tag), data=metadata.SH.noFQ.AD.C)
+anova(fitC)
+fitD <- lmer(S.H.log10 ~ field_season + (1|coral_tag), data=metadata.SH.noFQ.AD)
+anova(fitD)
+fitstart <- lmer(S.H.log10 ~ field_season + start_dom + (1|coral_tag), data=metadata.SH.noFQ.AD)
+anova(fitstart)
+
+>>>>>>> 6f7f4b4c22f16c6b85203c47f6662dfd92ca99da:figures/Figure_4/Figure_4_qpcr.R
 fitalive <- lmer(S.H.log10 ~ field_season + (1|coral_tag), data=metadata.SH.noFQ.A)
 anova(fitalive)
 
@@ -276,14 +291,28 @@ metadata.SH.noFQ.Df <- metadata.SH.noFQ.D %>% filter(coral_tag!="766")
 fitdead <- lmer(S.H.log10 ~ field_season + (1|coral_tag), data=metadata.SH.noFQ.Df)
 anova(fitdead)
 
+<<<<<<< HEAD:figures/Figure_4/Figure_4_qpcr.R
 # Double check with t-test
 metadata.SH.noFQ.Df15b <- metadata.SH.noFQ.Df %>% filter(field_season=="KI2015b")
 metadata.SH.noFQ.Df15c <- metadata.SH.noFQ.Df %>% filter(field_season=="KI2015c")
+=======
+metadata.SH.noFQ.Df15b <- metadata.SH.noFQ.Df %>% filter(field_season=="KI2015b")
+metadata.SH.noFQ.Df15c <- metadata.SH.noFQ.Df %>% filter(field_season=="KI2015c")
+
+>>>>>>> 6f7f4b4c22f16c6b85203c47f6662dfd92ca99da:figures/Figure_4/Figure_4_qpcr.R
 t.test(metadata.SH.noFQ.Df15b$S.H.log10, 
        metadata.SH.noFQ.Df15c$S.H.log10, paired = TRUE, 
        alternative = "two.sided")
 
 # We have to provide the model (here called fit and the factors we want to contrast
+<<<<<<< HEAD:figures/Figure_4/Figure_4_qpcr.R
+=======
+emmeans(fit, list(pairwise ~ field_season+Status), adjust = "tukey")
+emmeans(fitC, list(pairwise ~ field_season), adjust = "tukey")
+emmeans(fitD, list(pairwise ~ field_season), adjust = "tukey")
+emmeans(fitstart, list(pairwise ~ field_season+start_dom), adjust = "tukey")
+emmeans(fit2, list(pairwise ~ field_season*Status), adjust = "tukey")
+>>>>>>> 6f7f4b4c22f16c6b85203c47f6662dfd92ca99da:figures/Figure_4/Figure_4_qpcr.R
 emmeans(fitalive, list(pairwise ~ field_season), adjust = "tukey")
 emmeans(fitdead, list(pairwise ~ field_season), adjust = "tukey")
 

@@ -73,4 +73,6 @@ data/temperature/NOAA_5km/*
 figures/*.eps
 
 #Ignore really big .ai files
+
 *.ai
+

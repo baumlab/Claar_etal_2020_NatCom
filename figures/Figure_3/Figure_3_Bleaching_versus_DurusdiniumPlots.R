@@ -106,7 +106,11 @@ dev.off()
 
 ####Favites
 ##Import and subset data
+<<<<<<< HEAD:figures/Figure_3/Figure_3_Bleaching_versus_DurusdiniumPlots.R
 switch<-read_excel("data/Logistic_regression_data/LogisticData.xlsx")
+=======
+switch<-read_excel("data/Logistic_regression_data//LogisticData.xlsx")
+>>>>>>> 6f7f4b4c22f16c6b85203c47f6662dfd92ca99da:figures/Figure_3/Figure_3_Bleaching_versus_DurusdiniumPlots.R
 switch<-subset(switch,Coral_Species=="Favites" )
 switch$ProportionD_before<-as.numeric(switch$ProportionD_before)
 switch$ProportionD_early<-as.numeric(switch$ProportionD_2015c)
