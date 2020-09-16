@@ -15,8 +15,10 @@ include <- c("ysi_salinity_mean_1m",
               "ysi_DO_mean_1m","ysi_pH_mean_1m", 
               "npp_mean_sat","npp_max_sat","wave_mean_sat")
 
+env.f <- env %>% filter(wave_wind_fetch_sat=="0")
+
 # Summarize mean and sd
-env.summ3 <- env %>%
+env.summ3 <- env.f %>%
   group_by(fpressure) %>%
   summarise_at(vars(include), funs(mean(., na.rm=TRUE), sd(., na.rm=TRUE)))
 
