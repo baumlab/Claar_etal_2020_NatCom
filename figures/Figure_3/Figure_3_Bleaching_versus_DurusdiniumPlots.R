@@ -28,7 +28,7 @@ switch$ProportionD_early<-as.numeric(switch$ProportionD_2015c)
 switch$Proportion_late<-as.numeric(switch$ProportionD_2016a)
 switch$Proportion_after<-as.numeric(switch$ProportionD_after)
 
-## Calculate n
+## Calculate n - this is in Figure 3b
 n_platy_pD <- c(switch$ProportionD_before,switch$ProportionD_early,
   switch$Proportion_late,switch$Proportion_after)
 n_platy_pD <- n_platy_pD[!is.na(n_platy_pD)]
@@ -38,7 +38,7 @@ switch$Bleached_early<-as.numeric(switch$Bleached_2015C)
 switch$Bleached_late<-as.numeric(switch$Bleached_2016a)
 switch$Bleached_after<-as.numeric(switch$Bleached_after)
 
-## Calculate n
+## Calculate n - this is in Fig 3b
 n_platy_B <- c(switch$Bleached_before,switch$Bleached_early,
                switch$Bleached_late,switch$Bleached_after)
 n_platy_B <- n_platy_B[!is.na(n_platy_B)]
@@ -92,9 +92,14 @@ Bleached.df<-data.frame(Timepoint, Average, SE)
 
 
 ###MAKE PLOT
-pdf(file="figures/Figure_3/Figure_3_new_platy.pdf",width=6.75, height=2.6,useDingbats = FALSE)
+pdf(file="figures/Figure_3/Figure_3_new_platy.pdf",
+    width=6.75, height=2.6,useDingbats = FALSE)
 par(mfrow=c(1,1),mar=c(5,5,1,5))
-stripchart(Average~Timepoint, data=Durusdinium.df, pch=19, cex=2, vertical=TRUE, ylim=c(0,1.1),ylab="Proportion of colonies", xlab="Heat stress timepoint", col=makeTransparent("#B63238"), las=1)+
+stripchart(Average~Timepoint, data=Durusdinium.df, 
+           pch=19, cex=2, vertical=TRUE, ylim=c(0,1.1),
+           ylab="Proportion of colonies", 
+           xlab="Heat stress timepoint", 
+           col=makeTransparent("#B63238"), las=1)+
   lines(Average~Timepoint, Durusdinium.df, lwd=3, col="#B63238")+
   arrows(c(1:4), Durusdinium.df$Average-1.96*Durusdinium.df$SE,c(1:4), Durusdinium.df$Average+1.96*Durusdinium.df$SE, length=0.1, angle=90, code=3, col="#B63238")+
   points(Average~Timepoint, data=Bleached.df, pch=19, cex=2, col=makeTransparent("gold"))+
@@ -106,11 +111,7 @@ dev.off()
 
 ####Favites
 ##Import and subset data
-<<<<<<< HEAD:figures/Figure_3/Figure_3_Bleaching_versus_DurusdiniumPlots.R
 switch<-read_excel("data/Logistic_regression_data/LogisticData.xlsx")
-=======
-switch<-read_excel("data/Logistic_regression_data//LogisticData.xlsx")
->>>>>>> 6f7f4b4c22f16c6b85203c47f6662dfd92ca99da:figures/Figure_3/Figure_3_Bleaching_versus_DurusdiniumPlots.R
 switch<-subset(switch,Coral_Species=="Favites" )
 switch$ProportionD_before<-as.numeric(switch$ProportionD_before)
 switch$ProportionD_early<-as.numeric(switch$ProportionD_2015c)
@@ -133,14 +134,14 @@ n_fpenta_B <- c(switch$Bleached_before,switch$Bleached_early,
 n_fpenta_B <- n_fpenta_B[!is.na(n_fpenta_B)]
 
 
-avg.Dbefore<-switch$ProportionD_before %>% as.numeric() %>% mean(,na.rm=TRUE)
-avg.Dearly<-switch$ProportionD_early %>% as.numeric() %>% mean(,na.rm=TRUE)
-avg.Dlate<-switch$Proportion_late %>% as.numeric() %>% mean(,na.rm=TRUE)
-avg.Dafter<-switch$Proportion_after %>% as.numeric() %>% mean(,na.rm=TRUE)
-avg.Bleach_before<-switch$Bleached_before %>% as.numeric() %>% mean(,na.rm=TRUE)
-avg.Bleach_early<-switch$Bleached_early %>% as.numeric() %>% mean(,na.rm=TRUE)
-avg.Bleach_late<-switch$Bleached_late %>% as.numeric() %>% mean(,na.rm=TRUE)
-avg.Bleach_after<-switch$Bleached_after %>% as.numeric() %>% mean(,na.rm=TRUE)
+avg.Dbefore<-switch$ProportionD_before %>% as.numeric() %>% mean(na.rm=TRUE)
+avg.Dearly<-switch$ProportionD_early %>% as.numeric() %>% mean(na.rm=TRUE)
+avg.Dlate<-switch$Proportion_late %>% as.numeric() %>% mean(na.rm=TRUE)
+avg.Dafter<-switch$Proportion_after %>% as.numeric() %>% mean(na.rm=TRUE)
+avg.Bleach_before<-switch$Bleached_before %>% as.numeric() %>% mean(na.rm=TRUE)
+avg.Bleach_early<-switch$Bleached_early %>% as.numeric() %>% mean(na.rm=TRUE)
+avg.Bleach_late<-switch$Bleached_late %>% as.numeric() %>% mean(na.rm=TRUE)
+avg.Bleach_after<-switch$Bleached_after %>% as.numeric() %>% mean(na.rm=TRUE)
 
 n<-length(switch$ProportionD_before[!is.na(switch$ProportionD_before)])
 SE.Dbefore<-sqrt(avg.Dbefore/n*(1-(avg.Dbefore/n))/n)

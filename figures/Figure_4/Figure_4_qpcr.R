@@ -203,27 +203,28 @@ p6 <- ggplot()+
 p6 # show plot
 
 # Open a jpg image
-pdf(file="figures/Figure_4/Figure4.pdf",width = 7.2, height = 4,useDingbats = FALSE)
+# pdf(file="figures/Figure_4/Figure4.pdf",width = 7.2, height = 4,useDingbats = FALSE)
 p6
-dev.off()
+# dev.off()
 
 #https://stackoverflow.com/questions/25378184/need-to-extract-data-from-the-ggplot-geom-histogram
 p6b <- ggplot_build(p6)
 p6b$data[[17]]
 
 # Extract mean S:H in 'real' values (i.e. covert from log to regular)
-KI2015b_dead_SH_mean <- 10^(p6b$data[[17]]$y[1])
-KI2015b_alive_SH_mean <- 10^(p6b$data[[17]]$y[2])
-KI2015c_dead_SH_mean <- 10^(p6b$data[[17]]$y[3])
-KI2015c_alive_SH_mean <- 10^(p6b$data[[17]]$y[4])
+# Use this in the text
+KI2015b_alive_SH_mean <- 10^(p6b$data[[17]]$y[1])
+KI2015b_dead_SH_mean <- 10^(p6b$data[[17]]$y[2])
+KI2015c_alive_SH_mean <- 10^(p6b$data[[17]]$y[3])
+KI2015c_dead_SH_mean <- 10^(p6b$data[[17]]$y[4])
 KI2016a_alive_SH_mean <- 10^(p6b$data[[17]]$y[5])
 KI2016b_alive_SH_mean <- 10^(p6b$data[[17]]$y[6])
 KI2017a_alive_SH_mean <- 10^(p6b$data[[17]]$y[7])
 # Extract standard error of S:H in 'real' values (i.e. covert from log to regular)
-KI2015b_dead_SH_se <- ((10^(p6b$data[[18]]$ymax[1])-10^(p6b$data[[18]]$ymin[1]))/2)
-KI2015b_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[2])-10^(p6b$data[[18]]$ymin[2]))/2)
-KI2015c_dead_SH_se <- ((10^(p6b$data[[18]]$ymax[3])-10^(p6b$data[[18]]$ymin[3]))/2)
-KI2015c_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[4])-10^(p6b$data[[18]]$ymin[4]))/2)
+KI2015b_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[1])-10^(p6b$data[[18]]$ymin[1]))/2)
+KI2015b_dead_SH_se <- ((10^(p6b$data[[18]]$ymax[2])-10^(p6b$data[[18]]$ymin[2]))/2)
+KI2015c_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[3])-10^(p6b$data[[18]]$ymin[3]))/2)
+KI2015c_dead_SH_se <- ((10^(p6b$data[[18]]$ymax[4])-10^(p6b$data[[18]]$ymin[4]))/2)
 KI2016a_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[5])-10^(p6b$data[[18]]$ymin[5]))/2)
 KI2016b_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[6])-10^(p6b$data[[18]]$ymin[6]))/2)
 KI2017a_alive_SH_se <- ((10^(p6b$data[[18]]$ymax[7])-10^(p6b$data[[18]]$ymin[7]))/2)
@@ -268,21 +269,6 @@ metadata.SH.noFQ.AD.before <- metadata.SH.noFQ.AD %>%
 metadata.SH.noFQ.AD.before %>% select("coral_tag","field_season","dom")
 
 # Test for differences among field season and status
-<<<<<<< HEAD:figures/Figure_4/Figure_4_qpcr.R
-=======
-fit <- lmer(S.H.log10 ~ field_season + Status + (1|coral_tag), data=metadata.SH.noFQ.AD)
-anova(fit)
-fit2 <- lmer(S.H.log10 ~ field_season*Status + (1|coral_tag), data=metadata.SH.noFQ.AD)
-anova(fit2)
-
-fitC <- lmer(S.H.log10 ~ field_season + (1|coral_tag), data=metadata.SH.noFQ.AD.C)
-anova(fitC)
-fitD <- lmer(S.H.log10 ~ field_season + (1|coral_tag), data=metadata.SH.noFQ.AD)
-anova(fitD)
-fitstart <- lmer(S.H.log10 ~ field_season + start_dom + (1|coral_tag), data=metadata.SH.noFQ.AD)
-anova(fitstart)
-
->>>>>>> 6f7f4b4c22f16c6b85203c47f6662dfd92ca99da:figures/Figure_4/Figure_4_qpcr.R
 fitalive <- lmer(S.H.log10 ~ field_season + (1|coral_tag), data=metadata.SH.noFQ.A)
 anova(fitalive)
 
@@ -291,28 +277,14 @@ metadata.SH.noFQ.Df <- metadata.SH.noFQ.D %>% filter(coral_tag!="766")
 fitdead <- lmer(S.H.log10 ~ field_season + (1|coral_tag), data=metadata.SH.noFQ.Df)
 anova(fitdead)
 
-<<<<<<< HEAD:figures/Figure_4/Figure_4_qpcr.R
-# Double check with t-test
-metadata.SH.noFQ.Df15b <- metadata.SH.noFQ.Df %>% filter(field_season=="KI2015b")
-metadata.SH.noFQ.Df15c <- metadata.SH.noFQ.Df %>% filter(field_season=="KI2015c")
-=======
 metadata.SH.noFQ.Df15b <- metadata.SH.noFQ.Df %>% filter(field_season=="KI2015b")
 metadata.SH.noFQ.Df15c <- metadata.SH.noFQ.Df %>% filter(field_season=="KI2015c")
 
->>>>>>> 6f7f4b4c22f16c6b85203c47f6662dfd92ca99da:figures/Figure_4/Figure_4_qpcr.R
 t.test(metadata.SH.noFQ.Df15b$S.H.log10, 
        metadata.SH.noFQ.Df15c$S.H.log10, paired = TRUE, 
        alternative = "two.sided")
 
 # We have to provide the model (here called fit and the factors we want to contrast
-<<<<<<< HEAD:figures/Figure_4/Figure_4_qpcr.R
-=======
-emmeans(fit, list(pairwise ~ field_season+Status), adjust = "tukey")
-emmeans(fitC, list(pairwise ~ field_season), adjust = "tukey")
-emmeans(fitD, list(pairwise ~ field_season), adjust = "tukey")
-emmeans(fitstart, list(pairwise ~ field_season+start_dom), adjust = "tukey")
-emmeans(fit2, list(pairwise ~ field_season*Status), adjust = "tukey")
->>>>>>> 6f7f4b4c22f16c6b85203c47f6662dfd92ca99da:figures/Figure_4/Figure_4_qpcr.R
 emmeans(fitalive, list(pairwise ~ field_season), adjust = "tukey")
 emmeans(fitdead, list(pairwise ~ field_season), adjust = "tukey")
 
@@ -347,8 +319,23 @@ metadata.SH.noFQ.AD %>%
 # Tally total number of colonies
 metadata.SH.noFQ.AD %>% tally() # total # colonies
 
-# Count number of unique colonies that were sampled from 2016a onwards
+# Count number of unique colonies that were sampled from 2016a onwards (incl in Fig 4)
 metadata.SH.noFQ.AD %>% 
   filter(field_season %in% c("KI2016a","KI2016b","KI2017a")) %>% 
   group_by(coral_tag) %>% tally() %>% nrow()
 
+# Count number of unique colonies that were sampled (incl. in FIg 4)
+metadata.SH.noFQ.AD %>% 
+  group_by(coral_tag) %>% tally() %>% nrow()
+
+# Count number of unique colonies that were sampled (total)
+metadata.SH.noFQ %>% 
+  group_by(coral_tag) %>% tally() %>% nrow()
+
+# Count number of samples (total)
+metadata.SH.noFQ %>% 
+  tally()
+
+# Count number of samples (used in Fig 4)
+metadata.SH.noFQ.AD %>% 
+  tally()
