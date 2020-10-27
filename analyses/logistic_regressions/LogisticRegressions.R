@@ -13,23 +13,23 @@ library(bayou)
 
 #Import data (note that I have not moved the data file into the repo - it is in dropbox (under "Updated Data") and is
 #still being updated - thus, file.choose)
-log.data<-read_csv("data/Logistic_regression_data/Logistic.csv")
+log.data<-read_excel("data/Logistic_regression_data/LogisticData.xlsx")
 
 #Make columns numeric
 log.data$ProposedSurvival_Status<-as.numeric(log.data$ProposedSurvival_Status)
 log.data$ProportionD_before<-as.numeric(log.data$ProportionD_before)
 log.data$Bleached_2015C<-as.numeric(log.data$Bleached_2015C)
-log.data$Bleached_2016A<-as.numeric(log.data$Bleached_2016A)
+#log.data$Bleached_2016A<-as.numeric(log.data$Bleached_2016A)
 log.data$Disturbance_sqrt<-as.numeric(log.data$Disturbance_sqrt)
 log.data$Survival_Status_liberal<-as.numeric(log.data$Survival_Status_liberal)
 log.data$Survival_Status_conservative<-as.numeric(log.data$Survival_Status_conservative)
-log.data$ProportionC_before<-as.numeric(log.data$ProportionC_before)
-log.data$ProportionC_after<-as.numeric(log.data$ProportionC_after)
+#log.data$ProportionC_before<-as.numeric(log.data$ProportionC_before)
+#log.data$ProportionC_after<-as.numeric(log.data$ProportionC_after)
 log.data$ProportionD_2015c<-as.numeric(log.data$ProportionD_2015c)
-log.data$ProportionD_truebefore<-as.numeric(log.data$ProportionD_truebefore)
+#log.data$ProportionD_truebefore<-as.numeric(log.data$ProportionD_truebefore)
 log.data$Bleached_2015C<-as.numeric(log.data$Bleached_2015C)
 log.data$ProportionD_2015c<-as.numeric(log.data$ProportionD_2015c)
-log.data$Bleached_firstsample<-as.numeric(log.data$Bleached_firstsample)
+#log.data$Bleached_firstsample<-as.numeric(log.data$Bleached_firstsample)
 
 #Subset data by species
 log.data_platy<-subset(log.data, Coral_Species=="Platygyra")
